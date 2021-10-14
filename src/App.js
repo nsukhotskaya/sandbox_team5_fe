@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Greetings from './Greetings';
+import BasicList from './BasicList';
 
 function App() {
   const name='John';
@@ -8,6 +9,7 @@ function App() {
     
     <div className="App">
       <Greetings name={name}/>
+      <BasicList/>
     </div>
   );
 }
