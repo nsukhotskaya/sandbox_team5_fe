@@ -1,1 +1,1 @@
-// file for exports
+export { default as Footer } from './footer/Footer';
