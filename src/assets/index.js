@@ -1,3 +1,3 @@
-import FooterLogo from './footer-logo.png';
+import footerLogo from './footer-logo.png';
 
-export default FooterLogo;
+export default { footerLogo };
