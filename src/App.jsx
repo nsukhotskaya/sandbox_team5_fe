@@ -1,4 +1,4 @@
-import './App.scss';
+import './App.sass';
 import React from 'react';
 
 function App() {
