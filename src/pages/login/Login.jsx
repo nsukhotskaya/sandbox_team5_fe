@@ -2,12 +2,7 @@ import React from 'react';
 import {
   Typography, Card, Button, TextField, Stack,
 } from '@mui/material';
-
-const CARD_PRPS = {
-  width: '540px',
-  height: '340px',
-  margin: '10px auto',
-};
+import './Login.sass';
 
 class Login extends React.Component {
   constructor(props) {
@@ -17,7 +12,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Card style={CARD_PRPS}>
+      <Card className="loginCard">
         <Typography m="15px" variant="h3" textAlign="center">Log in</Typography>
         <Stack m="20px auto" width="350px" height="200px" spacing={2} direction="column">
           <TextField id="outlined-basic" label="E-mail" variant="outlined" />
