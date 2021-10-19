@@ -2,25 +2,16 @@ import './App.scss';
 import React from 'react';
 import { BrowserRouter as Router, useLocation, Route, Switch } from 'react-router-dom';
 
-const PagesAll = () => {
+function App() {
   const location = useLocation();
-
   return (
-    <div className="pages">
-          <Switch location={location}>
+    <Router> 
+      <div className="App">
+      <Switch location={location}>
             <Route exact path="/">
            {/* the name of page  */}
             </Route>
           </Switch>
-    </div>
-  );
-};
-
-function App() {
-  return (
-    <Router> 
-      <div className="App">
-        <PagesAll />
       </div> 
     </Router>
  
