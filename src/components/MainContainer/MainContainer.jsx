@@ -1,25 +1,28 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
+import {
+  Box,
+  Typography,
+  Drawer,
+  CssBaseline,
+  Toolbar,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  IconButton,
+  AppBar,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Footer from '../footer/Footer';
 import './MainContainer.sass';
+import headerLogo from '../../assets/svg/header-logo.svg';
 
-const sidebarWidth = 240;
+const sidebarWidth = 300;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -41,7 +44,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   }),
 );
 
-const AppBar = styled(MuiAppBar, {
+const HeaderMain = styled(AppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
@@ -58,16 +61,19 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const DrawerHeader = styled('div')(({ theme }) => ({
+const SidebarHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
+  backgroundColor: '#5898BB',
+  color: '#8FC1DD',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
 }));
 
-export default function PersistentDrawerLeft() {
+export default function MainContainer() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -78,37 +84,41 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} id="content-header">
+      <HeaderMain position="fixed" open={open} id="content-header">
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={{ marginRight: 2, ...(open && { display: 'none' }) }}
           >
             <MenuIcon />
           </IconButton>
         </Toolbar>
-      </AppBar>
+      </HeaderMain>
       <Drawer
-        className="Sidebar"
         sx={{
           width: sidebarWidth,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: sidebarWidth,
             boxSizing: 'border-box',
+            backgroundColor: '#1B5B7E',
+            color: '#ffffff',
           },
         }}
         variant="persistent"
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
+        <SidebarHeader>
+          <img src={headerLogo} alt="exadel logo sidebar" />
+          <Typography>HR Specialist</Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? (
               <ChevronLeftIcon />
@@ -116,13 +126,13 @@ export default function PersistentDrawerLeft() {
               <ChevronRightIcon />
             )}
           </IconButton>
-        </DrawerHeader>
+        </SidebarHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          {['Internship programs'].map((text) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -130,10 +140,15 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {[
+            ['Selection', ''],
+            'Interviewing',
+            'Admitted candidates',
+            'Team distribution',
+          ].map((text) => (
             <ListItem button key={text}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
@@ -142,9 +157,9 @@ export default function PersistentDrawerLeft() {
       </Drawer>
       <Box id="RightContainer">
         <Main open={open} id="CardWrapper">
-          <DrawerHeader />
+          <SidebarHeader />
           <Box id="Card">
-            <div className="Content">Card</div>
+            <div className="Content">This is content</div>
             <span className="Page-Gap" />
             <Footer />
           </Box>

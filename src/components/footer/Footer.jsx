@@ -1,9 +1,7 @@
 import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
-import assets from '../../assets';
+import footerLogo from '../../assets/svg/footer-logo.svg';
 import './Footer.sass';
-
-const { footerLogo } = assets;
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Footer extends React.Component {
