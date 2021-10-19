@@ -1,7 +1,7 @@
 import './App.sass';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { MainContainer } from './components/MainContainer';
+import Employee from './pages/employee/Employee';
 import { Login } from './pages';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
               <Login />
             </Route>
             <Route path="/employee">
-              <MainContainer />
+              <Employee />
             </Route>
           </Switch>
         </Router>

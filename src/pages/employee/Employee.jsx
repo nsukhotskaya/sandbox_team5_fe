@@ -18,8 +18,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import Footer from '../footer/Footer';
-import './MainContainer.sass';
+import Footer from '../../components/footer/Footer';
+import './Employee.sass';
 import headerLogo from '../../assets/svg/header-logo.svg';
 
 const sidebarWidth = 300;
@@ -73,7 +73,7 @@ const SidebarHeader = styled('div')(({ theme }) => ({
   justifyContent: 'space-between',
 }));
 
-export default function MainContainer() {
+export default function Employee() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
