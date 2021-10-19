@@ -1,2 +1,1 @@
-// file for exports
-export * from './login';
+export * from './footer';
