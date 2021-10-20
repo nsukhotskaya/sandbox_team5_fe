@@ -11,8 +11,8 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Box className="login-container">
-        <Box className="login-card-wrapper">
+      <Box className="loginContainer">
+        <Box className="loginCardWrapper">
           <Card variant="outlined" className="loginCard">
             <Typography
               m="30px"
