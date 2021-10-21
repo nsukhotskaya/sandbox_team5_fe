@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
 import assets from '../../assets';
+import MessageData from '../../utils/messages.json';
 
 const { footerLogo } = assets;
 
@@ -25,13 +26,13 @@ class Footer extends React.Component {
           alignItems="center"
           mr="10%"
           ml="10%"
-
         >
           <Link href="https://exadel.com/" underline="none">
             <img src={footerLogo} alt="Exadel" />
           </Link>
           <Typography color="#929292" component="p">
-            © 2021 [Team5] Exadel Internship JS&.NET&BA
+            {/* © 2021 [Team5] Exadel Internship JS&.NET&BA */}
+            {MessageData.footerMsg}
           </Typography>
         </Box>
       </Box>
