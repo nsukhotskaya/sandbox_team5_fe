@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
-import footerLogo from '../../assets/svg/footer-logo.svg';
+import { footerLogo } from '../../assets';
 import './Footer.sass';
 
 // eslint-disable-next-line react/prefer-stateless-function

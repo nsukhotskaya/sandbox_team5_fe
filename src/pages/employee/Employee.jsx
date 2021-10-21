@@ -18,9 +18,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import Footer from '../../components/footer/Footer';
+import { Footer } from '../../components';
 import './Employee.sass';
-import headerLogo from '../../assets/svg/header-logo.svg';
+import { headerLogo } from '../../assets';
 
 const sidebarWidth = 300;
 
