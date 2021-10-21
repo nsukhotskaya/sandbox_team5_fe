@@ -1,2 +1,10 @@
-export { Footer } from './footer';
-export { Content } from './content';
+// export { Footer } from './footer';
+// export { Content } from './content';
+export * from './footer';
+export * from './content';
+export * from './header';
+export * from './mainHeader';
+export * from './sidebar';
+export * from './sidebarHeader';
+export * from './main';
+export * from './card';
