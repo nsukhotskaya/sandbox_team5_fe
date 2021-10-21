@@ -88,7 +88,7 @@ export default function Employee() {
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
-      <HeaderMain position="fixed" open={open} id="content-header">
+      <HeaderMain position="fixed" open={open} id="contentHeader">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -155,12 +155,12 @@ export default function Employee() {
           ))}
         </List>
       </Drawer>
-      <Box id="RightContainer">
-        <Main open={open} id="CardWrapper">
+      <Box id="rightContainer">
+        <Main open={open} id="cardWrapper">
           <SidebarHeader />
-          <Box id="Card">
-            <div className="Content">This is content</div>
-            <span className="Page-Gap" />
+          <Box id="card">
+            <div className="content">This is content</div>
+            <span className="pageGap" />
             <Footer />
           </Box>
         </Main>
