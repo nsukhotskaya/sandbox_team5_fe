@@ -23,9 +23,9 @@ class Login extends React.Component {
               Log in to ...
             </Typography>
             <Stack m="20px auto" width="250px" spacing={2} direction="column">
-              <TextField id="outlined-basic" label="E-mail" size="small" />
+              <TextField id="outlinedBasic" label="E-mail" size="small" />
               <TextField
-                id="outlined-password-input"
+                id="outlinedPasswordInput"
                 label="Password"
                 type="password"
                 autoComplete="current-password"
