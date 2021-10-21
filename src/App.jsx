@@ -1,25 +1,13 @@
 import './App.sass';
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Employee from './pages/employee/Employee';
-import { Login } from './pages';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Content } from './components';
 
 function App() {
   return (
-    <>
-      <div className="App">
-        <Router>
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/employee">
-              <Employee />
-            </Route>
-          </Switch>
-        </Router>
-      </div>
-    </>
+    <Router>
+      <Content />
+    </Router>
   );
 }
 
