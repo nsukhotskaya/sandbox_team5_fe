@@ -2,6 +2,7 @@ import React from 'react';
 import { Typography, Card, Button, TextField, Stack, Box } from '@mui/material';
 import './Login.sass';
 import { Footer } from '../../components';
+import { MessageData } from '../../utils';
 
 class Login extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class Login extends React.Component {
               color="#1976d2"
               textAlign="center"
             >
-              Log in to ...
+              {MessageData.loginMsg}
             </Typography>
             <Stack m="20px auto" width="250px" spacing={2} direction="column">
               <TextField id="outlinedBasic" label="E-mail" size="small" />
