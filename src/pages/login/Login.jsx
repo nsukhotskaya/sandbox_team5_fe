@@ -1,6 +1,8 @@
 import React from 'react';
-import { Typography, Card, Button, TextField, Stack } from '@mui/material';
+
+import { Typography, Card, Button, TextField, Stack, Box } from '@mui/material';
 import './Login.sass';
+import { Footer } from '../../components';
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,27 +12,32 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Card className="loginCard">
-        <Typography m="15px" variant="h3" textAlign="center">
-          Log in
-        </Typography>
-        <Stack
-          m="20px auto"
-          width="350px"
-          height="200px"
-          spacing={2}
-          direction="column"
-        >
-          <TextField id="outlined-basic" label="E-mail" variant="outlined" />
-          <TextField
-            id="outlined-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-          />
-          <Button variant="contained">Log In</Button>
-        </Stack>
-      </Card>
+      <Box className="loginContainer">
+        <Box className="loginCardWrapper">
+          <Card variant="outlined" className="loginCard">
+            <Typography
+              m="30px"
+              variant="h5"
+              color="#1976d2"
+              textAlign="center"
+            >
+              Log in to ...
+            </Typography>
+            <Stack m="20px auto" width="250px" spacing={2} direction="column">
+              <TextField id="outlinedBasic" label="E-mail" size="small" />
+              <TextField
+                id="outlinedPasswordInput"
+                label="Password"
+                type="password"
+                autoComplete="current-password"
+                size="small"
+              />
+              <Button variant="contained">Log In</Button>
+            </Stack>
+          </Card>
+        </Box>
+        <Footer />
+      </Box>
     );
   }
 }
