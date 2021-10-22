@@ -4,23 +4,14 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LoginIcon from '@mui/icons-material/Login';
-
-import { Box, IconButton } from '@mui/material';
+import { Box, IconButton, Avatar } from '@mui/material';
+import { employeePhoto } from '../../assets';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Header extends React.Component {
   render() {
     return (
-      <Box
-        height="60px"
-        bgcolor="#F2F2F2"
-        position="absolute"
-        width="100%"
-        left="0"
-        top="0"
-        display="flex"
-        justifyContent="flex-end"
-      >
+      <Box height="60px" width="300px">
         <Box
           width="10%"
           height="100%"
@@ -43,6 +34,10 @@ class Header extends React.Component {
 
           <IconButton>
             <SettingsIcon />
+          </IconButton>
+
+          <IconButton>
+            <Avatar alt="Ryan Reynolds" src={employeePhoto} />
           </IconButton>
         </Box>
       </Box>

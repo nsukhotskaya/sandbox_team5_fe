@@ -3,38 +3,34 @@ import './Main.sass';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 // import { SidebarHeader } from '../sidebarHeader';
-import { Card } from '../card';
+import { ContentWrapper } from '../contentWrapper';
 
 const Main = (props) => {
+  const theme = useTheme();
   const { open, sidebarWidth } = props;
   return (
     <Box
       open={open}
       id="main"
       sx={{
-        padding: useTheme().spacing(3),
-        transition: useTheme().transitions.create(['margin', 'width'], {
-          easing: useTheme().transitions.easing.sharp,
-          duration: useTheme().transitions.duration.leavingScreen,
+        padding: theme.spacing(3),
+        transition: theme.transitions.create(['margin', 'width'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
         }),
         marginLeft: `-${sidebarWidth}px`,
         width: `100vw`,
         ...(open && {
-          transition: useTheme().transitions.create(['margin', 'width'], {
-            easing: useTheme().transitions.easing.easeOut,
-            duration: useTheme().transitions.duration.enteringScreen,
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
           }),
           width: `calc(100vw - ${sidebarWidth}px)`,
           marginLeft: 0,
         }),
       }}
     >
-      {/* <SidebarHeader
-        open={open}
-        openSidebar={openSidebar}
-        sidebarWidth={sidebarWidth}
-      /> */}
-      <Card />
+      <ContentWrapper />
     </Box>
   );
 };

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Box, CssBaseline } from '@mui/material';
-import './Employee.sass';
 import { MainHeader, Main, Sidebar } from '../../components';
 
 export default function Employee() {
@@ -17,6 +16,7 @@ export default function Employee() {
         open={open}
         openSidebar={openSidebar}
         sidebarWidth={sidebarWidth}
+        className="mainHeader"
       />
       <Sidebar
         open={open}

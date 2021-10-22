@@ -3,18 +3,16 @@ import { useTheme } from '@mui/material/styles';
 import { IconButton, Box, Typography } from '@mui/material';
 import { ChevronRight, ChevronLeft } from '@mui/icons-material';
 import { headerLogo } from '../../assets';
-import './SidebarHeader.sass';
 
 const SidebarHeader = (props) => {
+  const theme = useTheme();
   const { open, openSidebar } = props;
   return (
     <Box
       sx={{
         display: 'flex',
         alignItems: 'center',
-        padding: useTheme().spacing(0, 1),
-        // necessary for content to be below app bar
-        // ...useTheme().mixins.toolbar,
+        padding: theme.spacing(0, 1),
         backgroundColor: '#5898BB',
         color: '#8FC1DD',
         flexDirection: 'row',

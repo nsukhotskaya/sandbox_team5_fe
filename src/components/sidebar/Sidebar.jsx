@@ -9,10 +9,25 @@ import {
   ListItemText,
 } from '@mui/material';
 import { SidebarHeader } from '../sidebarHeader';
-// import { SidebarHeaderContent } from '../sidebarHeaderContent';
+
+const TabsMapping = ({ text }) => (
+  <ListItem button key={text}>
+    <ListItemIcon>
+      <MoveToInbox />
+    </ListItemIcon>
+    <ListItemText primary={text} />
+  </ListItem>
+);
 
 const Sidebar = (props) => {
   const { open, openSidebar, sidebarWidth } = props;
+  const tabs1 = ['Internship programs'];
+  const tabs2 = [
+    ['Selection', ''],
+    'Interviewing',
+    'Admitted candidates',
+    'Team distribution',
+  ];
   return (
     <div>
       <Drawer
@@ -33,29 +48,14 @@ const Sidebar = (props) => {
         <SidebarHeader open={open} openSidebar={openSidebar} />
         <Divider />
         <List>
-          {['Internship programs'].map((text) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                <MoveToInbox />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {tabs1.map((text) => (
+            <TabsMapping text={text} />
           ))}
         </List>
         <Divider />
         <List>
-          {[
-            ['Selection', ''],
-            'Interviewing',
-            'Admitted candidates',
-            'Team distribution',
-          ].map((text) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                <MoveToInbox />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
+          {tabs2.map((text) => (
+            <TabsMapping text={text} />
           ))}
         </List>
       </Drawer>

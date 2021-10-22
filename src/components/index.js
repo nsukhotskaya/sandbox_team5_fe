@@ -7,4 +7,4 @@ export * from './mainHeader';
 export * from './sidebar';
 export * from './sidebarHeader';
 export * from './main';
-export * from './card';
+export * from './contentWrapper';
