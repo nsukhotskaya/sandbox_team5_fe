@@ -2,7 +2,6 @@ import React from 'react';
 import './Main.sass';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-// import { SidebarHeader } from '../sidebarHeader';
 import { ContentWrapper } from '../contentWrapper';
 
 const Main = (props) => {
