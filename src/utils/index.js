@@ -1,1 +1,2 @@
-export { default as MessageData } from './messages.json';
+export * from './json';
+export * from './functions';
