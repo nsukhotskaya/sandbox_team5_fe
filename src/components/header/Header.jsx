@@ -1,48 +1,58 @@
-import * as React from 'react';
+import React from 'react';
+import { Box, Toolbar, IconButton, AppBar } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import MenuIcon from '@mui/icons-material/Menu';
+import { HeaderNav } from '../headerNav';
 
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import SettingsIcon from '@mui/icons-material/Settings';
-import LoginIcon from '@mui/icons-material/Login';
-import { Box, IconButton, Avatar } from '@mui/material';
-import { employeePhoto } from '../../assets';
-
-// eslint-disable-next-line react/prefer-stateless-function
-class Header extends React.Component {
-  render() {
-    return (
-      <Box height="60px" width="300px">
-        <Box
-          width="10%"
-          height="100%"
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mr="20px"
-        >
-          <IconButton>
-            <ChatBubbleOutlineIcon />
+const Header = (props) => {
+  const theme = useTheme();
+  const { open, openSidebar, sidebarWidth } = props;
+  return (
+    <AppBar
+      position="fixed"
+      open={open}
+      sx={{
+        backgroundColor: '#ffffff',
+        transition: theme.transitions.create(['margin', 'width'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        ...(open && {
+          width: `calc(100% - ${sidebarWidth}px)`,
+          marginLeft: `${sidebarWidth}px`,
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+        }),
+      }}
+    >
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={openSidebar}
+            edge="start"
+            sx={{ marginRight: 2, ...(open && { display: 'none' }) }}
+          >
+            <MenuIcon
+              sx={{
+                color: '#8FC1DD',
+              }}
+            />
           </IconButton>
-
-          <IconButton>
-            <WarningAmberIcon />
-          </IconButton>
-
-          <IconButton>
-            <LoginIcon />
-          </IconButton>
-
-          <IconButton>
-            <SettingsIcon />
-          </IconButton>
-
-          <IconButton>
-            <Avatar alt="Ryan Reynolds" src={employeePhoto} />
-          </IconButton>
-        </Box>
+        </Toolbar>
+        <HeaderNav />
       </Box>
-    );
-  }
-}
+    </AppBar>
+  );
+};
 
 export default Header;

@@ -2,8 +2,8 @@
 // export { Content } from './content';
 export * from './footer';
 export * from './content';
+export * from './headerNav';
 export * from './header';
-export * from './mainHeader';
 export * from './sidebar';
 export * from './sidebarHeader';
 export * from './main';

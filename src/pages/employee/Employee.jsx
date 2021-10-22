@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Box, CssBaseline } from '@mui/material';
-import { MainHeader, Main, Sidebar } from '../../components';
+import { Header, Main, Sidebar } from '../../components';
 
 export default function Employee() {
   const [open, setOpen] = React.useState(false);
@@ -12,7 +12,7 @@ export default function Employee() {
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
-      <MainHeader
+      <Header
         open={open}
         openSidebar={openSidebar}
         sidebarWidth={sidebarWidth}
@@ -23,20 +23,17 @@ export default function Employee() {
         openSidebar={openSidebar}
         sidebarWidth={sidebarWidth}
       />
-      <Box
+      <Main
         sx={{
           display: 'flex',
           flexDirection: 'column',
           flexGrow: '1',
           flexShrink: '1',
         }}
-      >
-        <Main
-          open={open}
-          openSidebar={openSidebar}
-          sidebarWidth={sidebarWidth}
-        />
-      </Box>
+        open={open}
+        openSidebar={openSidebar}
+        sidebarWidth={sidebarWidth}
+      />
     </Box>
   );
 }
