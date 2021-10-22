@@ -1,2 +1,1 @@
-export * from './json';
-export * from './functions';
+export { default as getFieldLabel } from './getFieldLabel';

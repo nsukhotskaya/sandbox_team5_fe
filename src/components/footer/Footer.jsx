@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
 import assets from '../../assets';
-import { MessageData } from '../../utils';
+import { getFieldLabel } from '../../utils';
 
 const { footerLogo } = assets;
 
@@ -31,7 +31,7 @@ class Footer extends React.Component {
             <img src={footerLogo} alt="Exadel" />
           </Link>
           <Typography color="#929292" component="p">
-            {MessageData.footerMsg}
+            {getFieldLabel('footerMsg')}
           </Typography>
         </Box>
       </Box>
