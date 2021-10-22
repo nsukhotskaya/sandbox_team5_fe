@@ -2,7 +2,7 @@ import React from 'react';
 import './Main.sass';
 import { Box } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { ContentWrapper } from '../contentWrapper';
+import { MainContentWrapper } from '../mainContentWrapper';
 
 const Main = (props) => {
   const theme = useTheme();
@@ -29,7 +29,7 @@ const Main = (props) => {
         }),
       }}
     >
-      <ContentWrapper />
+      <MainContentWrapper />
     </Box>
   );
 };

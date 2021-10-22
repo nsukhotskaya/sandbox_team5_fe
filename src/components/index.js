@@ -5,4 +5,4 @@ export * from './header';
 export * from './sidebar';
 export * from './sidebarHeader';
 export * from './main';
-export * from './contentWrapper';
+export * from './mainContentWrapper';
