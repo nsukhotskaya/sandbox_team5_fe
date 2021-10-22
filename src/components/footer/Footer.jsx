@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
 import assets from '../../assets';
-import { useMediaBetween } from '../utils/mediaQuery';
+import { useMediaBetween } from '../utils';
 
 const Footer = () => {
   const { footerLogo } = assets;
-  const mediumScreen = useMediaBetween('xs', 'md');
+  const phabletScreen = useMediaBetween('xs', 'md');
 
   return (
     <Box
@@ -20,11 +20,11 @@ const Footer = () => {
       <Box
         height="100%"
         display="flex"
-        justifyContent={mediumScreen ? 'center' : 'space-between'}
+        justifyContent={phabletScreen ? 'center' : 'space-between'}
         alignItems="center"
         flexWrap="wrap"
-        m={mediumScreen ? '0.5% 0 0 0' : '0 10% 0 10%'}
-        flexDirection={mediumScreen ? 'column' : 'null'}
+        m={phabletScreen ? '0.5% 0 0 0' : '0 10% 0 10%'}
+        flexDirection={phabletScreen ? 'column' : 'null'}
       >
         <Link href="https://exadel.com/" underline="none">
           <img src={footerLogo} alt="Exadel" />
