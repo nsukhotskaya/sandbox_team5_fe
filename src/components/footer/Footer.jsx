@@ -5,7 +5,7 @@ import { useMediaBetween } from '../utils/mediaQuery';
 
 const Footer = () => {
   const { footerLogo } = assets;
-  const tabletScreen = useMediaBetween('xs', 'md');
+  const mediumScreen = useMediaBetween('xs', 'md');
 
   return (
     <Box
@@ -20,11 +20,11 @@ const Footer = () => {
       <Box
         height="100%"
         display="flex"
-        justifyContent={tabletScreen ? 'center' : 'space-between'}
+        justifyContent={mediumScreen ? 'center' : 'space-between'}
         alignItems="center"
         flexWrap="wrap"
-        m={tabletScreen ? '0.5% 0 0 0' : '0 10% 0 10%'}
-        flexDirection={tabletScreen ? 'column' : 'null'}
+        m={mediumScreen ? '0.5% 0 0 0' : '0 10% 0 10%'}
+        flexDirection={mediumScreen ? 'column' : 'null'}
       >
         <Link href="https://exadel.com/" underline="none">
           <img src={footerLogo} alt="Exadel" />
