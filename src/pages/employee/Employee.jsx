@@ -10,13 +10,12 @@ export default function Employee() {
   };
 
   return (
-    <Box sx={{ display: 'flex', height: '100vh' }}>
+    <Box display="flex" height="100vh">
       <CssBaseline />
       <Header
         open={open}
         openSidebar={openSidebar}
         sidebarWidth={sidebarWidth}
-        className="mainHeader"
       />
       <Sidebar
         open={open}
@@ -24,12 +23,10 @@ export default function Employee() {
         sidebarWidth={sidebarWidth}
       />
       <Main
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexGrow: '1',
-          flexShrink: '1',
-        }}
+        display="flex"
+        flexDirection="column"
+        flexGrow="1"
+        flexShrink="1"
         open={open}
         openSidebar={openSidebar}
         sidebarWidth={sidebarWidth}

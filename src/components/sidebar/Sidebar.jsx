@@ -31,9 +31,12 @@ const Sidebar = (props) => {
   return (
     <div>
       <Drawer
+        flexShrink="0"
+        variant="persistent"
+        anchor="left"
+        open={open}
         sx={{
           width: sidebarWidth,
-          flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: sidebarWidth,
             boxSizing: 'border-box',
@@ -41,9 +44,6 @@ const Sidebar = (props) => {
             color: '#ffffff',
           },
         }}
-        variant="persistent"
-        anchor="left"
-        open={open}
       >
         <SidebarHeader open={open} openSidebar={openSidebar} />
         <Divider />
