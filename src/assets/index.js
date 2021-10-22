@@ -1,4 +1,6 @@
 import footerLogo from './footer-logo.png';
-import jsPrograms from './img-js.png';
+import jsImg from './img-js.png';
+import psImg from './img-ps.png';
+import plImg from './img-pl.png';
 
-export default { footerLogo, jsPrograms };
+export default { footerLogo, jsImg, psImg, plImg };

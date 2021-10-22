@@ -1,51 +1,93 @@
 import React from 'react';
-import { Box, Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
-// import { Footer } from '../../components';
+import { Box, Card, CardContent, CardMedia, Button, Typography } from '@mui/material';
 import { styled } from '@mui/styles';
-import './Internships.sass';
 import assets from '../../assets';
 
-const MyButton = styled(Button)({
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+const InternshipsBox = styled(Box)({
+maxWidth: '1100px',
+  display: 'flex',
+  flexDirection: 'column',
+  background: 'white',
   border: 0,
-  borderRadius: 3,
-  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-  color: 'white',
-  height: 48,
-  padding: '0 30px',
+  borderRadius: 5,
+  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.15)',
+  color: '#0082ca',
+  padding: '15px 15px',
+  maxHeight: '900px',
+  marginTop: '20px',
+});
+
+const InternshipsTypography = styled(Typography)({
+  marginLeft: '50px',
+  fontSize: '35px',
+  color: '#222',
+});
+
+const CardsBox = styled(Box)({
+  
+  display: 'flex',
+  justifyContent: 'space-between',
+  background: 'white',
+  color: '#0082ca',
+  padding: '30px 30px',
+});
+
+const InternshipCard = styled(Card)({
+    background: '#F2F2F2',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    borderRadius: '20px',
+});
+
+const ButtonBox = styled(Box)({
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginRight: '10px',
+    marginBottom: '10px',
+});
+
+const MyButton = styled(Button)({
+  background: 'white',
+  borderRadius: 5,
+  boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.15)',
+  color: '#0082ca',
+  height: 40,
+  padding: '0 15px',
 });
 
 
-const { jsPrograms } = assets;
+const { jsImg, psImg, plImg } = assets;
 const mockedPrograms = [
     {
         title: 'Oct2021 Ex. JS&.Net&BA',
         dateInterval: 'Dates: 12.10.2020 - 12.12.2020',
         numberOfMembers: 'Selection: 120 members',
-        imageUrl: jsPrograms,
+        imageUrl: jsImg,
         linkUrl: ''
     },
     {
-        title: 'Oct2021 Ex. JS&.Net&BA',
+        title: 'Feb2021 Ex. Design',
         dateInterval: 'Dates: 12.10.2020 - 12.12.2020',
-        numberOfMembers: 'Selection: 120 members',
-        imageUrl: jsPrograms,
+        numberOfMembers: 'Selection: 100 members',
+        imageUrl: psImg,
         linkUrl: ''
     },
     {
-        title: 'Oct2021 Ex. JS&.Net&BA',
+        title: 'Oct2021 Game Dev',
         dateInterval: 'Dates: 12.10.2020 - 12.12.2020',
-        numberOfMembers: 'Selection: 120 members',
-        imageUrl: jsPrograms,
+        numberOfMembers: 'Selection: 80 members',
+        imageUrl: plImg,
         linkUrl: ''
     },
 ]
 
 export const Internships = () => 
-    <Box className="internshipsContainer">
-        <Box className="internshipsWrapper">
+    <InternshipsBox>
+        <InternshipsTypography variant="h1" component="div" gutterBottom>
+            Internship programs
+        </InternshipsTypography>
+        <CardsBox>
             {mockedPrograms.map(p =>
-                <Card sx={{ maxWidth: 345 }}>
+                <InternshipCard sx={{ maxWidth: 345 }}>
                     <CardMedia
                         component="img"
                         height="140"
@@ -63,13 +105,13 @@ export const Internships = () =>
                             {p.numberOfMembers}
                         </Typography>
                     </CardContent>
-                    <CardActions>
+                    <ButtonBox>
                         <MyButton size="small">Details</MyButton>
-                    </CardActions>
-                </Card>
+                    </ButtonBox>
+                </InternshipCard>
             )}
-        </Box>
-    </Box>
+        </CardsBox>
+    </InternshipsBox>
         
 
 
