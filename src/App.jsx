@@ -1,12 +1,12 @@
 import './App.sass';
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Content } from './components';
+import { AppContent } from './components';
 
 function App() {
   return (
     <Router>
-      <Content />
+      <AppContent />
     </Router>
   );
 }

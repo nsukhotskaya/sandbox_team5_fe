@@ -1,5 +1,5 @@
 export * from './footer';
-export * from './content';
+export * from './appContent';
 export * from './headerNav';
 export * from './header';
 export * from './sidebar';
