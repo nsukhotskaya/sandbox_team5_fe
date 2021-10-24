@@ -50,13 +50,13 @@ class Sidebar extends React.PureComponent {
           <Divider />
           <List>
             {tabs1.map((text) => (
-              <TabsMapping text={text} />
+              <TabsMapping text={text} key={text} />
             ))}
           </List>
           <Divider />
           <List>
             {tabs2.map((text) => (
-              <TabsMapping text={text} />
+              <TabsMapping text={text} key={text} />
             ))}
           </List>
         </Drawer>
