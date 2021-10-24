@@ -5,15 +5,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { HeaderNav } from '../headerNav';
 
 const Header = (props) => {
+  const { isOpen, openSidebar, sidebarWidth } = props;
   const theme = useTheme();
-  const { open, openSidebar, sidebarWidth } = props;
   const transitionAppBarStyles = {
     backgroundColor: '#ffffff',
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    ...(open && {
+    ...(isOpen && {
       width: `calc(100% - ${sidebarWidth}px)`,
       marginLeft: `${sidebarWidth}px`,
       transition: theme.transitions.create(['margin', 'width'], {
@@ -24,8 +24,9 @@ const Header = (props) => {
   };
   const transitionIconButtonStyles = {
     marginRight: 2,
-    ...(open && { display: 'none' }),
+    ...(isOpen && { display: 'none' }),
   };
+
   return (
     <AppBar position="fixed" sx={transitionAppBarStyles}>
       <Box display="flex" flexDirection="row" justifyContent="space-between">

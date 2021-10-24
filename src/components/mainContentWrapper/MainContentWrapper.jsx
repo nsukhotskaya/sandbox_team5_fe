@@ -4,14 +4,16 @@ import './MainContentWrapper.sass';
 import { Footer } from '../footer';
 import { Card } from '../card';
 
-function MainContentWrapper() {
-  return (
-    <Box id="content">
-      <Card className="card" />
-      <span className="pageGap" />
-      <Footer />
-    </Box>
-  );
+class MainContentWrapper extends React.PureComponent {
+  render() {
+    return (
+      <Box id="content">
+        <Card className="card" />
+        <span className="pageGap" />
+        <Footer />
+      </Box>
+    );
+  }
 }
 
 export default MainContentWrapper;

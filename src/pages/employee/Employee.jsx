@@ -2,35 +2,45 @@ import * as React from 'react';
 import { Box, CssBaseline } from '@mui/material';
 import { Header, Main, Sidebar } from '../../components';
 
-export default function Employee() {
-  const [open, setOpen] = React.useState(false);
-  const [sidebarWidth] = React.useState(300);
-  const openSidebar = () => {
-    setOpen(!open);
+export default class Employee extends React.PureComponent {
+  constructor() {
+    super();
+    this.state = {
+      isOpen: false,
+      sidebarWidth: 300,
+    };
+  }
+
+  openSidebar = () => {
+    this.setState((prevState) => ({
+      isOpen: !prevState.isOpen,
+    }));
   };
 
-  return (
-    <Box display="flex" height="100vh">
-      <CssBaseline />
-      <Header
-        open={open}
-        openSidebar={openSidebar}
-        sidebarWidth={sidebarWidth}
-      />
-      <Sidebar
-        open={open}
-        openSidebar={openSidebar}
-        sidebarWidth={sidebarWidth}
-      />
-      <Main
-        display="flex"
-        flexDirection="column"
-        flexGrow="1"
-        flexShrink="1"
-        open={open}
-        openSidebar={openSidebar}
-        sidebarWidth={sidebarWidth}
-      />
-    </Box>
-  );
+  render() {
+    const { isOpen, sidebarWidth } = this.state;
+    return (
+      <Box display="flex" height="100vh">
+        <CssBaseline />
+        <Header
+          isOpen={isOpen}
+          openSidebar={this.openSidebar}
+          sidebarWidth={sidebarWidth}
+        />
+        <Sidebar
+          isOpen={isOpen}
+          openSidebar={this.openSidebar}
+          sidebarWidth={sidebarWidth}
+        />
+        <Main
+          display="flex"
+          flexDirection="column"
+          flexGrow="1"
+          flexShrink="1"
+          isOpen={isOpen}
+          sidebarWidth={sidebarWidth}
+        />
+      </Box>
+    );
+  }
 }

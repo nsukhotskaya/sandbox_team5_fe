@@ -5,7 +5,7 @@ import { MainContentWrapper } from '../mainContentWrapper';
 
 const Main = (props) => {
   const theme = useTheme();
-  const { open, sidebarWidth } = props;
+  const { isOpen, sidebarWidth } = props;
   const transitionBoxStyles = {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
@@ -13,7 +13,7 @@ const Main = (props) => {
     }),
     marginLeft: `-${sidebarWidth}px`,
     width: `100vw`,
-    ...(open && {
+    ...(isOpen && {
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
@@ -24,7 +24,7 @@ const Main = (props) => {
   };
   return (
     <Box
-      open={open}
+      open={isOpen}
       padding="0"
       backgroundColor="#CEDEE4"
       display="flex"
