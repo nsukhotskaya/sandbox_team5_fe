@@ -12,7 +12,7 @@ import { SidebarHeader } from '../sidebarHeader';
 import './Sidebar.sass';
 
 const TabsMapping = ({ text }) => (
-  <ListItem button key={Date.now()}>
+  <ListItem button>
     <ListItemIcon>
       <MoveToInbox />
     </ListItemIcon>
@@ -24,7 +24,7 @@ class Sidebar extends React.PureComponent {
   render() {
     const tabs1 = ['Internship programs'];
     const tabs2 = [
-      ['Selection', ''],
+      'Selection',
       'Interviewing',
       'Admitted candidates',
       'Team distribution',
