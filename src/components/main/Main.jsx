@@ -9,11 +9,11 @@ class Main extends React.PureComponent {
     return (
       <Box>
         {!isOpen ? (
-          <Box className="main main__unclenched">
+          <Box className="main mainExpanded">
             <MainContentWrapper />
           </Box>
         ) : (
-          <Box className="main main__compressed">
+          <Box className="main mainCompressed">
             <MainContentWrapper />
           </Box>
         )}
