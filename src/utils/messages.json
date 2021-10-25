@@ -1,7 +1,7 @@
 {
-  "footerTitle": "© 2021 [Team5] Exadel Internship JS&.NET",
-  "footerSign": "Exadel",
-  "loginTitle": "Log in to ...",
-  "loginEmail": "E-mail",
-  "loginPassword": "Password"
+  "footer.title": "© 2021 [Team5] Exadel Internship JS&.NET",
+  "footer.sign": "Exadel",
+  "login.title": "Log in to ...",
+  "login.email": "E-mail",
+  "login.password": "Password"
 }
