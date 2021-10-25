@@ -1,3 +1,3 @@
-export * from './employee';
-export * from './login';
-export * from './candidates';
+export { Employee } from './employee';
+export { Login } from './login';
+export { Candidates } from './candidates';
