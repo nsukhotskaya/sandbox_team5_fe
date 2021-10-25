@@ -8,13 +8,14 @@ export default class Employee extends React.PureComponent {
     this.state = {
       isOpen: false,
     };
+    this.openSidebar = this.openSidebar.bind(this);
   }
 
-  openSidebar = () => {
+  openSidebar() {
     this.setState((prevState) => ({
       isOpen: !prevState.isOpen,
     }));
-  };
+  }
 
   render() {
     const { isOpen } = this.state;
