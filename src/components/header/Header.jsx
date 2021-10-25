@@ -4,28 +4,30 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { HeaderNav } from '../headerNav';
 import './Header.sass';
 
-const Header = (props) => {
-  const { isOpen, openSidebar } = props;
-  return (
-    <AppBar position="fixed">
-      <Box className="header">
-        <Toolbar>
-          {!isOpen && (
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={openSidebar}
-              edge="start"
-              margin-right="2px"
-            >
-              <MenuIcon color="action" />
-            </IconButton>
-          )}
-        </Toolbar>
-        <HeaderNav />
-      </Box>
-    </AppBar>
-  );
-};
+class Header extends React.PureComponent {
+  render() {
+    const { isOpen, openSidebar } = this.props;
+    return (
+      <AppBar position="fixed">
+        <Box className="header">
+          <Toolbar>
+            {!isOpen && (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={openSidebar}
+                edge="start"
+                margin-right="2px"
+              >
+                <MenuIcon color="action" />
+              </IconButton>
+            )}
+          </Toolbar>
+          <HeaderNav />
+        </Box>
+      </AppBar>
+    );
+  }
+}
 
 export default Header;
