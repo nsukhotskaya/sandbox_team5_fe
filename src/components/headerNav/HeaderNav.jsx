@@ -5,7 +5,6 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LoginIcon from '@mui/icons-material/Login';
 import { Box, IconButton, Avatar } from '@mui/material';
-import { employeePhoto } from '../../assets';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class HeaderNav extends React.Component {
@@ -37,7 +36,7 @@ class HeaderNav extends React.Component {
           </IconButton>
 
           <IconButton>
-            <Avatar alt="Ryan Reynolds" src={employeePhoto} />
+            <Avatar alt="Ryan Reynolds" />
           </IconButton>
         </Box>
       </Box>

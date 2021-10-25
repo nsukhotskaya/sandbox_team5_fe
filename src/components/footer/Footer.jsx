@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
-import { footerLogo } from '../../assets';
+import assets from '../../assets';
 import { useMediaBetween } from '../utils';
 
 const Footer = () => {
+  const { footerLogo } = assets;
   const phabletScreen = useMediaBetween('xs', 'md');
   return (
     <Box

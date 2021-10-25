@@ -1,10 +1,11 @@
 import React from 'react';
 import { IconButton, Box, Typography } from '@mui/material';
 import { ChevronRight, ChevronLeft } from '@mui/icons-material';
-import { headerLogo } from '../../assets';
+import assets from '../../assets';
 
 class SidebarHeader extends React.PureComponent {
   render() {
+    const { headerLogo } = assets;
     const { isOpen, openSidebar } = this.props;
     return (
       <Box
