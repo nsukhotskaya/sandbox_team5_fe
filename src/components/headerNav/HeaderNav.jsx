@@ -4,20 +4,14 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LoginIcon from '@mui/icons-material/Login';
 import { Box, IconButton, Avatar } from '@mui/material';
+import './HeaderNav.sass';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class HeaderNav extends React.Component {
   render() {
     return (
       <Box height="60px" width="300px">
-        <Box
-          width="10%"
-          height="100%"
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          mr="20px"
-        >
+        <Box className="headerNav">
           <IconButton>
             <ChatBubbleOutlineIcon />
           </IconButton>

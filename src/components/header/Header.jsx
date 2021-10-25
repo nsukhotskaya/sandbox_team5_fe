@@ -2,17 +2,13 @@ import React from 'react';
 import { Box, Toolbar, IconButton, AppBar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { HeaderNav } from '../headerNav';
+import './Header.sass';
 
 const Header = (props) => {
   const { isOpen, openSidebar } = props;
   return (
     <AppBar position="fixed">
-      <Box
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        backgroundColor="#ffffff"
-      >
+      <Box className="header">
         <Toolbar>
           {!isOpen && (
             <IconButton

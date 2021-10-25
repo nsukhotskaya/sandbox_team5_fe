@@ -2,22 +2,14 @@ import React from 'react';
 import { IconButton, Box, Typography } from '@mui/material';
 import { ChevronRight, ChevronLeft } from '@mui/icons-material';
 import assets from '../../assets';
+import './SidebarHeader.sass';
 
 class SidebarHeader extends React.PureComponent {
   render() {
     const { headerLogo } = assets;
     const { isOpen, openSidebar } = this.props;
     return (
-      <Box
-        display="flex"
-        alignItems="center"
-        paddingX="4px"
-        backgroundColor="#5898BB"
-        color="#8FC1DD"
-        flexDirection="row"
-        justifyContent="space-between"
-        height="64px"
-      >
+      <Box className="sidebarHeader">
         <img src={headerLogo} alt="exadel logo sidebar" />
         <Typography>HR Specialist</Typography>
         <IconButton onClick={openSidebar}>
