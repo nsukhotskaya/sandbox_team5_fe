@@ -7,16 +7,13 @@ import { getFieldLabel } from '../../utils';
 const Footer = () => {
   const { footerLogo } = assets;
   const phabletScreen = useMediaBetween('xs', 'md');
-
   return (
     <Box
-      height="55px"
-      width="100%"
-      position="absolute"
-      bottom="0"
-      left="0"
-      bgcolor="#F2F2F2"
-      boxShadow="0 5px 10px rgba(44, 101, 77, 0.08)"
+      width="auto"
+      flexGrow="1"
+      padding="10px"
+      transition="margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
+      backgroundColor="#f2f2f2"
     >
       <Box
         height="100%"

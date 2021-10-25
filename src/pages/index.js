@@ -1,1 +1,2 @@
-export * from './login';
+export { Employee } from './employee';
+export { Login } from './login';
