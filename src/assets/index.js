@@ -1,6 +1,6 @@
 import footerLogo from './footer-logo.png';
-import jsImg from './img-js.png';
-import psImg from './img-ps.png';
-import plImg from './img-pl.png';
+import internshipJavascript from './internship-javascript.png';
+import internshipDesign from './internship-design.png';
+import internshipGamedev from './internship-gamedev.png';
 
-export default { footerLogo, jsImg, psImg, plImg };
+export default { footerLogo, internshipJavascript, internshipDesign, internshipGamedev };
