@@ -1,45 +1,30 @@
 import React from 'react';
 import { Box, Toolbar, IconButton, AppBar } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import { HeaderNav } from '../headerNav';
 
 const Header = (props) => {
-  const { isOpen, openSidebar, sidebarWidth } = props;
-  const theme = useTheme();
-  const transitionAppBarStyles = {
-    backgroundColor: '#ffffff',
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    ...(isOpen && {
-      width: `calc(100% - ${sidebarWidth}px)`,
-      marginLeft: `${sidebarWidth}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  };
-  const transitionIconButtonStyles = {
-    marginRight: 2,
-    ...(isOpen && { display: 'none' }),
-  };
-
+  const { isOpen, openSidebar } = props;
   return (
-    <AppBar position="fixed" sx={transitionAppBarStyles}>
-      <Box display="flex" flexDirection="row" justifyContent="space-between">
+    <AppBar position="fixed">
+      <Box
+        display="flex"
+        flexDirection="row"
+        justifyContent="space-between"
+        backgroundColor="#ffffff"
+      >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={openSidebar}
-            edge="start"
-            sx={transitionIconButtonStyles}
-          >
-            <MenuIcon color="action" />
-          </IconButton>
+          {!isOpen && (
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={openSidebar}
+              edge="start"
+              margin-right="2px"
+            >
+              <MenuIcon color="action" />
+            </IconButton>
+          )}
         </Toolbar>
         <HeaderNav />
       </Box>

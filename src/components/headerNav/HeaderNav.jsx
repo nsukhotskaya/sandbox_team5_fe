@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -36,7 +35,7 @@ class HeaderNav extends React.Component {
           </IconButton>
 
           <IconButton>
-            <Avatar alt="Ryan Reynolds" />
+            <Avatar alt="Ivan Ivanov" />
           </IconButton>
         </Box>
       </Box>

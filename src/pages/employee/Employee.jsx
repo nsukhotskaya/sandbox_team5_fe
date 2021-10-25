@@ -7,7 +7,6 @@ export default class Employee extends React.PureComponent {
     super();
     this.state = {
       isOpen: false,
-      sidebarWidth: 300,
     };
   }
 
@@ -18,27 +17,18 @@ export default class Employee extends React.PureComponent {
   };
 
   render() {
-    const { isOpen, sidebarWidth } = this.state;
+    const { isOpen } = this.state;
     return (
       <Box display="flex" height="100vh">
         <CssBaseline />
-        <Header
-          isOpen={isOpen}
-          openSidebar={this.openSidebar}
-          sidebarWidth={sidebarWidth}
-        />
-        <Sidebar
-          isOpen={isOpen}
-          openSidebar={this.openSidebar}
-          sidebarWidth={sidebarWidth}
-        />
+        <Header isOpen={isOpen} openSidebar={this.openSidebar} />
+        <Sidebar isOpen={isOpen} openSidebar={this.openSidebar} />
         <Main
           display="flex"
           flexDirection="column"
           flexGrow="1"
           flexShrink="1"
           isOpen={isOpen}
-          sidebarWidth={sidebarWidth}
         />
       </Box>
     );

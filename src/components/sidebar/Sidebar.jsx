@@ -9,6 +9,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { SidebarHeader } from '../sidebarHeader';
+import './Sidebar.sass';
 
 const TabsMapping = ({ text }) => (
   <ListItem button key={Date.now()}>
@@ -28,39 +29,29 @@ class Sidebar extends React.PureComponent {
       'Admitted candidates',
       'Team distribution',
     ];
-    const { isOpen, openSidebar, sidebarWidth } = this.props;
+    const { isOpen, openSidebar } = this.props;
     return (
-      <div>
-        <Drawer
-          flexshrink="0"
-          variant="persistent"
-          anchor="left"
-          open={isOpen}
-          sx={{
-            width: sidebarWidth,
-            '& .MuiDrawer-paper': {
-              width: sidebarWidth,
-              boxSizing: 'border-box',
-              backgroundColor: '#1B5B7E',
-              color: '#ffffff',
-            },
-          }}
-        >
-          <SidebarHeader isOpen={isOpen} openSidebar={openSidebar} />
-          <Divider />
-          <List>
-            {tabs1.map((text) => (
-              <TabsMapping text={text} key={text} />
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {tabs2.map((text) => (
-              <TabsMapping text={text} key={text} />
-            ))}
-          </List>
-        </Drawer>
-      </div>
+      <Drawer
+        id="drawer"
+        flexshrink="0"
+        variant="persistent"
+        anchor="left"
+        open={isOpen}
+      >
+        <SidebarHeader isOpen={isOpen} openSidebar={openSidebar} />
+        <Divider />
+        <List>
+          {tabs1.map((text) => (
+            <TabsMapping text={text} key={text} />
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {tabs2.map((text) => (
+            <TabsMapping text={text} key={text} />
+          ))}
+        </List>
+      </Drawer>
     );
   }
 }
