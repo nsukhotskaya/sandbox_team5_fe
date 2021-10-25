@@ -28,10 +28,10 @@ const Footer = () => {
         flexDirection={phabletScreen ? 'column' : 'null'}
       >
         <Link href="https://exadel.com/" underline="none">
-          <img src={footerLogo} alt="Exadel" />
+          <img src={footerLogo} alt={getFieldLabel('footerSign')} />
         </Link>
         <Typography color="#929292" component="p">
-          {getFieldLabel('footerMsg')}
+          {getFieldLabel('footerTitle')}
         </Typography>
       </Box>
     </Box>

@@ -20,7 +20,7 @@ const Login = () => {
             color="#1976d2"
             textAlign="center"
           >
-            {getFieldLabel('loginMsg')}
+            {getFieldLabel('loginTitle')}
           </Typography>
           <Stack
             m={smallScreen ? '10px auto' : '20px auto'}
@@ -28,10 +28,14 @@ const Login = () => {
             spacing={2}
             direction="column"
           >
-            <TextField id="outlinedBasic" label="E-mail" size="small" />
+            <TextField
+              id="outlinedBasic"
+              label={getFieldLabel('loginEmail')}
+              size="small"
+            />
             <TextField
               id="outlinedPasswordInput"
-              label="Password"
+              label={getFieldLabel('loginPassword')}
               type="password"
               autoComplete="current-password"
               size="small"
