@@ -1,3 +1,4 @@
-import footerLogo from './footer-logo.png';
+import headerLogo from './header-logo.svg';
+import footerLogo from './footer-logo.svg';
 
-export default { footerLogo };
+export default { headerLogo, footerLogo };

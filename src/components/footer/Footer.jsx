@@ -2,20 +2,18 @@ import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
 import assets from '../../assets';
 import { useMediaBetween } from '../utils';
+import { getFieldLabel } from '../../utils';
 
 const Footer = () => {
   const { footerLogo } = assets;
   const phabletScreen = useMediaBetween('xs', 'md');
-
   return (
     <Box
-      height="55px"
-      width="100%"
-      position="absolute"
-      bottom="0"
-      left="0"
-      bgcolor="#F2F2F2"
-      boxShadow="0 5px 10px rgba(44, 101, 77, 0.08)"
+      width="auto"
+      flexGrow="1"
+      padding="10px"
+      transition="margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
+      backgroundColor="#f2f2f2"
     >
       <Box
         height="100%"
@@ -27,10 +25,10 @@ const Footer = () => {
         flexDirection={phabletScreen ? 'column' : 'null'}
       >
         <Link href="https://exadel.com/" underline="none">
-          <img src={footerLogo} alt="Exadel" />
+          <img src={footerLogo} alt={getFieldLabel('footer.sign')} />
         </Link>
         <Typography color="#929292" component="p">
-          © 2021 [Team5] Exadel Internship JS&.NET
+          {getFieldLabel('footer.title')}
         </Typography>
       </Box>
     </Box>
