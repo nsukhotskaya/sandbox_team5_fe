@@ -1,28 +1,31 @@
 import React from 'react';
 import { Box, Card, CardContent, CardMedia, Button, Typography } from '@mui/material';
+import './Internships.sass';
 import assets from '../../assets';
+import { getFieldLabel } from '../../utils';
+
 
 
 const { internshipJavascript, internshipDesign, internshipGamedev } = assets;
 const mockedPrograms = [
     {
-        title: 'Oct2021 Ex. JS&.Net&BA',
-        dateInterval: 'Dates: 12.10.2020 - 12.12.2020',
-        numberOfMembers: 'Selection: 120 members',
+        title: getFieldLabel('internships.program.title.javascript'),
+        dateInterval: getFieldLabel('internships.program.date.javascript'),
+        numberOfMembers: getFieldLabel('internships.program.members.javascript'),
         imageUrl: internshipJavascript,
         linkUrl: ''
     },
     {
-        title: 'Feb2021 Ex. Design',
-        dateInterval: 'Dates: 12.10.2020 - 12.12.2020',
-        numberOfMembers: 'Selection: 100 members',
+        title: getFieldLabel('internships.program.title.design'),
+        dateInterval: getFieldLabel('internships.program.date.design'),
+        numberOfMembers: getFieldLabel('internships.program.members.design'),
         imageUrl: internshipDesign,
         linkUrl: ''
     },
     {
-        title: 'Oct2021 Game Dev',
-        dateInterval: 'Dates: 12.10.2020 - 12.12.2020',
-        numberOfMembers: 'Selection: 80 members',
+        title: getFieldLabel('internships.program.title.gamedev'),
+        dateInterval: getFieldLabel('internships.program.date.gamedev'),
+        numberOfMembers: getFieldLabel('internships.program.members.gamedev'),
         imageUrl: internshipGamedev,
         linkUrl: ''
     },
@@ -52,25 +55,23 @@ export const Internships = () =>
             fontSize="35px"
             color="#222"
         >
-            Internship programs
+            {getFieldLabel('internships.title')}
         </Typography>
         <Box
             display="flex"
             alignItems="center"
-            justifyContent="space-between"
             background="white"
             color="#0082ca"
             padding="30px 30px"
-            
+            spacing="(2)"
         >
             {mockedPrograms.map(product =>
                 <Card
-                    sx={{ margin: 1 }}
+                    className="internshipCard"
                     maxWidth="345px"
                     background="#F2F2F2"
                     boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
                     borderRadius="20px"
-                    
                 >
                     <CardMedia
                         component="img"
@@ -94,17 +95,15 @@ export const Internships = () =>
                         justifyContent="flex-end"
                         marginRight="10px"
                         marginBottom="10px"
-                        
                     >
                         <Button
-                            sx={{ border: 1 }}
-                            
+                            variant="outlined"
                             size="small"
                             background="white"
                             borderRadius="5"
                             height="40"
                             padding="0 15px"
-                        >Details</Button>
+                        >{getFieldLabel('internships.btn-details')}</Button>
                     </Box>
                 </Card>
             )}
