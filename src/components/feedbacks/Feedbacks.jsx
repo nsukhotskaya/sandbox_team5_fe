@@ -4,16 +4,16 @@ import React from "react";
 class Feedbacks extends React.Component{
   constructor(props) {
     super(props);
-    this.state ={ value: 2 }
+    this.state ={ starsRating: 2 }
     this.handleChange = this.handleChange.bind(this)
   }
 
 handleChange = ( e, newValue) => {
-  this.setState ({value: newValue })
+  this.setState ({starsRating: newValue })
 }
 
   render(){
-    const { value } = this.state;
+    const { starsRating } = this.state;
     return(
       <Box>
         <List>
@@ -24,7 +24,7 @@ handleChange = ( e, newValue) => {
             <ListItemButton>
             <Rating
             name="simple-controlled"
-            value={value}
+            value={starsRating}
             onChange={this.handleChange}
             />
             </ListItemButton>
