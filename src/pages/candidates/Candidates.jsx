@@ -57,20 +57,30 @@ const Candidates = () => {
     },
   ];
 
+  const MappingFields = ({ props }) => {
+    <AgGridColumn field={props} />;
+  };
+
+  const fields = [
+    'ApplicationDate',
+    'Location',
+    'InternshipLanguage',
+    'InternshipStack',
+    'EnglishLevel',
+    'TestTaskEvaluation',
+    'Interviewer',
+    'Status',
+    'HR',
+    'Hard skills evaluation*',
+  ];
+
   return (
     <Box className="ag-theme-alpine" height="400px" width="auto">
       <AgGridReact rowData={rowData} rowSelection="multiple">
         <AgGridColumn field="FullName" sortable filter checkboxSelection />
-        <AgGridColumn field="ApplicationDate" sortable filter />
-        <AgGridColumn field="Location" sortable filter />
-        <AgGridColumn field="InternshipLanguage" sortable filter />
-        <AgGridColumn field="InternshipStack" sortable filter />
-        <AgGridColumn field="EnglishLevel" sortable filter />
-        <AgGridColumn field="TestTaskEvaluation" sortable filter />
-        <AgGridColumn field="Interviewer" sortable filter />
-        <AgGridColumn field="Status" sortable filter />
-        <AgGridColumn field="HR" sortable filter />
-        <AgGridColumn field="Hard skills evaluation*" sortable filter />
+        {fields.map((props) => (
+          <MappingFields field={props} key={props} sortable filter />
+        ))}
       </AgGridReact>
     </Box>
   );
