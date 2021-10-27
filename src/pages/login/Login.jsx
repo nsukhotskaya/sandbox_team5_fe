@@ -8,14 +8,6 @@ import { Footer } from '../../components';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel, theme } from '../../utils';
 
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       main: '#0082ca',
-//     },
-//   },
-// });
-
 const Login = () => {
   const smallScreen = useMediaDown('sm');
   return (

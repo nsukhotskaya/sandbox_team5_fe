@@ -1,21 +1,30 @@
-import React from "react";
+import React from 'react';
+import { ThemeProvider } from '@emotion/react';
 import { Button, ButtonGroup } from '@mui/material';
-import { getFieldLabel } from '../../utils';
+import { getFieldLabel, theme } from '../../utils';
 
-class HeaderMenu extends React.Component{
-  constructor(props){
+class HeaderMenu extends React.Component {
+  constructor(props) {
     super(props);
-    this.state={};
+    this.state = {};
   }
 
-  render(){
-    return(
-      <ButtonGroup variant="text" aria-label="text button group" >
-        <Button>{getFieldLabel('header.menu.button.internships')}</Button>
-        <Button>{getFieldLabel('header.menu.button.candidates')}</Button>
-        <Button>{getFieldLabel('header.menu.button.letters')}</Button>
-      </ButtonGroup>
-    )
+  render() {
+    return (
+      <ThemeProvider theme={theme}>
+        <ButtonGroup variant="text" aria-label="text button group">
+          <Button color="secondary">
+            {getFieldLabel('header.menu.button.internships')}
+          </Button>
+          <Button color="secondary">
+            {getFieldLabel('header.menu.button.candidates')}
+          </Button>
+          <Button color="secondary">
+            {getFieldLabel('header.menu.button.letters')}
+          </Button>
+        </ButtonGroup>
+      </ThemeProvider>
+    );
   }
 }
 
