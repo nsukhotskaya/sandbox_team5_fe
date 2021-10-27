@@ -1,23 +1,17 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { MainContentWrapper } from '../mainContentWrapper';
+import { Footer } from '../footer';
 import './Main.sass';
 
 class Main extends React.PureComponent {
   render() {
-    const { isOpen } = this.props;
     return (
-      <Box>
-        {!isOpen ? (
-          <Box className="main mainExpanded">
-            <MainContentWrapper />
+          <Box className="main">
+            <Box id="content">
+              <Box className="card">This is content</Box>
+              <Footer />
+            </Box>
           </Box>
-        ) : (
-          <Box className="main mainCompressed">
-            <MainContentWrapper />
-          </Box>
-        )}
-      </Box>
     );
   }
 }
