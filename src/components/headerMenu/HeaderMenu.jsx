@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, ButtonGroup } from '@mui/material';
+import { getFieldLabel } from '../../utils';
 
 class HeaderMenu extends React.Component{
   constructor(props){
@@ -10,9 +11,9 @@ class HeaderMenu extends React.Component{
   render(){
     return(
       <ButtonGroup variant="text" aria-label="text button group" >
-        <Button>Internships</Button>
-        <Button>My Candidates</Button>
-        <Button>Letter templates</Button>
+        <Button>{getFieldLabel('header.menu.button.internships')}</Button>
+        <Button>{getFieldLabel('header.menu.button.candidates')}</Button>
+        <Button>{getFieldLabel('header.menu.button.letters')}</Button>
       </ButtonGroup>
     )
   }
