@@ -13,7 +13,7 @@ const Footer = () => {
       flexGrow="1"
       padding="10px"
       transition="margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
-      backgroundColor="#f2f2f2"
+      backgroundColor="#f9f9f9"
     >
       <Box
         height="100%"
@@ -27,7 +27,7 @@ const Footer = () => {
         <Link href="https://exadel.com/" underline="none">
           <img src={footerLogo} alt={getFieldLabel('footer.sign')} />
         </Link>
-        <Typography color="#929292" component="p">
+        <Typography color="#929292929292929292" component="p">
           {getFieldLabel('footer.title')}
         </Typography>
       </Box>
