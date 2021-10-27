@@ -3,5 +3,19 @@
   "footer.sign": "Exadel",
   "login.title": "Log in to ...",
   "login.email": "E-mail",
-  "login.password": "Password"
+  "login.password": "Password",
+  "internships.btn-details": "Details",
+  "internships.title": "Internship programs",
+  "internships.program.title.javascript": "Oct2021 Ex. JS&.Net&BA",
+  "internships.program.title.design": "Feb2021 Ex. Design",
+  "internships.program.title.gamedev": "Oct2021 Game Dev",
+  "internships.program.date.javascript": "Dates: 12.10.2021 - 12.12.2021",
+  "internships.program.date.design": "Dates: 12.11.2021 - 12.01.2022",
+  "internships.program.date.gamedev": "Dates: 12.09.2021 - 12.11.2021",
+  "internships.program.members.javascript": "Selection: 120 members",
+  "internships.program.members.design": "Selection: 100 members",
+  "internships.program.members.gamedev": "Selection: 80 members",
+  "header.menu.button.internships": "Internships",
+  "header.menu.button.candidates": "My Candidates",
+  "header.menu.button.letters": "Letter templates"
 }
