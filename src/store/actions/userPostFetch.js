@@ -6,12 +6,10 @@ const cookies = new Cookies();
 const loginSuccess = () => ({
   type: 'LOGIN_SUCCESS',
   isAuth: true,
-  link: '/',
 });
 const loginFailure = () => ({
+  message: 'You entered incorrect data',
   type: 'LOGIN_FAILURE',
-  isAuth: false,
-  link: '/login',
 });
 const loginStarted = () => ({
   type: 'LOGIN_STARTED',
@@ -25,6 +23,8 @@ function userPostFetch(user) {
       .then((res) => {
         cookies.set('accessToken', res.data.accessToken);
         dispatch(loginSuccess());
+        console.log(`Cookie data:`);
+        console.log(cookies.getAll());
       })
       .catch(() => {
         dispatch(loginFailure());

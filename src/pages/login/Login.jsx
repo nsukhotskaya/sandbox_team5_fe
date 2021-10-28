@@ -9,6 +9,7 @@ import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
 
 const Login = (props) => {
+  const { message } = props;
   const smallScreen = useMediaDown('sm');
   const state = {
     email: '',
@@ -24,6 +25,7 @@ const Login = (props) => {
     event.preventDefault();
     props.userPostFetch(state);
   };
+
   return (
     <Box className="loginContainer">
       <Box className="loginCardWrapper">
@@ -38,6 +40,9 @@ const Login = (props) => {
             textAlign="center"
           >
             {getFieldLabel('login.title')}
+          </Typography>
+          <Typography color="red" position="absolute" top="100px">
+            {message}
           </Typography>
           <Stack
             m={smallScreen ? '10px auto' : '20px auto'}
@@ -74,5 +79,6 @@ const Login = (props) => {
 const mapDispatchToProps = (dispatch) => ({
   userPostFetch: (user) => dispatch(userPostFetch(user)),
 });
+const mapStateToProps = (state) => state;
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
