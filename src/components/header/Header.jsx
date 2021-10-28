@@ -1,27 +1,16 @@
 import React from 'react';
-import { Box, Toolbar, IconButton, AppBar } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
-import { HeaderNav } from '../headerNav';
+import { Box, Toolbar, AppBar } from '@mui/material';
+import { HeaderNav } from '../index';
 import './Header.sass';
+import HeaderMenu from '../headerMenu/HeaderMenu';
 
 class Header extends React.PureComponent {
   render() {
-    const { isOpen, openSidebar } = this.props;
     return (
       <AppBar position="fixed">
         <Box className="header">
           <Toolbar>
-            {!isOpen && (
-              <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={openSidebar}
-                edge="start"
-                margin-right="2px"
-              >
-                <MenuIcon color="action" />
-              </IconButton>
-            )}
+            <HeaderMenu />
           </Toolbar>
           <HeaderNav />
         </Box>
