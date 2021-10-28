@@ -7,3 +7,4 @@ export * from './sidebarHeader';
 export * from './main';
 export * from './mainContentWrapper';
 export * from './utils';
+export * from './internshipCard';
