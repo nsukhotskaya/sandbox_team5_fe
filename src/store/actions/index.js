@@ -1,1 +1,1 @@
-// file for exports
+export { default as userPostFetch } from './userPostFetch';

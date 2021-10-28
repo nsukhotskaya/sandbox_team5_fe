@@ -1,13 +1,29 @@
 import React from 'react';
-
+import { connect } from 'react-redux';
 import { Typography, Card, Button, TextField, Stack, Box } from '@mui/material';
+import { userPostFetch } from '../../store/actions';
+
 import './Login.sass';
 import { Footer } from '../../components';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
 
-const Login = () => {
+const Login = (props) => {
   const smallScreen = useMediaDown('sm');
+  const state = {
+    email: '',
+    password: '',
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    state[name] = value;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.userPostFetch(state);
+  };
   return (
     <Box className="loginContainer">
       <Box className="loginCardWrapper">
@@ -33,15 +49,20 @@ const Login = () => {
               id="outlinedBasic"
               label={getFieldLabel('login.email')}
               size="small"
+              name="email"
+              onInput={handleChange}
             />
             <TextField
               id="outlinedPasswordInput"
               label={getFieldLabel('login.password')}
-              type="password"
+              name="password"
               autoComplete="current-password"
               size="small"
+              onInput={handleChange}
             />
-            <Button variant="contained">Log In</Button>
+            <Button onClick={handleSubmit} variant="contained">
+              Log In
+            </Button>
           </Stack>
         </Card>
       </Box>
@@ -50,4 +71,8 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapDispatchToProps = (dispatch) => ({
+  userPostFetch: (user) => dispatch(userPostFetch(user)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

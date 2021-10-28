@@ -1,10 +1,17 @@
 import * as React from 'react';
+import { removeCookie } from 'react-cookie/lib';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LoginIcon from '@mui/icons-material/Login';
 import { Box, IconButton, Avatar } from '@mui/material';
 import './HeaderNav.sass';
+
+const logOut = () => {
+  console.log('log out');
+  removeCookie('accessToken');
+  console.log(document.cookie);
+};
 
 // eslint-disable-next-line react/prefer-stateless-function
 class HeaderNav extends React.Component {
@@ -20,7 +27,7 @@ class HeaderNav extends React.Component {
             <WarningAmberIcon />
           </IconButton>
 
-          <IconButton>
+          <IconButton onClick={logOut}>
             <LoginIcon />
           </IconButton>
 
