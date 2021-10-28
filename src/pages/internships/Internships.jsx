@@ -52,7 +52,7 @@ export const Internships = () =>
                         size="small"
                         href="#"
                         >
-                        {getFieldLabel('internships.btn.add-program')}
+                        {getFieldLabel('internships.btn.add.program')}
                     </Button>
                 </Box>
             </Box>
@@ -62,7 +62,7 @@ export const Internships = () =>
                 color="#0082ca"
                 padding="30px 30px"
             >
-                {Object.keys(internshipInfo).map(internshipItem => <InternshipCard data={internshipInfo[internshipItem]}/>)}
+                {Object.keys(internshipInfo).map(internshipItem => <InternshipCard key={internshipItem} data={internshipInfo[internshipItem]}/>)}
             </Box>
         </Box>
     </Container>

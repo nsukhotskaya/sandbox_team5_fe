@@ -7,12 +7,9 @@ import { getFieldLabel } from '../../utils';
 
 export const InternshipCard = ({data}) => {
     const {imageUrl, title, dateInterval, numberOfMembers} = data;
-    console.log(data)
 return <Card
             sx={{ borderRadius: 5 }}
-            className="internshipCard"
-            maxWidth="345px"
-            boxShadow="0px 4px 4px rgba(0, 0, 0, 0.25)"
+            id="internshipCard"
         >
             <CardMedia
                 component="img"
@@ -40,15 +37,11 @@ return <Card
                 paddingLeft="50px"
             >
                 <ButtonGroup variant="text" aria-label="text button group">
-                <Button 
-                    size="small"
-                    >
-                    {getFieldLabel('internships.btn.program-info')}
+                <Button size="small">
+                    {getFieldLabel('internships.btn.program.info')}
                 </Button>
-                <Button
-                    size="small"
-                    >
-                    {getFieldLabel('internships.btn.candidates-list')}
+                <Button size="small">
+                    {getFieldLabel('internships.btn.candidates.list')}
                 </Button>
                 </ButtonGroup>
             </Box>
