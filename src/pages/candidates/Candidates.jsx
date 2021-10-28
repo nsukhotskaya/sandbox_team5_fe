@@ -4,82 +4,46 @@ import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import listOfCandidates from '../../mocks/listOfCandidates.json';
+import { tableFields } from '../../constants';
 
 const Candidates = () => {
-  const rowData = [
-    {
-      FullName: 'Viktar Rog',
-      ApplicationDate: '15.10.2021',
-      Location: 'Minsk',
-      InternshipLanguage: 'Ru',
-      InternshipStack: 'JS',
-      EnglishLevel: 'B1',
-      TestTaskEvaluation: 9,
-      Interviewer: 7,
-      Status: 'Approved',
-      HR: 4,
-    },
-    {
-      FullName: 'Anna Bel',
-      ApplicationDate: '23.10.2021',
-      Location: 'Kiev',
-      InternshipLanguage: 'Ru',
-      InternshipStack: 'JS',
-      EnglishLevel: 'C1',
-      TestTaskEvaluation: 8,
-      Interviewer: 9,
-      Status: 'New',
-      HR: 3,
-    },
-    {
-      FullName: 'Kanstantin Fersh',
-      ApplicationDate: '24.10.2021',
-      Location: 'Varshava',
-      InternshipLanguage: 'Ru',
-      InternshipStack: 'JS',
-      EnglishLevel: 'A2',
-      TestTaskEvaluation: 4,
-      Interviewer: 7,
-      Status: 'Processed',
-      HR: 3,
-    },
-    {
-      FullName: 'Mokka Rels',
-      ApplicationDate: '17.10.2021',
-      Location: 'Dubai',
-      InternshipLanguage: 'En',
-      InternshipStack: 'JS',
-      EnglishLevel: 'B2',
-      TestTaskEvaluation: 8,
-      Interviewer: 7,
-      Status: 'Processed',
-      HR: 4,
-    },
-  ];
-
-  const MappingFields = ({ props }) => {
-    <AgGridColumn field={props} />;
+  const onFirstDataRendered = (params) => {
+    params.api.sizeColumnsToFit();
+    window.setTimeout(() => {
+      const colIds = params.columnApi.getAllColumns().map((c) => c.colId);
+      params.columnApi.autoSizeColumns(colIds);
+    }, 50);
   };
 
-  const fields = [
-    'ApplicationDate',
-    'Location',
-    'InternshipLanguage',
-    'InternshipStack',
-    'EnglishLevel',
-    'TestTaskEvaluation',
-    'Interviewer',
-    'Status',
-    'HR',
-    'Hard skills evaluation*',
-  ];
-
   return (
-    <Box className="ag-theme-alpine" height="400px" width="auto">
-      <AgGridReact rowData={rowData} rowSelection="multiple">
-        <AgGridColumn field="FullName" sortable filter checkboxSelection />
-        {fields.map((props) => (
-          <MappingFields field={props} key={props} sortable filter />
+    <Box className="ag-theme-alpine">
+      <AgGridReact
+        onFirstDataRendered={onFirstDataRendered}
+        rowData={listOfCandidates}
+        rowSelection="multiple"
+        rowDragManaged
+        rowDragMultiRow
+        sideBar
+        domLayout="print"
+      >
+        <AgGridColumn
+          field="fullName"
+          sortable
+          filter
+          checkboxSelection
+          resizable
+          rowDrag
+        />
+        {tableFields.map(({ field, label }) => (
+          <AgGridColumn
+            field={field}
+            headerName={label}
+            key={field}
+            sortable
+            filter
+            resizable
+          />
         ))}
       </AgGridReact>
     </Box>
