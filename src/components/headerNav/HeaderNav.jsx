@@ -1,21 +1,17 @@
 import * as React from 'react';
-import { removeCookie } from 'react-cookie/lib';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LoginIcon from '@mui/icons-material/Login';
 import { Box, IconButton, Avatar } from '@mui/material';
 import './HeaderNav.sass';
-
-const logOut = () => {
-  console.log('log out');
-  removeCookie('accessToken');
-  console.log(document.cookie);
-};
+import { connect } from 'react-redux';
+import { userLogOut } from '../../store/actions';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class HeaderNav extends React.Component {
   render() {
+    const { LogOut } = this.props;
     return (
       <Box height="60px" width="300px">
         <Box className="headerNav">
@@ -27,7 +23,7 @@ class HeaderNav extends React.Component {
             <WarningAmberIcon />
           </IconButton>
 
-          <IconButton onClick={logOut}>
+          <IconButton onClick={LogOut}>
             <LoginIcon />
           </IconButton>
 
@@ -44,4 +40,8 @@ class HeaderNav extends React.Component {
   }
 }
 
-export default HeaderNav;
+const mapDispatchToProps = (dispatch) => ({
+  LogOut: () => dispatch(userLogOut()),
+});
+
+export default connect(null, mapDispatchToProps)(HeaderNav);
