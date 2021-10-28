@@ -14,5 +14,8 @@
   "internships.program.date.gamedev": "Dates: 12.09.2021 - 12.11.2021",
   "internships.program.members.javascript": "Selection: 120 members",
   "internships.program.members.design": "Selection: 100 members",
-  "internships.program.members.gamedev": "Selection: 80 members"
+  "internships.program.members.gamedev": "Selection: 80 members",
+  "header.menu.button.internships": "Internships",
+  "header.menu.button.candidates": "My Candidates",
+  "header.menu.button.letters": "Letter templates"
 }
