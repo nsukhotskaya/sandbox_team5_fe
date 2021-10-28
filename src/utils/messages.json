@@ -4,6 +4,7 @@
   "login.title": "Log in to ...",
   "login.email": "E-mail",
   "login.password": "Password",
+  "login.button.login": "Log in",
   "internships.btn-details": "Details",
   "internships.title": "Internship programs",
   "internships.program.title.javascript": "Oct2021 Ex. JS&.Net&BA",

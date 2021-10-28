@@ -44,7 +44,9 @@ const Login = () => {
                 autoComplete="current-password"
                 size="small"
               />
-              <Button variant="contained">Log In</Button>
+              <Button variant="contained">
+                {getFieldLabel('login.button.login')}
+              </Button>
             </Stack>
           </Card>
         </Box>
