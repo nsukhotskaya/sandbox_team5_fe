@@ -26,6 +26,8 @@ const Candidates = () => {
         rowDragMultiRow
         sideBar
         domLayout="print"
+        pagination
+        paginationPageSize="20"
       >
         <AgGridColumn
           field="fullName"
@@ -34,6 +36,7 @@ const Candidates = () => {
           checkboxSelection
           resizable
           rowDrag
+          headerCheckboxSelection
         />
         {tableFields.map(({ field, label }) => (
           <AgGridColumn
