@@ -9,7 +9,7 @@
     "testTask": 9,
     "interviewer": 7,
     "status": "Approved",
-    "HR": 4
+    "hr": 4
   },
   {
     "fullName": "Anna Bel",
@@ -21,7 +21,7 @@
     "testTask": 8,
     "interviewer": 9,
     "status": "New",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Kanstantin Fersh",
@@ -33,7 +33,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Mokka Rels",
@@ -45,7 +45,7 @@
     "testTask": 8,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 4
+    "hr": 4
   },
   {
     "fullName": "Nikolay Rim",
@@ -57,7 +57,7 @@
     "testTask": 9,
     "interviewer": 8,
     "status": "Approved",
-    "HR": 4
+    "hr": 4
   },
   {
     "fullName": "Peter Kai",
@@ -69,7 +69,7 @@
     "testTask": 8,
     "interviewer": 9,
     "status": "New",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Nikita Seryi",
@@ -81,7 +81,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 4
+    "hr": 4
   },
   {
     "fullName": "Ales Sibirskii",
@@ -93,7 +93,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 4
+    "hr": 4
   },
   {
     "fullName": "Mila Milskaya",
@@ -105,7 +105,7 @@
     "testTask": 5,
     "interviewer": 9,
     "status": "New",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Pavel Ivanov",
@@ -117,7 +117,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Aleksandr Polskii",
@@ -129,7 +129,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Oleg Svetlyi",
@@ -141,7 +141,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Marina Karas",
@@ -153,7 +153,7 @@
     "testTask": 9,
     "interviewer": 7,
     "status": "Approved",
-    "HR": 4
+    "hr": 4
   },
   {
     "fullName": "Svetlana Dub",
@@ -165,7 +165,7 @@
     "testTask": 8,
     "interviewer": 9,
     "status": "New",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Snezhana Karamel",
@@ -177,7 +177,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Marya Verba",
@@ -189,7 +189,7 @@
     "testTask": 8,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 4
+    "hr": 4
   },
   {
     "fullName": "Ivan Ivanov",
@@ -201,7 +201,7 @@
     "testTask": 9,
     "interviewer": 8,
     "status": "Approved",
-    "HR": 4
+    "hr": 4
   },
   {
     "fullName": "Sergey Seryi",
@@ -213,7 +213,7 @@
     "testTask": 8,
     "interviewer": 9,
     "status": "New",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Olga Rytsareva",
@@ -225,7 +225,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 4
+    "hr": 4
   },
   {
     "fullName": "Nikolay Tylskii",
@@ -237,7 +237,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 4
+    "hr": 4
   },
   {
     "fullName": "Viktorya Pervaya",
@@ -249,7 +249,7 @@
     "testTask": 5,
     "interviewer": 9,
     "status": "New",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Nikita Brezhnii",
@@ -261,7 +261,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Dmitrii Navitskii",
@@ -273,7 +273,7 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 3
+    "hr": 3
   },
   {
     "fullName": "Anna Lomaya",
@@ -285,6 +285,6 @@
     "testTask": 4,
     "interviewer": 7,
     "status": "Processed",
-    "HR": 3
+    "hr": 3
   }
 ]
