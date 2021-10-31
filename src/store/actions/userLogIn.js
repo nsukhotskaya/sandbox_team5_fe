@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-import { logInStarted, logInFailure, logInSuccess } from '../commands';
+import { logInStarted, logInFailure, logInSuccess } from '../commands/types';
 import API from '../commands/api';
 
 const cookies = new Cookies();

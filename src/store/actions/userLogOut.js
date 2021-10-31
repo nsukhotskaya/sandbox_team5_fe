@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-import { logOutSuccess } from '../commands';
+import { logOutSuccess } from '../commands/types';
 
 const cookies = new Cookies();
 
