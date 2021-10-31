@@ -10,7 +10,6 @@ function App(state) {
   return (
     <>
       <Switch location={location}>
-        {console.log(isAuthorized)}
         <Route exact path="/">
           {!isAuthorized ? <Redirect to="/login" /> : <Employee />}
         </Route>

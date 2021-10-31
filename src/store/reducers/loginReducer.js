@@ -7,7 +7,6 @@ export default function loginReducer(state = initialState, action) {
     case 'LOGIN_STARTED':
       return { ...state };
     case 'LOGIN_SUCCESS':
-      console.log('success');
       return { ...state, isAuthorized: action.isAuthorized };
     case 'LOGIN_FAILURE':
       return { ...state, message: action.message };
