@@ -105,7 +105,24 @@ const Candidates = () => {
           pagination
           paginationPageSize="10"
           paginationNumberFormatter={paginationNumberFormatter}
-          sideBar
+          sideBar={{
+            toolPanels: [
+              {
+                id: 'columns',
+                labelDefault: 'Columns',
+                labelKey: 'columns',
+                iconKey: 'columns',
+                toolPanel: 'agColumnsToolPanel',
+              },
+              {
+                id: 'filters',
+                labelDefault: 'Filters',
+                labelKey: 'filters',
+                iconKey: 'filter',
+                toolPanel: 'agFiltersToolPanel',
+              },
+            ],
+          }}
         >
           <AgGridColumn
             field="fullName"
