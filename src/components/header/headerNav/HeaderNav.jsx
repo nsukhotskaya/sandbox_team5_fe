@@ -3,7 +3,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { Box, IconButton, Avatar } from '@mui/material';
 import './HeaderNav.sass';
 import { connect } from 'react-redux';
-import { userLogOut } from '../../store/actions';
+import { userLogOut } from '../../../store/actions';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class HeaderNav extends React.Component {

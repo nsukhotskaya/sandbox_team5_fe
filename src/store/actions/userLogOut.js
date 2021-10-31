@@ -4,7 +4,7 @@ const cookies = new Cookies();
 
 const logOutSuccess = () => ({
   type: 'LOGOUT_SUCCESS',
-  isAuth: false,
+  isAuthorized: false,
 });
 
 function userLogOut() {

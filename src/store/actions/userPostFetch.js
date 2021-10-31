@@ -5,7 +5,7 @@ const cookies = new Cookies();
 
 const loginSuccess = () => ({
   type: 'LOGIN_SUCCESS',
-  isAuth: true,
+  isAuthorized: true,
 });
 const loginFailure = () => ({
   message: 'You entered incorrect data',

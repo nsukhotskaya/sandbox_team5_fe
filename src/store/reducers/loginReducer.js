@@ -1,5 +1,5 @@
 const initialState = {
-  isAuth: false,
+  isAuthorized: false,
 };
 
 export default function loginReducer(state = initialState, action) {
@@ -7,11 +7,12 @@ export default function loginReducer(state = initialState, action) {
     case 'LOGIN_STARTED':
       return { ...state };
     case 'LOGIN_SUCCESS':
-      return { ...state, isAuth: action.isAuth };
+      console.log('success');
+      return { ...state, isAuthorized: action.isAuthorized };
     case 'LOGIN_FAILURE':
       return { ...state, message: action.message };
     case 'LOGOUT_SUCCESS':
-      return { ...state, isAuth: action.isAuth };
+      return { ...state, isAuthorized: action.isAuthorized };
     default:
       return state;
   }

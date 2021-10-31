@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import './MainContentWrapper.sass';
-import { Footer } from '../footer';
-import { Card } from '../card';
+import { Footer } from '../../footer';
+import { Card } from '../../card';
 
 class MainContentWrapper extends React.PureComponent {
   render() {

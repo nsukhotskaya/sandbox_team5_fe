@@ -6,15 +6,16 @@ import { Login, Employee } from './pages';
 
 function App(state) {
   const location = useLocation();
-  const { isAuth } = state;
+  const { isAuthorized } = state;
   return (
     <>
       <Switch location={location}>
+        {console.log(isAuthorized)}
         <Route exact path="/">
-          {!isAuth ? <Redirect to="/login" /> : <Employee />}
+          {!isAuthorized ? <Redirect to="/login" /> : <Employee />}
         </Route>
         <Route exact path="/login">
-          {isAuth ? <Redirect to="/" /> : <Login />}
+          {isAuthorized ? <Redirect to="/" /> : <Login />}
         </Route>
       </Switch>
     </>

@@ -1,1 +1,2 @@
-export { default as Main } from './Main';
+export { Main } from './main';
+export { MainContentWrapper } from './mainContentWrapper';
