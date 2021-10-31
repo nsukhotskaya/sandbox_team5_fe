@@ -1,34 +1,23 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
+import { logInStarted, logInFailure, logInSuccess } from '../commands';
 
 const cookies = new Cookies();
 
-const loginSuccess = () => ({
-  type: 'LOGIN_SUCCESS',
-  isAuthorized: true,
-});
-const loginFailure = () => ({
-  message: 'You entered incorrect data',
-  type: 'LOGIN_FAILURE',
-});
-const loginStarted = () => ({
-  type: 'LOGIN_STARTED',
-});
-
-function userPostFetch(user) {
+function userLogIn(user) {
   return (dispatch) => {
-    dispatch(loginStarted());
+    dispatch(logInStarted());
     axios
       .post(`http://exadelteamfive.somee.com/api/authenticate`, user)
       .then((res) => {
         cookies.set('accessToken', res.data.accessToken);
-        dispatch(loginSuccess());
+        dispatch(logInSuccess());
         console.log(`Cookie data:`);
         console.log(cookies.getAll());
       })
       .catch(() => {
-        dispatch(loginFailure());
+        dispatch(logInFailure());
       });
   };
 }
-export default userPostFetch;
+export default userLogIn;

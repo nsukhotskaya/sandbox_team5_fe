@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Typography, Card, Button, TextField, Stack, Box } from '@mui/material';
-import { userPostFetch } from '../../store/actions';
+import { userLogIn } from '../../store/actions';
 
 import './Login.sass';
 import { Footer } from '../../components';
@@ -23,7 +23,7 @@ const Login = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    props.userPostFetch(state);
+    props.userLogIn(state);
   };
 
   return (
@@ -77,7 +77,7 @@ const Login = (props) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  userPostFetch: (user) => dispatch(userPostFetch(user)),
+  userLogIn: (user) => dispatch(userLogIn(user)),
 });
 const mapStateToProps = (state) => state;
 

@@ -6,9 +6,9 @@ import { createStore, applyMiddleware } from 'redux/src';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { loginReducer } from './store/reducers';
+import { logInReducer } from './store/reducers';
 
-const store = createStore(loginReducer, applyMiddleware(thunk));
+const store = createStore(logInReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <React.StrictMode>

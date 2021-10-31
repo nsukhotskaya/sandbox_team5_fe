@@ -1,11 +1,7 @@
 import Cookies from 'universal-cookie';
+import { logOutSuccess } from '../commands';
 
 const cookies = new Cookies();
-
-const logOutSuccess = () => ({
-  type: 'LOGOUT_SUCCESS',
-  isAuthorized: false,
-});
 
 function userLogOut() {
   return (dispatch) => {

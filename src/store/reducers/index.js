@@ -1,1 +1,1 @@
-export { default as loginReducer } from './loginReducer';
+export { default as logInReducer } from './logInReducer';
