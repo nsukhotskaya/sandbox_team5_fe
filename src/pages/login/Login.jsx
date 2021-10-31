@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import {
   Typography,
@@ -19,28 +19,35 @@ import { getFieldLabel } from '../../utils';
 const Login = (props) => {
   const { message } = props;
   const smallScreen = useMediaDown('sm');
-  const state = {
-    email: '',
-    password: '',
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    state[name] = value;
+    switch (name) {
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
   };
 
   const handleSubmit = () => {
-    props.userLogIn(state);
-  };
-
-  const preventDefault = (event) => {
-    event.preventDefault();
+    props.userLogIn({ email, password });
   };
 
   const handleForm = (event) => {
     if (event.key === 'Enter') {
       handleSubmit();
     }
+  };
+
+  const preventDefault = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -59,10 +66,6 @@ const Login = (props) => {
             >
               {getFieldLabel('login.title')}
             </Typography>
-            <Typography color="red" position="absolute" top="100px">
-              {message}
-            </Typography>
-
             <Stack
               m={smallScreen ? '10px auto' : '20px auto'}
               width={smallScreen ? '195px' : '250px'}
@@ -74,7 +77,8 @@ const Login = (props) => {
                 label={getFieldLabel('login.email')}
                 size="small"
                 name="email"
-                onInput={handleChange}
+                onChange={handleChange}
+                value={email}
               />
               <TextField
                 id="outlinedPasswordInput"
@@ -82,11 +86,13 @@ const Login = (props) => {
                 name="password"
                 autoComplete="current-password"
                 size="small"
-                onInput={handleChange}
+                onChange={handleChange}
+                value={password}
               />
               <Button onClick={handleSubmit} variant="contained">
                 Log In
               </Button>
+              <Typography color="red">{message}</Typography>
             </Stack>
           </Card>
         </FormControl>
