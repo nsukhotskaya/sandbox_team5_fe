@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, FormControl, Select, MenuItem, InputLabel } from '@mui/material';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -9,6 +9,7 @@ import { tableFields } from '../../constants';
 import { getFieldLabel } from '../../utils';
 
 const Candidates = () => {
+  const [gridApi, setGridApi] = useState(null);
   const onFirstDataRendered = (params) => {
     params.api.sizeColumnsToFit();
     window.setTimeout(() => {
@@ -17,36 +18,94 @@ const Candidates = () => {
     }, 50);
   };
 
-  // const onPageSizeChanged = (event) => {
-  //   const { value } = event.target;
-  //   paginationSetPageSize(Number(value));
-  // };
+  const onGridReady = (params) => {
+    setGridApi(params.api);
+
+    listOfCandidates.forEach((data, index) => {
+      const list = data;
+      list.id = index;
+    });
+    params.api.setRowData(listOfCandidates);
+  };
+
+  let sortActive = false;
+  let filterActive = false;
+
+  const onSortChanged = () => {
+    const sortModel = gridApi.getSortModel();
+    sortActive = sortModel && sortModel.length > 0;
+    const suppressRowDrag = sortActive || filterActive;
+
+    gridApi.setSuppressRowDrag(suppressRowDrag);
+  };
+
+  const onFilterChanged = () => {
+    filterActive = gridApi.isAnyFilterPresent();
+    const suppressRowDrag = sortActive || filterActive;
+    gridApi.setSuppressRowDrag(suppressRowDrag);
+  };
+
+  const onRowDragMove = (event) => {
+    function moveInArray(arr, fromIndex, toIndex) {
+      const element = arr[fromIndex];
+      arr.splice(fromIndex, 1);
+      arr.splice(toIndex, 0, element);
+    }
+    const movingNode = event.node;
+    const { overNode } = event;
+    const rowNeedsToMove = movingNode !== overNode;
+    if (rowNeedsToMove) {
+      const movingData = movingNode.data;
+      const overData = overNode.data;
+      const fromIndex = listOfCandidates.indexOf(movingData);
+      const toIndex = listOfCandidates.indexOf(overData);
+      const newStore = listOfCandidates.slice();
+      moveInArray(newStore, fromIndex, toIndex);
+      gridApi.setRowData(newStore);
+      gridApi.clearFocusedCell();
+    }
+  };
+
+  const getRowNodeId = (data) => data.id;
+
+  const onPageSizeChanged = (newPageSize) => {
+    const { value } = newPageSize.target;
+    gridApi.paginationSetPageSize(Number(value));
+  };
+
+  const paginationNumberFormatter = (params) =>
+    `[${params.value.toLocaleString()}]`;
 
   return (
     <Box>
-      {/* <Box font-size="13" marginBottom="5">
-        Page Size:
-        <select onChange={() => onPageSizeChanged()} id="page-size">
-          <option value="10">10</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="500">500</option>
-        </select>
-      </Box> */}
+      <Box width="80px" marginBottom="5px" marginTop="30px">
+        <FormControl fullWidth variant="filled">
+          <InputLabel>Page Size</InputLabel>
+          <Select defaultValue="10" label="10" onChange={onPageSizeChanged}>
+            <MenuItem value={10}>10</MenuItem>
+            <MenuItem value={20}>20</MenuItem>
+            <MenuItem value={30}>30</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+
       <Box className="ag-theme-alpine">
         <AgGridReact
           onFirstDataRendered={onFirstDataRendered}
-          rowData={listOfCandidates}
-          rowSelection="multiple"
-          // rowDragManaged
-          // suppressRowDrag={suppressRowDrag}
-          // immutableData={immutableData}
-          rowDragMultiRow
+          immutableData
           animateRows
-          sideBar
+          getRowNodeId={getRowNodeId}
+          onGridReady={onGridReady}
+          onSortChanged={onSortChanged}
+          onFilterChanged={onFilterChanged}
+          onRowDragMove={onRowDragMove}
+          rowSelection="multiple"
+          rowDragMultiRow
           domLayout="print"
           pagination
           paginationPageSize="10"
+          paginationNumberFormatter={paginationNumberFormatter}
+          sideBar
         >
           <AgGridColumn
             field="fullName"
