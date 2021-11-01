@@ -6,12 +6,12 @@ import './Main.sass';
 class Main extends React.PureComponent {
   render() {
     return (
-          <Box className="main">
-            <Box id="content">
-              <Box className="card">This is content</Box>
-              <Footer />
-            </Box>
-          </Box>
+      <Box className="main">
+        <Box id="content">
+          <Box className="card">This is content</Box>
+          <Footer />
+        </Box>
+      </Box>
     );
   }
 }
