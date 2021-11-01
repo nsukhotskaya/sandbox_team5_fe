@@ -1,1 +1,1 @@
-export { tableFields } from './tableFields';
+export { tableFields, valueMenuItem } from './tableFields';

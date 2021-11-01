@@ -10,3 +10,5 @@ export const tableFields = [
   'hr',
   'hardSkills',
 ];
+
+export const valueMenuItem = [10, 20, 30];

@@ -5,7 +5,7 @@ import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import listOfCandidates from '../../mocks/listOfCandidates.json';
-import { tableFields } from '../../constants';
+import { tableFields, valueMenuItem } from '../../constants';
 import { getFieldLabel } from '../../utils';
 
 const Candidates = () => {
@@ -30,15 +30,22 @@ const Candidates = () => {
   const paginationNumberFormatter = (params) =>
     `[${params.value.toLocaleString()}]`;
 
+  const createMenuItem = valueMenuItem.map((item) => (
+    <MenuItem value={item} key={item}>
+      {item}
+    </MenuItem>
+  ));
+
   return (
     <Box>
       <Box width="80px" marginBottom="5px" marginTop="30px">
         <FormControl fullWidth variant="filled">
           <InputLabel>{getFieldLabel('candidates.form.inputLabel')}</InputLabel>
           <Select defaultValue="10" label="10" onChange={onPageSizeChanged}>
-            <MenuItem value={10}>10</MenuItem>
+            {/* <MenuItem value={10}>10</MenuItem>
             <MenuItem value={20}>20</MenuItem>
-            <MenuItem value={30}>30</MenuItem>
+            <MenuItem value={30}>30</MenuItem> */}
+            {createMenuItem}
           </Select>
         </FormControl>
       </Box>
