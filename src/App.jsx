@@ -21,6 +21,6 @@ function App(state) {
   );
 }
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = (state) => state.authorization;
 
 export default connect(mapStateToProps)(App);

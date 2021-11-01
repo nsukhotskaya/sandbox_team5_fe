@@ -1,16 +1,16 @@
 const logInSuccess = () => ({
-  type: 'LOGIN_SUCCESS',
+  type: 'LOG_IN_SUCCESS',
   isAuthorized: true,
 });
 const logInFailure = () => ({
   message: 'You entered incorrect data',
-  type: 'LOGIN_FAILURE',
+  type: 'LOG_IN_FAILURE',
 });
 const logInStarted = () => ({
-  type: 'LOGIN_STARTED',
+  type: 'LOG_IN_STARTED',
 });
 const logOutSuccess = () => ({
-  type: 'LOGOUT_SUCCESS',
+  type: 'LOG_OUT_SUCCESS',
   isAuthorized: false,
 });
 

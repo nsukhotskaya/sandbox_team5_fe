@@ -2,15 +2,15 @@ const initialState = {
   isAuthorized: false,
 };
 
-export default function loginReducer(state = initialState, action) {
+export default function isAuthorized(state = initialState, action) {
   switch (action.type) {
-    case 'LOGIN_STARTED':
-      return { ...state };
-    case 'LOGIN_SUCCESS':
+    case 'LOG_IN_STARTED':
+      return state;
+    case 'LOG_IN_SUCCESS':
       return { ...state, isAuthorized: action.isAuthorized };
-    case 'LOGIN_FAILURE':
+    case 'LOG_IN_FAILURE':
       return { ...state, message: action.message };
-    case 'LOGOUT_SUCCESS':
+    case 'LOG_OUT_SUCCESS':
       return { ...state, isAuthorized: action.isAuthorized };
     default:
       return state;

@@ -1,1 +1,1 @@
-export { default as logInReducer } from './logInReducer';
+export { default as isAuthorized } from './isAuthorized';
