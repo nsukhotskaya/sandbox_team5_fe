@@ -8,14 +8,14 @@ import { userLogOut } from '../../../store/actions';
 // eslint-disable-next-line react/prefer-stateless-function
 class HeaderNav extends React.Component {
   render() {
-    const { LogOut } = this.props;
+    const { logOut } = this.props;
     return (
       <Box height="60px" width="120px">
         <Box className="headerNav">
           <IconButton>
             <Avatar alt="Ivan Ivanov" />
           </IconButton>
-          <IconButton onClick={LogOut}>
+          <IconButton onClick={logOut}>
             <LoginIcon />
           </IconButton>
         </Box>
@@ -25,7 +25,7 @@ class HeaderNav extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  LogOut: () => dispatch(userLogOut()),
+  logOut: () => dispatch(userLogOut()),
 });
 
 export default connect(null, mapDispatchToProps)(HeaderNav);
