@@ -1,7 +1,9 @@
 import React from 'react';
 
 import { Typography, Card, Button, TextField, Stack, Box } from '@mui/material';
+
 import './Login.sass';
+
 import { Footer } from '../../components';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
@@ -18,7 +20,7 @@ const Login = () => {
           <Typography
             m={smallScreen ? '10px' : '30px'}
             variant="h5"
-            color="#1976d2"
+            color="primary"
             textAlign="center"
           >
             {getFieldLabel('login.title')}
@@ -41,7 +43,9 @@ const Login = () => {
               autoComplete="current-password"
               size="small"
             />
-            <Button variant="contained">Log In</Button>
+            <Button variant="contained">
+              {getFieldLabel('login.button.login')}
+            </Button>
           </Stack>
         </Card>
       </Box>

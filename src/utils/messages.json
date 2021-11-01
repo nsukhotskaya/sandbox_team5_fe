@@ -1,6 +1,7 @@
 {
   "footer.title": "© 2021 [Team5] Exadel Internship JS&.NET",
   "footer.sign": "Exadel",
+  "login.button.login": "Login",
   "login.title": "Log in to ...",
   "login.email": "E-mail",
   "login.password": "Password",

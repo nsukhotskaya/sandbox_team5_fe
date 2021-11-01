@@ -1,22 +1,21 @@
 import React from 'react';
+
 import { Box, Toolbar, AppBar } from '@mui/material';
 import { HeaderNav } from '../headerNav';
 import './Header.sass';
 import HeaderMenu from '../headerMenu/HeaderMenu';
 
-class Header extends React.PureComponent {
-  render() {
-    return (
-      <AppBar position="fixed">
-        <Box className="header">
-          <Toolbar>
-            <HeaderMenu />
-          </Toolbar>
-          <HeaderNav />
-        </Box>
-      </AppBar>
-    );
-  }
+function Header() {
+  return (
+    <AppBar position="fixed">
+      <Box className="header" backgroundColor="background.paper">
+        <Toolbar>
+          <HeaderMenu />
+        </Toolbar>
+        <HeaderNav />
+      </Box>
+    </AppBar>
+  );
 }
 
 export default Header;
