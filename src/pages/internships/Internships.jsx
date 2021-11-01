@@ -1,16 +1,16 @@
 import React from 'react';
-import { Container, Box, Button, Typography, IconButton } from '@mui/material';
+import { Container, Box, Button, Typography, IconButton, Grid } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
 import { InternshipCard } from '../../components';
-import  internshipInfo  from '../../mocks/internshipInfo.json';
+import { internshipMocks } from '../../mocks/internshipInfo.json';
 
 
 
-export const Internships = () =>
-    <Container fixed>
+export const Internships = () => 
+  <Container fixed>
         <Box
             display="flex"
             flexDirection="column"
@@ -50,23 +50,21 @@ export const Internships = () =>
                     <Button 
                         variant="outlined"
                         size="small"
-                        href="#"
                         >
                         {getFieldLabel('internships.btn.add.program')}
                     </Button>
                 </Box>
             </Box>
-            <Box
-                className="internshipsCards"
-                background="white"
-                color="#0082ca"
-                padding="30px 30px"
+            <Grid>
+            <Grid sx={{ flexGrow: 2 }}
+            container justifyContent="center"
             >
-                {Object.keys(internshipInfo).map(internshipItem => <InternshipCard key={internshipItem} data={internshipInfo[internshipItem]}/>)}
-            </Box>
+                {internshipMocks.map(internshipItem => <InternshipCard key={internshipItem.id} data={internshipItem}/>)}
+            </Grid>
+            </Grid>
         </Box>
     </Container>
-        
+       
 
 
 export default Internships

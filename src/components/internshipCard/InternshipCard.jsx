@@ -37,7 +37,7 @@ return <Card
                 paddingLeft="50px"
             >
                 <ButtonGroup variant="text" aria-label="text button group">
-                <Button size="small">
+                <Button className="card-button" size="small">
                     {getFieldLabel('internships.btn.program.info')}
                 </Button>
                 <Button size="small">

@@ -1,23 +1,26 @@
 {
-    "internshipJavascript": {
+    "internshipMocks":
+    [
+     {  "id": "internshipJavascript",
         "title": "internships.program.title.javascript",
         "dateInterval": "internships.program.date.javascript",
         "numberOfMembers": "internships.program.members.javascript",
         "imageUrl": "internshipJavascript",
         "linkUrl": "''"
     },
-    "internshipDesign": {
+     {  "id": "internshipDesign",
         "title": "internships.program.title.design",
         "dateInterval": "internships.program.date.design",
         "numberOfMembers": "internships.program.members.design",
         "imageUrl": "internshipDesign",
         "linkUrl": "''"
     },
-    "internshipGamedev": {
+    {   "id": "internshipGamedev",
         "title": "internships.program.title.gamedev",
         "dateInterval": "internships.program.date.gamedev",
         "numberOfMembers": "internships.program.members.gamedev",
         "imageUrl": "internshipGamedev",
         "linkUrl": "''"
     }
+]
 }
