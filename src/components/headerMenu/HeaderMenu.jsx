@@ -4,12 +4,6 @@ import { Button, ButtonGroup } from '@mui/material';
 import { getFieldLabel } from '../../utils';
 
 function HeaderMenu() {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {};
-  // }
-
-  // render() {
   // eslint-disable-next-line no-unused-vars
   const theme = useTheme();
 
