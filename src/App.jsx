@@ -9,8 +9,10 @@ import {
   Link,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { ThemeProvider } from '@mui/material/styles';
+import { theme } from './utils';
 
-import { Login, Employee, Internships } from './pages';
+import { Employee, Internships, Candidates, Login } from './pages';
 
 function App(props) {
   const { isAuthorized } = props;
@@ -20,24 +22,27 @@ function App(props) {
   //   }
   // });
   return (
-    <Router>
-      {/* {isAuthorized && <div>Header</div>} */}
-      <Switch>
-        {/* <Route exact path="/" component={Employee} /> */}
-        <Route exact path="/">
-          {isAuthorized ? <Employee /> : <Redirect to="/login" />}
-        </Route>
-        <Route exact path="/login" component={Login} />
-        <Route path="/internships" component={Internships} />
-      </Switch>
+    <ThemeProvider theme={theme}>
+      <Router>
+        {/* {isAuthorized && <div>Header</div>} */}
+        <Switch>
+          {/* <Route exact path="/" component={Employee} /> */}
+          <Route exact path="/">
+            {isAuthorized ? <Employee /> : <Redirect to="/login" />}
+          </Route>
+          <Route exact path="/login" component={Login} />
+          <Route path="/internships" component={Internships} />
+          <Route path="/candidates" component={Candidates} />
+        </Switch>
 
-      <div>
-        <Link to="/">Home</Link>
-        <Link to="/internships">Internships</Link>
-        <Link to="/login">Login</Link>
-      </div>
-      {/* {!isAuthorized && <div>Footer</div>} */}
-    </Router>
+        <div>
+          <Link to="/">Home</Link>
+          <Link to="/internships">Internships</Link>
+          <Link to="/login">Login</Link>
+        </div>
+        {/* {!isAuthorized && <div>Footer</div>} */}
+      </Router>
+    </ThemeProvider>
   );
 }
 

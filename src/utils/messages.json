@@ -1,10 +1,13 @@
 {
   "footer.title": "© 2021 [Team5] Exadel Internship JS&.NET",
   "footer.sign": "Exadel",
+  "login.button.login": "Login",
   "login.title": "Log in to ...",
   "login.email": "E-mail",
   "login.password": "Password",
-  "internships.btn-details": "Details",
+  "internships.btn.add.program": "Add program",
+  "internships.btn.program.info": "Program info",
+  "internships.btn.candidates.list": "List of candidates",
   "internships.title": "Internship programs",
   "internships.program.title.javascript": "Oct2021 Ex. JS&.Net&BA",
   "internships.program.title.design": "Feb2021 Ex. Design",
@@ -17,5 +20,16 @@
   "internships.program.members.gamedev": "Selection: 80 members",
   "header.menu.button.internships": "Internships",
   "header.menu.button.candidates": "My Candidates",
-  "header.menu.button.letters": "Letter templates"
+  "header.menu.button.letters": "Letter templates",
+  "candidates.table.applicationDate": "Application Date",
+  "candidates.table.location": "Location",
+  "candidates.table.language": "Language",
+  "candidates.table.internship": "Internship",
+  "candidates.table.englishLevel": "English Level",
+  "candidates.table.testTask": "Test Task",
+  "candidates.table.interviewer": "Interviewer",
+  "candidates.table.status": "Status",
+  "candidates.table.hr": "HR",
+  "candidates.table.hardSkills": "Hard Skills",
+  "candidates.form.inputLabel": "Page Size"
 }

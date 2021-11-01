@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
 import assets from '../../assets';
+
 import { useMediaBetween } from '../utils';
 import { getFieldLabel } from '../../utils';
 
@@ -13,7 +14,7 @@ const Footer = () => {
       flexGrow="1"
       padding="10px"
       transition="margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
-      backgroundColor="#f2f2f2"
+      backgroundColor="primary.light"
     >
       <Box
         height="100%"
@@ -27,7 +28,7 @@ const Footer = () => {
         <Link href="https://exadel.com/" underline="none">
           <img src={footerLogo} alt={getFieldLabel('footer.sign')} />
         </Link>
-        <Typography color="#929292" component="p">
+        <Typography color="text.secondary" component="p">
           {getFieldLabel('footer.title')}
         </Typography>
       </Box>

@@ -90,7 +90,7 @@ const Login = (props) => {
                 value={password}
               />
               <Button onClick={handleSubmit} variant="contained">
-                Log In
+                {getFieldLabel('login.button.login')}
               </Button>
               <Typography color="red">{message}</Typography>
             </Stack>
