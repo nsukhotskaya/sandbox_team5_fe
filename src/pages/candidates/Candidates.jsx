@@ -9,55 +9,18 @@ import { tableFields } from '../../constants';
 import { getFieldLabel } from '../../utils';
 
 const Candidates = () => {
-  const [gridApi, setGridApi] = useState(null);
+  const [gridApi, setGridApi] = useState();
   const onFirstDataRendered = (params) => {
-    const colIds = params.columnApi.getAllColumns().map((c) => c.colId);
-    params.columnApi.autoSizeColumns(colIds);
+    const columnsIds = params.columnApi
+      .getAllColumns()
+      .map((column) => column.colId);
+    params.columnApi.autoSizeColumns(columnsIds);
   };
 
   const onGridReady = (params) => {
     setGridApi(params.api);
-
-    listOfCandidates.forEach((data, index) => {
-      const list = data;
-      list.id = index;
-    });
     params.api.setRowData(listOfCandidates);
   };
-
-  const onSortChanged = () => {
-    const sortModel = gridApi.getSortModel();
-    const sortActive = sortModel && sortModel.length > 0;
-    gridApi.setSuppressRowDrag(sortActive);
-  };
-
-  const onFilterChanged = () => {
-    const filterActive = gridApi.isAnyFilterPresent();
-    gridApi.setSuppressRowDrag(filterActive);
-  };
-
-  const onRowDragMove = (event) => {
-    function moveInArray(arr, fromIndex, toIndex) {
-      const element = arr[fromIndex];
-      arr.splice(fromIndex, 1);
-      arr.splice(toIndex, 0, element);
-    }
-    const movingNode = event.node;
-    const { overNode } = event;
-    const rowNeedsToMove = movingNode !== overNode;
-    if (rowNeedsToMove) {
-      const movingData = movingNode.data;
-      const overData = overNode.data;
-      const fromIndex = listOfCandidates.indexOf(movingData);
-      const toIndex = listOfCandidates.indexOf(overData);
-      const newStore = listOfCandidates.slice();
-      moveInArray(newStore, fromIndex, toIndex);
-      gridApi.setRowData(newStore);
-      gridApi.clearFocusedCell();
-    }
-  };
-
-  const getRowNodeId = (data) => data.id;
 
   const onPageSizeChanged = (newPageSize) => {
     const { value } = newPageSize.target;
@@ -82,17 +45,10 @@ const Candidates = () => {
 
       <Box className="ag-theme-alpine" width="1500px">
         <AgGridReact
-          width="1500px"
           onFirstDataRendered={onFirstDataRendered}
-          immutableData
           animateRows
-          getRowNodeId={getRowNodeId}
           onGridReady={onGridReady}
-          onSortChanged={onSortChanged}
-          onFilterChanged={onFilterChanged}
-          onRowDragMove={onRowDragMove}
           rowSelection="multiple"
-          rowDragMultiRow
           domLayout="print"
           pagination
           paginationPageSize="10"
@@ -122,7 +78,6 @@ const Candidates = () => {
             filter
             checkboxSelection
             resizable
-            rowDrag
             headerCheckboxSelection
           />
           {tableFields.map((field) => (
