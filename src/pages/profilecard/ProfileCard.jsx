@@ -1,24 +1,22 @@
 import React from 'react';
 import { 
-  Box, Card, Avatar, List, Typography, ListItem, ListItemText, Divider, Tabs, Tab,
+  Box, Card, Avatar, Typography, Divider, Tabs, Tab, ListItemText, List, ListItem
 } from '@mui/material';
 import './ProfileCard.sass'
-import Calendar from '../../components/calendar/Calendar';
+import { Calendar } from '../../components/calendar';
 import { ActiveTrainings } from '../../components/activeTrainings';
 import { Feedbacks } from '../../components/feedbacks';
-
+import { getFieldLabel } from '../../utils';
 
 const profile = {
-  avatar:"default",
-  card: "Employees Profile",
   fullName:"John Smith",
-  email:"E-mail : johnsmith@gmail.com",
-  location:"Location : NY, USA",
-  role:"Role : Education Manager",
-  position: "Position: Lead JS Developer"
+  email:"johnsmith@gmail.com",
+  location:"NY, USA",
+  role:"Education Manager",
+  position: "Lead JS Developer"
 }
 
-class ProfileCard extends React.Component{
+export default class ProfileCard extends React.Component{
   constructor(props) {
     super(props);
     this.state ={ selectedTab: 0 };
@@ -32,48 +30,55 @@ class ProfileCard extends React.Component{
   render(){
     const { selectedTab } = this.state;
     return(
-    <Card className="main">
-      <Box className="topBox">
-        <Typography  variant="h4">{profile.card}</Typography>
-        <Box className="dataContainer">
-          <Avatar className="avatarImg" src ={profile.avatar} variant="square" alt="John Smith" />
-          <List className="dataList">
-            <ListItem>
-              <Typography  variant="h5">{profile.fullName}</Typography>
-            </ListItem>
-            <Divider />
-            <ListItem>
-              <ListItemText primary={profile.email} />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary={profile.location} />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary={profile.role} />
-            </ListItem>
-            <ListItem>
-              <ListItemText primary={profile.position} />
-            </ListItem>
-          </List>
+    <Box className="mainBox">
+      <Box className="leftBox">
+        <Box className="topBox" >
+          <Card className="infoBox">
+            <Typography  variant="h4">{getFieldLabel('profile.card')}</Typography>
+            <Box className="dataContainer">
+              <Avatar className="avatarImg" variant="square" alt={profile.fullName} />
+              <Box className="listBox" >
+                <Typography padding="0 0 0 6%" variant="h4">{profile.fullName}</Typography>
+                <Divider />
+                <List>
+                  <ListItem>
+                    <ListItemText primary={getFieldLabel('profile.card.email')} />
+                    <Typography  variant="body1">{profile.email}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText primary={getFieldLabel('profile.card.location')} />
+                    <Typography  variant="body1">{profile.location}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText primary={getFieldLabel('profile.card.role')} />
+                    <Typography  variant="body1">{profile.role}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText primary={getFieldLabel('profile.card.position')}/>
+                    <Typography  variant="body1">{profile.position}</Typography>
+                  </ListItem>
+                </List>
+              </Box>  
+            </Box>
+          </Card>
         </Box>
-      </Box>
-      <Divider />
-      <Box className="bottomBox">
-        <Box className="tabBox">
-          <Tabs value={selectedTab} onChange={this.handleChange} > 
-            <Tab label="Active trainings" />
-            <Tab label="Feedbacks" />
-          </Tabs>
-          {selectedTab === 0 && <ActiveTrainings />}
-          {selectedTab === 1 && <Feedbacks />}
-        </Box> 
-        <Box className="calendarBox" >
+        <Box className="bottomBox">
+          <Card className="tabBox">
+            <Tabs value={selectedTab} onChange={this.handleChange} > 
+              <Tab label="Active trainings" />
+              <Tab label="Feedbacks" />
+            </Tabs>
+            {selectedTab === 0 && <ActiveTrainings />}
+            {selectedTab === 1 && <Feedbacks />}
+          </Card> 
+        </Box>  
+      </Box>     
+      <Box className="rightBox">
+        <Card className="calendarBox" >
           <Calendar />
-        </Box>
+        </Card>
       </Box>  
-    </Card>
+    </Box>
     );
   }
 }
-
-export default ProfileCard;

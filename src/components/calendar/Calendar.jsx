@@ -1,13 +1,34 @@
-import React,{useState} from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import React from 'react';
+import FullCalendar from '@fullcalendar/react';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import googleCalendarPlugin from '@fullcalendar/google-calendar';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import listPlugin from '@fullcalendar/list';
 
-function MyCalendar() {
-  const [date, setDate] = useState(new Date());
+export default class DemoApp extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={};
+  }
 
-  return (
-        <Calendar onChange={setDate} value={date} /> 
-  );
+  render() {
+    return (
+      <FullCalendar
+        plugins={[ timeGridPlugin, listPlugin, dayGridPlugin, googleCalendarPlugin, interactionPlugin ]}
+        headerToolbar={{start: 'title',center: '',end: 'today prev,next listDay,timeGridWeek,dayGridMonth'}}
+        initialView="timeGridWeek"
+        allDaySlot={false}
+        height="100%"
+        expandRows
+        navLinks
+        listDayFormat={false}
+        slotMinTime="08:00:00"
+        editable
+        googleCalendarApiKey="AIzaSyCedd9kcRmZ5SDFy4ORMvC9NwDxtnwEAl4"
+        events= {{googleCalendarId:'anarchistyboy@gmail.com'}}
+        dateClick={this.handleDateClick}
+      />
+    );
+  }
 }
-
-export default MyCalendar;

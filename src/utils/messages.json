@@ -17,5 +17,10 @@
   "internships.program.members.gamedev": "Selection: 80 members",
   "header.menu.button.internships": "Internships",
   "header.menu.button.candidates": "My Candidates",
-  "header.menu.button.letters": "Letter templates"
+  "header.menu.button.letters": "Letter templates",
+  "profile.card": "Employees Profile",
+  "profile.card.email":"E-mail:",
+  "profile.card.location":"Location:",
+  "profile.card.role":"Role:",
+  "profile.card.position": "Position:"
 }
