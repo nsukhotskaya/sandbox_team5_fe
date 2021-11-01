@@ -4,5 +4,10 @@ import internshipJavascript from './internship-javascript.png';
 import internshipDesign from './internship-design.png';
 import internshipGamedev from './internship-gamedev.png';
 
-export default { headerLogo, footerLogo, internshipJavascript, internshipDesign, internshipGamedev };
-
+export default {
+  headerLogo,
+  footerLogo,
+  internshipJavascript,
+  internshipDesign,
+  internshipGamedev,
+};
