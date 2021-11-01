@@ -1,14 +1,11 @@
 import React from 'react';
 import { Box, Link, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import assets from '../../assets';
+
 import { useMediaBetween } from '../utils';
 import { getFieldLabel } from '../../utils';
 
 const Footer = () => {
-  // eslint-disable-next-line no-unused-vars
-  const theme = useTheme();
-
   const { footerLogo } = assets;
   const phabletScreen = useMediaBetween('xs', 'md');
   return (
@@ -17,7 +14,7 @@ const Footer = () => {
       flexGrow="1"
       padding="10px"
       transition="margin 195ms cubic-bezier(0.4, 0, 0.6, 1) 0ms"
-      backgroundColor="primary"
+      backgroundColor="primary.light"
     >
       <Box
         height="100%"
@@ -31,7 +28,7 @@ const Footer = () => {
         <Link href="https://exadel.com/" underline="none">
           <img src={footerLogo} alt={getFieldLabel('footer.sign')} />
         </Link>
-        <Typography color="primary" component="p">
+        <Typography color="text.secondary" component="p">
           {getFieldLabel('footer.title')}
         </Typography>
       </Box>
