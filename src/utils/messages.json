@@ -1,6 +1,7 @@
 {
   "footer.title": "© 2021 [Team5] Exadel Internship JS&.NET",
   "footer.sign": "Exadel",
+  "login.button.login": "Login",
   "login.title": "Log in to ...",
   "login.email": "E-mail",
   "login.password": "Password",
@@ -24,5 +25,16 @@
   "profile.card.email":"E-mail:",
   "profile.card.location":"Location:",
   "profile.card.role":"Role:",
-  "profile.card.position": "Position:"
+  "profile.card.position": "Position:",
+  "candidates.table.applicationDate": "Application Date",
+  "candidates.table.location": "Location",
+  "candidates.table.language": "Language",
+  "candidates.table.internship": "Internship",
+  "candidates.table.englishLevel": "English Level",
+  "candidates.table.testTask": "Test Task",
+  "candidates.table.interviewer": "Interviewer",
+  "candidates.table.status": "Status",
+  "candidates.table.hr": "HR",
+  "candidates.table.hardSkills": "Hard Skills",
+  "candidates.form.inputLabel": "Page Size"
 }

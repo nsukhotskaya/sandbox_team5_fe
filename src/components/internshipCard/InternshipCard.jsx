@@ -23,13 +23,13 @@ export const InternshipCard = ({ data }) => {
         alt="java script logo"
       />
       <CardContent>
-        <Typography color="#0e518b" gutterBottom variant="h5" component="div">
+        <Typography color="primary" gutterBottom variant="h5" component="div">
           {getFieldLabel(title)}
         </Typography>
-        <Typography variant="body2" color="#4e4e4e">
+        <Typography variant="body2" color="text">
           {getFieldLabel(dateInterval)}
         </Typography>
-        <Typography variant="body2" color="#4e4e4e">
+        <Typography variant="body2" color="text">
           {getFieldLabel(numberOfMembers)}
         </Typography>
       </CardContent>
