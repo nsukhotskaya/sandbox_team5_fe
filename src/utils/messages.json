@@ -29,5 +29,6 @@
   "candidates.table.interviewer": "Interviewer",
   "candidates.table.status": "Status",
   "candidates.table.hr": "HR",
-  "candidates.table.hardSkills": "Hard Skills"
+  "candidates.table.hardSkills": "Hard Skills",
+  "candidates.form.inputLabel": "Page Size"
 }

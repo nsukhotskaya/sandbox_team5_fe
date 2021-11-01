@@ -34,7 +34,7 @@ const Candidates = () => {
     <Box>
       <Box width="80px" marginBottom="5px" marginTop="30px">
         <FormControl fullWidth variant="filled">
-          <InputLabel>Page Size</InputLabel>
+          <InputLabel>{getFieldLabel('candidates.form.inputLabel')}</InputLabel>
           <Select defaultValue="10" label="10" onChange={onPageSizeChanged}>
             <MenuItem value={10}>10</MenuItem>
             <MenuItem value={20}>20</MenuItem>
