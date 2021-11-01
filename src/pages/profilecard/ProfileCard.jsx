@@ -4,17 +4,9 @@ import {
 } from '@mui/material';
 import './ProfileCard.sass'
 import { Calendar } from '../../components/calendar';
-import { ActiveTrainings } from '../../components/activeTrainings';
-import { Feedbacks } from '../../components/feedbacks';
 import { getFieldLabel } from '../../utils';
-
-const profile = {
-  fullName:"John Smith",
-  email:"johnsmith@gmail.com",
-  location:"NY, USA",
-  role:"Education Manager",
-  position: "Lead JS Developer"
-}
+import { tableFeedback, columnDefsFeed, activeInternships, columnDefsInternships, userData } from '../../mocks/profileData.json';
+import ProfileTable from '../../components/feedbacks/ProfileTable';
 
 export default class ProfileCard extends React.Component{
   constructor(props) {
@@ -30,51 +22,50 @@ export default class ProfileCard extends React.Component{
   render(){
     const { selectedTab } = this.state;
     return(
-    <Box className="mainBox">
-      <Box className="leftBox">
-        <Box className="topBox" >
-          <Card className="infoBox">
-            <Typography  variant="h4">{getFieldLabel('profile.card')}</Typography>
-            <Box className="dataContainer">
-              <Avatar className="avatarImg" variant="square" alt={profile.fullName} />
-              <Box className="listBox" >
-                <Typography padding="0 0 0 6%" variant="h4">{profile.fullName}</Typography>
+    <Box className="pageWrapper">
+      <Box className="informationAndActivity">
+        <Box className="information" >
+          <Card className="informationCard">
+            <Box className="informationContainer">
+              <Avatar className="avatarImg" variant="square" alt={userData.fullName} />
+              <Box className="informationList" >
+                <Typography padding="0 0 0 6%" variant="h4">{userData.fullName}</Typography>
                 <Divider />
                 <List>
                   <ListItem>
-                    <ListItemText primary={getFieldLabel('profile.card.email')} />
-                    <Typography  variant="body1">{profile.email}</Typography>
+                    <ListItemText primary={getFieldLabel('profile.email')} />
+                    <Typography  variant="body1">{userData.email}</Typography>
                   </ListItem>
                   <ListItem>
-                    <ListItemText primary={getFieldLabel('profile.card.location')} />
-                    <Typography  variant="body1">{profile.location}</Typography>
+                    <ListItemText primary={getFieldLabel('profile.location')} />
+                    <Typography  variant="body1">{userData.location}</Typography>
                   </ListItem>
                   <ListItem>
-                    <ListItemText primary={getFieldLabel('profile.card.role')} />
-                    <Typography  variant="body1">{profile.role}</Typography>
+                    <ListItemText primary={getFieldLabel('profile.role')} />
+                    <Typography  variant="body1">{userData.role}</Typography>
                   </ListItem>
                   <ListItem>
-                    <ListItemText primary={getFieldLabel('profile.card.position')}/>
-                    <Typography  variant="body1">{profile.position}</Typography>
+                    <ListItemText primary={getFieldLabel('profile.position')}/>
+                    <Typography  variant="body1">{userData.position}</Typography>
                   </ListItem>
                 </List>
               </Box>  
             </Box>
           </Card>
         </Box>
-        <Box className="bottomBox">
-          <Card className="tabBox">
+        <Box className="activity">
+          <Card className="activityTab">
             <Tabs value={selectedTab} onChange={this.handleChange} > 
-              <Tab label="Active trainings" />
-              <Tab label="Feedbacks" />
+              <Tab label={getFieldLabel('profile.tab.internships')} />
+              <Tab label={getFieldLabel('profile.tab.feedbacks')} />
             </Tabs>
-            {selectedTab === 0 && <ActiveTrainings />}
-            {selectedTab === 1 && <Feedbacks />}
+            {selectedTab === 0 && <ProfileTable  rowData={activeInternships} columnDefs={columnDefsInternships} />}
+            {selectedTab === 1 && <ProfileTable  rowData={tableFeedback} columnDefs={columnDefsFeed} />}
           </Card> 
         </Box>  
       </Box>     
-      <Box className="rightBox">
-        <Card className="calendarBox" >
+      <Box className="calendar">
+        <Card className="calendarCard" >
           <Calendar />
         </Card>
       </Box>  

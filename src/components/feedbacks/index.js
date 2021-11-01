@@ -1,1 +1,1 @@
-export { default as Feedbacks } from './Feedbacks';
+export { default as ProfileTable } from './ProfileTable';

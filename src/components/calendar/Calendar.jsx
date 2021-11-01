@@ -26,8 +26,7 @@ export default class DemoApp extends React.Component {
         slotMinTime="08:00:00"
         editable
         googleCalendarApiKey="AIzaSyCedd9kcRmZ5SDFy4ORMvC9NwDxtnwEAl4"
-        events= {{googleCalendarId:'anarchistyboy@gmail.com'}}
-        dateClick={this.handleDateClick}
+        events= {{googleCalendarId:'ostroumov.alex.work@gmail.com'}}
       />
     );
   }
