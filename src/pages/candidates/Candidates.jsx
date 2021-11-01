@@ -11,11 +11,8 @@ import { getFieldLabel } from '../../utils';
 const Candidates = () => {
   const [gridApi, setGridApi] = useState(null);
   const onFirstDataRendered = (params) => {
-    params.api.sizeColumnsToFit();
-    window.setTimeout(() => {
-      const colIds = params.columnApi.getAllColumns().map((c) => c.colId);
-      params.columnApi.autoSizeColumns(colIds);
-    }, 50);
+    const colIds = params.columnApi.getAllColumns().map((c) => c.colId);
+    params.columnApi.autoSizeColumns(colIds);
   };
 
   const onGridReady = (params) => {
@@ -28,21 +25,15 @@ const Candidates = () => {
     params.api.setRowData(listOfCandidates);
   };
 
-  let sortActive = false;
-  let filterActive = false;
-
   const onSortChanged = () => {
     const sortModel = gridApi.getSortModel();
-    sortActive = sortModel && sortModel.length > 0;
-    const suppressRowDrag = sortActive || filterActive;
-
-    gridApi.setSuppressRowDrag(suppressRowDrag);
+    const sortActive = sortModel && sortModel.length > 0;
+    gridApi.setSuppressRowDrag(sortActive);
   };
 
   const onFilterChanged = () => {
-    filterActive = gridApi.isAnyFilterPresent();
-    const suppressRowDrag = sortActive || filterActive;
-    gridApi.setSuppressRowDrag(suppressRowDrag);
+    const filterActive = gridApi.isAnyFilterPresent();
+    gridApi.setSuppressRowDrag(filterActive);
   };
 
   const onRowDragMove = (event) => {
@@ -89,8 +80,9 @@ const Candidates = () => {
         </FormControl>
       </Box>
 
-      <Box className="ag-theme-alpine">
+      <Box className="ag-theme-alpine" width="1500px">
         <AgGridReact
+          width="1500px"
           onFirstDataRendered={onFirstDataRendered}
           immutableData
           animateRows
