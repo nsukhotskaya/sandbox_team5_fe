@@ -6,23 +6,16 @@ import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './utils';
 import { Home, Login } from './pages';
 
-function App() {
+function App(props) {
+  const { isAuthorized } = props;
   return (
     <ThemeProvider theme={theme}>
       <Switch>
         <Route exact path="/">
-          {!localStorage.getItem('accessToken') ? (
-            <Redirect to="/login" />
-          ) : (
-            <Home />
-          )}
+          {!isAuthorized ? <Redirect to="/login" /> : <Home />}
         </Route>
         <Route exact path="/login">
-          {localStorage.getItem('accessToken') ? (
-            <Redirect to="/" />
-          ) : (
-            <Login />
-          )}
+          {isAuthorized ? <Redirect to="/" /> : <Login />}
         </Route>
         <Route>
           <h1>page Not Found 404</h1>
