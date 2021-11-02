@@ -1,10 +1,9 @@
-import Cookies from 'universal-cookie';
 import { logOutSuccess } from '../commands/types';
-
-const cookies = new Cookies();
+import { history } from '../store';
 
 const userLogOut = () => (dispatch) => {
-  cookies.remove('accessToken');
+  localStorage.removeItem('accessToken');
   dispatch(logOutSuccess());
+  history.replace('/login');
 };
 export default userLogOut;

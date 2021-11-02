@@ -8,7 +8,7 @@ const history = createBrowserHistory();
 
 const middleWares = [thunk, routerMiddleware(history)];
 const store = createStore(
-  rootReducer(history),
+  rootReducer(history),{},
   compose(applyMiddleware(...middleWares)),
 );
 export { store, history };
