@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, Route, Switch } from 'react-router-dom';
-import { Login, Employee, Candidates, Internships, ProfileCard } from '../../pages';
+import { Login, Employee, Candidates, Internships, ProfileCard, InternshipPage } from '../../pages';
 
 const AppContent = () => {
   const location = useLocation();
@@ -11,6 +11,7 @@ const AppContent = () => {
       <Route exact path="/profile" component={ProfileCard} />
       <Route exact path="/internships" component={Internships} />
       <Route exact path="/candidates" component={Candidates} />
+      <Route exact path="/internshipPage" component={InternshipPage} />
     </Switch>
   );
 };
