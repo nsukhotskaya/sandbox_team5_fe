@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './utils';
-import { Employee, Login } from './pages';
+import { Home, Login } from './pages';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           {!localStorage.getItem('accessToken') ? (
             <Redirect to="/login" />
           ) : (
-            <Employee />
+            <Home />
           )}
         </Route>
         <Route exact path="/login">

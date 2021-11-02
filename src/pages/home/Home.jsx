@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, CssBaseline } from '@mui/material';
 import { Header, Main } from '../../components';
 
-class Employee extends React.PureComponent {
+class Home extends React.PureComponent {
   constructor() {
     super();
     this.state = {};
@@ -24,4 +24,4 @@ class Employee extends React.PureComponent {
   }
 }
 
-export default Employee;
+export default Home;
