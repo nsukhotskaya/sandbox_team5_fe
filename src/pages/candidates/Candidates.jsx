@@ -1,5 +1,14 @@
-import React, { useState } from 'react';
-import { Box, FormControl, Select, MenuItem, InputLabel } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import {
+  Box,
+  MenuItem,
+  Typography,
+  InputLabel,
+  FormControl,
+  Select,
+  IconButton,
+} from '@mui/material';
+import { Print, ManageSearch, MailOutline } from '@mui/icons-material';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -10,12 +19,15 @@ import { getFieldLabel } from '../../utils';
 
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
-  const onFirstDataRendered = (params) => {
-    const columnsIds = params.columnApi
-      .getAllColumns()
-      .map((column) => column.colId);
-    params.columnApi.autoSizeColumns(columnsIds);
-  };
+
+  useEffect(() => {
+    if (gridApi) {
+      gridApi.sizeColumnsToFit();
+      // window.onresize = () => {
+      //   gridApi.sizeColumnsToFit();
+      // };
+    }
+  }, [gridApi]);
 
   const onGridReady = (params) => {
     setGridApi(params.api);
@@ -37,23 +49,49 @@ const Candidates = () => {
   ));
 
   return (
-    <Box>
-      <Box width="80px" marginBottom="5px" marginTop="30px">
-        <FormControl fullWidth variant="filled">
-          <InputLabel>{getFieldLabel('candidates.form.inputLabel')}</InputLabel>
-          <Select defaultValue="10" label="10" onChange={onPageSizeChanged}>
-            {createMenuItem}
-          </Select>
-        </FormControl>
+    <Box padding="1%">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        paddingTop="10px"
+        paddingBottom="10px"
+      >
+        <Typography variant="h4" component="div" gutterBottom color="#222">
+          {getFieldLabel('internships.program.title.javascript')}
+        </Typography>
+        <Box display="flex">
+          <Box width="80px">
+            <FormControl fullWidth>
+              <InputLabel>
+                {getFieldLabel('candidates.form.inputLabel')}
+              </InputLabel>
+              <Select defaultValue="10" label="10" onChange={onPageSizeChanged}>
+                {createMenuItem}
+              </Select>
+            </FormControl>
+          </Box>
+          <Box marginLeft="15px">
+            <IconButton>
+              <ManageSearch fontSize="large" />
+            </IconButton>
+            <IconButton>
+              <MailOutline fontSize="large" />
+            </IconButton>
+            <IconButton>
+              <Print fontSize="large" />
+            </IconButton>
+          </Box>
+        </Box>
       </Box>
-
-      <Box className="ag-theme-alpine" width="1500px">
+      <Box className="ag-theme-alpine">
         <AgGridReact
-          onFirstDataRendered={onFirstDataRendered}
+          // onFirstDataRendered={onFirstDataRendered}
+          debug
           animateRows
           onGridReady={onGridReady}
           rowSelection="multiple"
-          domLayout="print"
+          domLayout="autoHeight"
           pagination
           paginationPageSize="10"
           paginationNumberFormatter={paginationNumberFormatter}
@@ -74,6 +112,7 @@ const Candidates = () => {
                 toolPanel: 'agFiltersToolPanel',
               },
             ],
+            position: 'left',
           }}
         >
           <AgGridColumn
@@ -81,7 +120,10 @@ const Candidates = () => {
             sortable
             filter
             checkboxSelection
+            // defaultColDef={{ flex: 1, minWidth: 200 }}
             resizable
+            suppressSizeToFit
+            // width={300}
             headerCheckboxSelection
           />
           {tableFields.map((field) => (
