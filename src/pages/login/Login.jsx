@@ -49,7 +49,6 @@ const Login = (props) => {
   const preventDefault = (event) => {
     event.preventDefault();
   };
-
   return (
     <Box className="loginContainer">
       <Box className="loginCardWrapper">

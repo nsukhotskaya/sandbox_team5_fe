@@ -4,6 +4,6 @@ import { history } from '../store';
 const userLogOut = () => (dispatch) => {
   localStorage.removeItem('accessToken');
   dispatch(logOutSuccess());
-  history.replace('/login');
+  history.push('/login');
 };
 export default userLogOut;

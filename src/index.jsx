@@ -10,7 +10,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <App history={history} />
+        <App />
       </ConnectedRouter>
     </Provider>
   </React.StrictMode>,
