@@ -16,7 +16,8 @@ import { Footer } from '../../components';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
 
-const Login = ({ message }) => {
+const Login = (props) => {
+  const { message } = props;
   const smallScreen = useMediaDown('sm');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

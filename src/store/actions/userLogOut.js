@@ -1,9 +1,9 @@
-import { logOutSuccess } from '../commands/types';
+import { LOGOUT } from '../commands/types';
 import { history } from '../store';
 
 const userLogOut = () => (dispatch) => {
   localStorage.removeItem('accessToken');
-  dispatch(logOutSuccess());
+  dispatch({ type: LOGOUT.SUCCESS });
   history.push('/login');
 };
 export default userLogOut;

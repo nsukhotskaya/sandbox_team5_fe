@@ -1,17 +1,17 @@
-import { logInStarted, logInFailure, logInSuccess } from '../commands/types';
+import { LOGIN } from '../commands/types';
 import API from '../commands/api';
 import { history } from '../store';
 
 const userLogIn = (user) => async (dispatch) => {
-  dispatch(logInStarted());
+  dispatch({ type: LOGIN.REQUEST });
   try {
     const response = await API.post(`api/authenticate`, user);
     const token = response.data.accessToken;
     localStorage.setItem('accessToken', token);
-    dispatch(logInSuccess());
+    dispatch({ type: LOGIN.SUCCESS });
     history.push('/');
   } catch (error) {
-    dispatch(logInFailure());
+    dispatch({ type: LOGIN.FAILURE });
   }
 };
 export default userLogIn;

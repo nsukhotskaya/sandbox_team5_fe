@@ -1,17 +1,8 @@
-const logInSuccess = () => ({
-  type: 'LOG_IN_SUCCESS',
-  isAuthorized: true,
-});
-const logInFailure = () => ({
-  message: 'You entered incorrect data',
-  type: 'LOG_IN_FAILURE',
-});
-const logInStarted = () => ({
-  type: 'LOG_IN_STARTED',
-});
-const logOutSuccess = () => ({
-  type: 'LOG_OUT_SUCCESS',
-  isAuthorized: false,
-});
+const LOGIN = {
+  REQUEST: 'LOGIN_REQUEST',
+  SUCCESS: 'LOGIN_SUCCESS',
+  FAILURE: 'LOGIN_FAILURE',
+};
+const LOGOUT = { SUCCESS: 'LOGOUT_SUCCESS' };
 
-export { logInSuccess, logInFailure, logInStarted, logOutSuccess };
+export { LOGIN, LOGOUT };
