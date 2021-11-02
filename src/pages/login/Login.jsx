@@ -16,28 +16,22 @@ import { Footer } from '../../components';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
 
-const Login = (props) => {
-  const { message } = props;
+const Login = (state) => {
   const smallScreen = useMediaDown('sm');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState({
+    email: '',
+    password: '',
+  });
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    switch (name) {
-      case 'email':
-        setEmail(value);
-        break;
-      case 'password':
-        setPassword(value);
-        break;
-      default:
-        break;
-    }
+    const userObj = { ...user };
+    userObj[name] = value;
+    setUser(userObj);
   };
 
   const handleSubmit = () => {
-    props.userLogIn({ email, password });
+    state.userLogIn(user);
   };
 
   const handleForm = (event) => {
@@ -77,7 +71,7 @@ const Login = (props) => {
                 size="small"
                 name="email"
                 onChange={handleChange}
-                value={email}
+                value={user.email}
               />
               <TextField
                 id="outlinedPasswordInput"
@@ -86,12 +80,11 @@ const Login = (props) => {
                 autoComplete="current-password"
                 size="small"
                 onChange={handleChange}
-                value={password}
+                value={user.password}
               />
               <Button onClick={handleSubmit} variant="contained">
                 {getFieldLabel('login.button.login')}
               </Button>
-              <Typography color="red">{message}</Typography>
             </Stack>
           </Card>
         </FormControl>
