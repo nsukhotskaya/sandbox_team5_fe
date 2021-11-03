@@ -1,1 +1,1 @@
-// file for exports
+export { default as isAuthorized } from './isAuthorized';

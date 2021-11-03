@@ -1,7 +1,6 @@
 import React from 'react';
-
 import { Button, ButtonGroup } from '@mui/material';
-import { getFieldLabel } from '../../utils';
+import { getFieldLabel } from '../../../utils';
 
 function HeaderMenu() {
   return (

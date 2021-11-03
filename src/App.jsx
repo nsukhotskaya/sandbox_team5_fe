@@ -1,18 +1,30 @@
 import './App.sass';
 import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { theme } from './utils';
-import { AppContent } from './components';
+import { Home, Login } from './pages';
 
-function App() {
+function App(props) {
+  const { isAuthorized } = props;
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <AppContent />
-      </Router>
+      <Switch>
+        <Route exact path="/">
+          {!isAuthorized ? <Redirect to="/login" /> : <Home />}
+        </Route>
+        <Route exact path="/login">
+          {isAuthorized ? <Redirect to="/" /> : <Login />}
+        </Route>
+        <Route>
+          <h1>page Not Found 404</h1>
+        </Route>
+      </Switch>
     </ThemeProvider>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => state.authorization;
+
+export default connect(mapStateToProps)(App);
