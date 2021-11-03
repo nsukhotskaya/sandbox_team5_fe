@@ -17,12 +17,12 @@ export const Internships = () => (
   <Container fixed maxWidth="1400px">
     <Box 
       display="flex" 
-      flexDirection="column" 
-      maxWidth="1400px" 
-      marginTop="80px">
+      flexDirection="column"
+      marginTop="20px">
       <Box 
         display="flex" 
         flexDirection="row" 
+        alignItems="center"
         justifyContent="space-between" 
         marginBottom="20px" 
         marginLeft="25px" 
@@ -32,6 +32,7 @@ export const Internships = () => (
             component="div"
             fontSize="35px"
             color="text"
+            marginLeft="30px"
           >
             {getFieldLabel('internships.title')}
           </Typography>
@@ -40,7 +41,7 @@ export const Internships = () => (
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
-            marginRight="50px"
+            marginRight="100px"
           >
             <IconButton>
               <ManageSearchIcon fontSize="large" />
@@ -52,9 +53,9 @@ export const Internships = () => (
           </Box>
       </Box>
       <Box>
-        <Grid container rowSpacing={0} columnSpacing={{ xs: 0, sm: 0, md: 0, lg: 0 }}>
+        <Grid container spacing={3}>
           {internshipsMocks.map((internshipItem) => (
-          <Grid item p="0" xs={12} sm={6} md={4} lg={3}>
+          <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
             <InternshipCard key={internshipItem.id} data={internshipItem} />
           </Grid>
           ))}

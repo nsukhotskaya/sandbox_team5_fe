@@ -14,14 +14,14 @@ import { getFieldLabel } from '../../utils';
 export const InternshipCard = ({ data }) => {
   const { imageUrl, title, dateInterval, numberOfMembers } = data;
   return (
-    <Card sx={{ borderRadius: 5}}>
+    <Card sx={{ borderRadius: 5 }}>
       <CardMedia
         component="img"
         height="120"
         image={assets[imageUrl]}
         alt="internship logo"
       />
-      <CardContent>
+      <CardContent className="cardContent">
         <Typography color="primary" gutterBottom variant="h6" component="div">
           {getFieldLabel(title)}
         </Typography>
@@ -37,14 +37,12 @@ export const InternshipCard = ({ data }) => {
         flexDirection="row"
         justifyContent="center"
       >
-        <Box>
           <Button className="internshipCardButton" size="small">
             {getFieldLabel('internships.btn.program.info')}
           </Button>
           <Button size="small">
             {getFieldLabel('internships.btn.candidates.list')}
           </Button>
-        </Box>
       </Box>
     </Card>
   );

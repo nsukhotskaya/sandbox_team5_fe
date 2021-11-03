@@ -3,14 +3,14 @@ import {
   Popover,
   IconButton,
   Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
-  Checkbox,
-  ListItemText,
-  OutlinedInput,
+//   FormControl,
+//   InputLabel,
+//   Select,
+//   MenuItem,
+//   Button,
+//   Checkbox,
+//   ListItemText,
+//   OutlinedInput,
 } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
@@ -29,30 +29,30 @@ const [anchorEl, setAnchorEl] = React.useState();
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  const [filterEl, setFilterEl] = React.useState([]);
+//   const [filterEl, setFilterEl] = React.useState([]);
 
-  const handleChange = (event) => {
-    const {
-        target: { value },
-    } = event;
-    setFilterEl(typeof value === 'string' ? value.split(',') : value,
-    );
-  };
+//   const handleChange = (event) => {
+//     const {
+//         target: { value },
+//     } = event;
+//     setFilterEl(typeof value === 'string' ? value.split(',') : value,
+//     );
+//   };
 
-  const years = [
-    '2022',
-    '2021',
-    '2020',
-    '2019',
-];
+//   const years = [
+//     '2022',
+//     '2021',
+//     '2020',
+//     '2019',
+// ];
 
-  const locations = [
-    'Belarus',
-    'Georgia',
-    'Lithuania',
-    'Poland',
-    'Ukraine',
-  ];
+//   const locations = [
+//     'Belarus',
+//     'Georgia',
+//     'Lithuania',
+//     'Poland',
+//     'Ukraine',
+//   ];
 
   return (
     <Box>
@@ -68,8 +68,8 @@ const [anchorEl, setAnchorEl] = React.useState();
             vertical: 'top',
             horizontal: 'right',
         }}
-        >
-        <Box width="200px" margin="20px">
+    >
+        <Box width="200px" height="100px">
             {/* <FormControl sx={{m: 1}} variant="standard" fullWidth>
                 <InputLabel id="demo-simple-select-label">Technology</InputLabel>
                 <Select
@@ -82,7 +82,7 @@ const [anchorEl, setAnchorEl] = React.useState();
                     <MenuItem value="JavaScript">JavaScript</MenuItem>
                     <MenuItem value="Photoshop">Photoshop</MenuItem>
                 </Select>
-            </FormControl> */}
+            </FormControl> 
             <FormControl sx={{m: 1}} variant="standard" fullWidth>
                 <InputLabel id="demo-multiple-checkbox-label">Year</InputLabel>
                 <Select
@@ -93,7 +93,6 @@ const [anchorEl, setAnchorEl] = React.useState();
                     onChange={handleChange}
                     input={<OutlinedInput label="Tag" />}
                     renderValue={(selected) => selected.join(', ')}
-                    // MenuProps={MenuProps}
                 >
                     {years.map((year) => (
                         <MenuItem key={year} value={year}>
@@ -113,7 +112,6 @@ const [anchorEl, setAnchorEl] = React.useState();
                     onChange={handleChange}
                     input={<OutlinedInput label="Tag" />}
                     renderValue={(selected) => selected.join(', ')}
-                    // MenuProps={MenuProps}
                 >
                     {locations.map((location) => (
                         <MenuItem key={location} value={location}>
@@ -136,8 +134,8 @@ const [anchorEl, setAnchorEl] = React.useState();
                     <MenuItem value="Russian">Russian</MenuItem>
                 </Select>
             </FormControl> 
-            <Button variant="outlined">Filter</Button>
-        </Box>
+            <Button variant="outlined">Filter</Button> */}
+        </Box> 
     </Popover>
     </Box>
   );
