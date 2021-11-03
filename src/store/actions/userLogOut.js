@@ -1,5 +1,5 @@
+import { push } from 'connected-react-router';
 import { LOGOUT } from '../commands/types';
-import { history } from '../store';
 
 const logoutSuccess = {
   type: LOGOUT.SUCCESS,
@@ -8,6 +8,6 @@ const logoutSuccess = {
 const userLogOut = () => (dispatch) => {
   localStorage.removeItem('accessToken');
   dispatch(logoutSuccess);
-  history.push('/login');
+  dispatch(push('/'));
 };
 export default userLogOut;

@@ -1,6 +1,6 @@
+import { push } from 'connected-react-router';
 import { LOGIN } from '../commands/types';
 import API from '../commands/api';
-import { history } from '../store';
 
 const loginRequest = {
   type: LOGIN.REQUEST,
@@ -19,7 +19,7 @@ const userLogIn = (user) => async (dispatch) => {
     const token = response.data.accessToken;
     localStorage.setItem('accessToken', token);
     dispatch(loginSuccess);
-    history.push('/');
+    dispatch(push('/'));
   } catch (error) {
     dispatch({ type: loginFailure });
   }
