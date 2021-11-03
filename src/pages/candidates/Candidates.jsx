@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Box, FormControl, Select, MenuItem, InputLabel } from '@mui/material';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import 'ag-grid-enterprise';
-import 'ag-grid-community/dist/styles/ag-grid.css';
-import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import listOfCandidates from '../../mocks/listOfCandidates.json';
 import { tableFields, valueMenuItem } from '../../constants';
 import { getFieldLabel } from '../../utils';
+import 'ag-grid-enterprise';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+
 
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();

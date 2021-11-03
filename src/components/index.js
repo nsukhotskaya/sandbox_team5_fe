@@ -5,4 +5,5 @@ export * from './header';
 export * from './main';
 export * from './mainContentWrapper';
 export * from './utils';
+export * from './internshipFilter';
 export * from './internshipCard';

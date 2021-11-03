@@ -6,7 +6,6 @@ import {
   CardMedia,
   Button,
   Typography,
-  ButtonGroup,
 } from '@mui/material';
 import './InternshipCard.sass';
 import assets from '../../assets';
@@ -15,40 +14,37 @@ import { getFieldLabel } from '../../utils';
 export const InternshipCard = ({ data }) => {
   const { imageUrl, title, dateInterval, numberOfMembers } = data;
   return (
-    <Card sx={{ borderRadius: 5 }} id="internshipCard">
+    <Card sx={{ borderRadius: 5}}>
       <CardMedia
         component="img"
-        height="140"
+        height="120"
         image={assets[imageUrl]}
-        alt="java script logo"
+        alt="internship logo"
       />
       <CardContent>
-        <Typography color="primary" gutterBottom variant="h5" component="div">
+        <Typography color="primary" gutterBottom variant="h6" component="div">
           {getFieldLabel(title)}
         </Typography>
-        <Typography variant="body2" color="text">
+        <Typography variant="subtitle2" color="text">
           {getFieldLabel(dateInterval)}
         </Typography>
-        <Typography variant="body2" color="text">
+        <Typography variant="subtitle2" color="text">
           {getFieldLabel(numberOfMembers)}
         </Typography>
       </CardContent>
       <Box
         display="flex"
         flexDirection="row"
-        alignItems="center"
-        marginRight="10px"
-        marginBottom="10px"
-        paddingLeft="50px"
+        justifyContent="center"
       >
-        <ButtonGroup variant="text" aria-label="text button group">
-          <Button className="card-button" size="small">
+        <Box>
+          <Button className="internshipCardButton" size="small">
             {getFieldLabel('internships.btn.program.info')}
           </Button>
           <Button size="small">
             {getFieldLabel('internships.btn.candidates.list')}
           </Button>
-        </ButtonGroup>
+        </Box>
       </Box>
     </Card>
   );
