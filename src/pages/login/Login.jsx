@@ -16,7 +16,7 @@ import { Footer } from '../../components';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
 
-const Login = (state) => {
+const Login = (props) => {
   const smallScreen = useMediaDown('sm');
   const [user, setUser] = useState({
     email: '',
@@ -31,7 +31,7 @@ const Login = (state) => {
   };
 
   const handleSubmit = () => {
-    state.userLogIn(user);
+    props.userLogIn(user);
   };
 
   const handleForm = (event) => {
