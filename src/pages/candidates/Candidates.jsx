@@ -30,14 +30,6 @@ const Candidates = () => {
       gridApi.sizeColumnsToFit();
     };
   };
-  // useEffect(() => {
-  //   if (gridApi) {
-  //     gridApi.sizeColumnsToFit();
-  //     window.onresize = () => {
-  //       gridApi.sizeColumnsToFit();
-  //     };
-  //   }
-  // }, [gridApi]);
 
   const onGridReady = (params) => {
     setGridApi(params.api);
