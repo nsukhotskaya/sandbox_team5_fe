@@ -1,6 +1,6 @@
 import './App.sass';
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './utils';
@@ -10,17 +10,17 @@ function App(props) {
   const { isAuthorized } = props;
   return (
     <ThemeProvider theme={theme}>
-      <Switch>
-        <Route exact path="/">
-          {!isAuthorized ? <Redirect to="/login" /> : <Home />}
-        </Route>
-        <Route exact path="/login">
-          {isAuthorized ? <Redirect to="/" /> : <Login />}
-        </Route>
-        <Route>
-          <h1>page Not Found 404</h1>
-        </Route>
-      </Switch>
+      {isAuthorized ? (
+        <>
+          <Redirect to="/home" />
+          <Route path="/home" component={Home} />
+        </>
+      ) : (
+        <>
+          <Redirect to="/login" />
+          <Route path="/login" component={Login} />
+        </>
+      )}
     </ThemeProvider>
   );
 }
