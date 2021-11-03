@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   MenuItem,
@@ -20,14 +20,24 @@ import { getFieldLabel } from '../../utils';
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
 
-  useEffect(() => {
-    if (gridApi) {
+  const onColumnVisible = () => {
+    gridApi.sizeColumnsToFit();
+  };
+
+  const onSizeColumnsToFit = (params) => {
+    params.api.sizeColumnsToFit();
+    window.onresize = () => {
       gridApi.sizeColumnsToFit();
-      // window.onresize = () => {
-      //   gridApi.sizeColumnsToFit();
-      // };
-    }
-  }, [gridApi]);
+    };
+  };
+  // useEffect(() => {
+  //   if (gridApi) {
+  //     gridApi.sizeColumnsToFit();
+  //     window.onresize = () => {
+  //       gridApi.sizeColumnsToFit();
+  //     };
+  //   }
+  // }, [gridApi]);
 
   const onGridReady = (params) => {
     setGridApi(params.api);
@@ -86,7 +96,8 @@ const Candidates = () => {
       </Box>
       <Box className="ag-theme-alpine">
         <AgGridReact
-          // onFirstDataRendered={onFirstDataRendered}
+          onFirstDataRendered={onSizeColumnsToFit}
+          onColumnVisible={onColumnVisible}
           debug
           animateRows
           onGridReady={onGridReady}
@@ -120,11 +131,10 @@ const Candidates = () => {
             sortable
             filter
             checkboxSelection
-            // defaultColDef={{ flex: 1, minWidth: 200 }}
             resizable
-            suppressSizeToFit
-            // width={300}
             headerCheckboxSelection
+            suppressSizeToFit
+            minWidth={250}
           />
           {tableFields.map((field) => (
             <AgGridColumn
