@@ -11,9 +11,8 @@ import './InternshipCard.sass';
 import assets from '../../assets';
 import { getFieldLabel } from '../../utils';
 
-export const InternshipCard = ({ data }) => {
-  const { imageUrl, title, dateInterval, numberOfMembers } = data;
-  return (
+export const InternshipCard = ({ data: { imageUrl, title, dateInterval, numberOfMembers} }) => 
+  (
     <Card sx={{ borderRadius: 5 }}>
       <CardMedia
         component="img"
@@ -38,13 +37,13 @@ export const InternshipCard = ({ data }) => {
         justifyContent="center"
       >
           <Button className="internshipCardButton" size="small">
-            {getFieldLabel('internships.btn.program.info')}
+            {getFieldLabel('internships.button.program.info')}
           </Button>
           <Button size="small">
-            {getFieldLabel('internships.btn.candidates.list')}
+            {getFieldLabel('internships.button.candidates.list')}
           </Button>
       </Box>
     </Card>
   );
-};
+
 export default InternshipCard;
