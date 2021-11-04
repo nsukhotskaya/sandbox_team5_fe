@@ -1,6 +1,6 @@
 import './App.sass';
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './utils';
@@ -8,12 +8,13 @@ import { Home, Login } from './pages';
 
 function App(props) {
   const { isAuthorized } = props;
+  const currentPath = useLocation().pathname;
   return (
     <ThemeProvider theme={theme}>
       {isAuthorized ? (
         <>
-          <Redirect to="/home" />
-          <Route path="/home" component={Home} />
+          <Redirect to={currentPath} />
+          <Route path={currentPath} component={Home} />
         </>
       ) : (
         <>

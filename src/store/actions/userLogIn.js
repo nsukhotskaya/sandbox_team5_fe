@@ -19,7 +19,7 @@ const userLogIn = (user) => async (dispatch) => {
     const token = response.data.accessToken;
     localStorage.setItem('accessToken', token);
     dispatch(loginSuccess);
-    dispatch(push('/home'));
+    dispatch(push('/profile'));
   } catch (error) {
     dispatch({ type: loginFailure });
   }

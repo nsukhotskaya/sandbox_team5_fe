@@ -12,7 +12,7 @@ function HeaderNav(props) {
     <Box height="60px" width="120px">
       <Box className="headerNav">
         <IconButton>
-          <Link to="/home">
+          <Link to="/profile">
             <Avatar alt="Ivan Ivanov" />
           </Link>
         </IconButton>

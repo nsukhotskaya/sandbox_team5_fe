@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, CssBaseline } from '@mui/material';
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { Header, Footer } from '../../components';
 import { Internships, Candidates, ProfileCard } from '../index';
 import './Home.sass';
@@ -16,18 +16,17 @@ function Home() {
         flexDirection="column"
         flexGrow="1"
         flexShrink="1"
-        location={useLocation()}
       >
         <Box id="content">
           <Box className="card" backgroundColor="background.paper">
             <Switch>
-              <Route exact path="/home">
+              <Route exact path="/profile">
                 <ProfileCard />
               </Route>
-              <Route exact path="/home/internships">
+              <Route exact path="/internships">
                 <Internships />
               </Route>
-              <Route exact path="/home/candidates">
+              <Route exact path="/candidates">
                 <Candidates />
               </Route>
             </Switch>

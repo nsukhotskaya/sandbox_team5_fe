@@ -7,12 +7,12 @@ function HeaderMenu() {
   return (
     <ButtonGroup variant="text" aria-label="text button group" color="primary">
       <Button>
-        <Link to="/home/internships">
+        <Link to="/internships">
           {getFieldLabel('header.menu.button.internships')}
         </Link>
       </Button>
       <Button>
-        <Link to="/home/candidates">
+        <Link to="/candidates">
           {getFieldLabel('header.menu.button.allcandidates')}
         </Link>
       </Button>
