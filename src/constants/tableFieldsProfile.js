@@ -1,12 +1,14 @@
+import { getFieldLabel } from "../utils";
+
 export const columnDefsInternships =
 [
-  {"headerName": "Name", "field": "name"},
-  {"headerName": "Status", "field": "status"}
+  {"headerName": getFieldLabel('profile.tab.internships.fields.name'), "field": "name"},
+  {"headerName": getFieldLabel('profile.tab.internships.fields.status'), "field": "status"}
 ];
 
 export const columnDefsFeed = 
 [
-  {"headerName": "Full Name", "field": "fullName"},
-  {"headerName": "Rating", "field": "rating"},
-  {"headerName": "Text", "field": "text"}
+  {"headerName": getFieldLabel('profile.tab.feedbacks.fields.fullname'), "field": "fullName"},
+  {"headerName": getFieldLabel('profile.tab.feedbacks.fields.rating'), "field": "rating"},
+  {"headerName": getFieldLabel('profile.tab.feedbacks.fields.text'), "field": "text"}
 ];
