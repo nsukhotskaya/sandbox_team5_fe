@@ -8,9 +8,10 @@ import {
   Button,
 } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
-import { InternshipCard, InternshipFilter } from '../../components';
+import { InternshipCard} from '../../components';
 import { internshipsMocks } from '../../mocks/internshipInfo.json';
 
 export const Internships = () => (
@@ -19,14 +20,7 @@ export const Internships = () => (
       display="flex" 
       flexDirection="column"
       marginTop="20px">
-      <Box 
-        display="flex" 
-        flexDirection="row" 
-        alignItems="center"
-        justifyContent="space-between" 
-        marginBottom="20px" 
-        marginLeft="25px" 
-        marginRight="25px">
+      <Box className="internshipMenu">
           <Typography
             variant="h1"
             component="div"
@@ -41,7 +35,6 @@ export const Internships = () => (
             display="flex"
             flexDirection="row"
             justifyContent="space-between"
-            marginRight="100px"
           >
             <IconButton>
               <ManageSearchIcon fontSize="large" />
