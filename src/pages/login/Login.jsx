@@ -77,6 +77,7 @@ const Login = (props) => {
                 id="outlinedPasswordInput"
                 label={getFieldLabel('login.password')}
                 name="password"
+                type="password"
                 autoComplete="current-password"
                 size="small"
                 onChange={handleChange}
