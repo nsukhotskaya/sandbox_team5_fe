@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './utils';
-import { Home, Login } from './pages';
+import { Home, Login, Internships } from './pages';
 
 function App(props) {
   const { isAuthorized } = props;
@@ -17,8 +17,11 @@ function App(props) {
         <Route exact path="/login">
           {isAuthorized ? <Redirect to="/" /> : <Login />}
         </Route>
-        <Route>
+        {/* <Route>
           <h1>page Not Found 404</h1>
+        </Route> */}
+        <Route exact path="/internships">
+          <Internships />
         </Route>
       </Switch>
     </ThemeProvider>
