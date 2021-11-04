@@ -5,7 +5,8 @@ import {
 import './ProfileCard.sass'
 import { Calendar } from '../../components/calendar';
 import { getFieldLabel } from '../../utils';
-import { tableFeedback, columnDefsFeed, activeInternships, columnDefsInternships, userData } from '../../mocks/profileData.json';
+import { tableFeedback, activeInternships, userData } from '../../mocks/profileData.json';
+import { columnDefsFeed, columnDefsInternships } from '../../constants';
 import ProfileTable from '../../components/feedbacks/ProfileTable';
 
 export default class ProfileCard extends React.Component{
