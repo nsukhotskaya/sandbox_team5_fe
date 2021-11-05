@@ -15,7 +15,7 @@ const loginFailure = {
 const userLogIn = (user) => async (dispatch) => {
   dispatch(loginRequest);
   try {
-    const response = await API.post(`api/authenticate`, user);
+    const response = await API.post('api/authenticate', user);
     const token = response.data.accessToken;
     localStorage.setItem('accessToken', token);
     dispatch(loginSuccess);

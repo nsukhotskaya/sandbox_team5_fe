@@ -12,7 +12,9 @@ import assets from '../../assets';
 import { getFieldLabel } from '../../utils';
 
 export const InternshipCard = ({
-  data: { imageUrl, title, dateInterval, numberOfMembers },
+  data: {
+    imageUrl, title, dateInterval, numberOfMembers,
+  },
 }) => (
   <Card sx={{ borderRadius: 5 }}>
     <CardMedia

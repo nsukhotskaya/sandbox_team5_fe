@@ -2,8 +2,8 @@ import { LOGIN, LOGOUT } from '../commands/types';
 
 const initialState = localStorage.accessToken
   ? {
-      isAuthorized: true,
-    }
+    isAuthorized: true,
+  }
   : { isAuthorized: false };
 
 export default function isAuthorized(state = initialState, action) {

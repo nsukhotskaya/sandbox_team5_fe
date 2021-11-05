@@ -41,8 +41,7 @@ const Candidates = () => {
     gridApi.paginationSetPageSize(Number(value));
   };
 
-  const paginationNumberFormatter = (params) =>
-    `[${params.value.toLocaleString()}]`;
+  const paginationNumberFormatter = (params) => `[${params.value.toLocaleString()}]`;
 
   const createMenuItem = valueMenuItem.map((item) => (
     <MenuItem value={item} key={item}>
