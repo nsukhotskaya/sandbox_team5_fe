@@ -37,6 +37,7 @@ export function CandidateCard() {
           // width="100%"
           // height="100%"
           backgroundColor="background.paper"
+          boxShadow="4"
         >
           <Box
             display="flex"
@@ -44,7 +45,7 @@ export function CandidateCard() {
             justifyContent="space-between"
           >
             <Typography paddingLeft="1%" variant="h4">
-              Grzegorz Brzęczyszczykiewicz
+              Olga Ivanova
             </Typography>
             <Button variant="outlined">Edit</Button>
           </Box>
@@ -59,71 +60,70 @@ export function CandidateCard() {
                   </Typography>
                 }
               />
-              <Typography variant="h6">Accepted</Typography>
+              <Typography variant="h6">In Progress</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.internship')} />
-              <Typography variant="body1">test internship</Typography>
+              <Typography variant="body1">.NET/JS 2021</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.skillStack')} />
-              <Typography variant="body1">стак технологий</Typography>
+              <Typography variant="body1">Backend</Typography>
+            </ListItem>
+            <ListItem>
+              <ListItemText primary={getFieldLabel('candidate.primarySkill')} />
+              <Typography variant="body1">.NET</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.englishLevel')} />
-              <Typography variant="body1">уровень английского</Typography>
+              <Typography variant="body1">C1</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.planToJoin')} />
-              <Typography variant="body1">планирует присеодиниться</Typography>
+              <Typography variant="body1">Yes</Typography>
             </ListItem>
             <ListItem>
               <ListItemText
                 primary={getFieldLabel('candidate.applicationDate')}
               />
-              <Typography variant="body1">дата подачи заявки</Typography>
+              <Typography variant="body1">29.10.2021</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.location')} />
-              <Typography variant="body1">локация</Typography>
+              <Typography variant="body1">Warsaw</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.phone')} />
-              <Typography variant="body1">телефон</Typography>
+              <Typography variant="body1">+42788478272</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.skype')} />
-              <Typography variant="body1">скайп</Typography>
+              <Typography variant="body1">id:234512</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.education')} />
-              <Typography variant="body1">образование</Typography>
+              <Typography variant="body1">-</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.links')} />
-              <Typography variant="body1">linkedin?</Typography>
+              <Typography variant="body1">github</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.other')} />
-              <Typography variant="body1">
-                инфо которое указывает кандидат
-              </Typography>
+              <Typography variant="body1">-</Typography>
             </ListItem>
-            <ListItem>
-              <ListItemText primary={getFieldLabel('candidate.primarySkill')} />
-              <Typography variant="body1">главный скилл</Typography>
-            </ListItem>
+
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.currentJob')} />
-              <Typography variant="body1">текущая работа</Typography>
+              <Typography variant="body1">-</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.certificate')} />
-              <Typography variant="body1">сертификаты</Typography>
+              <Typography variant="body1">-</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.test')} />
-              <Typography variant="body1">тест</Typography>
+              <Typography variant="body1">-</Typography>
             </ListItem>
           </List>
         </Box>
@@ -144,11 +144,15 @@ export function CandidateCard() {
           padding="2%"
           height="75%"
           backgroundColor="background.paper"
+          boxShadow="4"
         >
-          <Typography variant="h6">Unassigned HR</Typography>
+          <Box display="flex" justifyContent="space-between">
+            <Typography variant="h6">Daria Petrova</Typography>
+            {/* <Button variant="outlined">Assign</Button> */}
+          </Box>
+
           <Rating defaultValue={2.5} precision={0.5} max={4} />
           <TextField
-            id="outlined-basic"
             placeholder="You can write comment here"
             variant="outlined"
             fullWidth
@@ -156,10 +160,12 @@ export function CandidateCard() {
             minRows={4}
             maxRows={4}
           />
-          <Typography variant="h6">Unassigned tech interviewer</Typography>
+          <Box display="flex" justifyContent="space-between" marginTop="1%">
+            <Typography variant="h6">Unassigned Interviewer</Typography>
+            <Button variant="outlined">Assign</Button>
+          </Box>
           <Rating defaultValue={2.5} precision={0.5} max={4} />
           <TextField
-            id="outlined-basic"
             placeholder="You can write comment here"
             variant="outlined"
             fullWidth
@@ -167,10 +173,12 @@ export function CandidateCard() {
             minRows={4}
             maxRows={4}
           />
-          <Typography variant="h6">Unassigned mentor</Typography>
+          <Box display="flex" justifyContent="space-between" marginTop="1%">
+            <Typography variant="h6">Unassigned Mentor</Typography>
+            <Button variant="outlined">Assign</Button>
+          </Box>
           <Rating defaultValue={2.5} precision={0.5} max={4} />
           <TextField
-            id="outlined-basic"
             placeholder="You can write comment here"
             variant="outlined"
             fullWidth
@@ -186,8 +194,9 @@ export function CandidateCard() {
           padding="2%"
           height="25%"
           backgroundColor="background.paper"
+          boxShadow="4"
         >
-          <Typography variant="body1">история</Typography>
+          <Typography variant="body1">Action history</Typography>
         </Box>
       </Box>
     </Box>
