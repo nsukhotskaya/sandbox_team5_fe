@@ -1,26 +1,35 @@
 {
-    "internshipMocks":
+    "internshipsMocks":
     [
      {  "id": "internshipJavascript",
         "title": "internships.program.title.javascript",
         "dateInterval": "internships.program.date.javascript",
         "numberOfMembers": "internships.program.members.javascript",
-        "imageUrl": "internshipJavascript",
-        "linkUrl": "''"
+        "imageUrl": "internshipJavascript"
     },
      {  "id": "internshipDesign",
         "title": "internships.program.title.design",
         "dateInterval": "internships.program.date.design",
         "numberOfMembers": "internships.program.members.design",
-        "imageUrl": "internshipDesign",
-        "linkUrl": "''"
+        "imageUrl": "internshipDesign"
     },
     {   "id": "internshipGamedev",
         "title": "internships.program.title.gamedev",
         "dateInterval": "internships.program.date.gamedev",
         "numberOfMembers": "internships.program.members.gamedev",
-        "imageUrl": "internshipGamedev",
-        "linkUrl": "''"
+        "imageUrl": "internshipGamedev"
+    },
+    {   "id": "internshipGame",
+        "title": "internships.program.title.gamedev",
+        "dateInterval": "internships.program.date.gamedev",
+        "numberOfMembers": "internships.program.members.gamedev",
+        "imageUrl": "internshipGamedev"
+    },
+    {   "id": "internshipDev",
+        "title": "internships.program.title.gamedev",
+        "dateInterval": "internships.program.date.gamedev",
+        "numberOfMembers": "internships.program.members.gamedev",
+        "imageUrl": "internshipGamedev"
     }
 ]
 }

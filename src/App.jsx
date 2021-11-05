@@ -1,6 +1,6 @@
 import './App.sass';
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './utils';
@@ -8,19 +8,20 @@ import { Home, Login } from './pages';
 
 function App(props) {
   const { isAuthorized } = props;
+  const { pathname } = useLocation();
   return (
     <ThemeProvider theme={theme}>
-      <Switch>
-        <Route exact path="/">
-          {!isAuthorized ? <Redirect to="/login" /> : <Home />}
-        </Route>
-        <Route exact path="/login">
-          {isAuthorized ? <Redirect to="/" /> : <Login />}
-        </Route>
-        <Route>
-          <h1>page Not Found 404</h1>
-        </Route>
-      </Switch>
+      {isAuthorized ? (
+        <>
+          <Redirect to={pathname} />
+          <Route path={pathname} component={Home} />
+        </>
+      ) : (
+        <>
+          <Redirect to="/login" />
+          <Route path="/login" component={Login} />
+        </>
+      )}
     </ThemeProvider>
   );
 }

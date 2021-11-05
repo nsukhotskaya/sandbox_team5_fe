@@ -4,21 +4,10 @@
     {"fullName": "John Smith", "rating": "2", "text": "Ordinary magician without magic stick"},
     {"fullName": "Harry Potter", "rating": "4", "text": "Great magician, with perfect magic stick"}
 ],
-  "columnDefsFeed": 
-[
-  {"headerNames": "Full Name", "field": "fullName"},
-  {"headerNames": "Rating", "field": "rating"},
-  {"headerNames": "Text", "field": "text"}
-],
   "activeInternships":
   [
     {"name": "JS and .Net Training", "status": "Active"},
     {"name": ".NET Automation QA Training", "status": "Future"}
-],
-  "columnDefsInternships": 
-[
-  {"headerNames": "Name", "field": "name"},
-  {"headerNames": "Status", "field": "status"}
 ],
   "userData":
   {
