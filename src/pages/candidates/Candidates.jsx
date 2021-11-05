@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Box,
   MenuItem,
@@ -13,27 +14,44 @@ import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import listOfCandidates from '../../mocks/listOfCandidates.json';
+// import listOfCandidates from '../../mocks/listOfCandidates.json';
 import { tableFields, valueMenuItem } from '../../constants';
 import { getFieldLabel } from '../../utils';
+import { getCandidateList } from '../../store/actions';
 
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
+
+  // const [rowData, setRowData] = useState([]);
+
+  const list = useSelector((state) => state.candidates.candidates);
+  // console.log(list);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getCandidateList());
+    if (gridApi) {
+      gridApi.sizeColumnsToFit();
+      // gridApi.setRowData(list);
+      window.onresize = () => {
+        gridApi.sizeColumnsToFit();
+      };
+    }
+  }, [gridApi]);
 
   const onColumnVisible = () => {
     gridApi.sizeColumnsToFit();
   };
 
-  const onSizeColumnsToFit = (params) => {
-    params.api.sizeColumnsToFit();
-    window.onresize = () => {
-      gridApi.sizeColumnsToFit();
-    };
-  };
+  // const onSizeColumnsToFit = (params) => {
+  //   params.api.sizeColumnsToFit();
+  //   window.onresize = () => {
+  //     gridApi.sizeColumnsToFit();
+  //   };
+  // };
 
   const onGridReady = (params) => {
     setGridApi(params.api);
-    params.api.setRowData(listOfCandidates);
+    // gridApi.setRowData(listOfCandidates);
   };
 
   const onPageSizeChanged = (newPageSize) => {
@@ -49,6 +67,8 @@ const Candidates = () => {
       {item}
     </MenuItem>
   ));
+
+  // const test = list.map((item) => <div key={item}>{item.location}</div>);
 
   return (
     <Box padding="1%">
@@ -88,7 +108,8 @@ const Candidates = () => {
       </Box>
       <Box className="ag-theme-alpine">
         <AgGridReact
-          onFirstDataRendered={onSizeColumnsToFit}
+          rowData={list}
+          // onFirstDataRendered={onSizeColumnsToFit}
           onColumnVisible={onColumnVisible}
           debug
           animateRows
