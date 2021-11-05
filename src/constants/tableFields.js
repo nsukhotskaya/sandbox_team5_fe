@@ -1,10 +1,10 @@
 export const tableFields = [
-  'applicationDate',
+  'registationDate',
   'location',
   'language',
   'internship',
-  'englishLevel',
-  'testTask',
+  'englishLevelType',
+  'testTaskEvaluation',
   'interviewer',
   'status',
   'hr',
