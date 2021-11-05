@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
   Box,
@@ -12,10 +13,17 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
 import { InternshipCard} from '../../components';
-import { internshipsMocks } from '../../mocks/internshipInfo.json';
+import { getInternships } from '../../store/actions/internships';
 
-export const Internships = () => (
-  <Container fixed maxWidth="1400px">
+
+export const Internships = () => {
+  const internships = useSelector((state) => state.internships.internships);
+  const dispatch = useDispatch();
+  useEffect (() => {
+  dispatch(getInternships())
+  },[])
+  console.log(internships);
+  return <Container fixed maxWidth="1400px">
     <Box 
       display="flex" 
       flexDirection="column"
@@ -49,15 +57,15 @@ export const Internships = () => (
       </Box>
       <Box>
         <Grid container spacing={3}>
-          {internshipsMocks.map((internshipItem) => (
-          <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-            <InternshipCard key={internshipItem.id} data={internshipItem} />
+          {internships.map((internshipItem) => (
+          <Grid item xs={12} sm={12} md={6} lg={4} xl={3} key={internshipItem.id}>
+            <InternshipCard data={internshipItem} />
           </Grid>
           ))}
         </Grid>
       </Box>
     </Box>
   </Container>
-);
+};
 
 export default Internships;

@@ -11,7 +11,9 @@ import './InternshipCard.sass';
 import assets from '../../assets';
 import { getFieldLabel } from '../../utils';
 
-export const InternshipCard = ({ data: { imageUrl, title, dateInterval, numberOfMembers} }) => 
+const dayjs = require('dayjs');
+
+export const InternshipCard = ({ data: { imageUrl, name, registrationStartDate, registrationFinishDate, maxCandidateCount} }) => 
   (
     <Card sx={{ borderRadius: 5 }}>
       <CardMedia
@@ -22,13 +24,13 @@ export const InternshipCard = ({ data: { imageUrl, title, dateInterval, numberOf
       />
       <CardContent className="cardContent">
         <Typography color="primary" gutterBottom variant="h6" component="div">
-          {getFieldLabel(title)}
+          {name}
         </Typography>
         <Typography variant="subtitle2" color="text">
-          {getFieldLabel(dateInterval)}
+          {dayjs(registrationStartDate, registrationFinishDate).format("D MMMM YYYY - D MMMM YYYY")}
         </Typography>
         <Typography variant="subtitle2" color="text">
-          {getFieldLabel(numberOfMembers)}
+          {maxCandidateCount}
         </Typography>
       </CardContent>
       <Box
