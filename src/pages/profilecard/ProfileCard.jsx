@@ -29,9 +29,9 @@ export default class ProfileCard extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e, newValue){
+  handleChange(e, newValue) {
     this.setState({ selectedTab: newValue });
-  };
+  }
 
   render() {
     const { selectedTab } = this.state;

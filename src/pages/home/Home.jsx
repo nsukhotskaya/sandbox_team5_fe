@@ -10,7 +10,7 @@ function Home() {
     <Box display="flex" height="100vh">
       <CssBaseline />
       <Header />
-      <Box className="main">
+      <Box className="contentWrapper">
         <Box id="content">
           <Box className="card" backgroundColor="background.paper">
             <Switch>

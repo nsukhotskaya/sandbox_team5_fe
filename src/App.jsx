@@ -8,13 +8,13 @@ import { Home, Login } from './pages';
 
 function App(props) {
   const { isAuthorized } = props;
-  const currentPath = useLocation().pathname;
+  const { pathname } = useLocation();
   return (
     <ThemeProvider theme={theme}>
       {isAuthorized ? (
         <>
-          <Redirect to={currentPath} />
-          <Route path={currentPath} component={Home} />
+          <Redirect to={pathname} />
+          <Route path={pathname} component={Home} />
         </>
       ) : (
         <>
