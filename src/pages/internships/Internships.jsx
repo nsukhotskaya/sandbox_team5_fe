@@ -12,23 +12,20 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
-import { InternshipCard} from '../../components';
+import { InternshipCard } from '../../components';
 import { getInternships } from '../../store/actions/internships';
-
 
 export const Internships = () => {
   const internships = useSelector((state) => state.internships.internships);
   const dispatch = useDispatch();
-  useEffect (() => {
-  dispatch(getInternships())
-  },[])
+  useEffect(() => {
+    dispatch(getInternships());
+  }, []);
   console.log(internships);
-  return <Container fixed maxWidth="1400px">
-    <Box 
-      display="flex" 
-      flexDirection="column"
-      marginTop="20px">
-      <Box className="internshipMenu">
+  return (
+    <Container fixed maxWidth="1400px">
+      <Box display="flex" flexDirection="column" marginTop="20px">
+        <Box className="internshipMenu">
           <Typography
             variant="h1"
             component="div"
@@ -54,18 +51,27 @@ export const Internships = () => {
               {getFieldLabel('internships.button.add.program')}
             </Button>
           </Box>
-      </Box>
-      <Box>
-        <Grid container spacing={3}>
-          {internships.map((internshipItem) => (
-          <Grid item xs={12} sm={12} md={6} lg={4} xl={3} key={internshipItem.id}>
-            <InternshipCard data={internshipItem} />
+        </Box>
+        <Box>
+          <Grid container spacing={3}>
+            {internships.map((internshipItem) => (
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={6}
+                lg={4}
+                xl={3}
+                key={internshipItem.id}
+              >
+                <InternshipCard data={internshipItem} />
+              </Grid>
+            ))}
           </Grid>
-          ))}
-        </Grid>
+        </Box>
       </Box>
-    </Box>
-  </Container>
+    </Container>
+  );
 };
 
 export default Internships;

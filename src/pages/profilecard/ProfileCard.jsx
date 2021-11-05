@@ -5,8 +5,6 @@ import {
   Avatar,
   Typography,
   Divider,
-  Tabs,
-  Tab,
   ListItemText,
   List,
   ListItem,
@@ -15,26 +13,17 @@ import './ProfileCard.sass';
 import { Calendar } from '../../components/calendar';
 import { getFieldLabel } from '../../utils';
 import {
-  tableFeedback,
-  activeInternships,
   userData,
 } from '../../mocks/profileData.json';
-import { columnDefsFeed, columnDefsInternships } from '../../constants';
-import ProfileTable from '../../components/feedbacks/ProfileTable';
+import CustomTabs from '../../components/tabs/Tabs';
 
 export default class ProfileCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { selectedTab: 0 };
-    this.handleChange = this.handleChange.bind(this);
+    this.state = {};
   }
 
-  handleChange(e, newValue){
-    this.setState({ selectedTab: newValue });
-  };
-
   render() {
-    const { selectedTab } = this.state;
     return (
       <Box className="pageWrapper">
         <Box className="informationAndActivity">
@@ -82,24 +71,7 @@ export default class ProfileCard extends React.Component {
             </Card>
           </Box>
           <Box className="activity">
-            <Card className="activityTab">
-              <Tabs value={selectedTab} onChange={this.handleChange}>
-                <Tab label={getFieldLabel('profile.tab.internships')} />
-                <Tab label={getFieldLabel('profile.tab.feedbacks')} />
-              </Tabs>
-              {selectedTab === 0 && (
-                <ProfileTable
-                  rowData={activeInternships}
-                  columnDefs={columnDefsInternships}
-                />
-              )}
-              {selectedTab === 1 && (
-                <ProfileTable
-                  rowData={tableFeedback}
-                  columnDefs={columnDefsFeed}
-                />
-              )}
-            </Card>
+            <CustomTabs />
           </Box>
         </Box>
         <Box className="calendar">
