@@ -7,7 +7,7 @@ import {
   Button,
   Typography,
 } from '@mui/material';
-import './InternshipCard.sass';
+import './InternshipCard.module.sass';
 import assets from '../../assets';
 import { getFieldLabel } from '../../utils';
 
