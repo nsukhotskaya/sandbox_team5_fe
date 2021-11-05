@@ -17,7 +17,6 @@ import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
 
@@ -42,8 +41,7 @@ const Candidates = () => {
     gridApi.paginationSetPageSize(Number(value));
   };
 
-  const paginationNumberFormatter = (params) =>
-    `[${params.value.toLocaleString()}]`;
+  const paginationNumberFormatter = (params) => `[${params.value.toLocaleString()}]`;
 
   const createMenuItem = valueMenuItem.map((item) => (
     <MenuItem value={item} key={item}>
