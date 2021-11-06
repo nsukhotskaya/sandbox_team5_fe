@@ -28,7 +28,7 @@
   "profile.tab.internships.fields.status": "Status",
   "profile.tab.internships.fields.name": "Name",
   "profile.tab.feedbacks": "Feedbacks",
-  "candidates.table.registationDate": "Application Date",
+  "candidates.table.registrationDate": "Application Date",
   "profile.tab.feedbacks.fields.rating": "Rating",
   "profile.tab.feedbacks.fields.fullname": "Full Name",
   "profile.tab.feedbacks.fields.text": "Text",
@@ -38,8 +38,8 @@
   "candidates.table.englishLevelType": "English Level",
   "candidates.table.testTaskEvaluation": "Test Task",
   "candidates.table.interviewer": "Interviewer",
-  "candidates.table.status": "Status",
+  "candidates.table.statusType": "Status",
   "candidates.table.hr": "HR",
-  "candidates.table.hardSkills": "Hard Skills",
+  "candidates.table.primarySkill": "Hard Skills",
   "candidates.form.inputLabel": "Page Size"
 }
