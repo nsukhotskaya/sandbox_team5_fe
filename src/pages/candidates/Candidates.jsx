@@ -11,7 +11,6 @@ import {
 } from '@mui/material';
 import { Print, ManageSearch, MailOutline } from '@mui/icons-material';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-// import listOfCandidates from '../../mocks/listOfCandidates.json';
 import { tableFields, valueMenuItem } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import { getCandidateList } from '../../store/actions';
@@ -19,19 +18,15 @@ import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-const Candidates = () => {
+export const Candidates = () => {
   const [gridApi, setGridApi] = useState();
+  const listOfCandidates = useSelector((state) => state.candidates.candidates);
 
-  // const [rowData, setRowData] = useState([]);
-
-  const list = useSelector((state) => state.candidates.candidates);
-  // console.log(list);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCandidateList());
     if (gridApi) {
       gridApi.sizeColumnsToFit();
-      // gridApi.setRowData(list);
       window.onresize = () => {
         gridApi.sizeColumnsToFit();
       };
@@ -41,13 +36,6 @@ const Candidates = () => {
   const onColumnVisible = () => {
     gridApi.sizeColumnsToFit();
   };
-
-  // const onSizeColumnsToFit = (params) => {
-  //   params.api.sizeColumnsToFit();
-  //   window.onresize = () => {
-  //     gridApi.sizeColumnsToFit();
-  //   };
-  // };
 
   const onGridReady = (params) => {
     setGridApi(params.api);
@@ -66,8 +54,6 @@ const Candidates = () => {
       {item}
     </MenuItem>
   ));
-
-  // const test = list.map((item) => <div key={item}>{item.location}</div>);
 
   return (
     <Box padding="1%">
@@ -107,8 +93,7 @@ const Candidates = () => {
       </Box>
       <Box className="ag-theme-alpine">
         <AgGridReact
-          rowData={list}
-          // onFirstDataRendered={onSizeColumnsToFit}
+          rowData={listOfCandidates}
           onColumnVisible={onColumnVisible}
           debug
           animateRows
