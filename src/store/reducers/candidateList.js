@@ -1,3 +1,5 @@
+import { GETCANDIDATELIST } from '../commands/types';
+
 const initialState = {
   candidates: [],
   isLoading: false,
@@ -5,15 +7,15 @@ const initialState = {
 
 export default function candidateList(state = initialState, action) {
   switch (action.type) {
-    case 'GET_CANDIDATELIST_REQUEST':
+    case GETCANDIDATELIST.REQUEST:
       return { ...state, isLoading: true };
-    case 'GET_CANDIDATELIST_SUCCESS':
+    case GETCANDIDATELIST.SUCCESS:
       return {
         ...state,
-        isLoading: false,
         candidates: action.payload,
+        isLoading: false,
       };
-    case 'GET_CANDIDATELIST_FAILURE':
+    case GETCANDIDATELIST.FAILURE:
       return { ...state, isLoading: false };
     default:
       return state;

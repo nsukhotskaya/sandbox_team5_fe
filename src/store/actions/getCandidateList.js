@@ -2,13 +2,13 @@
 import API from '../commands/api';
 import { GETCANDIDATELIST } from '../commands/types';
 
-const getCandidateLisRequest = () => ({
+const getCandidateListRequest = () => ({
   type: GETCANDIDATELIST.REQUEST,
 });
 
-const getCandidateListSuccess = (candidateList) => ({
+const getCandidateListSuccess = (data) => ({
   type: GETCANDIDATELIST.SUCCESS,
-  candidateList,
+  payload: data,
 });
 
 const getCandidateListFailure = () => ({
@@ -16,19 +16,17 @@ const getCandidateListFailure = () => ({
 });
 
 const getCandidateList = () => async (dispatch) => {
-  dispatch(getCandidateLisRequest());
+  dispatch(getCandidateListRequest());
   try {
     const response = await API.post(
-      `api/Candidate/getCandidateListByInternshipId`,
+      '/api/Candidate/getCandidateListByInternshipId',
       {
-        pageSize: 1,
+        pageSize: 10,
         pageNumber: 1,
         internshipId: 1,
       },
     );
-    const candidateData = response.data;
-    dispatch(getCandidateListSuccess(candidateData));
-    console.log(candidateData);
+    dispatch(getCandidateListSuccess(response.data));
     // dispatch(push('/candidates'));
   } catch (error) {
     dispatch(getCandidateListFailure());
