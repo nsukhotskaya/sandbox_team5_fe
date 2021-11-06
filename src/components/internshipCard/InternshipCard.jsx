@@ -39,7 +39,9 @@ export const InternshipCard = ({
         )}
       </Typography>
       <Typography variant="subtitle2" color="text">
+        {getFieldLabel('internships.program.selection')}
         {maxCandidateCount}
+        {getFieldLabel('internships.program.members')}
       </Typography>
     </CardContent>
     <Box display="flex" flexDirection="row" justifyContent="center">

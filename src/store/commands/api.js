@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const provider = axios.create({
-  baseURL: `http://exadelteamfive.somee.com/`,
+  baseURL: 'http://exadelteamfive.somee.com/',
 });
 
 provider.interceptors.request.use((config) => {

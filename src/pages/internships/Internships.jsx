@@ -21,7 +21,6 @@ export const Internships = () => {
   useEffect(() => {
     dispatch(getInternships());
   }, []);
-  console.log(internships);
   return (
     <Container fixed maxWidth="1400px">
       <Box display="flex" flexDirection="column" marginTop="20px">
