@@ -1,15 +1,16 @@
 [
   {
     "fullName": "Viktar Rog",
-    "registationDate": "15.10.2021",
+    "registrationDate": "15.10.2021",
     "location": "Minsk",
     "language": "Ru",
     "internship": "JS",
     "englishLevelType": "B1",
     "testTaskEvaluation": 9,
     "interviewer": 7,
-    "status": "Approved",
-    "hr": 4
+    "statusType": "Approved",
+    "hr": 4,
+    "primarySkill": "OOP"
   },
   {
     "fullName": "Anna Bel",

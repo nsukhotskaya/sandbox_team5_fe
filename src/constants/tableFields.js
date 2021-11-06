@@ -1,14 +1,14 @@
 export const tableFields = [
-  'registationDate',
+  'registrationDate',
   'location',
   'language',
   'internship',
   'englishLevelType',
   'testTaskEvaluation',
   'interviewer',
-  'status',
+  'statusType',
   'hr',
-  'hardSkills',
+  'primarySkill',
 ];
 
 export const valueMenuItem = [10, 20, 30];
