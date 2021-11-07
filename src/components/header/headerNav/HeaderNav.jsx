@@ -1,7 +1,6 @@
 import React from 'react';
 import LoginIcon from '@mui/icons-material/Login';
 import { Box, IconButton, Avatar } from '@mui/material';
-import { Link } from 'react-router-dom';
 import './HeaderNav.sass';
 import { connect } from 'react-redux';
 import { userLogOut } from '../../../store/actions';
@@ -11,10 +10,8 @@ function HeaderNav(props) {
   return (
     <Box height="60px" width="120px">
       <Box className="headerNav">
-        <IconButton>
-          <Link to="/profile">
-            <Avatar alt="Ivan Ivanov" />
-          </Link>
+        <IconButton href="/profile">
+          <Avatar alt="Ivan Ivanov" />
         </IconButton>
         <IconButton onClick={logOut}>
           <LoginIcon />
