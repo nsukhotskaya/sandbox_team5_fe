@@ -10,6 +10,7 @@ import {
   IconButton,
 } from '@mui/material';
 import { Print, ManageSearch, MailOutline } from '@mui/icons-material';
+import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields, valueMenuItem } from '../../constants';
 import { getFieldLabel } from '../../utils';
@@ -39,7 +40,6 @@ export const Candidates = () => {
 
   const onGridReady = (params) => {
     setGridApi(params.api);
-    // gridApi.setRowData(listOfCandidates);
   };
 
   const onPageSizeChanged = (newPageSize) => {
@@ -54,6 +54,19 @@ export const Candidates = () => {
       {item}
     </MenuItem>
   ));
+
+  const reformatCandidates = function vb(candidates) {
+    return candidates.map((candidate) => {
+      const newObj = { ...candidate };
+      newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
+      newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
+        'DD.MM.YYYY',
+      );
+      return newObj;
+    });
+  };
+
+  const newListOfCandidates = reformatCandidates(listOfCandidates);
 
   return (
     <Box padding="1%">
@@ -93,7 +106,7 @@ export const Candidates = () => {
       </Box>
       <Box className="ag-theme-alpine">
         <AgGridReact
-          rowData={listOfCandidates}
+          rowData={newListOfCandidates}
           onColumnVisible={onColumnVisible}
           debug
           animateRows
