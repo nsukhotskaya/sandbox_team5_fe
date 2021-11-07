@@ -24,6 +24,7 @@
     "ag-grid-react": "^26.1.0",
     "axios": "^0.23.0",
     "connected-react-router": "^6.9.1",
+    "dayjs": "^1.10.7",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "history": "^4.10.1",
