@@ -47,8 +47,6 @@ export const Candidates = () => {
     gridApi.paginationSetPageSize(Number(value));
   };
 
-  const paginationNumberFormatter = (params) => `[${params.value.toLocaleString()}]`;
-
   const createMenuItem = valueMenuItem.map((item) => (
     <MenuItem value={item} key={item}>
       {item}
@@ -115,7 +113,6 @@ export const Candidates = () => {
           domLayout="autoHeight"
           pagination
           paginationPageSize="10"
-          paginationNumberFormatter={paginationNumberFormatter}
           sideBar={{
             toolPanels: [
               {
