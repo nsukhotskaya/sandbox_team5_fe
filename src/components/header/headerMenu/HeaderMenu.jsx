@@ -13,7 +13,7 @@ function HeaderMenu() {
       </Button>
       <Button>
         <Link to="/candidates">
-          {getFieldLabel('header.menu.button.allcandidates')}
+          {getFieldLabel('header.menu.button.candidates')}
         </Link>
       </Button>
     </ButtonGroup>
