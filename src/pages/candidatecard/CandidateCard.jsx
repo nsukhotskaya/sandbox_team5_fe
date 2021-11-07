@@ -9,13 +9,26 @@ import {
   TextField,
   Rating,
   Button,
+  Tab,
 } from '@mui/material';
+
+// eslint-disable-next-line no-unused-vars
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import { getFieldLabel } from '../../utils';
 // import { Header } from '../../components';
 
 //  список данных, отзывы и оценки, связанные с кандидатом пользователи, статус, история
 
 export function CandidateCard() {
+  // eslint-disable-next-line no-unused-vars
+  const [value, setValue] = React.useState('1');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <Box display="flex" height="100vh" backgroundColor="background.paper">
       {/* <Header /> */}
@@ -137,56 +150,95 @@ export function CandidateCard() {
         height="100%"
         backgroundColor="background.default"
       >
-        <Box
-          // boxSizing="border-box"
-          // flexDirection="column"
-          // marginTop="2%"
-          padding="2%"
-          height="75%"
-          backgroundColor="background.paper"
-          boxShadow="4"
-        >
-          <Box display="flex" justifyContent="space-between">
-            <Typography variant="h6">Daria Petrova</Typography>
-            {/* <Button variant="outlined">Assign</Button> */}
-          </Box>
+        <TabContext value={value}>
+          <Box // ОТЗЫВЫ ТУТ
+            // boxSizing="border-box"
+            // flexDirection="column"
+            // marginTop="2%"
+            padding="2%"
+            height="75%"
+            backgroundColor="background.paper"
+            boxShadow="4"
+          >
+            <TabList onChange={handleChange} aria-label="lab API tabs example">
+              <Tab label="Overview" value="1" />
+              <Tab label="HR" value="2" />
+              <Tab label="Interviewer" value="3" />
+            </TabList>
 
-          <Rating defaultValue={2.5} precision={0.5} max={4} />
-          <TextField
-            placeholder="You can write comment here"
-            variant="outlined"
-            fullWidth
-            multiline
-            minRows={4}
-            maxRows={4}
-          />
-          <Box display="flex" justifyContent="space-between" marginTop="1%">
-            <Typography variant="h6">Unassigned Interviewer</Typography>
-            <Button variant="outlined">Assign</Button>
+            <TabPanel value="1">
+              <Box display="flex" justifyContent="space-between">
+                <Typography variant="h6">Daria Petrova</Typography>
+                {/* <Button variant="outlined">Assign</Button> */}
+              </Box>
+
+              <Rating defaultValue={2.5} precision={0.5} max={4} />
+              <TextField
+                placeholder="You can write comment here"
+                variant="outlined"
+                fullWidth
+                multiline
+                minRows={4}
+                maxRows={4}
+              />
+              <Box display="flex" justifyContent="space-between" marginTop="1%">
+                <Typography variant="h6">Unassigned Interviewer</Typography>
+                <Button variant="outlined">Assign</Button>
+              </Box>
+              <Rating defaultValue={2.5} precision={0.5} max={4} />
+              <TextField
+                placeholder="You can write comment here"
+                variant="outlined"
+                fullWidth
+                multiline
+                minRows={4}
+                maxRows={4}
+              />
+              <Box display="flex" justifyContent="space-between" marginTop="1%">
+                <Typography variant="h6">Unassigned Mentor</Typography>
+                <Button variant="outlined">Assign</Button>
+              </Box>
+              <Rating defaultValue={2.5} precision={0.5} max={4} />
+              <TextField
+                placeholder="You can write comment here"
+                variant="outlined"
+                fullWidth
+                multiline
+                minRows={4}
+                maxRows={4}
+              />
+            </TabPanel>
+
+            <TabPanel value="2">
+              <Box display="flex" justifyContent="space-between">
+                <Typography variant="h6">Daria Petrova</Typography>
+                {/* <Button variant="outlined">Assign</Button> */}
+              </Box>
+
+              <Rating defaultValue={2.5} precision={0.5} max={4} />
+              <TextField
+                placeholder="You can write comment here"
+                variant="outlined"
+                fullWidth
+                multiline
+                minRows={4}
+                maxRows={4}
+              />
+              <Typography variant="h6">Skill 1</Typography>
+              {/* <Button variant="outlined">Assign</Button> */}
+
+              <Rating defaultValue={2.5} precision={0.5} max={4} />
+              <Typography variant="h6">Skill 2</Typography>
+              {/* <Button variant="outlined">Assign</Button> */}
+
+              <Rating defaultValue={2.5} precision={0.5} max={4} />
+              <Typography variant="h6">Skill 3</Typography>
+              {/* <Button variant="outlined">Assign</Button> */}
+
+              <Rating defaultValue={2.5} precision={0.5} max={4} />
+            </TabPanel>
           </Box>
-          <Rating defaultValue={2.5} precision={0.5} max={4} />
-          <TextField
-            placeholder="You can write comment here"
-            variant="outlined"
-            fullWidth
-            multiline
-            minRows={4}
-            maxRows={4}
-          />
-          <Box display="flex" justifyContent="space-between" marginTop="1%">
-            <Typography variant="h6">Unassigned Mentor</Typography>
-            <Button variant="outlined">Assign</Button>
-          </Box>
-          <Rating defaultValue={2.5} precision={0.5} max={4} />
-          <TextField
-            placeholder="You can write comment here"
-            variant="outlined"
-            fullWidth
-            multiline
-            minRows={4}
-            maxRows={4}
-          />
-        </Box>
+        </TabContext>
         <Box
           boxSizing="border-box"
           // flexDirection="column"
