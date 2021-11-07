@@ -7,7 +7,7 @@ import {
   Button,
   Typography,
 } from '@mui/material';
-import './InternshipCard.module.sass';
+import './InternshipCard.sass';
 import assets from '../../assets';
 import { getFieldLabel } from '../../utils';
 
@@ -22,7 +22,7 @@ export const InternshipCard = ({
     maxCandidateCount,
   },
 }) => (
-  <Card sx={{ borderRadius: 5 }}>
+  <Card raised className="internshipCard" sx={{ borderRadius: 5 }}>
     <CardMedia
       component="img"
       height="120"
@@ -45,7 +45,7 @@ export const InternshipCard = ({
       </Typography>
     </CardContent>
     <Box display="flex" flexDirection="row" justifyContent="center">
-      <Button className="internshipCardButton" size="small">
+      <Button raised className="internshipCardButton" size="small">
         {getFieldLabel('internships.button.program.info')}
       </Button>
       <Button size="small">
