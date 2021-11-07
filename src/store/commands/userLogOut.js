@@ -1,9 +1,5 @@
 import { push } from 'connected-react-router';
-import { LOGOUT } from '../commands/types';
-
-const logoutSuccess = {
-  type: LOGOUT.SUCCESS,
-};
+import { logoutSuccess } from '../actions';
 
 const userLogOut = () => (dispatch) => {
   localStorage.removeItem('accessToken');

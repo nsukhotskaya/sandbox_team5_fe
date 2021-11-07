@@ -1,21 +1,17 @@
-import { LOGIN, LOGOUT } from '../commands/types';
-
 const initialState = localStorage.accessToken
-  ? {
-    isAuthorized: true,
-  }
+  ? { isAuthorized: true }
   : { isAuthorized: false };
 
 export default function isAuthorized(state = initialState, action) {
   switch (action.type) {
-    case LOGIN.REQUEST:
+    case 'LOGIN_REQUEST':
       return state;
-    case LOGIN.SUCCESS:
-      return { ...state, isAuthorized: true };
-    case LOGIN.FAILURE:
+    case 'LOGIN_SUCCESS':
+      return { ...state, isAuthorized: action.isAuthorized };
+    case 'LOGIN_FAILURE':
       return state;
-    case LOGOUT.SUCCESS:
-      return { ...state, isAuthorized: false };
+    case 'LOGOUT_SUCCESS':
+      return { ...state, isAuthorized: action.isAuthorized };
     default:
       return state;
   }

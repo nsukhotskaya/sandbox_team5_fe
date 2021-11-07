@@ -9,7 +9,7 @@ import {
   Box,
   FormControl,
 } from '@mui/material';
-import { userLogIn } from '../../store/actions';
+import { userLogIn } from '../../store/commands';
 
 import './Login.sass';
 import { Footer } from '../../components';

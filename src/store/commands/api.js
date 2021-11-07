@@ -1,5 +1,9 @@
 import axios from 'axios';
 
-export default axios.create({
+const API = axios.create({
   baseURL: 'http://exadelteamfive.somee.com/',
 });
+
+export const authorizationPostRequest = (user) => {
+  API.post('api/authenticate', user);
+};
