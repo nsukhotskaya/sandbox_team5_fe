@@ -4,4 +4,5 @@ export {
   getCandidateListRequest,
   getCandidateListSuccess,
   getCandidateListFailure,
+  GET_CANDIDATE_LIST,
 } from './getCandidateList';

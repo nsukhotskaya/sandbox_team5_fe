@@ -1,4 +1,4 @@
-import { GET_CANDIDATE_LIST } from '../commands/types';
+import { GET_CANDIDATE_LIST } from '../actions';
 
 const initialState = {
   candidates: [],
