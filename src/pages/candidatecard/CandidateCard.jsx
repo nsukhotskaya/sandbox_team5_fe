@@ -9,26 +9,13 @@ import {
   TextField,
   Rating,
   Button,
-  Tab,
 } from '@mui/material';
-
-// eslint-disable-next-line no-unused-vars
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
 import { getFieldLabel } from '../../utils';
 // import { Header } from '../../components';
 
 //  список данных, отзывы и оценки, связанные с кандидатом пользователи, статус, история
 
 export function CandidateCard() {
-  // eslint-disable-next-line no-unused-vars
-  const [value, setValue] = React.useState('1');
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   return (
     <Box display="flex" height="100vh" backgroundColor="background.paper">
       {/* <Header /> */}
@@ -50,7 +37,6 @@ export function CandidateCard() {
           // width="100%"
           // height="100%"
           backgroundColor="background.paper"
-          boxShadow="4"
         >
           <Box
             display="flex"
@@ -58,7 +44,7 @@ export function CandidateCard() {
             justifyContent="space-between"
           >
             <Typography paddingLeft="1%" variant="h4">
-              Olga Ivanova
+              Grzegorz Brzęczyszczykiewicz
             </Typography>
             <Button variant="outlined">Edit</Button>
           </Box>
@@ -73,70 +59,71 @@ export function CandidateCard() {
                   </Typography>
                 }
               />
-              <Typography variant="h6">In Progress</Typography>
+              <Typography variant="h6">Accepted</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.internship')} />
-              <Typography variant="body1">.NET/JS 2021</Typography>
+              <Typography variant="body1">test internship</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.skillStack')} />
-              <Typography variant="body1">Backend</Typography>
-            </ListItem>
-            <ListItem>
-              <ListItemText primary={getFieldLabel('candidate.primarySkill')} />
-              <Typography variant="body1">.NET</Typography>
+              <Typography variant="body1">стак технологий</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.englishLevel')} />
-              <Typography variant="body1">C1</Typography>
+              <Typography variant="body1">уровень английского</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.planToJoin')} />
-              <Typography variant="body1">Yes</Typography>
+              <Typography variant="body1">планирует присеодиниться</Typography>
             </ListItem>
             <ListItem>
               <ListItemText
                 primary={getFieldLabel('candidate.applicationDate')}
               />
-              <Typography variant="body1">29.10.2021</Typography>
+              <Typography variant="body1">дата подачи заявки</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.location')} />
-              <Typography variant="body1">Warsaw</Typography>
+              <Typography variant="body1">локация</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.phone')} />
-              <Typography variant="body1">+42788478272</Typography>
+              <Typography variant="body1">телефон</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.skype')} />
-              <Typography variant="body1">id:234512</Typography>
+              <Typography variant="body1">скайп</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.education')} />
-              <Typography variant="body1">-</Typography>
+              <Typography variant="body1">образование</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.links')} />
-              <Typography variant="body1">github</Typography>
+              <Typography variant="body1">linkedin?</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.other')} />
-              <Typography variant="body1">-</Typography>
+              <Typography variant="body1">
+                инфо которое указывает кандидат
+              </Typography>
             </ListItem>
-
+            <ListItem>
+              <ListItemText primary={getFieldLabel('candidate.primarySkill')} />
+              <Typography variant="body1">главный скилл</Typography>
+            </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.currentJob')} />
-              <Typography variant="body1">-</Typography>
+              <Typography variant="body1">текущая работа</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.certificate')} />
-              <Typography variant="body1">-</Typography>
+              <Typography variant="body1">сертификаты</Typography>
             </ListItem>
             <ListItem>
               <ListItemText primary={getFieldLabel('candidate.test')} />
-              <Typography variant="body1">-</Typography>
+              <Typography variant="body1">тест</Typography>
             </ListItem>
           </List>
         </Box>
@@ -150,95 +137,48 @@ export function CandidateCard() {
         height="100%"
         backgroundColor="background.default"
       >
-        <TabContext value={value}>
-          <Box // ОТЗЫВЫ ТУТ
-            // boxSizing="border-box"
-            // flexDirection="column"
-            // marginTop="2%"
-            padding="2%"
-            height="75%"
-            backgroundColor="background.paper"
-            boxShadow="4"
-          >
-            <TabList onChange={handleChange} aria-label="lab API tabs example">
-              <Tab label="Overview" value="1" />
-              <Tab label="HR" value="2" />
-              <Tab label="Interviewer" value="3" />
-            </TabList>
-
-            <TabPanel value="1">
-              <Box display="flex" justifyContent="space-between">
-                <Typography variant="h6">Daria Petrova</Typography>
-                {/* <Button variant="outlined">Assign</Button> */}
-              </Box>
-
-              <Rating defaultValue={2.5} precision={0.5} max={4} />
-              <TextField
-                placeholder="You can write comment here"
-                variant="outlined"
-                fullWidth
-                multiline
-                minRows={4}
-                maxRows={4}
-              />
-              <Box display="flex" justifyContent="space-between" marginTop="1%">
-                <Typography variant="h6">Unassigned Interviewer</Typography>
-                <Button variant="outlined">Assign</Button>
-              </Box>
-              <Rating defaultValue={2.5} precision={0.5} max={4} />
-              <TextField
-                placeholder="You can write comment here"
-                variant="outlined"
-                fullWidth
-                multiline
-                minRows={4}
-                maxRows={4}
-              />
-              <Box display="flex" justifyContent="space-between" marginTop="1%">
-                <Typography variant="h6">Unassigned Mentor</Typography>
-                <Button variant="outlined">Assign</Button>
-              </Box>
-              <Rating defaultValue={2.5} precision={0.5} max={4} />
-              <TextField
-                placeholder="You can write comment here"
-                variant="outlined"
-                fullWidth
-                multiline
-                minRows={4}
-                maxRows={4}
-              />
-            </TabPanel>
-
-            <TabPanel value="2">
-              <Box display="flex" justifyContent="space-between">
-                <Typography variant="h6">Daria Petrova</Typography>
-                {/* <Button variant="outlined">Assign</Button> */}
-              </Box>
-
-              <Rating defaultValue={2.5} precision={0.5} max={4} />
-              <TextField
-                placeholder="You can write comment here"
-                variant="outlined"
-                fullWidth
-                multiline
-                minRows={4}
-                maxRows={4}
-              />
-              <Typography variant="h6">Skill 1</Typography>
-              {/* <Button variant="outlined">Assign</Button> */}
-
-              <Rating defaultValue={2.5} precision={0.5} max={4} />
-              <Typography variant="h6">Skill 2</Typography>
-              {/* <Button variant="outlined">Assign</Button> */}
-
-              <Rating defaultValue={2.5} precision={0.5} max={4} />
-              <Typography variant="h6">Skill 3</Typography>
-              {/* <Button variant="outlined">Assign</Button> */}
-
-              <Rating defaultValue={2.5} precision={0.5} max={4} />
-            </TabPanel>
-          </Box>
-        </TabContext>
+        <Box
+          // boxSizing="border-box"
+          // flexDirection="column"
+          // marginTop="2%"
+          padding="2%"
+          height="75%"
+          backgroundColor="background.paper"
+        >
+          <Typography variant="h6">Unassigned HR</Typography>
+          <Rating defaultValue={2.5} precision={0.5} max={4} />
+          <TextField
+            id="outlined-basic"
+            placeholder="You can write comment here"
+            variant="outlined"
+            fullWidth
+            multiline
+            minRows={4}
+            maxRows={4}
+          />
+          <Typography variant="h6">Unassigned tech interviewer</Typography>
+          <Rating defaultValue={2.5} precision={0.5} max={4} />
+          <TextField
+            id="outlined-basic"
+            placeholder="You can write comment here"
+            variant="outlined"
+            fullWidth
+            multiline
+            minRows={4}
+            maxRows={4}
+          />
+          <Typography variant="h6">Unassigned mentor</Typography>
+          <Rating defaultValue={2.5} precision={0.5} max={4} />
+          <TextField
+            id="outlined-basic"
+            placeholder="You can write comment here"
+            variant="outlined"
+            fullWidth
+            multiline
+            minRows={4}
+            maxRows={4}
+          />
+        </Box>
         <Box
           boxSizing="border-box"
           // flexDirection="column"
@@ -246,9 +186,8 @@ export function CandidateCard() {
           padding="2%"
           height="25%"
           backgroundColor="background.paper"
-          boxShadow="4"
         >
-          <Typography variant="body1">Action history</Typography>
+          <Typography variant="body1">история</Typography>
         </Box>
       </Box>
     </Box>
