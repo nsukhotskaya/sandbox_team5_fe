@@ -3,10 +3,10 @@ import LoginIcon from '@mui/icons-material/Login';
 import { Box, IconButton, Avatar } from '@mui/material';
 import './HeaderNav.sass';
 import { connect } from 'react-redux';
-import { userLogOut } from '../../../store/actions';
+import { deleteUserToken } from '../../../store/commands';
 
 function HeaderNav(props) {
-  const { logOut } = props;
+  const { deleteUserToken: logOut } = props;
   return (
     <Box height="60px" width="120px">
       <Box className="headerNav">
@@ -22,7 +22,7 @@ function HeaderNav(props) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  logOut: () => dispatch(userLogOut()),
+  deleteUserToken: () => dispatch(deleteUserToken()),
 });
 
 export default connect(null, mapDispatchToProps)(HeaderNav);
