@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Box,
   MenuItem,
@@ -9,31 +10,34 @@ import {
   IconButton,
 } from '@mui/material';
 import { Print, ManageSearch, MailOutline } from '@mui/icons-material';
+import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import listOfCandidates from '../../mocks/listOfCandidates.json';
 import { tableFields, valueMenuItem } from '../../constants';
 import { getFieldLabel } from '../../utils';
+import { fetchCandidateList } from '../../store/commands';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-const Candidates = () => {
+export const Candidates = () => {
   const [gridApi, setGridApi] = useState();
+  const listOfCandidates = useSelector((state) => state.candidates.candidates);
+
+  const dispatch = useDispatch();
+
+  useLayoutEffect(() => {
+    dispatch(fetchCandidateList());
+    if (gridApi) {
+      gridApi.sizeColumnsToFit();
+    }
+  });
 
   const onColumnVisible = () => {
     gridApi.sizeColumnsToFit();
   };
 
-  const onSizeColumnsToFit = (params) => {
-    params.api.sizeColumnsToFit();
-    window.onresize = () => {
-      gridApi.sizeColumnsToFit();
-    };
-  };
-
   const onGridReady = (params) => {
     setGridApi(params.api);
-    params.api.setRowData(listOfCandidates);
   };
 
   const onPageSizeChanged = (newPageSize) => {
@@ -41,13 +45,24 @@ const Candidates = () => {
     gridApi.paginationSetPageSize(Number(value));
   };
 
-  const paginationNumberFormatter = (params) => `[${params.value.toLocaleString()}]`;
-
   const createMenuItem = valueMenuItem.map((item) => (
     <MenuItem value={item} key={item}>
       {item}
     </MenuItem>
   ));
+
+  const reformatCandidates = function vb(candidates) {
+    return candidates.map((candidate) => {
+      const newObj = { ...candidate };
+      newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
+      newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
+        'DD.MM.YYYY',
+      );
+      return newObj;
+    });
+  };
+
+  const newListOfCandidates = reformatCandidates(listOfCandidates);
 
   return (
     <Box padding="1%">
@@ -87,7 +102,7 @@ const Candidates = () => {
       </Box>
       <Box className="ag-theme-alpine">
         <AgGridReact
-          onFirstDataRendered={onSizeColumnsToFit}
+          rowData={newListOfCandidates}
           onColumnVisible={onColumnVisible}
           debug
           animateRows
@@ -96,7 +111,6 @@ const Candidates = () => {
           domLayout="autoHeight"
           pagination
           paginationPageSize="10"
-          paginationNumberFormatter={paginationNumberFormatter}
           sideBar={{
             toolPanels: [
               {
