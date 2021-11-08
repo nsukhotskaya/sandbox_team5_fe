@@ -14,7 +14,7 @@ import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields, valueMenuItem } from '../../constants';
 import { getFieldLabel } from '../../utils';
-import { getCandidateList } from '../../store/actions';
+import { fetchCandidateList } from '../../store/commands';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
@@ -25,7 +25,7 @@ export const Candidates = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getCandidateList());
+    dispatch(fetchCandidateList());
     if (gridApi) {
       gridApi.sizeColumnsToFit();
       window.onresize = () => {

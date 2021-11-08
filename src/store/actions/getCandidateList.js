@@ -1,36 +1,16 @@
-// import { push } from 'connected-react-router';
-import API from '../commands/api';
-import { GETCANDIDATELIST } from '../commands/types';
+import { GET_CANDIDATE_LIST } from '../commands/types';
 
-const getCandidateListRequest = () => ({
-  type: GETCANDIDATELIST.REQUEST,
+export const getCandidateListRequest = () => ({
+  type: GET_CANDIDATE_LIST.REQUEST,
+  payload: null,
 });
 
-const getCandidateListSuccess = (data) => ({
-  type: GETCANDIDATELIST.SUCCESS,
+export const getCandidateListSuccess = (data) => ({
+  type: GET_CANDIDATE_LIST.SUCCESS,
   payload: data,
 });
 
-const getCandidateListFailure = () => ({
-  type: GETCANDIDATELIST.FAILURE,
+export const getCandidateListFailure = (error) => ({
+  type: GET_CANDIDATE_LIST.FAILURE,
+  payload: error,
 });
-
-const getCandidateList = () => async (dispatch) => {
-  dispatch(getCandidateListRequest());
-  try {
-    const response = await API.post(
-      '/api/Candidate/getCandidateListByInternshipId',
-      {
-        pageSize: 10,
-        pageNumber: 1,
-        internshipId: 1,
-      },
-    );
-    dispatch(getCandidateListSuccess(response.data));
-    // dispatch(push('/candidates'));
-  } catch (error) {
-    dispatch(getCandidateListFailure());
-  }
-};
-
-export default getCandidateList;
