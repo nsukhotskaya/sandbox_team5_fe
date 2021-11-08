@@ -7,10 +7,10 @@ export const getCandidateListRequest = () => ({
 
 export const getCandidateListSuccess = (data) => ({
   type: GET_CANDIDATE_LIST.SUCCESS,
-  payload: data,
+  payload: { candidates: data },
 });
 
 export const getCandidateListFailure = (error) => ({
   type: GET_CANDIDATE_LIST.FAILURE,
-  payload: error,
+  payload: { error },
 });
