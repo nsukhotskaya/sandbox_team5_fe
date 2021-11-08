@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Box,
@@ -24,15 +24,13 @@ export const Candidates = () => {
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
 
   const dispatch = useDispatch();
-  useEffect(() => {
+
+  useLayoutEffect(() => {
     dispatch(fetchCandidateList());
     if (gridApi) {
       gridApi.sizeColumnsToFit();
-      window.onresize = () => {
-        gridApi.sizeColumnsToFit();
-      };
     }
-  }, [gridApi]);
+  });
 
   const onColumnVisible = () => {
     gridApi.sizeColumnsToFit();
