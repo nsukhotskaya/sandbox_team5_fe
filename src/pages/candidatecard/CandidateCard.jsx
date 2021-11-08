@@ -1,6 +1,10 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
-import { CandidateFeedback, CandidateInfo } from '../../components';
+import { Box } from '@mui/material';
+import {
+  CandidateFeedback,
+  CandidateHistory,
+  CandidateInfo,
+} from '../../components';
 
 export function CandidateCard() {
   return (
@@ -51,7 +55,7 @@ export function CandidateCard() {
           backgroundColor="background.paper"
           boxShadow="0 0 20px rgba(0, 0, 0, 0.1)"
         >
-          <Typography variant="body1">история</Typography>
+          <CandidateHistory />
         </Box>
       </Box>
     </Box>

@@ -5,3 +5,4 @@ export * from './utils';
 export * from './internshipCard';
 export * from './candidateFeedback';
 export * from './candidateInfo';
+export * from './candidateHistory';

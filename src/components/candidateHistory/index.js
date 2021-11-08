@@ -1,0 +1,1 @@
+export { CandidateHistory } from './CandidateHistory';
