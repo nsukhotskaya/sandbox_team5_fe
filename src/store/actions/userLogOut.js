@@ -1,13 +1,8 @@
-import { push } from 'connected-react-router';
-import { LOGOUT } from '../commands/types';
-
-const logoutSuccess = {
-  type: LOGOUT.SUCCESS,
+export const USER_LOGOUT = {
+  SUCCESS: 'USER_LOGOUT_SUCCESS',
 };
 
-const userLogOut = () => (dispatch) => {
-  localStorage.removeItem('accessToken');
-  dispatch(logoutSuccess);
-  dispatch(push('/login'));
-};
-export default userLogOut;
+export const userLogOutSuccess = () => ({
+  type: USER_LOGOUT.SUCCESS,
+  payload: null,
+});

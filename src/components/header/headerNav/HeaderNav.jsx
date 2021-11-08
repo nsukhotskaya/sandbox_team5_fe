@@ -4,10 +4,10 @@ import { Box, IconButton, Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import './HeaderNav.sass';
 import { connect } from 'react-redux';
-import { userLogOut } from '../../../store/actions';
+import { deleteUserToken } from '../../../store/commands';
 
 function HeaderNav(props) {
-  const { logOut } = props;
+  const { deleteUserToken } = props;
   return (
     <Box height="60px" width="120px">
       <Box className="headerNav">
@@ -16,7 +16,7 @@ function HeaderNav(props) {
             <Avatar alt="Ivan Ivanov" />
           </Link>
         </IconButton>
-        <IconButton onClick={logOut}>
+        <IconButton onClick={deleteUserToken()}>
           <LoginIcon />
         </IconButton>
       </Box>
@@ -25,7 +25,7 @@ function HeaderNav(props) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  logOut: () => dispatch(userLogOut()),
+  deleteUserToken: () => dispatch(deleteUserToken()),
 });
 
 export default connect(null, mapDispatchToProps)(HeaderNav);

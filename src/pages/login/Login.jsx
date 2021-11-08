@@ -9,7 +9,7 @@ import {
   Box,
   FormControl,
 } from '@mui/material';
-import { userLogIn } from '../../store/actions';
+import { fetchUserToken } from '../../store/commands';
 
 import './Login.sass';
 import { Footer } from '../../components';
@@ -31,7 +31,7 @@ const Login = (props) => {
   };
 
   const handleSubmit = () => {
-    props.userLogIn(user);
+    props.fetchUserToken(user);
   };
 
   const handleForm = (event) => {
@@ -96,7 +96,7 @@ const Login = (props) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  userLogIn: (user) => dispatch(userLogIn(user)),
+  fetchUserToken: (user) => dispatch(fetchUserToken(user)),
 });
 const mapStateToProps = (state) => state;
 
