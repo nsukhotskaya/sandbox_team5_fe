@@ -7,16 +7,22 @@ import {
   Button,
   Typography,
 } from '@mui/material';
-import './InternshipCard.module.sass';
+import './InternshipCard.sass';
 import assets from '../../assets';
 import { getFieldLabel } from '../../utils';
 
+const dayjs = require('dayjs');
+
 export const InternshipCard = ({
   data: {
-    imageUrl, title, dateInterval, numberOfMembers,
+    imageUrl,
+    name,
+    registrationStartDate,
+    registrationFinishDate,
+    maxCandidateCount,
   },
 }) => (
-  <Card sx={{ borderRadius: 5 }}>
+  <Card raised className="internshipCard" sx={{ borderRadius: 5 }}>
     <CardMedia
       component="img"
       height="120"
@@ -25,17 +31,21 @@ export const InternshipCard = ({
     />
     <CardContent className="cardContent">
       <Typography color="primary" gutterBottom variant="h6" component="div">
-        {getFieldLabel(title)}
+        {name}
       </Typography>
       <Typography variant="subtitle2" color="text">
-        {getFieldLabel(dateInterval)}
+        {dayjs(registrationStartDate, registrationFinishDate).format(
+          'D MMMM YYYY - D MMMM YYYY',
+        )}
       </Typography>
       <Typography variant="subtitle2" color="text">
-        {getFieldLabel(numberOfMembers)}
+        {getFieldLabel('internships.program.selection')}
+        {maxCandidateCount}
+        {getFieldLabel('internships.program.members')}
       </Typography>
     </CardContent>
     <Box display="flex" flexDirection="row" justifyContent="center">
-      <Button className="internshipCardButton" size="small">
+      <Button raised className="internshipCardButton" size="small">
         {getFieldLabel('internships.button.program.info')}
       </Button>
       <Button size="small">
