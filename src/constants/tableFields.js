@@ -3,11 +3,12 @@ export const tableFields = [
   'location',
   'language',
   'internship',
+  'stackType',
   'englishLevelType',
-  'testTaskEvaluation',
-  'interviewer',
-  'statusType',
   'hr',
+  'interviewer',
+  'testTaskEvaluation',
+  'statusType',
   'primarySkill',
 ];
 
