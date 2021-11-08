@@ -6,14 +6,14 @@ import { connect } from 'react-redux';
 import { deleteUserToken } from '../../../store/commands';
 
 function HeaderNav(props) {
-  const { deleteUserToken } = props;
+  const { deleteUserToken: logOut } = props;
   return (
     <Box height="60px" width="120px">
       <Box className="headerNav">
         <IconButton href="/profile">
           <Avatar alt="Ivan Ivanov" />
         </IconButton>
-        <IconButton onClick={deleteUserToken()}>
+        <IconButton onClick={logOut}>
           <LoginIcon />
         </IconButton>
       </Box>
