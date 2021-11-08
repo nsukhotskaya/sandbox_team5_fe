@@ -1,28 +1,20 @@
-import { GET_INTERNSHIPS } from '../commands/types';
-import API from '../commands/api';
-
-const getInternshipsSuccess = (data) => ({
-  type: GET_INTERNSHIPS.SUCCESS,
-  payload: data,
-});
-
-const getInternshipsFailure = () => ({
-  type: GET_INTERNSHIPS.FAILURE,
-});
-
-export const getInternships = () => async (dispatch) => {
-  try {
-    dispatch({
-      type: GET_INTERNSHIPS.REQUEST,
-    });
-    const response = await API.post('/api/Internship/getInternships', {
-      pageSize: 10000,
-      pageNumber: 1,
-    });
-    dispatch(getInternshipsSuccess(response.data));
-  } catch (error) {
-    dispatch(getInternshipsFailure);
-  }
+export const GET_INTERNSHIPS = {
+  REQUEST: 'GET_INTERNSHIPS_REQUEST',
+  SUCCESS: 'GET_INTERNSHIPS_SUCCESS',
+  FAILURE: 'GET_INTERNSHIPS_FAILURE',
 };
 
-export default getInternships;
+export const getInternshipsRequest = () => ({
+  type: GET_INTERNSHIPS.REQUEST,
+  payload: null,
+});
+
+export const getInternshipsSuccess = (data) => ({
+  type: GET_INTERNSHIPS.SUCCESS,
+  payload: { candidates: data },
+});
+
+export const getInternshipsFailure = (error) => ({
+  type: GET_INTERNSHIPS.FAILURE,
+  payload: { error },
+});

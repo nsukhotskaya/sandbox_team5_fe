@@ -13,13 +13,13 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
 import { InternshipCard } from '../../components';
-import { getInternships } from '../../store/actions/internships';
+import { fetchInternships } from '../../store/commands';
 
 export const Internships = () => {
   const internships = useSelector((state) => state.internships.internships);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getInternships());
+    dispatch(fetchInternships());
   }, []);
   return (
     <Container fixed maxWidth="1400px">
