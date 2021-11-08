@@ -47,8 +47,16 @@ export const Internships = () => (
       <Box>
         <Grid container spacing={3}>
           {internshipsMocks.map((internshipItem) => (
-            <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-              <InternshipCard key={internshipItem.id} data={internshipItem} />
+            <Grid
+              key={internshipItem.id}
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={4}
+              xl={3}
+            >
+              <InternshipCard data={internshipItem} />
             </Grid>
           ))}
         </Grid>
