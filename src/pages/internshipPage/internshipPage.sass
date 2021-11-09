@@ -3,31 +3,58 @@
 .flexContainer
   display: flex
   box-sizing: border-box
-  height: 100vh
+  height: auto
   background-color: $common-background 
 
+.flexContainerMobile
+  display: flex
+  flex-direction: column
+  box-sizing: border-box
+  background-color: $common-background     
+  overflow: scroll
+  justify-content: space-between
+
 .internshipContentWrapper
-  width: 33%
+  width: 25%
+  height: 100%
+  padding: 1%
+  padding-right: 0
+  box-sizing: border-box
+
+.internshipContentWrapperMobile
+  width: 100%
   height: 100%
   padding: 1%
   padding-right: 0
   box-sizing: border-box
 
 .tableWrapper      
-  height: 100%
+  height: auto
+  width: 75%
+  padding: 1%
   box-sizing: border-box
 
-.InternshipDataText
+.tableWrapperMobile      
+  height: 100%
+  width: 100%
+  padding: 1%
+  box-sizing: border-box
+
+.internshipDataText
+  box-sizing: border-box
+  padding: 1%
+  height: auto
+
+.internshipDataTextMobile
+  box-sizing: border-box
+  padding: 1%
+
+.internshipDataEmployees
   box-sizing: border-box
   padding: 1%
   height: 100%
 
-.InternshipDataMentors
+.internshipDataEmployeesMobile
   box-sizing: border-box
   padding: 1%
-  height: 100%
-
-.InternshipDataEmployees
-  box-sizing: border-box
-  padding: 1%
-  height: 100%
+  height: 850px

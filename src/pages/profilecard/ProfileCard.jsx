@@ -12,9 +12,7 @@ import {
 import './ProfileCard.sass';
 import { Calendar } from '../../components/calendar';
 import { getFieldLabel } from '../../utils';
-import {
-  userData,
-} from '../../mocks/profileData.json';
+import { userData } from '../../mocks/profileData.json';
 import CustomTabs from '../../components/tabs/Tabs';
 
 export default class ProfileCard extends React.Component {

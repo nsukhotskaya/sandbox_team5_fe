@@ -1,13 +1,8 @@
-export const columnDefsMentors = 
-[
-  {"headerNames": "Full Name", "field": "fullName"},
-  {"headerNames": "Position", "field": "position"},
-  {"headerNames": "Team", "field": "team"}
-];
+import { getFieldLabel } from '../utils';
 
-export const columnDefsEmployees = 
-[
-  {"headerNames": "Full Name", "field": "fullName"},
-  {"headerNames": "Role", "field": "role"},
-  {"headerNames": "Position", "field": "position"}
+export const columnDefsEmployees = [
+  { headerNames: getFieldLabel('internship.page.table.fullname'), field: 'fullName' },
+  { headerNames: getFieldLabel('internship.page.table.role'), field: 'role' },
+  { headerNames: getFieldLabel('internship.page.table.position'), field: 'position' },
+  { headerNames: getFieldLabel('internship.page.table.team'), field: 'team' },
 ];
