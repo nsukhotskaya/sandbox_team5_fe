@@ -4,3 +4,4 @@ export { ProfileCard } from './profilecard';
 export { Candidates } from './candidates';
 export { Internships } from './internships';
 export { AddProgram } from './addProgram';
+export { InternshipPage } from './internshipPage';
