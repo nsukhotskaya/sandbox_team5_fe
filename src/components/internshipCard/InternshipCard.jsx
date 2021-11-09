@@ -47,7 +47,7 @@ export const InternshipCard = ({
       <Button className="internshipCardButton" size="small">
         {getFieldLabel('internships.button.program.info')}
       </Button>
-      <Button size="small">
+      <Button size="small" href={`/candidates/${name}`}>
         {getFieldLabel('internships.button.candidates.list')}
       </Button>
     </Box>

@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   MenuItem,
@@ -25,6 +26,7 @@ const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
   const open = !!anchorEl;
+  const { name } = useParams();
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
 
@@ -83,8 +85,9 @@ const Candidates = () => {
         paddingBottom="10px"
       >
         <Typography variant="h4" component="div" gutterBottom color="#222">
-          {getFieldLabel('internships.program.title.javascript')}
+          { name }
         </Typography>
+
         <Box display="flex">
 
           <Box marginRight="15px">
