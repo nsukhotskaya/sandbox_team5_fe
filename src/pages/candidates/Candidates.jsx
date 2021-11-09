@@ -8,8 +8,10 @@ import {
   FormControl,
   Select,
   IconButton,
+  Popper,
+  Input,
 } from '@mui/material';
-import { Print, ManageSearch, MailOutline } from '@mui/icons-material';
+import { Print, MailOutline, ManageSearch } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields, valueMenuItem } from '../../constants';
@@ -19,8 +21,11 @@ import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-export const Candidates = () => {
+const Candidates = () => {
   const [gridApi, setGridApi] = useState();
+  const [anchorEl, setAnchorEl] = useState();
+  const open = !!anchorEl;
+
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
 
   const dispatch = useDispatch();
@@ -30,7 +35,11 @@ export const Candidates = () => {
     if (gridApi) {
       gridApi.sizeColumnsToFit();
     }
-  });
+  }, [gridApi]);
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
 
   const onColumnVisible = () => {
     gridApi.sizeColumnsToFit();
@@ -77,6 +86,23 @@ export const Candidates = () => {
           {getFieldLabel('internships.program.title.javascript')}
         </Typography>
         <Box display="flex">
+
+          <Box marginRight="15px">
+            <IconButton onClick={handleClick}>
+              <ManageSearch fontSize="large" />
+            </IconButton>
+            <IconButton>
+              <MailOutline fontSize="large" />
+            </IconButton>
+            <IconButton>
+              <Print fontSize="large" />
+            </IconButton>
+          </Box>
+          <Popper open={open} anchorEl={anchorEl} placement="left">
+            <Input
+              placeholder={getFieldLabel('candidates.popper.inputPlaceholder')}
+            />
+          </Popper>
           <Box width="80px">
             <FormControl fullWidth>
               <InputLabel>
@@ -86,17 +112,6 @@ export const Candidates = () => {
                 {createMenuItem}
               </Select>
             </FormControl>
-          </Box>
-          <Box marginLeft="15px">
-            <IconButton>
-              <ManageSearch fontSize="large" />
-            </IconButton>
-            <IconButton>
-              <MailOutline fontSize="large" />
-            </IconButton>
-            <IconButton>
-              <Print fontSize="large" />
-            </IconButton>
           </Box>
         </Box>
       </Box>
