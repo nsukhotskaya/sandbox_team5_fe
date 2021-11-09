@@ -22,7 +22,7 @@ import { useMediaDown } from '../../components/utils';
 
 const InternshipPage = () => {
   const { internshipJavascript } = assets;
-  const mobile = useMediaDown('800');
+  const mobile = useMediaDown('md');
   return (
     <Box className={mobile ? 'flexContainerMobile' : 'flexContainer'}>
       <Box
