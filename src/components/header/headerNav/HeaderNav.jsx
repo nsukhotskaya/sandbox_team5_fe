@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginIcon from '@mui/icons-material/Login';
-import { Box, IconButton, Avatar } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import './HeaderNav.sass';
 import { connect } from 'react-redux';
 import { deleteUserToken } from '../../../store/commands';
@@ -8,11 +8,8 @@ import { deleteUserToken } from '../../../store/commands';
 function HeaderNav(props) {
   const { deleteUserToken: logOut } = props;
   return (
-    <Box height="60px" width="120px">
+    <Box height="60px" width="60px">
       <Box className="headerNav">
-        <IconButton href="/profile">
-          <Avatar alt="Ivan Ivanov" />
-        </IconButton>
         <IconButton onClick={logOut}>
           <LoginIcon />
         </IconButton>
