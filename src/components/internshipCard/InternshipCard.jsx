@@ -4,8 +4,8 @@ import {
   Card,
   CardContent,
   CardMedia,
-  Button,
   Typography,
+  Button,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import './InternshipCard.sass';
@@ -48,7 +48,7 @@ export const InternshipCard = ({
       <Button className="internshipCardButton" size="small">
         {getFieldLabel('internships.button.program.info')}
       </Button>
-      <Button size="small" href={`/candidates/${id}/${name}`}>
+      <Button size="small" href={`/candidates/${id}`}>
         {getFieldLabel('internships.button.candidates.list')}
       </Button>
     </Box>

@@ -26,14 +26,9 @@ const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
   const open = !!anchorEl;
-  const { id, name } = useParams();
+  const { id } = useParams();
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
-  const internships = useSelector((state) => state.internships.internships);
-
-  const test = useSelector((state) => state);
-  console.log(test);
-  console.log(internships);
 
   const dispatch = useDispatch();
   const requestBody = {
@@ -93,7 +88,7 @@ const Candidates = () => {
         paddingBottom="10px"
       >
         <Typography variant="h4" component="div" gutterBottom color="#222">
-          { name }
+          Name
         </Typography>
 
         <Box display="flex">
