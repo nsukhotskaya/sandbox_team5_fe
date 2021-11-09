@@ -42,5 +42,6 @@
   "candidates.table.testTaskEvaluation": "Test Task",
   "candidates.table.statusType": "Status",
   "candidates.table.primarySkill": "Hard Skills",
-  "candidates.form.inputLabel": "Page Size"
+  "candidates.form.inputLabel": "Page Size",
+  "candidates.popper.inputPlaceholder": "Search..."
 }

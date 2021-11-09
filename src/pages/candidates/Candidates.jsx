@@ -24,7 +24,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 export const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
-  const open = Boolean(anchorEl);
+  const open = !!anchorEl;
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
 
@@ -100,7 +100,7 @@ export const Candidates = () => {
           </Box>
           <Popper open={open} anchorEl={anchorEl} placement="left">
             <Input
-              placeholder="Search..."
+              placeholder={getFieldLabel('candidates.popper.inputPlaceholder')}
             />
           </Popper>
           <Box width="80px">
