@@ -1,3 +1,3 @@
 export { tableFields, valueMenuItem } from './tableFields';
-export { columnDefsMentors, columnDefsEmployees } from './tableInternshipPageFields';
-
+export { columnDefsEmployees } from './tableInternshipPageFields';
+export { columnDefsFeed, columnDefsInternships } from './tableFieldsProfile';

@@ -1,18 +1,31 @@
 import './App.sass';
 import React from 'react';
+import { Route, Redirect, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { ThemeProvider } from '@mui/material/styles';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { theme } from './utils';
-import { AppContent } from './components';
+import { Home, Login } from './pages';
 
-function App() {
+function App(props) {
+  const { isAuthorized } = props;
+  const { pathname } = useLocation();
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <AppContent />
-      </Router>
+      {isAuthorized ? (
+        <>
+          <Redirect to={pathname} />
+          <Route path={pathname} component={Home} />
+        </>
+      ) : (
+        <>
+          <Redirect to="/login" />
+          <Route path="/login" component={Login} />
+        </>
+      )}
     </ThemeProvider>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => state.authorization;
+
+export default connect(mapStateToProps)(App);

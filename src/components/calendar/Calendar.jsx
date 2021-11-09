@@ -7,16 +7,26 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 
 export default class DemoApp extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={};
+    this.state = {};
   }
 
   render() {
     return (
       <FullCalendar
-        plugins={[ timeGridPlugin, listPlugin, dayGridPlugin, googleCalendarPlugin, interactionPlugin ]}
-        headerToolbar={{start: 'title',center: '',end: 'today prev,next listDay,timeGridWeek,dayGridMonth'}}
+        plugins={[
+          timeGridPlugin,
+          listPlugin,
+          dayGridPlugin,
+          googleCalendarPlugin,
+          interactionPlugin,
+        ]}
+        headerToolbar={{
+          start: 'title',
+          center: '',
+          end: 'today prev,next listDay,timeGridWeek,dayGridMonth',
+        }}
         initialView="timeGridWeek"
         allDaySlot={false}
         height="100%"
@@ -26,7 +36,7 @@ export default class DemoApp extends React.Component {
         slotMinTime="08:00:00"
         editable
         googleCalendarApiKey="AIzaSyCedd9kcRmZ5SDFy4ORMvC9NwDxtnwEAl4"
-        events= {{googleCalendarId:'ostroumov.alex.work@gmail.com'}}
+        events={{ googleCalendarId: 'ostroumov.alex.work@gmail.com' }}
       />
     );
   }
