@@ -7,11 +7,10 @@ import {
   Button,
   Typography,
 } from '@mui/material';
+import dayjs from 'dayjs';
 import './InternshipCard.sass';
 import assets from '../../assets';
 import { getFieldLabel } from '../../utils';
-
-const dayjs = require('dayjs');
 
 export const InternshipCard = ({
   data: {
@@ -45,7 +44,7 @@ export const InternshipCard = ({
       </Typography>
     </CardContent>
     <Box display="flex" flexDirection="row" justifyContent="center">
-      <Button raised className="internshipCardButton" size="small">
+      <Button className="internshipCardButton" size="small">
         {getFieldLabel('internships.button.program.info')}
       </Button>
       <Button size="small">
