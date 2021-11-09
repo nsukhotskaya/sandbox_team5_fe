@@ -21,7 +21,7 @@ import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-export const Candidates = () => {
+const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
   const open = !!anchorEl;
