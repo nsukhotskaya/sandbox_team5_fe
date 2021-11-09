@@ -88,7 +88,7 @@ const Candidates = () => {
         paddingBottom="10px"
       >
         <Typography variant="h4" component="div" gutterBottom color="#222">
-          Name
+          {getFieldLabel('candidates.internship.name')}
         </Typography>
 
         <Box display="flex">
