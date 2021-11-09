@@ -19,6 +19,7 @@ export const InternshipCard = ({
     registrationStartDate,
     registrationFinishDate,
     maxCandidateCount,
+    id,
   },
 }) => (
   <Card raised className="internshipCard" sx={{ borderRadius: 5 }}>
@@ -47,7 +48,7 @@ export const InternshipCard = ({
       <Button className="internshipCardButton" size="small">
         {getFieldLabel('internships.button.program.info')}
       </Button>
-      <Button size="small" href={`/candidates/${name}`}>
+      <Button size="small" href={`/candidates/${id}/${name}`}>
         {getFieldLabel('internships.button.candidates.list')}
       </Button>
     </Box>

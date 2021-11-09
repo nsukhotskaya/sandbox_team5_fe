@@ -26,14 +26,24 @@ const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
   const open = !!anchorEl;
-  const { name } = useParams();
+  const { id, name } = useParams();
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
+  const internships = useSelector((state) => state.internships.internships);
+
+  const test = useSelector((state) => state);
+  console.log(test);
+  console.log(internships);
 
   const dispatch = useDispatch();
+  const requestBody = {
+    pageSize: 10,
+    pageNumber: 1,
+    internshipId: id,
+  };
 
   useLayoutEffect(() => {
-    dispatch(fetchCandidateList());
+    dispatch(fetchCandidateList(requestBody));
     if (gridApi) {
       gridApi.sizeColumnsToFit();
     }
@@ -62,16 +72,14 @@ const Candidates = () => {
     </MenuItem>
   ));
 
-  const reformatCandidates = function vb(candidates) {
-    return candidates.map((candidate) => {
-      const newObj = { ...candidate };
-      newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
-      newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
-        'DD.MM.YYYY',
-      );
-      return newObj;
-    });
-  };
+  const reformatCandidates = (candidates) => candidates.map((candidate) => {
+    const newObj = { ...candidate };
+    newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
+    newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
+      'DD.MM.YYYY',
+    );
+    return newObj;
+  });
 
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 

@@ -20,7 +20,7 @@ function Home() {
               <Route exact path="/internships">
                 <Internships />
               </Route>
-              <Route exact path="/candidates/:name">
+              <Route path="/candidates/:id/:name">
                 <Candidates />
               </Route>
             </Switch>
