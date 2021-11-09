@@ -11,9 +11,6 @@ function HeaderMenu() {
       <Button href="/profile">
         {getFieldLabel('header.menu.button.profile')}
       </Button>
-      <Button href="/candidates">
-        {getFieldLabel('header.menu.button.candidates')}
-      </Button>
     </ButtonGroup>
   );
 }
