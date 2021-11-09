@@ -5,7 +5,7 @@ const initialState = {
   isLoading: false,
 };
 
-export default function internshipsReducer(state = initialState, action) {
+export default function internshipsList(state = initialState, action) {
   switch (action.type) {
     case GET_INTERNSHIPS.REQUEST:
       return { ...state, isLoading: true };
