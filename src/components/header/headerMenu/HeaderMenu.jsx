@@ -8,6 +8,9 @@ function HeaderMenu() {
       <Button href="/internships">
         {getFieldLabel('header.menu.button.internships')}
       </Button>
+      <Button href="/profile">
+        {getFieldLabel('header.menu.button.profile')}
+      </Button>
       <Button href="/candidates">
         {getFieldLabel('header.menu.button.candidates')}
       </Button>
