@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  Tabs,
-  Tab,
-  Card,
-} from '@mui/material';
+import { Tabs, Tab, Card } from '@mui/material';
 import { getFieldLabel } from '../../utils';
-import {
-  tableFeedback,
-  activeInternships,
-} from '../../mocks/profileData.json';
+import { tableFeedback, activeInternships } from '../../mocks/profileData.json';
 import { columnDefsFeed, columnDefsInternships } from '../../constants';
 import ProfileTable from '../feedbacks/ProfileTable';
 
@@ -38,10 +31,7 @@ export default class CustomTabs extends React.Component {
           />
         )}
         {selectedTab === 1 && (
-          <ProfileTable
-            rowData={tableFeedback}
-            columnDefs={columnDefsFeed}
-          />
+          <ProfileTable rowData={tableFeedback} columnDefs={columnDefsFeed} />
         )}
       </Card>
     );

@@ -12,11 +12,16 @@ export default class ProfileTable extends React.Component {
   }
 
   render() {
-    const { columnDefs } = this.props;
-    const { rowData } = this.props;
+    const {
+      checkboxSelection, paginationPageSize, columnDefs, rowData, pagination,
+    } = this.props;
     return (
       <Box width="100%" height="90%" className="ag-theme-alpine">
         <AgGridReact
+          rowSelection="multiple"
+          checkboxSelection={checkboxSelection}
+          pagination={pagination}
+          paginationPageSize={paginationPageSize}
           defaultColDef={{ flex: 1, minWidth: 100 }}
           columnDefs={columnDefs}
           rowData={rowData}
