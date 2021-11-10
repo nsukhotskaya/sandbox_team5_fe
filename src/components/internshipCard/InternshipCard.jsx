@@ -1,11 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Box,
   Card,
   CardContent,
   CardMedia,
   Typography,
-  Button,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import './InternshipCard.sass';
@@ -44,13 +44,19 @@ export const InternshipCard = ({
         {getFieldLabel('internships.program.members')}
       </Typography>
     </CardContent>
-    <Box display="flex" flexDirection="row" justifyContent="center">
-      <Button className="internshipCardButton" size="small">
+    <Box textAlign="center" className="test">
+      <Link
+        to="/internshippage"
+        className="internshipCardButton"
+      >
         {getFieldLabel('internships.button.program.info')}
-      </Button>
-      <Button size="small" href={`/candidates/${id}`}>
+      </Link>
+      <Link
+        to={`/candidates/${id}`}
+        className="internshipCandidatesLink"
+      >
         {getFieldLabel('internships.button.candidates.list')}
-      </Button>
+      </Link>
     </Box>
   </Card>
 );
