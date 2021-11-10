@@ -90,9 +90,7 @@ const Candidates = () => {
         <Typography variant="h4" component="div" gutterBottom color="#222">
           {getFieldLabel('candidates.internship.name')}
         </Typography>
-
         <Box display="flex">
-
           <Box marginRight="15px">
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
