@@ -106,7 +106,7 @@ const Candidates = () => {
           </Box>
           <Popper open={open} anchorEl={anchorEl} placement="left">
             <Input
-              placeholder={getFieldLabel('candidates.popper.inputPlaceholder')}
+              placeholder={getFieldLabel('common.search')}
             />
           </Popper>
           <Box width="80px">
