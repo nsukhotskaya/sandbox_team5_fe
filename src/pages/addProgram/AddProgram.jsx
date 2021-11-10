@@ -29,11 +29,7 @@ const AddProgram = () => (
         {/* Менторы  */}
         {/* Сотрудники  */}
       </Stack>
-      <Toolbar
-        aria-label="text button toolbar"
-        color="primary"
-        spacing={2}
-      >
+      <Toolbar width="400px" backgroundColor="red" display="flex" justifyContent="space-between">
         <Button variant="outlined">{getFieldLabel('addprogram.button.reset')}</Button>
         <Button variant="outlined">{getFieldLabel('addprogram.button.add')}</Button>
       </Toolbar>

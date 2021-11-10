@@ -46,7 +46,7 @@ export const Internships = () => {
             <IconButton>
               <FilterListIcon fontSize="large" />
             </IconButton>
-            <Button variant="outlined" size="small" href="/internships/new">
+            <Button variant="outlined" size="small">
               {getFieldLabel('internships.button.add.program')}
             </Button>
           </Box>

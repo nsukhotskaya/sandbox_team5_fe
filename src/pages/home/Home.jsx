@@ -3,7 +3,6 @@ import { Box, CssBaseline } from '@mui/material';
 import { Route, Switch } from 'react-router-dom';
 import { Header, Footer } from '../../components';
 import {
-  AddProgram,
   Internships,
   Candidates,
   ProfileCard,
@@ -25,9 +24,6 @@ function Home() {
               </Route>
               <Route exact path="/internships">
                 <Internships />
-              </Route>
-              <Route exact path="/internships/new">
-                <AddProgram />
               </Route>
               <Route exact path="/candidates">
                 <Candidates />
