@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -12,15 +12,21 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
-import { InternshipCard } from '../../components';
+import { InternshipCard, SidePopUp } from '../../components';
 import { fetchInternships } from '../../store/commands';
 
 export const Internships = () => {
+  const [popUpActive, setPopUpActive] = useState(true);
   const internships = useSelector((state) => state.internships.internships);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchInternships());
   }, []);
+
+  const openPopUpWindow = () => {
+    setPopUpActive(true);
+  };
+
   return (
     <Container fixed maxWidth="1400px">
       <Box display="flex" flexDirection="column" marginTop="20px">
@@ -46,7 +52,7 @@ export const Internships = () => {
             <IconButton>
               <FilterListIcon fontSize="large" />
             </IconButton>
-            <Button variant="outlined" size="small">
+            <Button variant="outlined" size="small" onClick={openPopUpWindow}>
               {getFieldLabel('internships.button.add.program')}
             </Button>
           </Box>
@@ -69,6 +75,7 @@ export const Internships = () => {
           </Grid>
         </Box>
       </Box>
+      <SidePopUp active={popUpActive} setActive={setPopUpActive} />
     </Container>
   );
 };
