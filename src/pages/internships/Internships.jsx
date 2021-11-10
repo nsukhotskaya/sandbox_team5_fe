@@ -54,9 +54,7 @@ export const Internships = () => {
               <ManageSearchIcon fontSize="large" />
             </IconButton>
             <Popper open={open} anchorEl={anchorEl} placement="left">
-              <Input
-                placeholder={getFieldLabel('common.search')}
-              />
+              <Input placeholder={getFieldLabel('common.search')} />
             </Popper>
             <IconButton>
               <FilterListIcon fontSize="large" />

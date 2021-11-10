@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Box,
-} from '@mui/material';
+import { Box } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
 import './HeaderMenu.sass';
 
