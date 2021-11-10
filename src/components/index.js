@@ -5,4 +5,3 @@ export * from './internshipCard';
 export * from './cardTitle';
 export * from './sidePopUp';
 export * from './addProgram';
-export * from './addProgramRedux';

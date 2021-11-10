@@ -12,7 +12,7 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
-import { InternshipCard, SidePopUp, AddProgram } from '../../components';
+import { InternshipCard, SidePopUp } from '../../components';
 import { fetchInternships } from '../../store/commands';
 
 export const Internships = () => {
@@ -78,7 +78,6 @@ export const Internships = () => {
       <SidePopUp
         active={popUpActive}
         setActive={setPopUpActive}
-        content={AddProgram}
       />
     </Container>
   );

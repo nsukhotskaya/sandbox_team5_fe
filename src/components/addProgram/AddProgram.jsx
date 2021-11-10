@@ -9,7 +9,7 @@ import './AddProgram.sass';
 
 const addProgramFields = Object.keys(messages).filter((field) => field.includes('addprogram.field'));
 
-const AddProgram = () => (
+const AddProgram = ({ closeModal }) => (
   <>
     <Box className="container">
       <CardTitle width="100%" title={getFieldLabel('addprogram.title')} />
@@ -31,7 +31,7 @@ const AddProgram = () => (
       <Button variant="contained" disabled>
         {getFieldLabel('addprogram.button.add')}
       </Button>
-      <Button variant="outlined">
+      <Button variant="outlined" onClick={closeModal}>
         {getFieldLabel('addprogram.button.cancel')}
       </Button>
     </Box>
