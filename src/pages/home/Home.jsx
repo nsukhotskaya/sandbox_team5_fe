@@ -3,7 +3,11 @@ import { Box, CssBaseline } from '@mui/material';
 import { Route, Switch } from 'react-router-dom';
 import { Header, Footer } from '../../components';
 import {
-  Internships, Candidates, ProfileCard, InternshipPage,
+  Internships,
+  Candidates,
+  ProfileCard,
+  InternshipPage,
+  CandidateCard,
 } from '../index';
 import './Home.sass';
 
@@ -24,6 +28,9 @@ function Home() {
               </Route>
               <Route exact path="/candidates">
                 <Candidates />
+              </Route>
+              <Route exact path="/candidate">
+                <CandidateCard />
               </Route>
               <Route exact path="/internshipPage">
                 <InternshipPage />
