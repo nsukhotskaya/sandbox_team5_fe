@@ -55,7 +55,7 @@ export const Internships = () => {
             </IconButton>
             <Popper open={open} anchorEl={anchorEl} placement="left">
               <Input
-                placeholder={getFieldLabel('internships.popper.inputPlaceholder')}
+                placeholder={getFieldLabel('candidates.popper.inputPlaceholder')}
               />
             </Popper>
             <IconButton>

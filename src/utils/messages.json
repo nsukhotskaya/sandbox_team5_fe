@@ -54,6 +54,5 @@
   "internship.page.table.role": "Role",
   "internship.page.table.position": "Position",
   "internship.page.table.team": "Team",
-  "candidates.popper.inputPlaceholder": "Search...",
-  "internships.popper.inputPlaceholder": "Search..."
+  "candidates.popper.inputPlaceholder": "Search..."
 }
