@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -7,6 +7,8 @@ import {
   IconButton,
   Grid,
   Button,
+  Popper,
+  Input,
 } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import FilterListIcon from '@mui/icons-material/FilterList';
@@ -16,11 +18,19 @@ import { InternshipCard } from '../../components';
 import { fetchInternships } from '../../store/commands';
 
 export const Internships = () => {
+  const [anchorEl, setAnchorEl] = useState();
+  const open = !!anchorEl;
   const internships = useSelector((state) => state.internships.internships);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchInternships());
   }, []);
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
   return (
     <Container fixed maxWidth="1400px">
       <Box display="flex" flexDirection="column" marginTop="20px">
@@ -40,9 +50,14 @@ export const Internships = () => {
             flexDirection="row"
             justifyContent="space-between"
           >
-            <IconButton>
+            <IconButton onClick={handleClick}>
               <ManageSearchIcon fontSize="large" />
             </IconButton>
+            <Popper open={open} anchorEl={anchorEl} placement="left">
+              <Input
+                placeholder={getFieldLabel('common.search')}
+              />
+            </Popper>
             <IconButton>
               <FilterListIcon fontSize="large" />
             </IconButton>

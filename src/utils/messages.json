@@ -1,4 +1,5 @@
 {
+  "common.search": "Search...",
   "footer.title": "© 2021 [Team5] Exadel Internship JS&.NET",
   "footer.sign": "Exadel",
   "login.button.login": "Login",
@@ -53,6 +54,5 @@
   "internship.page.table.fullname": "Full Name",
   "internship.page.table.role": "Role",
   "internship.page.table.position": "Position",
-  "internship.page.table.team": "Team",
-  "candidates.popper.inputPlaceholder": "Search..."
+  "internship.page.table.team": "Team"
 }
