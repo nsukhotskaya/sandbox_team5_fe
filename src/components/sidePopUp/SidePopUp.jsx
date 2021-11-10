@@ -1,11 +1,9 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import './SidePopUp.sass';
-// import { getFieldLabel } from '../../utils';
-// const SidePopUp = ({ active, setActive }) => <Box>Hi</Box>;
 
-const SidePopUp = ({ active, setActive }) => {
-  console.log(active);
+const SidePopUp = ({ active, setActive, content }) => {
+  console.log(content());
   return (
     <Box
       className={active ? 'modal active' : 'modal'}
@@ -16,7 +14,7 @@ const SidePopUp = ({ active, setActive }) => {
         onClick={(e) => e.stopPropagation()}
         backgroundColor="background.paper"
       >
-        <Box backgroundColor="red" width="10px" height="10px" />
+        {content()}
       </Box>
     </Box>
   );

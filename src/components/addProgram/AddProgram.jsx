@@ -1,20 +1,17 @@
 import React from 'react';
 import {
-  Box,
-  TextField,
-  Stack,
-  Toolbar,
-  Button,
+  Box, TextField, Stack, Button,
 } from '@mui/material';
-import { CardTitle } from '../../components';
+import { CardTitle } from '../cardTitle';
 import { getFieldLabel } from '../../utils';
 import messages from '../../utils/messages.json';
+import './AddProgram.sass';
 
 const addProgramFields = Object.keys(messages).filter((field) => field.includes('addprogram.field'));
 
 const AddProgram = () => (
   <>
-    <Box display="flex" flexDirection="column" padding="1%">
+    <Box className="container">
       <CardTitle width="100%" title={getFieldLabel('addprogram.title')} />
       <Stack spacing={2} direction="column">
         {addProgramFields.map((field) => (
@@ -29,10 +26,14 @@ const AddProgram = () => (
         {/* Менторы  */}
         {/* Сотрудники  */}
       </Stack>
-      <Toolbar width="400px" backgroundColor="red" display="flex" justifyContent="space-between">
-        <Button variant="outlined">{getFieldLabel('addprogram.button.reset')}</Button>
-        <Button variant="outlined">{getFieldLabel('addprogram.button.add')}</Button>
-      </Toolbar>
+    </Box>
+    <Box className="buttonWrapper">
+      <Button variant="contained" disabled>
+        {getFieldLabel('addprogram.button.add')}
+      </Button>
+      <Button variant="outlined">
+        {getFieldLabel('addprogram.button.cancel')}
+      </Button>
     </Box>
   </>
 );

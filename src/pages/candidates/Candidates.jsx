@@ -86,7 +86,6 @@ const Candidates = () => {
           {getFieldLabel('internships.program.title.javascript')}
         </Typography>
         <Box display="flex">
-
           <Box marginRight="15px">
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />

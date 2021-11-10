@@ -3,10 +3,7 @@ import { Box, CssBaseline } from '@mui/material';
 import { Route, Switch } from 'react-router-dom';
 import { Header, Footer } from '../../components';
 import {
-  Internships,
-  Candidates,
-  ProfileCard,
-  InternshipPage,
+  Internships, Candidates, ProfileCard, InternshipPage,
 } from '../index';
 import './Home.sass';
 
