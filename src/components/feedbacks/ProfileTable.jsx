@@ -13,7 +13,11 @@ export default class ProfileTable extends React.Component {
 
   render() {
     const {
-      checkboxSelection, paginationPageSize, columnDefs, rowData, pagination,
+      checkboxSelection,
+      paginationPageSize,
+      columnDefs,
+      rowData,
+      pagination,
     } = this.props;
     return (
       <Box width="100%" height="90%" className="ag-theme-alpine">
