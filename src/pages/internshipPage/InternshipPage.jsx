@@ -25,7 +25,7 @@ const InternshipPage = () => {
   const mobile = useMediaDown('md');
   return (
     <Box className={mobile ? 'flexContainerMobile' : 'flexContainer'}>
-      <InternshipInfo data={internship} />
+      <InternshipInfo internshipInfo={internship} />
       <Box className={mobile ? 'tableWrapperMobile' : 'tableWrapper'}>
         <Card
           className={

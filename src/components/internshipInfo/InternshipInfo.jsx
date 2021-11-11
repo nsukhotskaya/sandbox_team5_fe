@@ -14,24 +14,8 @@ import dayjs from 'dayjs';
 import { getFieldLabel, getLanguage, getStackType } from '../../utils';
 import { useMediaDown } from '../utils';
 
-const InternshipInfo = ({
-  data: {
-    name,
-    imageLink,
-    startDate,
-    endDate,
-    requirements,
-    languageType,
-    internshipStacks,
-    locations,
-    candidatesCount,
-    declinedCandidatesCount,
-    acceptedCandidatesCount,
-    abandonedCandidatesCount,
-    successfullyFinishedCandidatesCount,
-    teamsCount,
-  },
-}) => {
+const InternshipInfo = (props) => {
+  const { internshipInfo } = props;
   const mobile = useMediaDown('md');
   return (
     <Box
@@ -43,9 +27,9 @@ const InternshipInfo = ({
         raised
         className={mobile ? 'internshipDataTextMobile' : 'internshipDataText'}
       >
-        <CardMedia component="img" image={imageLink} />
+        <CardMedia component="img" image={internshipInfo.imageLink} />
         <CardContent className="cardContent">
-          <Typography variant="h4">{name}</Typography>
+          <Typography variant="h4">{internshipInfo.name}</Typography>
           <List>
             <ListItem disablePadding>
               <ListItemText
@@ -56,7 +40,7 @@ const InternshipInfo = ({
                 )}
               />
               <Typography variant="body1">
-                {dayjs(startDate, endDate).format('D.MM.YYYY - D.MM.YYYY')}
+                {dayjs(internshipInfo.startDate, internshipInfo.endDate).format('D.MM.YYYY - D.MM.YYYY')}
               </Typography>
             </ListItem>
             <ListItem disablePadding>
@@ -67,7 +51,7 @@ const InternshipInfo = ({
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{requirements}</Typography>
+              <Typography variant="body1">{internshipInfo.requirements}</Typography>
             </ListItem>
             <ListItem disablePadding>
               <ListItemText
@@ -79,7 +63,8 @@ const InternshipInfo = ({
               />
               <Typography variant="body1">
                 {getStackType(
-                  internshipStacks && internshipStacks[0].technologyStackType,
+                  internshipInfo.internshipStacks
+                  && internshipInfo.internshipStacks[0].technologyStackType,
                 )}
               </Typography>
             </ListItem>
@@ -92,7 +77,7 @@ const InternshipInfo = ({
                 )}
               />
               <Typography variant="body1">
-                {getLanguage(languageType)}
+                {getLanguage(internshipInfo.languageType)}
               </Typography>
             </ListItem>
             <ListItem disablePadding divider>
@@ -103,7 +88,7 @@ const InternshipInfo = ({
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{locations}</Typography>
+              <Typography variant="body1">{internshipInfo.locations}</Typography>
             </ListItem>
             <Typography variant="h6" gutterBottom>
               {getFieldLabel('internship.page.candidates')}
@@ -116,7 +101,7 @@ const InternshipInfo = ({
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{candidatesCount}</Typography>
+              <Typography variant="body1">{internshipInfo.candidatesCount}</Typography>
             </ListItem>
             <ListItem disablePadding>
               <ListItemText
@@ -126,7 +111,7 @@ const InternshipInfo = ({
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{declinedCandidatesCount}</Typography>
+              <Typography variant="body1">{internshipInfo.declinedCandidatesCount}</Typography>
             </ListItem>
             <ListItem disablePadding>
               <ListItemText
@@ -136,7 +121,7 @@ const InternshipInfo = ({
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{acceptedCandidatesCount}</Typography>
+              <Typography variant="body1">{internshipInfo.acceptedCandidatesCount}</Typography>
             </ListItem>
             <ListItem disablePadding>
               <ListItemText
@@ -147,7 +132,7 @@ const InternshipInfo = ({
                 )}
               />
               <Typography variant="body1">
-                {abandonedCandidatesCount}
+                {internshipInfo.abandonedCandidatesCount}
               </Typography>
             </ListItem>
             <ListItem disablePadding>
@@ -159,7 +144,7 @@ const InternshipInfo = ({
                 )}
               />
               <Typography variant="body1">
-                {successfullyFinishedCandidatesCount}
+                {internshipInfo.successfullyFinishedCandidatesCount}
               </Typography>
             </ListItem>
             <ListItem disablePadding>
@@ -170,7 +155,7 @@ const InternshipInfo = ({
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{teamsCount}</Typography>
+              <Typography variant="body1">{internshipInfo.teamsCount}</Typography>
             </ListItem>
           </List>
         </CardContent>
