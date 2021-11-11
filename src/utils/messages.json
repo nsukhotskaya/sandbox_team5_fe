@@ -1,5 +1,8 @@
 {
   "common.search": "Search...",
+  "common.open": "Open",
+  "common.close": "Close",
+  "common.filter": "Filter",
   "footer.title": "© 2021 [Team5] Exadel Internship JS&.NET",
   "footer.sign": "Exadel",
   "login.button.login": "Login",
@@ -21,6 +24,8 @@
   "internships.filter.label.hrs": "HRs",
   "internships.filter.label.interviewers": "Interviewers",
   "internships.filter.label.mentors": "Mentors",
+  "internships.filter.language.english": "English",
+  "internships.filter.language.russian": "Russian",
   "header.menu.link.internships": "INTERNSHIP PROGRAMS",
   "header.menu.link.profile": "PROFILE",
   "profile.email": "E-mail:",

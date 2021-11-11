@@ -11,7 +11,6 @@ import {
   Input,
 } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-// import FilterListIcon from '@mui/icons-material/FilterList';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
 import { InternshipCard, InternshipsFilter } from '../../components';

@@ -28,7 +28,7 @@ export const InternshipsFilter = () => {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open && 'simple-popover';
 
   const [filterLocation, setFilterLocation] = useState([]);
   const [filterLanguage, setFilterLanguage] = useState([]);
@@ -61,7 +61,9 @@ export const InternshipsFilter = () => {
           flexDirection="column"
           justifyContent="space-between"
         >
-          <Typography align="center" color="primary" fontSize="20px">{getFieldLabel('internships.filter.title')}</Typography>
+          <Typography align="center" color="primary" fontSize="20px">
+            {getFieldLabel('internships.filter.title')}
+          </Typography>
           <FormControl size="small" fullWidth>
             <InputLabel>
               {getFieldLabel('internships.filter.label.location')}
@@ -90,8 +92,12 @@ export const InternshipsFilter = () => {
               label="Language"
               onChange={(event) => setFilterLanguage(event.target.value)}
             >
-              <MenuItem value="English">English</MenuItem>
-              <MenuItem value="Russian">Russian</MenuItem>
+              <MenuItem value="English">
+                {getFieldLabel('internships.filter.language.english')}
+              </MenuItem>
+              <MenuItem value="Russian">
+                {getFieldLabel('internships.filter.language.russian')}
+              </MenuItem>
             </Select>
           </FormControl>
           <FormControl size="small" fullWidth>
@@ -103,8 +109,8 @@ export const InternshipsFilter = () => {
               label="Status"
               onChange={(event) => setFilterStatus(event.target.value)}
             >
-              <MenuItem value="Open">Open</MenuItem>
-              <MenuItem value="Close">Close</MenuItem>
+              <MenuItem value="Open">{getFieldLabel('common.open')}</MenuItem>
+              <MenuItem value="Close">{getFieldLabel('common.close')}</MenuItem>
             </Select>
           </FormControl>
           <FormControl size="small" fullWidth>
@@ -184,7 +190,7 @@ export const InternshipsFilter = () => {
             </Select>
           </FormControl>
           <Button size="small" variant="contained">
-            Filter
+            {getFieldLabel('common.filter')}
           </Button>
         </Box>
       </Popover>
