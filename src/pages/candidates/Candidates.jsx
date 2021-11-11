@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   MenuItem,
@@ -25,13 +26,19 @@ const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
   const open = !!anchorEl;
+  const { id } = useParams();
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
 
   const dispatch = useDispatch();
+  const requestBody = {
+    pageSize: 10,
+    pageNumber: 1,
+    internshipId: id,
+  };
 
   useLayoutEffect(() => {
-    dispatch(fetchCandidateList());
+    dispatch(fetchCandidateList(requestBody));
     if (gridApi) {
       gridApi.sizeColumnsToFit();
     }
@@ -60,16 +67,14 @@ const Candidates = () => {
     </MenuItem>
   ));
 
-  const reformatCandidates = function vb(candidates) {
-    return candidates.map((candidate) => {
-      const newObj = { ...candidate };
-      newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
-      newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
-        'DD.MM.YYYY',
-      );
-      return newObj;
-    });
-  };
+  const reformatCandidates = (candidates) => candidates.map((candidate) => {
+    const newObj = { ...candidate };
+    newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
+    newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
+      'DD.MM.YYYY',
+    );
+    return newObj;
+  });
 
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
@@ -83,10 +88,9 @@ const Candidates = () => {
         paddingBottom="10px"
       >
         <Typography variant="h4" component="div" gutterBottom color="#222">
-          {getFieldLabel('internships.program.title.javascript')}
+          {getFieldLabel('candidates.internship.name')}
         </Typography>
         <Box display="flex">
-
           <Box marginRight="15px">
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
@@ -99,9 +103,7 @@ const Candidates = () => {
             </IconButton>
           </Box>
           <Popper open={open} anchorEl={anchorEl} placement="left">
-            <Input
-              placeholder={getFieldLabel('candidates.popper.inputPlaceholder')}
-            />
+            <Input placeholder={getFieldLabel('common.search')} />
           </Popper>
           <Box width="80px">
             <FormControl fullWidth>
