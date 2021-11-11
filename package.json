@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.4.1",
+    "@types/react": "^16.8.6 || ^17.0.0",
+    "@babel/core": "^7.0.0",
+    "@emotion/react": "11.5.0",
     "@emotion/styled": "^11.3.0",
     "@fullcalendar/core": "^5.10.0",
     "@fullcalendar/daygrid": "^5.10.0",
@@ -13,8 +15,10 @@
     "@fullcalendar/react": "^5.10.0",
     "@fullcalendar/timegrid": "^5.10.0",
     "@mui/icons-material": "^5.0.5",
-    "@mui/material": "^5.0.3",
+    "@mui/lab": "5.0.0-alpha.54",
+    "@mui/material": "5.1.0",
     "@mui/styles": "^5.0.1",
+    "@mui/system": "^5.1.0",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
@@ -24,6 +28,7 @@
     "ag-grid-react": "^26.1.0",
     "axios": "^0.23.0",
     "connected-react-router": "^6.9.1",
+    "date-fns": "2.25.0",
     "dayjs": "^1.10.7",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -39,7 +44,9 @@
     "redux": "^4.1.1",
     "redux-thunk": "^2.4.0",
     "universal-cookie": "^4.0.4",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "luxon": "^1.28.0",
+    "moment": "^2.29.1"
   },
   "scripts": {
     "start": "react-scripts start",

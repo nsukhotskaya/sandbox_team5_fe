@@ -13,7 +13,7 @@ const SidePopUp = ({ active, setActive }) => {
       onClick={closeModal}
     >
       <Box
-        className="modal__content"
+        className={active ? 'modalContent active' : 'modalContent'}
         onClick={(event) => event.stopPropagation()}
         backgroundColor="background.paper"
       >

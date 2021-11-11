@@ -16,7 +16,7 @@ import { InternshipCard, SidePopUp } from '../../components';
 import { fetchInternships } from '../../store/commands';
 
 export const Internships = () => {
-  const [popUpActive, setPopUpActive] = useState(true);
+  const [popUpActive, setPopUpActive] = useState(false);
   const internships = useSelector((state) => state.internships.internships);
   const dispatch = useDispatch();
   useEffect(() => {
