@@ -10,6 +10,7 @@ import {
   Button,
   Checkbox,
   ListItemText,
+  Typography,
 } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { locations, stacks, hrs } from '../../mocks/internshipsFilter.json';
@@ -60,6 +61,7 @@ export const InternshipsFilter = () => {
           flexDirection="column"
           justifyContent="space-between"
         >
+          <Typography align="center" color="primary" fontSize="20px">{getFieldLabel('internships.filter.title')}</Typography>
           <FormControl size="small" fullWidth>
             <InputLabel>
               {getFieldLabel('internships.filter.label.location')}
