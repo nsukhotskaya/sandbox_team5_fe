@@ -49,7 +49,7 @@ export const CandidateInfo = () => {
           <ListItemText primary={getFieldLabel('candidate.info.internship')} />
           <Typography variant="body1">{candidate.internshipId}</Typography>
         </ListItem>
-        {/* ? */}
+        {/* this data will be from internship */}
         <ListItem>
           <ListItemText primary={getFieldLabel('candidate.info.language')} />
           <Typography variant="body1">-</Typography>
@@ -69,7 +69,7 @@ export const CandidateInfo = () => {
         <ListItem>
           <ListItemText primary={getFieldLabel('candidate.info.bestContactTime')} />
           <Typography variant="body1">
-            {dayjs(candidate.registrationDate).format('HH:mm')}
+            {dayjs(candidate.bestContactTime).format('HH:mm')}
           </Typography>
         </ListItem>
         <ListItem>

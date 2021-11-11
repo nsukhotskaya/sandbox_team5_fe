@@ -21,7 +21,6 @@ export function CandidateCard() {
           display="flex"
           flexDirection="column"
           backgroundColor="background.paper"
-          maxHeight="100%"
         >
           <CandidateInfo />
         </Box>

@@ -5,6 +5,7 @@ import {
   getCandidateFailure,
 } from '../actions';
 
+// temporarily, will be id from page
 const id = 1;
 
 const fetchCandidate = () => async (dispatch) => {
