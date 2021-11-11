@@ -54,5 +54,8 @@
   "candidates.table.primarySkill": "Hard Skills",
   "candidates.form.inputLabel": "Page Size",
   "candidates.popper.inputPlaceholder": "Search...",
-  "candidates.internship.name": "Name of internship"
+  "candidates.internship.name": "Name of internship",
+  "candidates.button.candidatePage": "Candidate page",
+  "candidates.button.addToWork": "Add to work",
+  "candidates.button.send": "Send"
 }

@@ -111,11 +111,11 @@ const Candidates = () => {
           {getFieldLabel('candidates.internship.name')}
         </Typography>
         <Stack direction="row" spacing={2}>
-          <Button variant="outlined" disabled={isDisabledCandidatePage}>Candidate page</Button>
+          <Button variant="outlined" disabled={isDisabledCandidatePage}>{getFieldLabel('candidates.button.candidatePage')}</Button>
           <Button variant="outlined" endIcon={<Send />} disabled={isDisabled}>
-            Send
+            {getFieldLabel('candidates.button.send')}
           </Button>
-          <Button variant="outlined" disabled={isDisabled}>Add to work</Button>
+          <Button variant="outlined" disabled={isDisabled}>{getFieldLabel('candidates.button.addToWork')}</Button>
         </Stack>
         <Box display="flex" alignItems="center">
           <Box marginRight="15px">
