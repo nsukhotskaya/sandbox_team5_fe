@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   MenuItem,
@@ -31,13 +32,19 @@ const Candidates = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isDisabledCandidatePage, setIsDisabledCandidatePage] = useState(true);
   const open = !!anchorEl;
+  const { id } = useParams();
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
 
   const dispatch = useDispatch();
+  const requestBody = {
+    pageSize: 10,
+    pageNumber: 1,
+    internshipId: id,
+  };
 
   useLayoutEffect(() => {
-    dispatch(fetchCandidateList());
+    dispatch(fetchCandidateList(requestBody));
     if (gridApi) {
       gridApi.sizeColumnsToFit();
     }
@@ -80,16 +87,14 @@ const Candidates = () => {
     </MenuItem>
   ));
 
-  const reformatCandidates = function vb(candidates) {
-    return candidates.map((candidate) => {
-      const newObj = { ...candidate };
-      newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
-      newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
-        'DD.MM.YYYY',
-      );
-      return newObj;
-    });
-  };
+  const reformatCandidates = (candidates) => candidates.map((candidate) => {
+    const newObj = { ...candidate };
+    newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
+    newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
+      'DD.MM.YYYY',
+    );
+    return newObj;
+  });
 
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
@@ -103,7 +108,7 @@ const Candidates = () => {
         paddingBottom="10px"
       >
         <Typography variant="h4" component="div" gutterBottom color="#222">
-          {getFieldLabel('internships.program.title.javascript')}
+          {getFieldLabel('candidates.internship.name')}
         </Typography>
         <Stack direction="row" spacing={2}>
           <Button variant="outlined" disabled={isDisabledCandidatePage}>Candidate page</Button>
@@ -122,9 +127,7 @@ const Candidates = () => {
             </IconButton>
           </Box>
           <Popper open={open} anchorEl={anchorEl} placement="left">
-            <Input
-              placeholder={getFieldLabel('common.search')}
-            />
+            <Input placeholder={getFieldLabel('common.search')} />
           </Popper>
           <Box width="80px">
             <FormControl fullWidth size="small">

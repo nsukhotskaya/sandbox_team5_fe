@@ -5,18 +5,12 @@ import {
   getCandidateListFailure,
 } from '../actions';
 
-const requestBody = {
-  pageSize: 10,
-  pageNumber: 1,
-  internshipId: 1,
-};
-
-const fetchCandidateList = () => async (dispatch) => {
+const fetchCandidateList = (data) => async (dispatch) => {
   dispatch(getCandidateListRequest());
   try {
     const response = await API.post(
       '/api/Candidate/getCandidateListByInternshipId',
-      requestBody,
+      data,
     );
     dispatch(getCandidateListSuccess(response.data));
   } catch (error) {
