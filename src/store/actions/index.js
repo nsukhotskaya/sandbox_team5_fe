@@ -5,6 +5,12 @@ export {
   GET_CANDIDATE_LIST,
 } from './getCandidateList';
 export {
+  getCandidateRequest,
+  getCandidateSuccess,
+  getCandidateFailure,
+  GET_CANDIDATE,
+} from './getCandidate';
+export {
   getInternshipsRequest,
   getInternshipsSuccess,
   getInternshipsFailure,
