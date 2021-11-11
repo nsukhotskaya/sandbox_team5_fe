@@ -20,6 +20,7 @@ const InternshipInfo = ({
     imageLink,
     startDate,
     endDate,
+    requirements,
     languageType,
     internshipStacks,
     locations,
@@ -35,8 +36,8 @@ const InternshipInfo = ({
   return (
     <Box
       className={
-          mobile ? 'internshipContentWrapperMobile' : 'internshipContentWrapper'
-        }
+        mobile ? 'internshipContentWrapperMobile' : 'internshipContentWrapper'
+      }
     >
       <Card
         raised
@@ -46,77 +47,128 @@ const InternshipInfo = ({
         <CardContent className="cardContent">
           <Typography variant="h4">{name}</Typography>
           <List>
-            <ListItem>
-              <ListItemText primary={getFieldLabel('internship.page.date')} />
-              <Typography variant="body1">{dayjs(startDate, endDate).format('D MMMM YYYY - D MMMM YYYY')}</Typography>
-            </ListItem>
-            <ListItem>
+            <ListItem disablePadding>
               <ListItemText
-                primary={getFieldLabel('internship.page.technology')}
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.date')}
+                  </Typography>
+                )}
               />
               <Typography variant="body1">
-                {getStackType(internshipStacks && internshipStacks[0].technologyStackType)}
+                {dayjs(startDate, endDate).format('D.MM.YYYY - D.MM.YYYY')}
               </Typography>
             </ListItem>
-            <ListItem>
+            <ListItem disablePadding>
               <ListItemText
-                primary={getFieldLabel('internship.page.language')}
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.requirements')}
+                  </Typography>
+                )}
+              />
+              <Typography variant="body1">{requirements}</Typography>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemText
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.technology')}
+                  </Typography>
+                )}
+              />
+              <Typography variant="body1">
+                {getStackType(
+                  internshipStacks && internshipStacks[0].technologyStackType,
+                )}
+              </Typography>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemText
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.language')}
+                  </Typography>
+                )}
               />
               <Typography variant="body1">
                 {getLanguage(languageType)}
               </Typography>
             </ListItem>
-            <ListItem>
+            <ListItem disablePadding divider>
               <ListItemText
-                primary={getFieldLabel('internship.page.location')}
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.location')}
+                  </Typography>
+                )}
               />
-              <Typography variant="body1">
-                {locations}
-              </Typography>
+              <Typography variant="body1">{locations}</Typography>
             </ListItem>
-            <ListItem>
+            <Typography variant="h6" gutterBottom>
+              {getFieldLabel('internship.page.candidates')}
+            </Typography>
+            <ListItem disablePadding>
               <ListItemText
-                primary={getFieldLabel('internship.page.number.applicants')}
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.number.applicants')}
+                  </Typography>
+                )}
               />
-              <Typography variant="body1">
-                {candidatesCount}
-              </Typography>
+              <Typography variant="body1">{candidatesCount}</Typography>
             </ListItem>
-            <ListItem>
+            <ListItem disablePadding>
               <ListItemText
-                primary={getFieldLabel('internship.page.number.rejected')}
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.number.rejected')}
+                  </Typography>
+                )}
               />
-              <Typography variant="body1">
-                {declinedCandidatesCount}
-              </Typography>
+              <Typography variant="body1">{declinedCandidatesCount}</Typography>
             </ListItem>
-            <ListItem>
+            <ListItem disablePadding>
               <ListItemText
-                primary={getFieldLabel('internship.page.number.approve')}
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.number.approve')}
+                  </Typography>
+                )}
               />
-              <Typography variant="body1">
-                {acceptedCandidatesCount}
-              </Typography>
+              <Typography variant="body1">{acceptedCandidatesCount}</Typography>
             </ListItem>
-            <ListItem>
+            <ListItem disablePadding>
               <ListItemText
-                primary={getFieldLabel('internship.page.number.refused')}
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.number.refused')}
+                  </Typography>
+                )}
               />
               <Typography variant="body1">
                 {abandonedCandidatesCount}
               </Typography>
             </ListItem>
-            <ListItem>
+            <ListItem disablePadding>
               <ListItemText
-                primary={getFieldLabel('internship.page.number.graduated')}
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.number.graduated')}
+                  </Typography>
+                )}
               />
               <Typography variant="body1">
                 {successfullyFinishedCandidatesCount}
               </Typography>
             </ListItem>
-            <ListItem>
+            <ListItem disablePadding>
               <ListItemText
-                primary={getFieldLabel('internship.page.number.teams')}
+                primary={(
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.number.teams')}
+                  </Typography>
+                )}
               />
               <Typography variant="body1">{teamsCount}</Typography>
             </ListItem>
