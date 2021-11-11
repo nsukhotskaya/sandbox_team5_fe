@@ -26,7 +26,7 @@ export const CandidateInfo = () => {
     <Box>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Typography paddingLeft="1%" variant="h4">
-          a
+          {`${candidate.firstName} ${candidate.lastName}`}
         </Typography>
         <Button variant="outlined">Edit</Button>
       </Box>
@@ -41,68 +41,66 @@ export const CandidateInfo = () => {
               </Typography>
             )}
           />
-          <Typography variant="h6">Unreviewed</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.internship')} />
-          <Typography variant="body1">.NET&JS 2021</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.skillStack')} />
-          <Typography variant="body1">Backend</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.primarySkill')} />
-          <Typography variant="body1">.NET</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.englishLevel')} />
-          <Typography variant="body1">C1</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.planToJoin')} />
-          <Typography variant="body1">Tes</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.applicationDate')} />
-          <Typography variant="body1">29.09.2021</Typography>
+          <Typography variant="h6">{candidate.statusType}</Typography>
         </ListItem>
         <ListItem>
           <ListItemText primary={getFieldLabel('candidate.location')} />
-          <Typography variant="body1">Warsaw</Typography>
+          <Typography variant="body1">{candidate.location}</Typography>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary={getFieldLabel('candidate.internship')} />
+          <Typography variant="body1">{candidate.internshipId}</Typography>
+        </ListItem>
+        {/* ? */}
+        <ListItem>
+          <ListItemText primary={getFieldLabel('candidate.language')} />
+          <Typography variant="body1">-</Typography>
         </ListItem>
         <ListItem>
           <ListItemText primary={getFieldLabel('candidate.phone')} />
-          <Typography variant="body1">+48 1234 5678</Typography>
+          <Typography variant="body1">{candidate.phone}</Typography>
         </ListItem>
         <ListItem>
           <ListItemText primary={getFieldLabel('candidate.skype')} />
-          <Typography variant="body1">id:12345678</Typography>
+          <Typography variant="body1">{candidate.skype}</Typography>
         </ListItem>
         <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.education')} />
+          <ListItemText primary={getFieldLabel('candidate.email')} />
+          <Typography variant="body1">{candidate.email}</Typography>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary={getFieldLabel('candidate.contactTime')} />
+          <Typography variant="body1">{candidate.bestContactTime}</Typography>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary={getFieldLabel('candidate.stack')} />
+          <Typography variant="body1">{candidate.stackType}</Typography>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary={getFieldLabel('candidate.englishLevel')} />
+          <Typography variant="body1">{candidate.englishLevelType}</Typography>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary={getFieldLabel('candidate.registrationDate')} />
+          <Typography variant="body1">{candidate.registrationDate}</Typography>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary={getFieldLabel('candidate.otherInfo')} />
+          <Typography variant="body1">{candidate.otherInfo}</Typography>
+        </ListItem>
+        <ListItem>
+          <ListItemText primary={getFieldLabel('candidate.testTaskEvaluation')} />
+          <Typography variant="body1">{candidate.testTaskEvaluation}</Typography>
+        </ListItem>
+        {/* this data will be from internship */}
+        <ListItem>
+          <ListItemText primary={getFieldLabel('candidate.softSkills')} />
           <Typography variant="body1">-</Typography>
         </ListItem>
+        {/* this data will be from internship */}
         <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.links')} />
+          <ListItemText primary={getFieldLabel('candidate.hardSkills')} />
           <Typography variant="body1">-</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.other')} />
-          <Typography variant="body1">-</Typography>
-        </ListItem>
-
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.currentJob')} />
-          <Typography variant="body1">-</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.certificate')} />
-          <Typography variant="body1">-</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.test')} />
-          <Typography variant="body1">7</Typography>
         </ListItem>
       </List>
     </Box>
