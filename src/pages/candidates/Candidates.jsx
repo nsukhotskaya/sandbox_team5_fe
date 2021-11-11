@@ -4,14 +4,18 @@ import {
   Box,
   MenuItem,
   Typography,
-  InputLabel,
   FormControl,
   Select,
   IconButton,
   Popper,
   Input,
+  Stack,
+  Button,
+  InputLabel,
 } from '@mui/material';
-import { Print, MailOutline, ManageSearch } from '@mui/icons-material';
+import {
+  Print, ManageSearch, Send,
+} from '@mui/icons-material';
 import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields, valueMenuItem } from '../../constants';
@@ -24,6 +28,8 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabledCandidatePage, setIsDisabledCandidatePage] = useState(true);
   const open = !!anchorEl;
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
@@ -47,6 +53,20 @@ const Candidates = () => {
 
   const onGridReady = (params) => {
     setGridApi(params.api);
+  };
+
+  const onSelectionChanged = (event) => {
+    const rowCount = event.api.getSelectedNodes().length;
+    if (rowCount >= 2) {
+      setIsDisabledCandidatePage(true);
+      setIsDisabled(false);
+    } else if (rowCount === 0) {
+      setIsDisabled(true);
+      setIsDisabledCandidatePage(true);
+    } else {
+      setIsDisabled(false);
+      setIsDisabledCandidatePage(false);
+    }
   };
 
   const onPageSizeChanged = (newPageSize) => {
@@ -74,7 +94,7 @@ const Candidates = () => {
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
   return (
-    <Box padding="1%">
+    <Box padding="1%" width="100%" height="100%">
       <Box
         display="flex"
         justifyContent="space-between"
@@ -85,14 +105,17 @@ const Candidates = () => {
         <Typography variant="h4" component="div" gutterBottom color="#222">
           {getFieldLabel('internships.program.title.javascript')}
         </Typography>
-        <Box display="flex">
-
+        <Stack direction="row" spacing={2}>
+          <Button variant="outlined" disabled={isDisabledCandidatePage}>Candidate page</Button>
+          <Button variant="outlined" endIcon={<Send />} disabled={isDisabled}>
+            Send
+          </Button>
+          <Button variant="outlined" disabled={isDisabled}>Add to work</Button>
+        </Stack>
+        <Box display="flex" alignItems="center">
           <Box marginRight="15px">
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
-            </IconButton>
-            <IconButton>
-              <MailOutline fontSize="large" />
             </IconButton>
             <IconButton>
               <Print fontSize="large" />
@@ -104,26 +127,26 @@ const Candidates = () => {
             />
           </Popper>
           <Box width="80px">
-            <FormControl fullWidth>
+            <FormControl fullWidth size="small">
               <InputLabel>
                 {getFieldLabel('candidates.form.inputLabel')}
               </InputLabel>
-              <Select defaultValue="10" label="10" onChange={onPageSizeChanged}>
+              <Select defaultValue="10" label="{getFieldLabel('candidates.form.inputLabel')}" onChange={onPageSizeChanged}>
                 {createMenuItem}
               </Select>
             </FormControl>
           </Box>
         </Box>
       </Box>
-      <Box className="ag-theme-alpine">
+      <Box className="ag-theme-alpine" width="100%" height="calc(100% - 50px)">
         <AgGridReact
           rowData={newListOfCandidates}
           onColumnVisible={onColumnVisible}
+          onSelectionChanged={onSelectionChanged}
           debug
           animateRows
           onGridReady={onGridReady}
           rowSelection="multiple"
-          domLayout="autoHeight"
           pagination
           paginationPageSize="10"
           sideBar={{
