@@ -30,8 +30,9 @@ export const InternshipCard = ({
         {name}
       </Typography>
       <Typography variant="subtitle2" color="text">
+        {getFieldLabel('internships.program.dates')}
         {dayjs(registrationStartDate, registrationFinishDate).format(
-          'D MMMM YYYY - D MMMM YYYY',
+          'D.MM.YYYY - D.MM.YYYY',
         )}
       </Typography>
       <Typography variant="subtitle2" color="text">
@@ -41,7 +42,7 @@ export const InternshipCard = ({
       </Typography>
     </CardContent>
     <Box textAlign="center" className="test">
-      <Link to="/internshippage" className="internshipCardButton">
+      <Link to="/internshipPage" className="internshipCardButton">
         {getFieldLabel('internships.button.program.info')}
       </Link>
       <Link to={`/candidates/${id}`} className="internshipCandidatesLink">
