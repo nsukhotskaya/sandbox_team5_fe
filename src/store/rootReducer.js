@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import {
-  isAuthorized, candidateList, internshipsList, internshipById,
+  isAuthorized,
+  candidateList,
+  internshipsList,
+  internshipById,
 } from './reducers';
 
 const rootReducer = (history) => combineReducers({

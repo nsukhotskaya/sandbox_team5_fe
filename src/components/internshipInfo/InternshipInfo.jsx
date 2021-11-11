@@ -40,7 +40,9 @@ const InternshipInfo = (props) => {
                 )}
               />
               <Typography variant="body1">
-                {dayjs(internshipInfo.startDate, internshipInfo.endDate).format('D.MM.YYYY - D.MM.YYYY')}
+                {dayjs(internshipInfo.startDate, internshipInfo.endDate).format(
+                  'D.MM.YYYY - D.MM.YYYY',
+                )}
               </Typography>
             </ListItem>
             <ListItem disablePadding>
@@ -51,7 +53,9 @@ const InternshipInfo = (props) => {
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{internshipInfo.requirements}</Typography>
+              <Typography variant="body1">
+                {internshipInfo.requirements}
+              </Typography>
             </ListItem>
             <ListItem disablePadding>
               <ListItemText
@@ -64,7 +68,7 @@ const InternshipInfo = (props) => {
               <Typography variant="body1">
                 {getStackType(
                   internshipInfo.internshipStacks
-                  && internshipInfo.internshipStacks[0].technologyStackType,
+                    && internshipInfo.internshipStacks[0].technologyStackType,
                 )}
               </Typography>
             </ListItem>
@@ -88,7 +92,9 @@ const InternshipInfo = (props) => {
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{internshipInfo.locations}</Typography>
+              <Typography variant="body1">
+                {internshipInfo.locations}
+              </Typography>
             </ListItem>
             <Typography variant="h6" gutterBottom>
               {getFieldLabel('internship.page.candidates')}
@@ -101,7 +107,9 @@ const InternshipInfo = (props) => {
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{internshipInfo.candidatesCount}</Typography>
+              <Typography variant="body1">
+                {internshipInfo.candidatesCount}
+              </Typography>
             </ListItem>
             <ListItem disablePadding>
               <ListItemText
@@ -111,7 +119,9 @@ const InternshipInfo = (props) => {
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{internshipInfo.declinedCandidatesCount}</Typography>
+              <Typography variant="body1">
+                {internshipInfo.declinedCandidatesCount}
+              </Typography>
             </ListItem>
             <ListItem disablePadding>
               <ListItemText
@@ -121,7 +131,9 @@ const InternshipInfo = (props) => {
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{internshipInfo.acceptedCandidatesCount}</Typography>
+              <Typography variant="body1">
+                {internshipInfo.acceptedCandidatesCount}
+              </Typography>
             </ListItem>
             <ListItem disablePadding>
               <ListItemText
@@ -155,7 +167,9 @@ const InternshipInfo = (props) => {
                   </Typography>
                 )}
               />
-              <Typography variant="body1">{internshipInfo.teamsCount}</Typography>
+              <Typography variant="body1">
+                {internshipInfo.teamsCount}
+              </Typography>
             </ListItem>
           </List>
         </CardContent>

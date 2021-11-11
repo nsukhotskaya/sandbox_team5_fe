@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Box,
-  Card,
-  Typography,
-} from '@mui/material';
+import { Box, Card, Typography } from '@mui/material';
 import './internshipPage.sass';
 import ProfileTable from '../../components/feedbacks/ProfileTable';
 import { fetchInternshipById } from '../../store/commands';
@@ -12,9 +8,7 @@ import InternshipInfo from '../../components/internshipInfo/InternshipInfo';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
 import { columnDefsEmployees } from '../../constants';
-import {
-  rowDataEmployees,
-} from '../../mocks/internshipEmployees.json';
+import { rowDataEmployees } from '../../mocks/internshipEmployees.json';
 
 const InternshipPage = () => {
   const internship = useSelector((state) => state.internship.internship);
