@@ -21,7 +21,7 @@ import { fetchCandidateList } from '../../store/commands';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import './Candidates.sass';
+import { LinkFormatter } from '../../components';
 
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
@@ -88,13 +88,6 @@ const Candidates = () => {
 
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
-  const cellRenderer = (params) => {
-    const keyData = params.data.fullName;
-    const keyId = params.data.id;
-    const newLink = `<a href=/candidate/${keyId}>${keyData}</a>`;
-    return newLink;
-  };
-
   const onBtExport = () => {
     gridApi.exportDataAsExcel();
   };
@@ -144,6 +137,9 @@ const Candidates = () => {
       </Box>
       <Box className="ag-theme-alpine" width="100%" height="calc(100% - 50px)">
         <AgGridReact
+          frameworkComponents={{
+            linkFormatter: LinkFormatter,
+          }}
           suppressRowClickSelection
           rowData={newListOfCandidates}
           onColumnVisible={onColumnVisible}
@@ -183,7 +179,7 @@ const Candidates = () => {
             headerCheckboxSelection
             suppressSizeToFit
             minWidth={250}
-            cellRenderer={cellRenderer}
+            cellRenderer="linkFormatter"
           />
           {tableFields.map((field) => (
             <AgGridColumn
