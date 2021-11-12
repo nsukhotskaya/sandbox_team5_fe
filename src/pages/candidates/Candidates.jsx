@@ -57,7 +57,6 @@ const Candidates = () => {
 
   const onGridReady = (params) => {
     setGridApi(params.api);
-
     params.api.sizeColumnsToFit();
   };
 
@@ -94,11 +93,9 @@ const Candidates = () => {
   const cellRenderer = (params) => {
     const keyData = params.data.fullName;
     const keyId = params.data.id;
-    const newLink = `<a class="test" href=/internships/${keyId}>${keyData}</a>`;
+    const newLink = `<a href=/internships/${keyId}>${keyData}</a>`;
     return newLink;
   };
-
-  const cellStyle = { textDecoration: 'inherit' };
 
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
@@ -186,7 +183,6 @@ const Candidates = () => {
             suppressSizeToFit
             minWidth={250}
             cellRenderer={cellRenderer}
-            cellStyle={cellStyle}
           />
           {tableFields.map((field) => (
             <AgGridColumn
