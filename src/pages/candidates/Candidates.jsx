@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
@@ -25,12 +25,12 @@ import { fetchCandidateList } from '../../store/commands';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import './Candidates.sass';
 
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
   const [isDisabled, setIsDisabled] = useState(true);
-  const [isDisabledCandidatePage, setIsDisabledCandidatePage] = useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
 
@@ -43,12 +43,9 @@ const Candidates = () => {
     internshipId: id,
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
-    if (gridApi) {
-      gridApi.sizeColumnsToFit();
-    }
-  }, [gridApi]);
+  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -60,19 +57,16 @@ const Candidates = () => {
 
   const onGridReady = (params) => {
     setGridApi(params.api);
+
+    params.api.sizeColumnsToFit();
   };
 
   const onSelectionChanged = (event) => {
     const rowCount = event.api.getSelectedNodes().length;
-    if (rowCount >= 2) {
-      setIsDisabledCandidatePage(true);
+    if (rowCount) {
       setIsDisabled(false);
-    } else if (rowCount === 0) {
-      setIsDisabled(true);
-      setIsDisabledCandidatePage(true);
     } else {
-      setIsDisabled(false);
-      setIsDisabledCandidatePage(false);
+      setIsDisabled(true);
     }
   };
 
@@ -89,12 +83,22 @@ const Candidates = () => {
 
   const reformatCandidates = (candidates) => candidates.map((candidate) => {
     const newObj = { ...candidate };
-    newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
+    newObj.fullName = ((`${candidate.firstName} ${candidate.lastName}`)
+    );
     newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
       'DD.MM.YYYY',
     );
     return newObj;
   });
+
+  const cellRenderer = (params) => {
+    const keyData = params.data.fullName;
+    const keyId = params.data.id;
+    const newLink = `<a class="test" href=/internships/${keyId}>${keyData}</a>`;
+    return newLink;
+  };
+
+  const cellStyle = { textDecoration: 'inherit' };
 
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
@@ -111,7 +115,6 @@ const Candidates = () => {
           {getFieldLabel('candidates.internship.name')}
         </Typography>
         <Stack direction="row" spacing={2}>
-          <Button variant="outlined" disabled={isDisabledCandidatePage}>{getFieldLabel('candidates.button.candidatePage')}</Button>
           <Button variant="outlined" endIcon={<Send />} disabled={isDisabled}>
             {getFieldLabel('candidates.button.send')}
           </Button>
@@ -143,6 +146,7 @@ const Candidates = () => {
       </Box>
       <Box className="ag-theme-alpine" width="100%" height="calc(100% - 50px)">
         <AgGridReact
+          suppressRowClickSelection
           rowData={newListOfCandidates}
           onColumnVisible={onColumnVisible}
           onSelectionChanged={onSelectionChanged}
@@ -181,6 +185,8 @@ const Candidates = () => {
             headerCheckboxSelection
             suppressSizeToFit
             minWidth={250}
+            cellRenderer={cellRenderer}
+            cellStyle={cellStyle}
           />
           {tableFields.map((field) => (
             <AgGridColumn

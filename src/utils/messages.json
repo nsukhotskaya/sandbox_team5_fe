@@ -46,7 +46,7 @@
   "candidates.table.language": "Language",
   "candidates.table.internship": "Internship",
   "candidates.table.stackType": "Stack",
-  "candidates.table.englishLevelType": "English Level",
+  "candidates.table.englishLevelName": "English Level",
   "candidates.table.hr": "HR",
   "candidates.table.interviewer": "Interviewer",
   "candidates.table.testTaskEvaluation": "Test Task",
@@ -55,7 +55,6 @@
   "candidates.form.inputLabel": "Page Size",
   "candidates.popper.inputPlaceholder": "Search...",
   "candidates.internship.name": "Name of internship",
-  "candidates.button.candidatePage": "Candidate page",
   "candidates.button.addToWork": "Add to work",
   "candidates.button.send": "Send"
 }
