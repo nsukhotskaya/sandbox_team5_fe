@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import './InternshipInfo.sass';
 import dayjs from 'dayjs';
-import { getFieldLabel, getLanguage, getStackType } from '../../utils';
+import { getFieldLabel } from '../../utils';
 import { useMediaDown } from '../utils';
 
 const InternshipInfo = (props) => {
@@ -66,10 +66,10 @@ const InternshipInfo = (props) => {
                 )}
               />
               <Typography variant="body1">
-                {getStackType(
+                {
                   internshipInfo.internshipStacks
-                    && internshipInfo.internshipStacks[0].technologyStackType,
-                )}
+                    && internshipInfo.internshipStacks[0].technologyStackType
+                }
               </Typography>
             </ListItem>
             <ListItem disablePadding>
@@ -81,7 +81,7 @@ const InternshipInfo = (props) => {
                 )}
               />
               <Typography variant="body1">
-                {getLanguage(internshipInfo.languageType)}
+                {internshipInfo.languageType}
               </Typography>
             </ListItem>
             <ListItem disablePadding divider>
@@ -93,7 +93,10 @@ const InternshipInfo = (props) => {
                 )}
               />
               <Typography variant="body1">
-                {internshipInfo.locations}
+                {
+                  internshipInfo.locations
+                  && internshipInfo.locations[0].technologyStackType
+                }
               </Typography>
             </ListItem>
             <Typography variant="h6" gutterBottom>

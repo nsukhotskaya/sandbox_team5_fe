@@ -41,7 +41,7 @@ export const InternshipCard = ({
       </Typography>
     </CardContent>
     <Box textAlign="center" className="test">
-      <Link to="/internshippage" className="internshipCardButton">
+      <Link to={`/internshipPage/${id}`} className="internshipCardButton">
         {getFieldLabel('internships.button.program.info')}
       </Link>
       <Link to={`/candidates/${id}`} className="internshipCandidatesLink">
