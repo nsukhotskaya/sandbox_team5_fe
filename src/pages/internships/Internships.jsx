@@ -11,10 +11,9 @@ import {
   Input,
 } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import FilterListIcon from '@mui/icons-material/FilterList';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
-import { InternshipCard } from '../../components';
+import { InternshipCard, InternshipsFilter } from '../../components';
 import { fetchInternships } from '../../store/commands';
 
 export const Internships = () => {
@@ -36,6 +35,7 @@ export const Internships = () => {
       <Box display="flex" flexDirection="column" marginTop="20px">
         <Box className="internshipMenu">
           <Typography
+            className="internshipsTitle"
             variant="h1"
             component="div"
             fontSize="35px"
@@ -56,9 +56,7 @@ export const Internships = () => {
             <Popper open={open} anchorEl={anchorEl} placement="left">
               <Input placeholder={getFieldLabel('common.search')} />
             </Popper>
-            <IconButton>
-              <FilterListIcon fontSize="large" />
-            </IconButton>
+            <InternshipsFilter />
             <Button variant="outlined" size="small">
               {getFieldLabel('internships.button.add.program')}
             </Button>
