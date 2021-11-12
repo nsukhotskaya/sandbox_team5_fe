@@ -1,0 +1,24 @@
+{
+    "locations": 
+    ["Belarus",
+    "Georgia",
+    "Lithuania",
+    "Poland",
+    "Ukraine"
+    ],
+
+    "stacks": 
+    ["FrontEnd",
+    "BackEnd",
+    "FullStack",
+    "BusinessAnalysis",
+    "DevOps",
+    "Testing"
+    ],
+
+    "hrs": 
+    ["Anastasija Petrova",
+    "Darija Ivanova",
+    "Evgenij Andreev"
+    ]
+}
