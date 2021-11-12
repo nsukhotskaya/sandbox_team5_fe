@@ -79,5 +79,23 @@
   "candidates.table.primarySkill": "Hard Skills",
   "candidates.form.inputLabel": "Page Size",
   "candidates.popper.inputPlaceholder": "Search...",
-  "candidates.internship.name": "Name of internship"
+  "candidates.internship.name": "Name of internship",
+  "candidate.info.status" : "Status",
+  "candidate.info.location" : "Location",
+  "candidate.info.internship" : "Internship",
+  "candidate.info.language" : "Language",
+  "candidate.info.phone" : "Phone",
+  "candidate.info.skype" : "Skype",
+  "candidate.info.email" : "Email",
+  "candidate.info.bestContactTime" : "Best contact time",
+  "candidate.info.stack" : "Stack",
+  "candidate.info.englishLevel" : "English level",
+  "candidate.info.registrationDate" : "Registration date",
+  "candidate.info.otherInfo" : "Other info",
+  "candidate.info.testTaskEvaluation" : "Test task evaluation",
+  "candidate.info.softSkills" : "Soft skills",
+  "candidate.info.hardSkills" : "Hard skills",
+  "candidate.button.edit" : "Edit"
+  
+
 }
