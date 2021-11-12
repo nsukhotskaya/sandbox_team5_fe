@@ -5,10 +5,13 @@ import {
 } from '@mui/material';
 import './LinkFormatter.sass';
 
-const LinkFormatter = ({ value }) => {
+const LinkFormatter = ({ value, data }) => {
+  // console.log(data);
+  // console.log(value);
+  const { id } = data;
   const history = useHistory();
   const handleClick = () => {
-    history.push('/candidate');
+    history.push(`/candidate/${id}`);
   };
 
   return (
