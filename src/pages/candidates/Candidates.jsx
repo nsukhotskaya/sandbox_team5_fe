@@ -3,23 +3,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   Box,
-  MenuItem,
   Typography,
-  FormControl,
-  Select,
   IconButton,
   Popper,
   Input,
   Stack,
   Button,
-  InputLabel,
 } from '@mui/material';
 import {
-  Print, ManageSearch, Send,
+  DownloadOutlined, ManageSearch, Send,
 } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFields, valueMenuItem } from '../../constants';
+import { tableFields } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import { fetchCandidateList } from '../../store/commands';
 import 'ag-grid-enterprise';
@@ -69,16 +65,16 @@ const Candidates = () => {
     }
   };
 
-  const onPageSizeChanged = (newPageSize) => {
-    const { value } = newPageSize.target;
-    gridApi.paginationSetPageSize(Number(value));
-  };
+  // const onPageSizeChanged = (newPageSize) => {
+  //   const { value } = newPageSize.target;
+  //   gridApi.paginationSetPageSize(Number(value));
+  // };
 
-  const createMenuItem = valueMenuItem.map((item) => (
-    <MenuItem value={item} key={item}>
-      {item}
-    </MenuItem>
-  ));
+  // const createMenuItem = valueMenuItem.map((item) => (
+  //   <MenuItem value={item} key={item}>
+  //     {item}
+  //   </MenuItem>
+  // ));
 
   const reformatCandidates = (candidates) => candidates.map((candidate) => {
     const newObj = { ...candidate };
@@ -90,6 +86,8 @@ const Candidates = () => {
     return newObj;
   });
 
+  const newListOfCandidates = reformatCandidates(listOfCandidates);
+
   const cellRenderer = (params) => {
     const keyData = params.data.fullName;
     const keyId = params.data.id;
@@ -97,7 +95,9 @@ const Candidates = () => {
     return newLink;
   };
 
-  const newListOfCandidates = reformatCandidates(listOfCandidates);
+  const onBtExport = () => {
+    gridApi.exportDataAsExcel();
+  };
 
   return (
     <Box padding="1%" width="100%" height="100%">
@@ -111,34 +111,35 @@ const Candidates = () => {
         <Typography variant="h4" component="div" gutterBottom color="#222">
           {getFieldLabel('candidates.internship.name')}
         </Typography>
-        <Stack direction="row" spacing={2}>
-          <Button variant="outlined" endIcon={<Send />} disabled={isDisabled}>
-            {getFieldLabel('candidates.button.send')}
-          </Button>
-          <Button variant="outlined" disabled={isDisabled}>{getFieldLabel('candidates.button.addToWork')}</Button>
-        </Stack>
         <Box display="flex" alignItems="center">
           <Box marginRight="15px">
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>
-            <IconButton>
-              <Print fontSize="large" />
+            <IconButton onClick={() => onBtExport()}>
+              <DownloadOutlined fontSize="large" />
             </IconButton>
           </Box>
-          <Popper open={open} anchorEl={anchorEl} placement="left">
-            <Input placeholder={getFieldLabel('common.search')} />
-          </Popper>
-          <Box width="80px">
+          {/* <Box width="80px">
             <FormControl fullWidth size="small">
               <InputLabel>
                 {getFieldLabel('candidates.form.inputLabel')}
               </InputLabel>
-              <Select defaultValue="10" label="{getFieldLabel('candidates.form.inputLabel')}" onChange={onPageSizeChanged}>
+              <Select defaultValue="10" label="
+              {getFieldLabel('candidates.form.inputLabel')}" onChange={onPageSizeChanged}>
                 {createMenuItem}
               </Select>
             </FormControl>
-          </Box>
+          </Box> */}
+          <Stack direction="row" spacing={2}>
+            <Button variant="outlined" endIcon={<Send />} disabled={isDisabled}>
+              {getFieldLabel('candidates.button.send')}
+            </Button>
+            <Button variant="outlined" disabled={isDisabled}>{getFieldLabel('candidates.button.addToWork')}</Button>
+          </Stack>
+          <Popper open={open} anchorEl={anchorEl} placement="left">
+            <Input placeholder={getFieldLabel('common.search')} />
+          </Popper>
         </Box>
       </Box>
       <Box className="ag-theme-alpine" width="100%" height="calc(100% - 50px)">
