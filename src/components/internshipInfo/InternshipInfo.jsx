@@ -66,10 +66,10 @@ const InternshipInfo = (props) => {
                 )}
               />
               <Typography variant="body1">
-                {
-                  internshipInfo.internshipStacks
-                    && internshipInfo.internshipStacks.map((item) => item.technologyStackType)
-                }
+                {internshipInfo.internshipStacks
+                  && internshipInfo.internshipStacks.map(
+                    (item) => item.technologyStackType,
+                  )}
               </Typography>
             </ListItem>
             <ListItem disablePadding>
@@ -93,10 +93,8 @@ const InternshipInfo = (props) => {
                 )}
               />
               <Typography variant="body1">
-                {
-                  internshipInfo.locations
-                  && internshipInfo.locations.map((item) => item.name)
-                }
+                {internshipInfo.locations
+                  && internshipInfo.locations.map((item) => item.name)}
               </Typography>
             </ListItem>
             <Typography variant="h6" gutterBottom>
