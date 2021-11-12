@@ -68,7 +68,7 @@ const InternshipInfo = (props) => {
               <Typography variant="body1">
                 {
                   internshipInfo.internshipStacks
-                    && internshipInfo.internshipStacks[0].technologyStackType
+                    && internshipInfo.internshipStacks.map((item) => item.technologyStackType)
                 }
               </Typography>
             </ListItem>
@@ -95,7 +95,7 @@ const InternshipInfo = (props) => {
               <Typography variant="body1">
                 {
                   internshipInfo.locations
-                  && internshipInfo.locations[0].technologyStackType
+                  && internshipInfo.locations.map((item) => item.name)
                 }
               </Typography>
             </ListItem>
