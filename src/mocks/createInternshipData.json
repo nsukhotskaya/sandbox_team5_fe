@@ -1,0 +1,28 @@
+{
+  "locationData": [
+    {
+      "id": 1,
+      "name": "Belarus"
+    },
+    {
+      "id": 2,
+      "name": "Russia"
+    },
+    {
+      "id": 3,
+      "name": "Ukraine"
+    },
+    {
+      "id": 4,
+      "name": "USA"
+    }
+  ],
+  "languageType": [
+    "English",
+    "Russian",
+    "German",
+    "French",
+    "Indian",
+    "Chinese"
+  ]
+}

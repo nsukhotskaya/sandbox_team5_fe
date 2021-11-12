@@ -46,7 +46,8 @@
     "universal-cookie": "^4.0.4",
     "web-vitals": "^1.1.2",
     "luxon": "^1.28.0",
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "formik": "^2.2.9"
   },
   "scripts": {
     "start": "react-scripts start",
