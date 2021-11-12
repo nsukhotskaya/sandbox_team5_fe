@@ -91,7 +91,7 @@ const Candidates = () => {
   const cellRenderer = (params) => {
     const keyData = params.data.fullName;
     const keyId = params.data.id;
-    const newLink = `<a href=/internships/${keyId}>${keyData}</a>`;
+    const newLink = `<a href=/candidate/${keyId}>${keyData}</a>`;
     return newLink;
   };
 
