@@ -24,6 +24,12 @@ const dateArrayFields = [
   ['registrationEndDate', 'Registration end'],
 ];
 
+const textFieldsArray = [
+  ['name', 'Title'],
+  ['requirements', 'Requirements'],
+  ['maxCandidateCount', 'Candidate Count'],
+];
+
 const AddProgram = (props) => {
   const { closeModal } = props;
   const formik = useFormik({
@@ -38,14 +44,7 @@ const AddProgram = (props) => {
       languageType: '0',
       internshipStatusType: ' ',
       imageLink: ' ',
-      internshipStacks: [
-        // {
-        //   technologyStackType: ''
-        // },
-        // {
-        //   technologyStackType: ''
-        // }
-      ],
+      internshipStacks: [],
       locations: 'Belarus',
     },
     onSubmit: (values) => {
@@ -60,7 +59,15 @@ const AddProgram = (props) => {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <CardTitle width="100%" title={getFieldLabel('addprogram.title')} />
             <Stack spacing={2} direction="column">
-
+              {textFieldsArray.map((item) => (
+                <TextField
+                  label={item[1]}
+                  name={item[0]}
+                  value={formik.values[`${item[0]}`]}
+                  onChange={formik.handleChange}
+                  variant="outlined"
+                />
+              ))}
               <TextField
                 select
                 label="Language"
