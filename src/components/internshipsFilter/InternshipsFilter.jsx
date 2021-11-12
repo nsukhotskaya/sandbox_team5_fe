@@ -28,7 +28,7 @@ export const InternshipsFilter = () => {
   };
 
   const open = Boolean(anchorEl);
-  const id = open && 'simple-popover';
+  const id = 'popover';
 
   const [filterLocation, setFilterLocation] = useState([]);
   const [filterLanguage, setFilterLanguage] = useState([]);
