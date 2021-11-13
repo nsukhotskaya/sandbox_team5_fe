@@ -28,7 +28,10 @@ function Home() {
               <Route path="/candidates/:id">
                 <Candidates />
               </Route>
-              <Route exact path="/internshipPage">
+              <Route exact path="/candidate">
+                <CandidateCard />
+              </Route>
+              <Route exact path="/internshipPage/:id">
                 <InternshipPage />
               </Route>
             </Switch>
