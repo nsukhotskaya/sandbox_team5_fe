@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, CssBaseline } from '@mui/material';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { Header, Footer } from '../../components';
 import {
   Internships,
@@ -19,6 +19,9 @@ function Home() {
         <Box id="content">
           <Box className="card" backgroundColor="background.paper">
             <Switch>
+              <Route exact path="/">
+                <Redirect to="/profile" />
+              </Route>
               <Route exact path="/profile">
                 <ProfileCard />
               </Route>
@@ -27,9 +30,6 @@ function Home() {
               </Route>
               <Route path="/candidates/:id">
                 <Candidates />
-              </Route>
-              <Route exact path="/candidate">
-                <CandidateCard />
               </Route>
               <Route exact path="/internshipPage/:id">
                 <InternshipPage />
