@@ -11,7 +11,6 @@ const SidePopUp = ({ active, setActive }) => {
   return (
     <Box
       className={active ? 'modal active' : 'modal'}
-      onClick={closeModal}
     >
       <Box
         className={active ? 'modalContent active' : 'modalContent'}
