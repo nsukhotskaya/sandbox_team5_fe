@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import {
   Box,
@@ -14,6 +15,7 @@ import {
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { CardTitle } from '../cardTitle';
 import { getFieldLabel } from '../../utils';
+import { fetchLocations } from '../../store/commands';
 import { locationData, languageType } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
 
@@ -31,6 +33,11 @@ const textFieldsArray = [
 ];
 
 const AddProgram = (props) => {
+  const locations = useSelector((state) => state.locations.locations);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchLocations());
+  }, []);
   const { closeModal } = props;
   const formik = useFormik({
     initialValues: {
@@ -51,6 +58,7 @@ const AddProgram = (props) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
+  console.log(locations);
 
   return (
     <>
