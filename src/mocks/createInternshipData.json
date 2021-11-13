@@ -1,28 +1,82 @@
 {
-  "locationData": [
+  "stacks": [
     {
       "id": 1,
-      "name": "Belarus"
+      "name": "JS"
     },
     {
       "id": 2,
-      "name": "Russia"
+      "name": "Java"
     },
     {
       "id": 3,
-      "name": "Ukraine"
+      "name": "C#"
     },
     {
       "id": 4,
-      "name": "USA"
+      "name": "Python"
+    },
+    {
+      "id": 5,
+      "name": "C++"
+    },
+    {
+      "id": 6,
+      "name": "Vue"
+    },
+    {
+      "id": 7,
+      "name": "Angular"
+    },
+    {
+      "id": 8,
+      "name": "React"
+    },
+    {
+      "id": 9,
+      "name": "Figma"
+    },
+    {
+      "id": 10,
+      "name": "Photoshop"
+    },
+    {
+      "id": 11,
+      "name": "MySQL"
+    },
+    {
+      "id": 12,
+      "name": "GraphQL"
+    },
+    {
+      "id": 13,
+      "name": "Wordpress"
     }
   ],
-  "languageType": [
-    "English",
-    "Russian",
-    "German",
-    "French",
-    "Indian",
-    "Chinese"
+  "languages": [
+    {
+      "id": 0,
+      "name": "English"
+    },
+    {
+      "id": 1,
+      "name": "Russian"
+    },
+    {
+      "id": 2,
+      "name": "German"
+    },
+    {
+      "id": 3,
+      "name": "French"
+    },
+    {
+      "id": 4,
+      "name": "Indian"
+    },
+    {
+      "id": 5,
+      "name": "Chinese"
+    }
   ]
 }

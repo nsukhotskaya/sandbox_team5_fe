@@ -16,7 +16,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { CardTitle } from '../cardTitle';
 import { getFieldLabel } from '../../utils';
 import { fetchLocations } from '../../store/commands';
-import { locationData, languageType } from '../../mocks/createInternshipData.json';
+import { stacks, languages } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
 
 const dateArrayFields = [
@@ -44,21 +44,20 @@ const AddProgram = (props) => {
       name: '',
       startDate: '2001-11-09T17:31:07.301Z',
       endDate: '2001-11-09T17:31:07.301Z',
-      requirements: ' ',
+      requirements: '',
       maxCandidateCount: 0,
       registrationStartDate: '2001-11-09T17:31:07.301Z',
       registrationFinishDate: '2001-11-09T17:31:07.301Z',
-      languageType: '0',
-      internshipStatusType: ' ',
-      imageLink: ' ',
-      internshipStacks: [],
-      locations: 'Belarus',
+      languageType: '',
+      internshipStatusType: '',
+      imageLink: '',
+      internshipStacks: [{ technologyStackType: '' }],
+      locations: [{ name: '' }],
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
-  console.log(locations);
 
   return (
     <>
@@ -76,19 +75,6 @@ const AddProgram = (props) => {
                   variant="outlined"
                 />
               ))}
-              <TextField
-                select
-                label="Language"
-                name="languageType"
-                value={formik.values.languageType}
-                onChange={formik.handleChange}
-                helperText="Please select internship language"
-                variant="standard"
-              >
-                {languageType.map((item, index) => (
-                  <MenuItem key={item} value={index}>{item}</MenuItem>
-                ))}
-              </TextField>
               {/* eslint-disable react/jsx-props-no-spreading */}
               {dateArrayFields.map((item) => (
                 <MobileDateTimePicker
@@ -104,7 +90,6 @@ const AddProgram = (props) => {
               ))}
               {/* eslint-enable react/jsx-props-no-spreading */}
               <TextField
-                required
                 select
                 label="Locations"
                 name="locations"
@@ -113,8 +98,36 @@ const AddProgram = (props) => {
                 helperText="Please select internship location"
                 variant="standard"
               >
-                {locationData.map((item) => (
-                  <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
+                {locations.map((item) => (
+                  <MenuItem key={item} value={[{ name: `${item.name}` }]}>{item.name}</MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                select
+                label="Stack"
+                name="internshipStacks"
+                value={formik.values.internshipStacks}
+                onChange={(value) => formik.setFieldValue('internshipStacks', value)}
+                helperText="Please select internship stack"
+                variant="standard"
+              >
+                {stacks.map((item) => (
+                  <MenuItem key={item} value={[{ technologyStackType: `${item.name}` }]}>
+                    {item.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                select
+                label="Language"
+                name="languageType"
+                value={formik.values.languageType}
+                onChange={formik.handleChange}
+                helperText="Please select internship language"
+                variant="standard"
+              >
+                {languages.map((item) => (
+                  <MenuItem key={item} value={item.name}>{item.name}</MenuItem>
                 ))}
               </TextField>
             </Stack>
