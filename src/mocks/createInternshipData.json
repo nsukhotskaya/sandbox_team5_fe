@@ -1,4 +1,18 @@
 {
+  "initialValues": {
+    "name": "",
+    "startDate": "2001-11-09T17:31:07.301Z",
+    "endDate": "2001-11-09T17:31:07.301Z",
+    "requirements": "",
+    "maxCandidateCount": 0,
+    "registrationStartDate": "2001-11-09T17:31:07.301Z",
+    "registrationFinishDate": "2001-11-09T17:31:07.301Z",
+    "languageType": "",
+    "internshipStatusType": "",
+    "imageLink": "",
+    "internshipStacks": [],
+    "locations": []
+  },
   "stacks": [
     {
       "id": 1,

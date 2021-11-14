@@ -19,70 +19,62 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { CardTitle } from '../cardTitle';
 import { getFieldLabel } from '../../utils';
 import { fetchLocations } from '../../store/commands';
-import { languages, stacks } from '../../mocks/createInternshipData.json';
+import { languages, stacks, initialValues } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
 
-const dateArrayFields = [
-  ['startDate', 'Start date'],
-  ['endDate', 'End date'],
-  ['registrationStartDate', 'Registration start'],
-  ['registrationEndDate', 'Registration end'],
-];
-
-const textFieldsArray = [
-  ['name', 'Title'],
-  ['requirements', 'Requirements'],
-  ['maxCandidateCount', 'Candidate Count'],
-];
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
     style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      maxHeight: 224,
       width: 250,
     },
   },
 };
 
 const AddProgram = (props) => {
+  const { closeModal } = props;
   const locationsList = useSelector((state) => state.locations.locations);
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(fetchLocations());
   }, []);
-  const { closeModal } = props;
+
   const formik = useFormik({
-    initialValues: {
-      name: '',
-      startDate: '2001-11-09T17:31:07.301Z',
-      endDate: '2001-11-09T17:31:07.301Z',
-      requirements: '',
-      maxCandidateCount: 0,
-      registrationStartDate: '2001-11-09T17:31:07.301Z',
-      registrationFinishDate: '2001-11-09T17:31:07.301Z',
-      languageType: '',
-      internshipStatusType: '',
-      imageLink: '',
-      internshipStacks: [],
-      locations: [],
-    },
+    initialValues,
     onSubmit: (values) => {
       const newInternship = { ...values };
-      const locationsObjects = newInternship.locations.map((country) => {
+      newInternship.locations = newInternship.locations.map((country) => {
         const countryObject = { name: country };
         return countryObject;
       });
-      newInternship.locations = locationsObjects;
-      const stacksObjects = newInternship.internshipStacks.map((stack) => {
+      newInternship.internshipStacks = newInternship.internshipStacks.map((stack) => {
         const stackObject = { technologyStackType: stack };
         return stackObject;
       });
-      newInternship.internshipStacks = stacksObjects;
+
       console.log(JSON.stringify(newInternship, null, 2));
     },
   });
+
+  const dateFieldsArray = [
+    ['startDate', 'Start date'],
+    ['endDate', 'End date'],
+    ['registrationStartDate', 'Registration start'],
+    ['registrationEndDate', 'Registration end'],
+  ];
+
+  const textFieldsArray = [
+    ['name', 'Title'],
+    ['requirements', 'Requirements'],
+    ['maxCandidateCount', 'Candidate Count'],
+  ];
+
+  const multiSelectFieldsArray = [
+    // [key, label, array]
+    ['internshipStacks', 'Stacks', stacks],
+    ['locations', 'Locations', locationsList],
+  ];
 
   return (
     <>
@@ -115,8 +107,9 @@ const AddProgram = (props) => {
                 ))}
               </TextField>
               {/* eslint-disable react/jsx-props-no-spreading */}
-              {dateArrayFields.map((item) => (
+              {dateFieldsArray.map((item) => (
                 <MobileDateTimePicker
+                  key={item[0]}
                   label={item[1]}
                   name={item[0]}
                   value={formik.values[`${item[0]}`]}
@@ -124,42 +117,27 @@ const AddProgram = (props) => {
                   onChange={(date) => formik.setFieldValue(item[0], date)}
                   mask="___/__/__ __:__ _M"
                   renderInput={(params) => <TextField {...params} />}
-                  key={item[0]}
                 />
               ))}
               {/* eslint-enable react/jsx-props-no-spreading */}
-              <FormControl>
-                <InputLabel>Stacks</InputLabel>
-                <Select
-                  label="Stacks"
-                  multiple
-                  value={formik.values.internshipStacks}
-                  onChange={(event) => formik.setFieldValue('internshipStacks', event.target.value)}
-                  MenuProps={MenuProps}
-                >
-                  {stacks.map((item) => (
-                    <MenuItem key={item.id} value={item.name}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl>
-                <InputLabel>Locations</InputLabel>
-                <Select
-                  label="Locations"
-                  multiple
-                  value={formik.values.locations}
-                  onChange={(event) => formik.setFieldValue('locations', event.target.value)}
-                  MenuProps={MenuProps}
-                >
-                  {locationsList.map((item) => (
-                    <MenuItem key={item.id} value={item.name}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+              {multiSelectFieldsArray.map((element) => (
+                <FormControl key={element[0]}>
+                  <InputLabel>{element[1]}</InputLabel>
+                  <Select
+                    label={element[1]}
+                    multiple
+                    value={formik.values[`${element[0]}`]}
+                    onChange={(event) => formik.setFieldValue(element[0], event.target.value)}
+                    MenuProps={MenuProps}
+                  >
+                    {element[2].map((item) => (
+                      <MenuItem key={item.id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              ))}
             </Stack>
           </LocalizationProvider>
         </Box>
