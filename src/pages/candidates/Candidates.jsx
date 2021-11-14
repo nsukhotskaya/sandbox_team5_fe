@@ -10,9 +10,7 @@ import {
   Stack,
   Button,
 } from '@mui/material';
-import {
-  ManageSearch, Send,
-} from '@mui/icons-material';
+import { ManageSearch, Send } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields } from '../../constants';
@@ -67,8 +65,7 @@ const Candidates = () => {
 
   const reformatCandidates = (candidates) => candidates.map((candidate) => {
     const newObj = { ...candidate };
-    newObj.fullName = ((`${candidate.firstName} ${candidate.lastName}`)
-    );
+    newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
     newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
       'DD.MM.YYYY',
     );
@@ -100,11 +97,15 @@ const Candidates = () => {
             </IconButton>
           </Box>
           <Stack direction="row" spacing={2}>
-            <Button onClick={() => onBtExport()} variant="outlined">{getFieldLabel('candidates.button.exportToExcel')}</Button>
+            <Button onClick={() => onBtExport()} variant="outlined">
+              {getFieldLabel('candidates.button.exportToExcel')}
+            </Button>
             <Button variant="outlined" endIcon={<Send />} disabled={isDisabled}>
               {getFieldLabel('candidates.button.send')}
             </Button>
-            <Button variant="outlined" disabled={isDisabled}>{getFieldLabel('candidates.button.addToWork')}</Button>
+            <Button variant="outlined" disabled={isDisabled}>
+              {getFieldLabel('candidates.button.addToWork')}
+            </Button>
           </Stack>
           <Popper open={open} anchorEl={anchorEl} placement="left">
             <Input placeholder={getFieldLabel('common.search')} />

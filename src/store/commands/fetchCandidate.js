@@ -11,9 +11,7 @@ const id = 1;
 const fetchCandidate = () => async (dispatch) => {
   dispatch(getCandidateRequest());
   try {
-    const response = await API.get(
-      `/api/Candidate/getCandidateById?id=${id}`,
-    );
+    const response = await API.get(`/api/Candidate/getCandidateById?id=${id}`);
     dispatch(getCandidateSuccess(response.data));
   } catch (error) {
     dispatch(getCandidateFailure());

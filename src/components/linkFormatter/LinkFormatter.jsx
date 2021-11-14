@@ -1,8 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import {
-  Box,
-} from '@mui/material';
+import { Box } from '@mui/material';
 import './LinkFormatter.sass';
 
 const LinkFormatter = ({ value, data }) => {
