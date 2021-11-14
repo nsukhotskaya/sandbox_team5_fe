@@ -52,34 +52,33 @@ const AddProgram = (props) => {
         const stackObject = { technologyStackType: stack };
         return stackObject;
       });
-
       console.log(JSON.stringify(newInternship, null, 2));
     },
   });
 
   const dateFieldsArray = [
-    ['startDate', 'Start date'],
-    ['endDate', 'End date'],
-    ['registrationStartDate', 'Registration start'],
-    ['registrationEndDate', 'Registration end'],
+    ['startDate', getFieldLabel('addprogram.field.label.startDate')],
+    ['endDate', getFieldLabel('addprogram.field.label.endDate')],
+    ['registrationStartDate', getFieldLabel('addprogram.field.label.registrationStart')],
+    ['registrationFinishDate', getFieldLabel('addprogram.field.label.registrationFinish')],
   ];
 
   const textFieldsArray = [
-    ['name', 'Title'],
-    ['requirements', 'Requirements'],
-    ['maxCandidateCount', 'Candidate Count'],
+    ['name', getFieldLabel('addprogram.field.label.title')],
+    ['requirements', getFieldLabel('addprogram.field.label.requirements')],
+    ['maxCandidateCount', getFieldLabel('addprogram.field.label.candidateCount')],
   ];
 
   const multiSelectFieldsArray = [
     // [key, label, array]
-    ['internshipStacks', 'Stacks', stacks],
-    ['locations', 'Locations', locationsList],
+    ['internshipStacks', getFieldLabel('addprogram.field.label.stacks'), stacks],
+    ['locations', getFieldLabel('addprogram.field.label.locations'), locationsList],
   ];
 
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <Box className="container" onSubmit={(event) => console.log(event)}>
+        <Box className="container">
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <CardTitle width="100%" title={getFieldLabel('addprogram.title')} />
             <Stack spacing={2} direction="column">
@@ -95,11 +94,10 @@ const AddProgram = (props) => {
               ))}
               <TextField
                 select
-                label="Language"
+                label={getFieldLabel('addprogram.field.label.languages')}
                 name="languageType"
                 value={formik.values.languageType}
                 onChange={formik.handleChange}
-                helperText="Please select internship language"
                 variant="standard"
               >
                 {languages.map((item) => (
@@ -113,9 +111,9 @@ const AddProgram = (props) => {
                   label={item[1]}
                   name={item[0]}
                   value={formik.values[`${item[0]}`]}
-                  inputFormat="yyyy/MM/dd hh:mm a"
+                  inputFormat={getFieldLabel('addprogram.input.date.format')}
                   onChange={(date) => formik.setFieldValue(item[0], date)}
-                  mask="___/__/__ __:__ _M"
+                  mask={getFieldLabel('addprogram.input.date.mask')}
                   renderInput={(params) => <TextField {...params} />}
                 />
               ))}
