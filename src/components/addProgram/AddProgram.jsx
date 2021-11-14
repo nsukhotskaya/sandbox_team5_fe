@@ -56,21 +56,23 @@ const AddProgram = (props) => {
     },
   });
 
-  const dateFieldsArray = [
+  const dataForRenderDatePicker = [
+    // [keyName, label]
     ['startDate', getFieldLabel('addprogram.field.label.startDate')],
     ['endDate', getFieldLabel('addprogram.field.label.endDate')],
     ['registrationStartDate', getFieldLabel('addprogram.field.label.registrationStart')],
     ['registrationFinishDate', getFieldLabel('addprogram.field.label.registrationFinish')],
   ];
 
-  const textFieldsArray = [
+  const dataForRenderTextField = [
+    // [keyName, label]
     ['name', getFieldLabel('addprogram.field.label.title')],
     ['requirements', getFieldLabel('addprogram.field.label.requirements')],
     ['maxCandidateCount', getFieldLabel('addprogram.field.label.candidateCount')],
   ];
 
-  const multiSelectFieldsArray = [
-    // [key, label, array]
+  const dataForRenderSelect = [
+    // [keyName, label, array]
     ['internshipStacks', getFieldLabel('addprogram.field.label.stacks'), stacks],
     ['locations', getFieldLabel('addprogram.field.label.locations'), locationsList],
   ];
@@ -82,7 +84,7 @@ const AddProgram = (props) => {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <CardTitle width="100%" title={getFieldLabel('addprogram.title')} />
             <Stack spacing={2} direction="column">
-              {textFieldsArray.map((item) => (
+              {dataForRenderTextField.map((item) => (
                 <TextField
                   label={item[1]}
                   name={item[0]}
@@ -105,20 +107,21 @@ const AddProgram = (props) => {
                 ))}
               </TextField>
               {/* eslint-disable react/jsx-props-no-spreading */}
-              {dateFieldsArray.map((item) => (
-                <MobileDateTimePicker
-                  key={item[0]}
-                  label={item[1]}
-                  name={item[0]}
-                  value={formik.values[`${item[0]}`]}
-                  inputFormat={getFieldLabel('addprogram.input.date.format')}
-                  onChange={(date) => formik.setFieldValue(item[0], date)}
-                  mask={getFieldLabel('addprogram.input.date.mask')}
-                  renderInput={(params) => <TextField {...params} />}
-                />
+              {dataForRenderDatePicker.map((item) => (
+                <React.Fragment key={item[0]}>
+                  <MobileDateTimePicker
+                    label={item[1]}
+                    name={item[0]}
+                    value={formik.values[`${item[0]}`]}
+                    inputFormat={getFieldLabel('addprogram.input.date.format')}
+                    onChange={(date) => formik.setFieldValue(item[0], date)}
+                    mask={getFieldLabel('addprogram.input.date.mask')}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                </React.Fragment>
               ))}
               {/* eslint-enable react/jsx-props-no-spreading */}
-              {multiSelectFieldsArray.map((element) => (
+              {dataForRenderSelect.map((element) => (
                 <FormControl key={element[0]}>
                   <InputLabel>{element[1]}</InputLabel>
                   <Select
