@@ -71,6 +71,7 @@
   "candidates.internship.name": "Name of internship",
   "candidates.button.addToWork": "Add to work",
   "candidates.button.send": "Send",
+  "candidates.button.exportToExcel": "Export to Excel",
   "candidate.info.status" : "Status",
   "candidate.info.location" : "Location",
   "candidate.info.internship" : "Internship",

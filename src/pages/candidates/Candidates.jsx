@@ -11,17 +11,17 @@ import {
   Button,
 } from '@mui/material';
 import {
-  DownloadOutlined, ManageSearch, Send,
+  ManageSearch, Send,
 } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import { fetchCandidateList } from '../../store/commands';
+import { LinkFormatter } from '../../components';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import { LinkFormatter } from '../../components';
 
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
@@ -65,17 +65,6 @@ const Candidates = () => {
     }
   };
 
-  // const onPageSizeChanged = (newPageSize) => {
-  //   const { value } = newPageSize.target;
-  //   gridApi.paginationSetPageSize(Number(value));
-  // };
-
-  // const createMenuItem = valueMenuItem.map((item) => (
-  //   <MenuItem value={item} key={item}>
-  //     {item}
-  //   </MenuItem>
-  // ));
-
   const reformatCandidates = (candidates) => candidates.map((candidate) => {
     const newObj = { ...candidate };
     newObj.fullName = ((`${candidate.firstName} ${candidate.lastName}`)
@@ -109,22 +98,9 @@ const Candidates = () => {
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>
-            <IconButton onClick={() => onBtExport()}>
-              <DownloadOutlined fontSize="large" />
-            </IconButton>
           </Box>
-          {/* <Box width="80px">
-            <FormControl fullWidth size="small">
-              <InputLabel>
-                {getFieldLabel('candidates.form.inputLabel')}
-              </InputLabel>
-              <Select defaultValue="10" label="
-              {getFieldLabel('candidates.form.inputLabel')}" onChange={onPageSizeChanged}>
-                {createMenuItem}
-              </Select>
-            </FormControl>
-          </Box> */}
           <Stack direction="row" spacing={2}>
+            <Button onClick={() => onBtExport()} variant="outlined">{getFieldLabel('candidates.button.exportToExcel')}</Button>
             <Button variant="outlined" endIcon={<Send />} disabled={isDisabled}>
               {getFieldLabel('candidates.button.send')}
             </Button>
