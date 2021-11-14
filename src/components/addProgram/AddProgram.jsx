@@ -7,6 +7,9 @@ import {
   Button,
   TextField,
   MenuItem,
+  InputLabel,
+  FormControl,
+  Select,
 } from '@mui/material';
 import {
   LocalizationProvider,
@@ -16,7 +19,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { CardTitle } from '../cardTitle';
 import { getFieldLabel } from '../../utils';
 import { fetchLocations } from '../../store/commands';
-import { stacks, languages } from '../../mocks/createInternshipData.json';
+import { languages, stacks } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
 
 const dateArrayFields = [
@@ -32,8 +35,19 @@ const textFieldsArray = [
   ['maxCandidateCount', 'Candidate Count'],
 ];
 
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
 const AddProgram = (props) => {
-  const locations = useSelector((state) => state.locations.locations);
+  const locationsList = useSelector((state) => state.locations.locations);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchLocations());
@@ -51,11 +65,22 @@ const AddProgram = (props) => {
       languageType: '',
       internshipStatusType: '',
       imageLink: '',
-      internshipStacks: [{ technologyStackType: '' }],
-      locations: [{ name: '' }],
+      internshipStacks: [],
+      locations: [],
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      const newInternship = { ...values };
+      const locationsObjects = newInternship.locations.map((country) => {
+        const countryObject = { name: country };
+        return countryObject;
+      });
+      newInternship.locations = locationsObjects;
+      const stacksObjects = newInternship.internshipStacks.map((stack) => {
+        const stackObject = { technologyStackType: stack };
+        return stackObject;
+      });
+      newInternship.internshipStacks = stacksObjects;
+      console.log(JSON.stringify(newInternship, null, 2));
     },
   });
 
@@ -73,8 +98,22 @@ const AddProgram = (props) => {
                   value={formik.values[`${item[0]}`]}
                   onChange={formik.handleChange}
                   variant="outlined"
+                  key={item[0]}
                 />
               ))}
+              <TextField
+                select
+                label="Language"
+                name="languageType"
+                value={formik.values.languageType}
+                onChange={formik.handleChange}
+                helperText="Please select internship language"
+                variant="standard"
+              >
+                {languages.map((item) => (
+                  <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
+                ))}
+              </TextField>
               {/* eslint-disable react/jsx-props-no-spreading */}
               {dateArrayFields.map((item) => (
                 <MobileDateTimePicker
@@ -89,47 +128,38 @@ const AddProgram = (props) => {
                 />
               ))}
               {/* eslint-enable react/jsx-props-no-spreading */}
-              <TextField
-                select
-                label="Locations"
-                name="locations"
-                value={formik.values.location}
-                onChange={(value) => formik.setFieldValue('locations', value)}
-                helperText="Please select internship location"
-                variant="standard"
-              >
-                {locations.map((item) => (
-                  <MenuItem key={item} value={[{ name: `${item.name}` }]}>{item.name}</MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
-                label="Stack"
-                name="internshipStacks"
-                value={formik.values.internshipStacks}
-                onChange={(value) => formik.setFieldValue('internshipStacks', value)}
-                helperText="Please select internship stack"
-                variant="standard"
-              >
-                {stacks.map((item) => (
-                  <MenuItem key={item} value={[{ technologyStackType: `${item.name}` }]}>
-                    {item.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <TextField
-                select
-                label="Language"
-                name="languageType"
-                value={formik.values.languageType}
-                onChange={formik.handleChange}
-                helperText="Please select internship language"
-                variant="standard"
-              >
-                {languages.map((item) => (
-                  <MenuItem key={item} value={item.name}>{item.name}</MenuItem>
-                ))}
-              </TextField>
+              <FormControl>
+                <InputLabel>Stacks</InputLabel>
+                <Select
+                  label="Stacks"
+                  multiple
+                  value={formik.values.internshipStacks}
+                  onChange={(event) => formik.setFieldValue('internshipStacks', event.target.value)}
+                  MenuProps={MenuProps}
+                >
+                  {stacks.map((item) => (
+                    <MenuItem key={item.id} value={item.name}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl>
+                <InputLabel>Locations</InputLabel>
+                <Select
+                  label="Locations"
+                  multiple
+                  value={formik.values.locations}
+                  onChange={(event) => formik.setFieldValue('locations', event.target.value)}
+                  MenuProps={MenuProps}
+                >
+                  {locationsList.map((item) => (
+                    <MenuItem key={item.id} value={item.name}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </Stack>
           </LocalizationProvider>
         </Box>
