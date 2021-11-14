@@ -6,8 +6,6 @@ import {
 import './LinkFormatter.sass';
 
 const LinkFormatter = ({ value, data }) => {
-  // console.log(data);
-  // console.log(value);
   const { id } = data;
   const history = useHistory();
   const handleClick = () => {
