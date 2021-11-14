@@ -32,7 +32,7 @@ function Home() {
               <Route exact path="/candidate/:id">
                 <CandidateCard />
               </Route>
-              <Route exact path="/internshipPage">
+              <Route exact path="/internshipPage/:id">
                 <InternshipPage />
               </Route>
             </Switch>
