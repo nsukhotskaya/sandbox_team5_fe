@@ -94,16 +94,6 @@ export const CandidateInfo = () => {
           <ListItemText primary={getFieldLabel('candidate.info.testTaskEvaluation')} />
           <Typography variant="body1">{candidate.testTaskEvaluation}</Typography>
         </ListItem>
-        {/* this data will be from internship */}
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.softSkills')} />
-          <Typography variant="body1">-</Typography>
-        </ListItem>
-        {/* this data will be from internship */}
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.hardSkills')} />
-          <Typography variant="body1">-</Typography>
-        </ListItem>
       </List>
     </Box>
   );
