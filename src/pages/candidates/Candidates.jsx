@@ -74,7 +74,7 @@ const Candidates = () => {
 
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
-  const onBtExport = () => {
+  const onButtonExport = () => {
     gridApi.exportDataAsExcel();
   };
 
@@ -97,7 +97,7 @@ const Candidates = () => {
             </IconButton>
           </Box>
           <Stack direction="row" spacing={2}>
-            <Button onClick={() => onBtExport()} variant="outlined">
+            <Button onClick={() => onButtonExport()} variant="outlined">
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
             <Button variant="outlined" endIcon={<Send />} disabled={isDisabled}>
