@@ -14,6 +14,7 @@ import './ProfileCard.sass';
 import { fetchUserInfo } from '../../store/commands';
 import { Calendar } from '../../components/calendar';
 import { getFieldLabel } from '../../utils';
+import { userProfileListFields } from '../../constants/userProfileListFields';
 import CustomTabs from '../../components/tabs/Tabs';
 
 const ProfileCard = () => {
@@ -39,22 +40,12 @@ const ProfileCard = () => {
                 </Typography>
                 <Divider />
                 <List>
+                  {userProfileListFields.map(item =>(
                   <ListItem>
-                    <ListItemText primary={getFieldLabel('profile.email')} />
-                    <Typography variant="body1">{userInfo && userInfo.email}</Typography>
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary={getFieldLabel('profile.location')} />
-                    <Typography variant="body1">{userInfo && userInfo.phoneNumber}</Typography>
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary={getFieldLabel('profile.role')} />
-                    <Typography variant="body1">{userInfo && userInfo.roleType}</Typography>
-                  </ListItem>
-                  <ListItem>
-                    <ListItemText primary={getFieldLabel('profile.position')} />
-                    <Typography variant="body1">{userInfo && userInfo.position}</Typography>
-                  </ListItem>
+                      <ListItemText primary={getFieldLabel(`profile.${item}`)} />
+                      <Typography variant="body1">{userInfo && userInfo[item]}</Typography>
+                  </ListItem>)
+                  )}
                 </List>
               </Box>
             </Box>
