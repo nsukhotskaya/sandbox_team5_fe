@@ -7,6 +7,7 @@ import {
   Candidates,
   ProfileCard,
   InternshipPage,
+  CandidateCard,
 } from '../index';
 import './Home.sass';
 
@@ -30,6 +31,9 @@ function Home() {
               </Route>
               <Route path="/candidates/:id">
                 <Candidates />
+              </Route>
+              <Route exact path="/candidate/:id">
+                <CandidateCard />
               </Route>
               <Route exact path="/internshipPage/:id">
                 <InternshipPage />

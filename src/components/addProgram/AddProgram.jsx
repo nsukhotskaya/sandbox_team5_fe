@@ -52,30 +52,55 @@ const AddProgram = (props) => {
         const stackObject = { technologyStackType: stack };
         return stackObject;
       });
-      console.log(JSON.stringify(newInternship, null, 2));
     },
   });
 
-  const dataForRenderDatePicker = [
-    // [keyName, label]
-    ['startDate', getFieldLabel('addprogram.field.label.startDate')],
-    ['endDate', getFieldLabel('addprogram.field.label.endDate')],
-    ['registrationStartDate', getFieldLabel('addprogram.field.label.registrationStart')],
-    ['registrationFinishDate', getFieldLabel('addprogram.field.label.registrationFinish')],
-  ];
+  const dataForRenderDatePicker = {
+    startData: {
+      keyName:'startDate',
+      label:getFieldLabel('addprogram.field.label.startDate'),
+    },
+    endData: {
+      keyName:'endDate',
+      label:getFieldLabel('addprogram.field.label.endDate'),
+    },
+    registrationStartData: {
+      keyName:'registrationStartDate',
+      label:getFieldLabel('addprogram.field.label.registrationStart'),
+    },
+    registrationFinishData: {
+      keyName:'registrationFinishDate',
+      label:getFieldLabel('addprogram.field.label.registrationFinish'),
+    },
+  };
 
-  const dataForRenderTextField = [
-    // [keyName, label]
-    ['name', getFieldLabel('addprogram.field.label.title')],
-    ['requirements', getFieldLabel('addprogram.field.label.requirements')],
-    ['maxCandidateCount', getFieldLabel('addprogram.field.label.candidateCount')],
-  ];
+  const dataForRenderTextField = {
+    titleData: {
+      keyName: 'name',
+      label: getFieldLabel('addprogram.field.label.title'),
+    },
+    requirementsData: {
+      keyName: 'requirements',
+      label: getFieldLabel('addprogram.field.label.requirements'),
+    },
+    maxCandidateCountData: {
+      keyName: 'maxCandidateCount',
+      label: getFieldLabel('addprogram.field.label.candidateCount'),
+    },
+  };
 
-  const dataForRenderSelect = [
-    // [keyName, label, array]
-    ['internshipStacks', getFieldLabel('addprogram.field.label.stacks'), stacks],
-    ['locations', getFieldLabel('addprogram.field.label.locations'), locationsList],
-  ];
+  const dataForRenderSelect = { 
+    stackData: {
+      keyName: 'internshipStacks',
+      label: getFieldLabel('addprogram.field.label.stacks'),
+      array: stacks,
+    },
+    locationData: {
+      keyName: 'locations',
+      label: getFieldLabel('addprogram.field.label.locations'),
+      array: locationsList,
+    },
+  };
 
   return (
     <>
@@ -86,14 +111,14 @@ const AddProgram = (props) => {
               {getFieldLabel('addprogram.title')}
             </Typography>
             <Stack spacing={2} direction="column">
-              {dataForRenderTextField.map((item) => (
+              {Object.values(dataForRenderTextField).map((field) => (
                 <TextField
-                  label={item[1]}
-                  name={item[0]}
-                  value={formik.values[`${item[0]}`]}
+                  label={field.label}
+                  name={field.keyName}
+                  value={formik.values[`${field.keyName}`]}
                   onChange={formik.handleChange}
                   variant="outlined"
-                  key={item[0]}
+                  key={field.keyName}
                 />
               ))}
               <TextField
@@ -109,37 +134,37 @@ const AddProgram = (props) => {
                 ))}
               </TextField>
               {/* eslint-disable react/jsx-props-no-spreading */}
-              {dataForRenderDatePicker.map((item) => (
-                <React.Fragment key={item[0]}>
+              {Object.values(dataForRenderDatePicker).map((date) => (
+                <React.Fragment key={date.keyName}>
                   <MobileDateTimePicker
-                    label={item[1]}
-                    name={item[0]}
-                    value={formik.values[`${item[0]}`]}
+                    label={date.label}
+                    name={date.keyName}
+                    value={formik.values[`${date.keyName}`]}
                     inputFormat={getFieldLabel('addprogram.input.date.format')}
-                    onChange={(date) => formik.setFieldValue(item[0], date)}
+                    onChange={(dateValue) => formik.setFieldValue(date.keyName, dateValue)}
                     mask={getFieldLabel('addprogram.input.date.mask')}
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </React.Fragment>
               ))}
               {/* eslint-enable react/jsx-props-no-spreading */}
-              {dataForRenderSelect.map((element) => (
-                <FormControl key={element[0]}>
-                  <InputLabel>{element[1]}</InputLabel>
-                  <Select
-                    label={element[1]}
-                    multiple
-                    value={formik.values[`${element[0]}`]}
-                    onChange={(event) => formik.setFieldValue(element[0], event.target.value)}
-                    MenuProps={MenuProps}
-                  >
-                    {element[2].map((item) => (
-                      <MenuItem key={item.id} value={item.name}>
-                        {item.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+              { Object.values(dataForRenderSelect).map((select) => (
+                <FormControl key={select.keyName}>
+                <InputLabel>{select.label}</InputLabel>
+                <Select
+                  label={select.label}
+                  multiple
+                  value={formik.values[`${select.keyName}`]}
+                  onChange={(event) => formik.setFieldValue(select.keyName, event.target.value)}
+                  MenuProps={MenuProps}
+                >
+                  {select.array.map((item) => (
+                    <MenuItem key={item.id} value={item.name}>
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               ))}
             </Stack>
           </LocalizationProvider>
