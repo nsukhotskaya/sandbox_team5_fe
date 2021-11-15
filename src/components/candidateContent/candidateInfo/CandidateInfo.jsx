@@ -26,18 +26,20 @@ export const CandidateInfo = () => {
         <Typography paddingLeft="1%" variant="h4">
           {`${candidate.firstName} ${candidate.lastName}`}
         </Typography>
-        <Button variant="outlined">{getFieldLabel('candidate.button.edit')}</Button>
+        <Button variant="outlined">
+          {getFieldLabel('candidate.button.edit')}
+        </Button>
       </Box>
       <Divider />
 
       <List>
         <ListItem>
           <ListItemText
-            primary={(
+            primary={
               <Typography variant="h6">
                 {getFieldLabel('candidate.info.status')}
               </Typography>
-            )}
+            }
           />
           <Typography variant="h6">{candidate.statusType}</Typography>
         </ListItem>
@@ -67,7 +69,9 @@ export const CandidateInfo = () => {
           <Typography variant="body1">{candidate.email}</Typography>
         </ListItem>
         <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.bestContactTime')} />
+          <ListItemText
+            primary={getFieldLabel('candidate.info.bestContactTime')}
+          />
           <Typography variant="body1">
             {dayjs(candidate.bestContactTime).format('HH:mm')}
           </Typography>
@@ -77,11 +81,15 @@ export const CandidateInfo = () => {
           <Typography variant="body1">{candidate.stackType}</Typography>
         </ListItem>
         <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.englishLevel')} />
+          <ListItemText
+            primary={getFieldLabel('candidate.info.englishLevel')}
+          />
           <Typography variant="body1">{candidate.englishLevelType}</Typography>
         </ListItem>
         <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.registrationDate')} />
+          <ListItemText
+            primary={getFieldLabel('candidate.info.registrationDate')}
+          />
           <Typography variant="body1">
             {dayjs(candidate.registrationDate).format('DD.MM.YYYY')}
           </Typography>
@@ -91,8 +99,12 @@ export const CandidateInfo = () => {
           <Typography variant="body1">{candidate.otherInfo}</Typography>
         </ListItem>
         <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.testTaskEvaluation')} />
-          <Typography variant="body1">{candidate.testTaskEvaluation}</Typography>
+          <ListItemText
+            primary={getFieldLabel('candidate.info.testTaskEvaluation')}
+          />
+          <Typography variant="body1">
+            {candidate.testTaskEvaluation}
+          </Typography>
         </ListItem>
       </List>
     </Box>

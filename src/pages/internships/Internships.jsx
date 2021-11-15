@@ -18,6 +18,7 @@ import { fetchInternships } from '../../store/commands';
 
 export const Internships = () => {
   const [anchorEl, setAnchorEl] = useState();
+  const [searchText, setSearchText] = useState();
   const open = !!anchorEl;
   const internships = useSelector((state) => state.internships.internships);
   const dispatch = useDispatch();
@@ -28,6 +29,10 @@ export const Internships = () => {
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const onInputChange = (event) => {
+    setSearchText(event.target.value);
   };
 
   return (
@@ -54,7 +59,11 @@ export const Internships = () => {
               <ManageSearchIcon fontSize="large" />
             </IconButton>
             <Popper open={open} anchorEl={anchorEl} placement="left">
-              <Input placeholder={getFieldLabel('common.search')} />
+              <Input
+                onChange={onInputChange}
+                type="text"
+                placeholder={getFieldLabel('common.search')}
+              />
             </Popper>
             <InternshipsFilter />
             <Button variant="outlined" size="small">
@@ -64,19 +73,28 @@ export const Internships = () => {
         </Box>
         <Box>
           <Grid container spacing={3}>
-            {internships.map((internshipItem) => (
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                md={6}
-                lg={4}
-                xl={3}
-                key={internshipItem.id}
-              >
-                <InternshipCard data={internshipItem} />
-              </Grid>
-            ))}
+            {internships
+              .filter((internship) => {
+                if (!searchText) return true;
+                return (
+                  `${internship.name}`
+                    .toLowerCase()
+                    .indexOf(`${searchText}`.toLowerCase()) !== -1
+                );
+              })
+              .map((internshipItem) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={12}
+                  md={6}
+                  lg={4}
+                  xl={3}
+                  key={internshipItem.id}
+                >
+                  <InternshipCard data={internshipItem} />
+                </Grid>
+              ))}
           </Grid>
         </Box>
       </Box>

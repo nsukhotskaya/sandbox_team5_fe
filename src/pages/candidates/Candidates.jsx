@@ -1,23 +1,22 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   Box,
-  MenuItem,
   Typography,
-  InputLabel,
-  FormControl,
-  Select,
   IconButton,
   Popper,
   Input,
+  Stack,
+  Button,
 } from '@mui/material';
-import { Print, MailOutline, ManageSearch } from '@mui/icons-material';
+import { ManageSearch, Send } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFields, valueMenuItem } from '../../constants';
+import { tableFields } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import { fetchCandidateList } from '../../store/commands';
+import { LinkFormatter } from '../../components';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
@@ -25,6 +24,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
+  const [isDisabled, setIsDisabled] = useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
 
@@ -37,12 +37,9 @@ const Candidates = () => {
     internshipId: id,
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
-    if (gridApi) {
-      gridApi.sizeColumnsToFit();
-    }
-  }, [gridApi]);
+  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -54,18 +51,17 @@ const Candidates = () => {
 
   const onGridReady = (params) => {
     setGridApi(params.api);
+    params.api.sizeColumnsToFit();
   };
 
-  const onPageSizeChanged = (newPageSize) => {
-    const { value } = newPageSize.target;
-    gridApi.paginationSetPageSize(Number(value));
+  const onSelectionChanged = (event) => {
+    const rowCount = event.api.getSelectedNodes().length;
+    if (rowCount) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
   };
-
-  const createMenuItem = valueMenuItem.map((item) => (
-    <MenuItem value={item} key={item}>
-      {item}
-    </MenuItem>
-  ));
 
   const reformatCandidates = (candidates) => candidates.map((candidate) => {
     const newObj = { ...candidate };
@@ -76,10 +72,15 @@ const Candidates = () => {
     return newObj;
   });
 
+
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
+  const onButtonExport = () => {
+    gridApi.exportDataAsExcel();
+  };
+
   return (
-    <Box padding="1%">
+    <Box padding="1%" width="100%" height="100%">
       <Box
         display="flex"
         justifyContent="space-between"
@@ -90,42 +91,41 @@ const Candidates = () => {
         <Typography variant="h4" component="div" gutterBottom color="#222">
           {getFieldLabel('candidates.internship.name')}
         </Typography>
-        <Box display="flex">
+        <Box display="flex" alignItems="center">
           <Box marginRight="15px">
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>
-            <IconButton>
-              <MailOutline fontSize="large" />
-            </IconButton>
-            <IconButton>
-              <Print fontSize="large" />
-            </IconButton>
           </Box>
+          <Stack direction="row" spacing={2}>
+            <Button onClick={() => onButtonExport()} variant="outlined">
+              {getFieldLabel('candidates.button.exportToExcel')}
+            </Button>
+            <Button variant="outlined" endIcon={<Send />} disabled={isDisabled}>
+              {getFieldLabel('candidates.button.send')}
+            </Button>
+            <Button variant="outlined" disabled={isDisabled}>
+              {getFieldLabel('candidates.button.addToWork')}
+            </Button>
+          </Stack>
           <Popper open={open} anchorEl={anchorEl} placement="left">
             <Input placeholder={getFieldLabel('common.search')} />
           </Popper>
-          <Box width="80px">
-            <FormControl fullWidth>
-              <InputLabel>
-                {getFieldLabel('candidates.form.inputLabel')}
-              </InputLabel>
-              <Select defaultValue="10" label="10" onChange={onPageSizeChanged}>
-                {createMenuItem}
-              </Select>
-            </FormControl>
-          </Box>
         </Box>
       </Box>
-      <Box className="ag-theme-alpine">
+      <Box className="ag-theme-alpine" width="100%" height="calc(100% - 50px)">
         <AgGridReact
+          frameworkComponents={{
+            linkFormatter: LinkFormatter,
+          }}
+          suppressRowClickSelection
           rowData={newListOfCandidates}
           onColumnVisible={onColumnVisible}
+          onSelectionChanged={onSelectionChanged}
           debug
           animateRows
           onGridReady={onGridReady}
           rowSelection="multiple"
-          domLayout="autoHeight"
           pagination
           paginationPageSize="10"
           sideBar={{
@@ -157,6 +157,7 @@ const Candidates = () => {
             headerCheckboxSelection
             suppressSizeToFit
             minWidth={250}
+            cellRenderer="linkFormatter"
           />
           {tableFields.map((field) => (
             <AgGridColumn
