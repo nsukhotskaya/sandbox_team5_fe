@@ -10,10 +10,10 @@ import {
 } from './reducers';
 
 const rootReducer = (history) => combineReducers({
+  locations,
   authorization: isAuthorized,
   candidates: candidateList,
   internships: internshipsList,
-  locations,
   internship: internshipById,
   candidate: candidateById,
   router: connectRouter(history),
