@@ -10,13 +10,13 @@ import {
   InputLabel,
   FormControl,
   Select,
+  Typography,
 } from '@mui/material';
 import {
   LocalizationProvider,
   MobileDateTimePicker,
 } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import { CardTitle } from '../cardTitle';
 import { getFieldLabel } from '../../utils';
 import { fetchLocations } from '../../store/commands';
 import { languages, stacks, initialValues } from '../../mocks/createInternshipData.json';
@@ -82,7 +82,9 @@ const AddProgram = (props) => {
       <form onSubmit={formik.handleSubmit}>
         <Box className="container">
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <CardTitle width="100%" title={getFieldLabel('addprogram.title')} />
+            <Typography variant="h4" width="100%" component="div" gutterBottom color="#222">
+              {getFieldLabel('addprogram.title')}
+            </Typography>
             <Stack spacing={2} direction="column">
               {dataForRenderTextField.map((item) => (
                 <TextField
