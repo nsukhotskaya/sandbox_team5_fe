@@ -1,0 +1,15 @@
+export const tableCandidateCardFields = [
+  'statusType',
+  'location',
+  'internshipId',
+  'phone',
+  'skype',
+  'email',
+  'bestContactTime',
+  'stackType',
+  'englishLevelName',
+  'registrationDate',
+  'currentJob',
+  'otherInfo',
+  'testTaskEvaluation',
+];

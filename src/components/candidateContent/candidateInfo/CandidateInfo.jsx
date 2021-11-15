@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
 import { fetchCandidate } from '../../../store/commands';
+import { tableCandidateCardFields } from '../../../constants/tableCandidateCardFields';
 
 export const CandidateInfo = () => {
   const candidate = useSelector((state) => state.candidate.candidate);
@@ -35,38 +36,11 @@ export const CandidateInfo = () => {
       <List>
         <ListItem>
           <ListItemText
-            primary={
-              <Typography variant="h6">
-                {getFieldLabel('candidate.info.status')}
-              </Typography>
-            }
+            primary={getFieldLabel('candidate.info.registrationDate')}
           />
-          <Typography variant="h6">{candidate.statusType}</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.location')} />
-          <Typography variant="body1">{candidate.location}</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.internship')} />
-          <Typography variant="body1">{candidate.internshipId}</Typography>
-        </ListItem>
-        {/* this data will be from internship */}
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.language')} />
-          <Typography variant="body1">-</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.phone')} />
-          <Typography variant="body1">{candidate.phone}</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.skype')} />
-          <Typography variant="body1">{candidate.skype}</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.email')} />
-          <Typography variant="body1">{candidate.email}</Typography>
+          <Typography variant="body1">
+            {dayjs(candidate.registrationDate).format('DD.MM.YYYY')}
+          </Typography>
         </ListItem>
         <ListItem>
           <ListItemText
@@ -76,36 +50,13 @@ export const CandidateInfo = () => {
             {dayjs(candidate.bestContactTime).format('HH:mm')}
           </Typography>
         </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.stack')} />
-          <Typography variant="body1">{candidate.stackType}</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText
-            primary={getFieldLabel('candidate.info.englishLevel')}
-          />
-          <Typography variant="body1">{candidate.englishLevelType}</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText
-            primary={getFieldLabel('candidate.info.registrationDate')}
-          />
-          <Typography variant="body1">
-            {dayjs(candidate.registrationDate).format('DD.MM.YYYY')}
-          </Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary={getFieldLabel('candidate.info.otherInfo')} />
-          <Typography variant="body1">{candidate.otherInfo}</Typography>
-        </ListItem>
-        <ListItem>
-          <ListItemText
-            primary={getFieldLabel('candidate.info.testTaskEvaluation')}
-          />
-          <Typography variant="body1">
-            {candidate.testTaskEvaluation}
-          </Typography>
-        </ListItem>
+
+        {tableCandidateCardFields.map((item) => (
+          <ListItem>
+            <ListItemText primary={getFieldLabel(`candidate.info.${item}`)} />
+            <Typography variant="body1">{candidate[item]}</Typography>
+          </ListItem>
+        ))}
       </List>
     </Box>
   );
