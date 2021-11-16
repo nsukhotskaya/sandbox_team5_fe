@@ -1,0 +1,31 @@
+.modal
+  height: 100vh
+  width: 100vw
+  position: fixed
+  background-color: none
+  z-index: 2
+  top: 0
+  right: 0
+  display: flex
+  align-items: center
+  justify-content: center
+  z-index: 1101
+  transform: scale(0)
+  transition: background-color 0.6s ease-in-out;
+
+.modal.active
+  background-color: rgba(0,0,0,0.4)
+  transform: scale(1)
+  
+.modalContent.active
+  right: 0
+
+.modalContent
+  position: fixed
+  top: 0
+  right: -1000px
+  height: 100vh
+  width: auto
+  overflow-y: scroll
+  transition: right 0.4s ease-in-out
+

@@ -13,10 +13,11 @@ import {
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
-import { InternshipCard, InternshipsFilter } from '../../components';
+import { InternshipCard, InternshipsFilter, SidePopUp } from '../../components';
 import { fetchInternships } from '../../store/commands';
 
 export const Internships = () => {
+  const [popUpActive, setPopUpActive] = useState(false);
   const [anchorEl, setAnchorEl] = useState();
   const [searchText, setSearchText] = useState();
   const open = !!anchorEl;
@@ -26,6 +27,10 @@ export const Internships = () => {
   useEffect(() => {
     dispatch(fetchInternships());
   }, []);
+
+  const openPopUpWindow = () => {
+    setPopUpActive(true);
+  };
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -66,7 +71,7 @@ export const Internships = () => {
               />
             </Popper>
             <InternshipsFilter />
-            <Button variant="outlined" size="small">
+            <Button variant="outlined" size="small" onClick={openPopUpWindow}>
               {getFieldLabel('internships.button.add.program')}
             </Button>
           </Box>
@@ -98,6 +103,10 @@ export const Internships = () => {
           </Grid>
         </Box>
       </Box>
+      <SidePopUp
+        active={popUpActive}
+        setActive={setPopUpActive}
+      />
     </Container>
   );
 };
