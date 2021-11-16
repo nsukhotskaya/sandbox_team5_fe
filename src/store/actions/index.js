@@ -29,3 +29,9 @@ export {
   getInternshipByIdFailure,
   GET_INTERNSHIP_BY_ID,
 } from './getInternshipById';
+export {
+  getLocationsRequest,
+  getLocationsSuccess,
+  getLocationsFailure,
+  GET_LOCATIONS,
+} from './getLocations';
