@@ -120,7 +120,7 @@ const InternshipInfo = ({ internshipInfo }) => {
             variant="outlined"
             endIcon={<EditIcon />}
           >
-            Edit
+            {getFieldLabel('common.edit')}
           </Button>
         </CardContent>
       </Card>
