@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import {
   Box,
@@ -15,6 +16,7 @@ import { fetchCandidate } from '../../../store/commands';
 import { tableCandidateCardFields } from '../../../constants/tableCandidateCardFields';
 
 export const CandidateInfo = () => {
+  const { id } = useParams();
   const candidate = useSelector((state) => state.candidate.candidate);
   const dispatch = useDispatch();
 
@@ -31,7 +33,7 @@ export const CandidateInfo = () => {
   const newInfo = reformatInfo();
 
   useEffect(() => {
-    dispatch(fetchCandidate());
+    dispatch(fetchCandidate(id));
   }, []);
   return (
     <Box>
