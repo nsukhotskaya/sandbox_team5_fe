@@ -27,7 +27,7 @@ export const CandidateInfo = () => {
           {`${candidate.firstName} ${candidate.lastName}`}
         </Typography>
         <Button variant="outlined">
-          {getFieldLabel('candidate.button.edit')}
+          {getFieldLabel('common.edit')}
         </Button>
       </Box>
       <Divider />
