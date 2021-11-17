@@ -15,9 +15,10 @@ import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoF
 
 export const CandidateInfo = (props) => {
   const { candidateInfo } = props;
+  console.log(candidateInfo);
 
   const formatInfo = (info) => {
-    const newInfo = info;
+    const newInfo = {...info};
     newInfo.fullName = `${info.firstName} ${info.lastName}`;
     newInfo.registrationDate = dayjs(info.registrationDate).format(
       'DD.MM.YYYY HH:mm',
