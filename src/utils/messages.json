@@ -40,6 +40,7 @@
   "profile.tab.feedbacks.fields.rating": "Rating",
   "profile.tab.feedbacks.fields.fullname": "Full Name",
   "profile.tab.feedbacks.fields.text": "Text",
+  "profile.calendar.button": "Approve time",
   "candidates.table.registrationDate": "Application Date",
   "candidates.table.location": "Location",
   "candidates.table.language": "Language",

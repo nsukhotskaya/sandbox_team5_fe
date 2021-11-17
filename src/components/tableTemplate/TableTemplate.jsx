@@ -1,11 +1,10 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
-export default class ProfileTable extends React.Component {
+export default class TableTemplate extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
