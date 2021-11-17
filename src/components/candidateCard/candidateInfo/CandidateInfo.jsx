@@ -26,9 +26,7 @@ export const CandidateInfo = () => {
         <Typography paddingLeft="1%" variant="h4">
           {`${candidate.firstName} ${candidate.lastName}`}
         </Typography>
-        <Button variant="outlined">
-          {getFieldLabel('candidate.button.edit')}
-        </Button>
+        <Button variant="outlined">{getFieldLabel('common.edit')}</Button>
       </Box>
       <Divider />
 
