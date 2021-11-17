@@ -44,9 +44,7 @@
   "candidates.table.language": "Language",
   "candidates.table.internship": "Internship",
   "candidates.table.stackType": "Stack",
-  "candidates.table.englishLevelType": "English Level",
   "candidates.table.hr": "HR",
-  "candidates.table.hardSkills": "Hard Skills",
   "candidates.form.inputLabel": "Page Size",
   "internship.page.date":"Dates",
   "internship.page.technology":"Stack type",
@@ -66,18 +64,10 @@
   "internship.page.table.role": "Role",
   "internship.page.table.position": "Position",
   "internship.page.table.team": "Team",
-  "candidates.table.registrationDate": "Application Date",
-  "candidates.table.location": "Location",
-  "candidates.table.language": "Language",
-  "candidates.table.internship": "Internship",
-  "candidates.table.stackType": "Stack",
   "candidates.table.englishLevelName": "English Level",
-  "candidates.table.hr": "HR",
   "candidates.table.interviewer": "Interviewer",
   "candidates.table.testTaskEvaluation": "Test Task",
   "candidates.table.statusType": "Status",
-  "candidates.table.primarySkill": "Hard Skills",
-  "candidates.form.inputLabel": "Page Size",
   "candidates.popper.inputPlaceholder": "Search...",
   "candidates.internship.name": "Name of internship",
   "candidates.button.addToWork": "Add to work",
@@ -99,6 +89,4 @@
   "candidate.info.softSkills" : "Soft skills",
   "candidate.info.hardSkills" : "Hard skills",
   "candidate.button.edit" : "Edit"
-  
-
 }
