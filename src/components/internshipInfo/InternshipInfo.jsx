@@ -19,16 +19,8 @@ import { useMediaDown } from '../utils';
 const InternshipInfo = ({ internshipInfo }) => {
   const mobile = useMediaDown('md');
 
-  const internshipMainInfo = {};
-  const internshipCandidatesInfo = {};
-  const fieldsMainInfo = [
-    'locations',
-    'internshipStacks',
-    'startDate',
-    'requirements',
-    'languageType',
-  ];
-  const fieldsCandidatesInfo = [
+  const internshipMainInfo = ['requirements', 'languageType'];
+  const internshipCandidatesInfo = [
     'candidatesCount',
     'declinedCandidatesCount',
     'acceptedCandidatesCount',
@@ -36,35 +28,6 @@ const InternshipInfo = ({ internshipInfo }) => {
     'successfullyFinishedCandidatesCount',
     'teamsCount',
   ];
-
-  Object.keys(internshipInfo)
-    .filter((item) => fieldsMainInfo.includes(item))
-    .forEach((key) => {
-      if (key === 'internshipStacks') {
-        internshipMainInfo.internshipStacks =
-          internshipInfo.internshipStacks &&
-          internshipInfo.internshipStacks.map(
-            (item) => item.technologyStackType,
-          );
-      } else if (key === 'locations') {
-        internshipMainInfo.location =
-          internshipInfo.locations &&
-          internshipInfo.locations.map((item) => item.name);
-      } else if (key === 'startDate' || key === 'endDate')
-        internshipMainInfo.date = dayjs(
-          internshipInfo.startDate,
-          internshipInfo.endDate,
-        ).format('D.MM.YYYY - D.MM.YYYY');
-      else {
-        internshipMainInfo[key] = internshipInfo[key];
-      }
-    });
-
-  Object.keys(internshipInfo)
-    .filter((item) => fieldsCandidatesInfo.includes(item))
-    .forEach((key) => {
-      internshipCandidatesInfo[key] = internshipInfo[key];
-    });
 
   return (
     <Box
@@ -82,7 +45,49 @@ const InternshipInfo = ({ internshipInfo }) => {
             {internshipInfo.name}
           </Typography>
           <List>
-            {Object.keys(internshipMainInfo).map((item) => (
+            <ListItem disablePadding>
+              <ListItemText
+                primary={
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.date')}
+                  </Typography>
+                }
+              />
+              <Typography variant="body1">
+                {dayjs(internshipInfo.startDate, internshipInfo.endDate).format(
+                  'D.MM.YYYY - D.MM.YYYY',
+                )}
+              </Typography>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemText
+                primary={
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.locations')}
+                  </Typography>
+                }
+              />
+              <Typography variant="body1">
+                {internshipInfo.locations &&
+                  internshipInfo.locations.map((item) => item.name)}
+              </Typography>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemText
+                primary={
+                  <Typography variant="h6">
+                    {getFieldLabel('internship.page.internshipStacks')}
+                  </Typography>
+                }
+              />
+              <Typography variant="body1">
+                {internshipInfo.internshipStacks &&
+                  internshipInfo.internshipStacks.map(
+                    (item) => item.technologyStackType,
+                  )}
+              </Typography>
+            </ListItem>
+            {internshipMainInfo.map((item) => (
               <ListItem key={item} disablePadding>
                 <ListItemText
                   primary={
@@ -92,16 +97,14 @@ const InternshipInfo = ({ internshipInfo }) => {
                   }
                 />
                 <Typography className="internshipInfoValue" variant="body1">
-                  {internshipMainInfo[item]}
+                  {internshipInfo[item]}
                 </Typography>
               </ListItem>
             ))}
-          </List>
-          <Typography variant="h6">
-            {getFieldLabel('internship.page.candidates')}
-          </Typography>
-          <List>
-            {Object.keys(internshipCandidatesInfo).map((item) => (
+            <Typography variant="h6">
+              {getFieldLabel('internship.page.candidates')}
+            </Typography>
+            {internshipCandidatesInfo.map((item) => (
               <ListItem key={item} disablePadding>
                 <ListItemText
                   primary={
@@ -111,15 +114,12 @@ const InternshipInfo = ({ internshipInfo }) => {
                   }
                 />
                 <Typography className="internshipInfoValue" variant="body1">
-                  {internshipCandidatesInfo[item]}
+                  {internshipInfo[item]}
                 </Typography>
               </ListItem>
             ))}
           </List>
-          <Button
-            variant="outlined"
-            endIcon={<EditIcon />}
-          >
+          <Button variant="outlined" endIcon={<EditIcon />}>
             {getFieldLabel('common.edit')}
           </Button>
         </CardContent>
@@ -129,3 +129,4 @@ const InternshipInfo = ({ internshipInfo }) => {
 };
 
 export default InternshipInfo;
+
