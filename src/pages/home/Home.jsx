@@ -7,7 +7,7 @@ import {
   Candidates,
   ProfileCard,
   InternshipPage,
-  Candidate,
+  CandidateProfile,
 } from '../index';
 import './Home.sass';
 
@@ -33,7 +33,7 @@ function Home() {
                 <Candidates />
               </Route>
               <Route exact path="/candidate/:id">
-                <Candidate />
+                <CandidateProfile />
               </Route>
               <Route exact path="/internshipPage/:id">
                 <InternshipPage />

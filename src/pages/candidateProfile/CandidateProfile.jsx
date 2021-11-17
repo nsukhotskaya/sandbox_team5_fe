@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { fetchCandidate } from '../../store/commands';
 import { CandidateInfo } from '../../components';
 
-const CandidateCard = () => {
+const CandidateProfile = () => {
   const { id } = useParams();
   const candidate = useSelector((state) => state.candidate.candidate);
   const dispatch = useDispatch();
@@ -39,4 +39,4 @@ const CandidateCard = () => {
   );
 };
 
-export default CandidateCard;
+export default CandidateProfile;

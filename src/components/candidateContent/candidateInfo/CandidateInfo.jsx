@@ -16,7 +16,7 @@ import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoF
 export const CandidateInfo = (props) => {
   const { candidateInfo } = props;
 
-  const reformatInfo = (info) => {
+  const formatInfo = (info) => {
     const newInfo = info;
     newInfo.fullName = `${info.firstName} ${info.lastName}`;
     newInfo.registrationDate = dayjs(info.registrationDate).format(
@@ -26,16 +26,16 @@ export const CandidateInfo = (props) => {
     return newInfo;
   };
 
-  const newInfo = reformatInfo(candidateInfo);
+  const formatedInfo  = formatInfo (candidateInfo);
 
   return (
     <Box>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
         <Typography paddingLeft="1%" variant="h4">
-          {newInfo.fullName}
+          {formatedInfo.fullName}
         </Typography>
         <Button variant="outlined">
-          {getFieldLabel('candidate.button.edit')}
+          {getFieldLabel('common.edit')}
         </Button>
       </Box>
       <Divider />
@@ -44,7 +44,7 @@ export const CandidateInfo = (props) => {
         {tableCandidateInfoFields.map((item) => (
           <ListItem>
             <ListItemText primary={getFieldLabel(`candidate.info.${item}`)} />
-            <Typography variant="body1">{newInfo[item]}</Typography>
+            <Typography variant="body1">{formatedInfo[item]}</Typography>
           </ListItem>
         ))}
       </List>
