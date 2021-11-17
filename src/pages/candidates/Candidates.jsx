@@ -75,12 +75,16 @@ const Candidates = () => {
 
   const onRowSelected = (event) => {
     const rowSelected = event.node.isSelected();
-    if (rowSelected) {
-      setIsDisabledButtonSend(false);
-      setIsDisabledButtonAddToWork(false);
-    } else {
+    const rowSelectedHR = event.node.data.statusType === "HR";
+    if (!rowSelected) {
       setIsDisabledButtonSend(true);
       setIsDisabledButtonAddToWork(true);
+    }else if(rowSelected && rowSelectedHR) {
+      setIsDisabledButtonAddToWork(true);
+      setIsDisabledButtonSend(false);
+    } else {
+      setIsDisabledButtonSend(false);
+      setIsDisabledButtonAddToWork(false);
     }
   };
 
@@ -136,7 +140,6 @@ const Candidates = () => {
           suppressRowClickSelection
           rowData={newListOfCandidates}
           onColumnVisible={onColumnVisible}
-          // onSelectionChanged={onSelectionChanged}
           enableCellChangeFlash
           debug
           animateRows
