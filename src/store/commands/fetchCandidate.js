@@ -5,10 +5,7 @@ import {
   getCandidateFailure,
 } from '../actions';
 
-// temporarily, will be id from page
-const id = 1;
-
-const fetchCandidate = () => async (dispatch) => {
+const fetchCandidate = (id) => async (dispatch) => {
   dispatch(getCandidateRequest());
   try {
     const response = await API.get(`/api/Candidate/getCandidateById?id=${id}`);

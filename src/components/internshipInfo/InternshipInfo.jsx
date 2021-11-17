@@ -8,15 +8,27 @@ import {
   List,
   ListItem,
   ListItemText,
+  Button,
 } from '@mui/material';
 import './InternshipInfo.sass';
 import dayjs from 'dayjs';
+import EditIcon from '@mui/icons-material/Edit';
 import { getFieldLabel } from '../../utils';
 import { useMediaDown } from '../utils';
 
-const InternshipInfo = (props) => {
-  const { internshipInfo } = props;
+const InternshipInfo = ({ internshipInfo }) => {
   const mobile = useMediaDown('md');
+
+  const internshipMainInfo = ['requirements', 'languageType'];
+  const internshipCandidatesInfo = [
+    'candidatesCount',
+    'declinedCandidatesCount',
+    'acceptedCandidatesCount',
+    'abandonedCandidatesCount',
+    'successfullyFinishedCandidatesCount',
+    'teamsCount',
+  ];
+
   return (
     <Box
       className={
@@ -29,7 +41,9 @@ const InternshipInfo = (props) => {
       >
         <CardMedia component="img" image={internshipInfo.imageLink} />
         <CardContent className="cardContent">
-          <Typography variant="h4">{internshipInfo.name}</Typography>
+          <Typography variant="h4" color="primary" textAlign="center">
+            {internshipInfo.name}
+          </Typography>
           <List>
             <ListItem disablePadding>
               <ListItemText
@@ -49,19 +63,20 @@ const InternshipInfo = (props) => {
               <ListItemText
                 primary={
                   <Typography variant="h6">
-                    {getFieldLabel('internship.page.requirements')}
+                    {getFieldLabel('internship.page.locations')}
                   </Typography>
                 }
               />
               <Typography variant="body1">
-                {internshipInfo.requirements}
+                {internshipInfo.locations &&
+                  internshipInfo.locations.map((item) => item.name)}
               </Typography>
             </ListItem>
             <ListItem disablePadding>
               <ListItemText
                 primary={
                   <Typography variant="h6">
-                    {getFieldLabel('internship.page.technology')}
+                    {getFieldLabel('internship.page.internshipStacks')}
                   </Typography>
                 }
               />
@@ -72,107 +87,41 @@ const InternshipInfo = (props) => {
                   )}
               </Typography>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="h6">
-                    {getFieldLabel('internship.page.language')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body1">
-                {internshipInfo.languageType}
-              </Typography>
-            </ListItem>
-            <ListItem disablePadding divider>
-              <ListItemText
-                primary={
-                  <Typography variant="h6">
-                    {getFieldLabel('internship.page.location')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body1">
-                {internshipInfo.locations &&
-                  internshipInfo.locations.map((item) => item.name)}
-              </Typography>
-            </ListItem>
-            <Typography variant="h6" gutterBottom>
+            {internshipMainInfo.map((item) => (
+              <ListItem key={item} disablePadding>
+                <ListItemText
+                  primary={
+                    <Typography variant="h6">
+                      {getFieldLabel(`internship.page.${item}`)}
+                    </Typography>
+                  }
+                />
+                <Typography className="internshipInfoValue" variant="body1">
+                  {internshipInfo[item]}
+                </Typography>
+              </ListItem>
+            ))}
+            <Typography variant="h6">
               {getFieldLabel('internship.page.candidates')}
             </Typography>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="h6">
-                    {getFieldLabel('internship.page.number.applicants')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body1">
-                {internshipInfo.candidatesCount}
-              </Typography>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="h6">
-                    {getFieldLabel('internship.page.number.rejected')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body1">
-                {internshipInfo.declinedCandidatesCount}
-              </Typography>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="h6">
-                    {getFieldLabel('internship.page.number.approve')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body1">
-                {internshipInfo.acceptedCandidatesCount}
-              </Typography>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="h6">
-                    {getFieldLabel('internship.page.number.refused')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body1">
-                {internshipInfo.abandonedCandidatesCount}
-              </Typography>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="h6">
-                    {getFieldLabel('internship.page.number.graduated')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body1">
-                {internshipInfo.successfullyFinishedCandidatesCount}
-              </Typography>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="h6">
-                    {getFieldLabel('internship.page.number.teams')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body1">
-                {internshipInfo.teamsCount}
-              </Typography>
-            </ListItem>
+            {internshipCandidatesInfo.map((item) => (
+              <ListItem key={item} disablePadding>
+                <ListItemText
+                  primary={
+                    <Typography variant="h6">
+                      {getFieldLabel(`internship.page.${item}`)}
+                    </Typography>
+                  }
+                />
+                <Typography className="internshipInfoValue" variant="body1">
+                  {internshipInfo[item]}
+                </Typography>
+              </ListItem>
+            ))}
           </List>
+          <Button variant="outlined" endIcon={<EditIcon />}>
+            {getFieldLabel('common.edit')}
+          </Button>
         </CardContent>
       </Card>
     </Box>
@@ -180,3 +129,4 @@ const InternshipInfo = (props) => {
 };
 
 export default InternshipInfo;
+
