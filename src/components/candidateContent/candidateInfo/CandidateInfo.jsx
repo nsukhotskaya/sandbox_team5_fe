@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import dayjs from 'dayjs';
 import {
   Box,
@@ -12,29 +10,25 @@ import {
   Button,
 } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
-import { fetchCandidate } from '../../../store/commands';
+
 import { tableCandidateCardFields } from '../../../constants/tableCandidateCardFields';
 
-export const CandidateInfo = () => {
-  const { id } = useParams();
-  const candidate = useSelector((state) => state.candidate.candidate);
-  const dispatch = useDispatch();
+export const CandidateInfo = (props) => {
+  const { candidateInfo } = props;
 
-  const reformatInfo = () => {
-    const newInfo = candidate;
-    newInfo.fullName = `${candidate.firstName} ${candidate.lastName}`;
-    newInfo.bestContactTime = dayjs(candidate.bestContactTime).format('HH:mm');
-    newInfo.registrationDate = dayjs(candidate.registrationDate).format(
-      'DD.MM.YYYY',
+  const reformatInfo = (info) => {
+    const newInfo = info;
+    newInfo.fullName = `${info.firstName} ${info.lastName}`;
+    newInfo.registrationDate = dayjs(info.registrationDate).format(
+      'DD.MM.YYYY HH:mm',
     );
+    newInfo.bestContactTime = dayjs(info.registrationDate).format('HH:mm');
+    newInfo.bestContactTime = dayjs(info.registrationDate).format('HH:mm');
     return newInfo;
   };
 
-  const newInfo = reformatInfo();
+  const newInfo = reformatInfo(candidateInfo);
 
-  useEffect(() => {
-    dispatch(fetchCandidate(id));
-  }, []);
   return (
     <Box>
       <Box display="flex" flexDirection="row" justifyContent="space-between">

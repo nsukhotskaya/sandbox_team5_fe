@@ -1,1 +1,1 @@
-export { CandidateCard } from './CandidateCard';
+export { default as CandidateCard } from './CandidateCard';

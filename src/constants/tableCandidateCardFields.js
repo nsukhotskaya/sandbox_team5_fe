@@ -1,6 +1,8 @@
 export const tableCandidateCardFields = [
   'statusType',
   'location',
+  'education',
+  'professionalCertificates',
   'internshipId',
   'phone',
   'skype',
@@ -10,6 +12,7 @@ export const tableCandidateCardFields = [
   'englishLevelName',
   'registrationDate',
   'currentJob',
+  'links',
   'otherInfo',
   'testTaskEvaluation',
 ];
