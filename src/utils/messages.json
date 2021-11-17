@@ -97,6 +97,7 @@
   "candidate.info.englishLevelName" : "English level",
   "candidate.info.registrationDate" : "Registration date",
   "candidate.info.otherInfo" : "Other info",
+  "candidate.info.isPlanningToJoin" : "Planning to join",
   "candidate.info.testTaskEvaluation" : "Test task evaluation",
   "candidate.info.links" : "Links",
   "candidate.info.currentJob" : "Current job",

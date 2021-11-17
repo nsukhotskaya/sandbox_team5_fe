@@ -22,8 +22,7 @@ export const CandidateInfo = (props) => {
     newInfo.registrationDate = dayjs(info.registrationDate).format(
       'DD.MM.YYYY HH:mm',
     );
-    newInfo.bestContactTime = dayjs(info.registrationDate).format('HH:mm');
-    newInfo.bestContactTime = dayjs(info.registrationDate).format('HH:mm');
+    newInfo.bestContactTime = dayjs(info.bestContactTime).format('HH:mm');
     return newInfo;
   };
 

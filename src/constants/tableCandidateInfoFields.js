@@ -15,4 +15,5 @@ export const tableCandidateInfoFields = [
   'links',
   'otherInfo',
   'testTaskEvaluation',
+  'isPlanningToJoin',
 ];
