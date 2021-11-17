@@ -26,7 +26,7 @@ export default class DemoApp extends React.Component {
           interactionPlugin,
         ]}
         customButtons={{
-          myCustomButton: {
+          approveButton: {
             text: `${getFieldLabel('profile.calendar.button')}`,
             click() {},
           },
@@ -35,7 +35,7 @@ export default class DemoApp extends React.Component {
         footerToolbar={{
           start: '',
           center: '',
-          end: 'myCustomButton',
+          end: 'approveButton',
         }}
         initialView="timeGridWeek"
         allDaySlot={false}
