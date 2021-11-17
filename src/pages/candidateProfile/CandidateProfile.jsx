@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { fetchCandidate } from '../../store/commands';
 import { CandidateInfo, CandidateFeedbacks } from '../../components';
+import './CandidateProfile.sass'
 
 const CandidateProfile = () => {
   const { id } = useParams();
@@ -15,28 +16,21 @@ const CandidateProfile = () => {
   }, []);
 
   return (
-    <Box display="flex" height="100%" padding="1% 1% 0 1%">
       <Box
         borderColor="primary.main"
-        width="50%"
-        height="100%"
-        padding="1%"
-        sx={{ border: 1 }}
-        overflow="auto"
+        backgroundColor="background.paper"
+        className="candidateProfileWrapper"
       >
         <Box
-          height="100%"
-          padding="1%"
-          boxSizing="border-box"
-          display="flex"
-          flexDirection="column"
-          backgroundColor="background.paper"
+          className="candidateProfileCardWrapper"
+          border="1px solid #e0e0e0"
         >
           <CandidateInfo candidateInfo={candidate}  />
         </Box>
+        <Box className="candidateProfileCardWrapper">
+          <CandidateFeedbacks />
+        </Box>
       </Box>
-      <CandidateFeedbacks />
-    </Box>
   );
 };
 
