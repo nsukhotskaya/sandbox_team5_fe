@@ -17,12 +17,13 @@ const CandidateInfo = (props) => {
   const { candidateInfo } = props;
 
   const formatInfo = (info) => {
-    const newInfo = info;
+    const newInfo = { ...info };
     newInfo.fullName = `${info.firstName} ${info.lastName}`;
     newInfo.registrationDate = dayjs(info.registrationDate).format(
       'DD.MM.YYYY HH:mm',
     );
     newInfo.bestContactTime = dayjs(info.bestContactTime).format('HH:mm');
+    newInfo.isPlanningToJoin = newInfo.isPlanningToJoin ? 'Yes' : 'No';
     return newInfo;
   };
 
@@ -40,9 +41,11 @@ const CandidateInfo = (props) => {
 
       <List>
         {tableCandidateInfoFields.map((item) => (
-          <ListItem>
+          <ListItem key={item}>
             <ListItemText primary={getFieldLabel(`candidate.info.${item}`)} />
-            <Typography variant="body1">{formatedInfo[item]}</Typography>
+            <Typography variant="body1">
+              {formatedInfo[item]}
+            </Typography>
           </ListItem>
         ))}
       </List>

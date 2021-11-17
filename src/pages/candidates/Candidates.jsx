@@ -64,15 +64,15 @@ const Candidates = () => {
     }
   };
 
-  const reformatCandidates = (candidates) => candidates.map((candidate) => {
-    const newObj = { ...candidate };
-    newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
-    newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
-      'DD.MM.YYYY',
-    );
-    return newObj;
-  });
-
+  const reformatCandidates = (candidates) =>
+    candidates.map((candidate) => {
+      const newObj = { ...candidate };
+      newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
+      newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
+        'DD.MM.YYYY',
+      );
+      return newObj;
+    });
 
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
