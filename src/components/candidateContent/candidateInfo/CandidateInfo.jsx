@@ -26,7 +26,7 @@ export const CandidateInfo = (props) => {
     return newInfo;
   };
 
-  const formatedInfo  = formatInfo (candidateInfo);
+  const formatedInfo = formatInfo(candidateInfo);
 
   return (
     <Box>
@@ -34,9 +34,7 @@ export const CandidateInfo = (props) => {
         <Typography paddingLeft="1%" variant="h4">
           {formatedInfo.fullName}
         </Typography>
-        <Button variant="outlined">
-          {getFieldLabel('common.edit')}
-        </Button>
+        <Button variant="outlined">{getFieldLabel('common.edit')}</Button>
       </Box>
       <Divider />
 
