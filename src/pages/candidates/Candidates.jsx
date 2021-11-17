@@ -64,6 +64,7 @@ const Candidates = () => {
     return newObj;
   });
 
+
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
   const onButtonExport = () => {

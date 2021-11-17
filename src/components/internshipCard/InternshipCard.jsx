@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {
-  Box, Card, CardContent, CardMedia, Typography,
-} from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import './InternshipCard.sass';
 import { getFieldLabel } from '../../utils';

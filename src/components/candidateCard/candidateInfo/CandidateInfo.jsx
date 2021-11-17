@@ -35,11 +35,11 @@ export const CandidateInfo = () => {
       <List>
         <ListItem>
           <ListItemText
-            primary={(
+            primary={
               <Typography variant="h6">
                 {getFieldLabel('candidate.info.status')}
               </Typography>
-            )}
+            }
           />
           <Typography variant="h6">{candidate.statusType}</Typography>
         </ListItem>
