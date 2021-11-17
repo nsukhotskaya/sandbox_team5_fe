@@ -57,7 +57,7 @@
   "candidates.button.send": "Send",
   "candidates.button.exportToExcel": "Export to Excel",
   "internship.page.date":"Dates",
-  "internship.page.location":"Location",
+  "internship.page.locations":"Location",
   "internship.page.languageType":"Language",
   "internship.page.internshipStacks":"Stack type",
   "internship.page.requirements":"Requirements",
