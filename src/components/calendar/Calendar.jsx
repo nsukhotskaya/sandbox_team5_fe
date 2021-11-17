@@ -5,6 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+import { getFieldLabel } from '../../utils';
 
 export default class DemoApp extends React.Component {
   constructor(props) {
@@ -13,6 +14,8 @@ export default class DemoApp extends React.Component {
   }
 
   render() {
+    const { headerType } = this.props;
+
     return (
       <FullCalendar
         plugins={[
@@ -22,16 +25,24 @@ export default class DemoApp extends React.Component {
           googleCalendarPlugin,
           interactionPlugin,
         ]}
-        headerToolbar={{
-          start: 'title',
+        customButtons={{
+          myCustomButton: {
+            text: `${getFieldLabel('profile.calendar.button')}`,
+            click() {},
+          },
+        }}
+        headerToolbar={headerType}
+        footerToolbar={{
+          start: '',
           center: '',
-          end: 'today prev,next listDay,timeGridWeek,dayGridMonth',
+          end: 'myCustomButton',
         }}
         initialView="timeGridWeek"
         allDaySlot={false}
         height="100%"
         expandRows
         navLinks
+        selectable
         listDayFormat={false}
         slotMinTime="08:00:00"
         editable

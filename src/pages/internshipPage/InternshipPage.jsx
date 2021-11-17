@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Box, Card, Typography } from '@mui/material';
 import './internshipPage.sass';
-import ProfileTable from '../../components/feedbacks/ProfileTable';
 import { fetchInternshipById } from '../../store/commands';
-import InternshipInfo from '../../components/internshipInfo/InternshipInfo';
+import { InternshipInfo } from '../../components/internshipInfo';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
 import { columnDefsEmployees } from '../../constants';
 import { rowDataEmployees } from '../../mocks/internshipEmployees.json';
+import { TableTemplate } from '../../components/tableTemplate';
 
 const InternshipPage = () => {
   const { id } = useParams();
@@ -31,7 +31,7 @@ const InternshipPage = () => {
           <Typography variant="h4">
             {getFieldLabel('internship.page.employees')}
           </Typography>
-          <ProfileTable
+          <TableTemplate
             rowData={rowDataEmployees}
             columnDefs={columnDefsEmployees}
           />

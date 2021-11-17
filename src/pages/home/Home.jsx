@@ -5,7 +5,7 @@ import { Header, Footer } from '../../components';
 import {
   Internships,
   Candidates,
-  ProfileCard,
+  UserProfile,
   InternshipPage,
   CandidateProfile,
 } from '../index';
@@ -24,7 +24,7 @@ function Home() {
                 <Redirect to="/profile" />
               </Route>
               <Route exact path="/profile">
-                <ProfileCard />
+                <UserProfile />
               </Route>
               <Route exact path="/internships">
                 <Internships />
