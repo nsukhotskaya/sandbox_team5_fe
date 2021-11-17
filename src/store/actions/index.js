@@ -30,8 +30,15 @@ export {
   GET_INTERNSHIP_BY_ID,
 } from './getInternshipById';
 export {
+  getUserInfoRequest,
+  getUserInfoSuccess,
+  getUserInfoFailure,
+  GET_USER_INFO,
+} from './getUserInfo';
+export {
   getLocationsRequest,
   getLocationsSuccess,
   getLocationsFailure,
   GET_LOCATIONS,
 } from './getLocations';
+
