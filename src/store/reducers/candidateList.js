@@ -22,12 +22,12 @@ export default function candidateList(state = initialState, action) {
     case UPDATE_CANDIDATE_STATUS.SUCCESS: {
       return {
         ...state,
-        candidates: state.candidates.map((c) => {
-          if (c.id !== action.candidateId) {
-            return c;
+        candidates: state.candidates.map((candidate) => {
+          if (candidate.id !== action.candidateId) {
+            return candidate;
           }
           return {
-            ...c,
+            ...candidate,
             statusType: action.statusType,
           };
         }),
