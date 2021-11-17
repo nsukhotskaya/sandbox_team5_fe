@@ -1,9 +1,19 @@
-import React from 'react';
-
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
+import { fetchCandidate } from '../../store/commands';
 import { CandidateInfo } from '../../components';
 
-export function CandidateCard() {
+const CandidateProfile = () => {
+  const { id } = useParams();
+  const candidate = useSelector((state) => state.candidate.candidate);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCandidate(id));
+  }, []);
+
   return (
     <Box display="flex" height="100%" padding="1% 1% 0 1%">
       <Box
@@ -22,9 +32,11 @@ export function CandidateCard() {
           flexDirection="column"
           backgroundColor="background.paper"
         >
-          <CandidateInfo />
+          <CandidateInfo candidateInfo={candidate} />
         </Box>
       </Box>
     </Box>
   );
-}
+};
+
+export default CandidateProfile;
