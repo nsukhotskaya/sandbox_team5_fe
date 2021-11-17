@@ -4,3 +4,4 @@ export { default as deleteUserToken } from './deleteUserToken';
 export { default as fetchInternships } from './fetchInternships';
 export { default as fetchInternshipById } from './fetchInternshipById';
 export { default as fetchCandidate } from './fetchCandidate';
+export { default as updateCandidateStatusById } from './updateCandidateStatusById';
