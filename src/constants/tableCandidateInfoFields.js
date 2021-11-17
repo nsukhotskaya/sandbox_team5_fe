@@ -1,4 +1,4 @@
-export const tableCandidateCardFields = [
+export const tableCandidateInfoFields = [
   'statusType',
   'location',
   'education',

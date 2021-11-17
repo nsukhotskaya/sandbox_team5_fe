@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
 
-import { tableCandidateCardFields } from '../../../constants/tableCandidateCardFields';
+import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
 
 export const CandidateInfo = (props) => {
   const { candidateInfo } = props;
@@ -42,7 +42,7 @@ export const CandidateInfo = (props) => {
       <Divider />
 
       <List>
-        {tableCandidateCardFields.map((item) => (
+        {tableCandidateInfoFields.map((item) => (
           <ListItem>
             <ListItemText primary={getFieldLabel(`candidate.info.${item}`)} />
             <Typography variant="body1">{newInfo[item]}</Typography>
