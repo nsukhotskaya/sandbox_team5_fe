@@ -92,6 +92,7 @@ const Candidates = () => {
     const selectedRow = gridApi.getSelectedRows();
     const candidateId = selectedRow && selectedRow.map((item) => item.id);
     dispatch(updateCandidateStatusById(1, candidateId));
+    dispatch(fetchCandidateList(requestBody));
     setIsDisabledButtonSend(true);
     setIsDisabledButtonAddToWork(true);
   };
