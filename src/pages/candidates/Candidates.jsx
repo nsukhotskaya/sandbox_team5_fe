@@ -15,7 +15,7 @@ import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields } from '../../constants';
 import { getFieldLabel } from '../../utils';
-import { fetchCandidateList } from '../../store/commands';
+import { fetchCandidateList, updateCandidateStatusById } from '../../store/commands';
 import { LinkFormatter } from '../../components';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -24,7 +24,8 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabledButtonSend, setIsDisabledButtonSend] = useState(true);
+  const [isDisabledButtonAddToWork, setIsDisabledButtonAddToWork] = useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
 
@@ -45,22 +46,13 @@ const Candidates = () => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
-  const onColumnVisible = () => {
-    gridApi.sizeColumnsToFit();
-  };
-
   const onGridReady = (params) => {
     setGridApi(params.api);
     params.api.sizeColumnsToFit();
   };
 
-  const onSelectionChanged = (event) => {
-    const rowCount = event.api.getSelectedNodes().length;
-    if (rowCount) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
+  const onColumnVisible = () => {
+    gridApi.sizeColumnsToFit();
   };
 
   const reformatCandidates = (candidates) => candidates.map((candidate) => {
@@ -76,6 +68,27 @@ const Candidates = () => {
 
   const onButtonExport = () => {
     gridApi.exportDataAsExcel();
+  };
+
+  const getRowNodeId = (data) => data.id;
+
+  const onRowSelected = (event) => {
+    const rowSelected = event.node.isSelected();
+    if (rowSelected) {
+      setIsDisabledButtonSend(false);
+      setIsDisabledButtonAddToWork(false);
+    } else {
+      setIsDisabledButtonSend(true);
+      setIsDisabledButtonAddToWork(true);
+    }
+  };
+
+  const addToWork = () => {
+    const selectedRow = gridApi.getSelectedRows();
+    const candidateId = selectedRow && selectedRow.map((item) => item.id);
+    dispatch(updateCandidateStatusById(1, candidateId));
+    setIsDisabledButtonSend(true);
+    setIsDisabledButtonAddToWork(true);
   };
 
   return (
@@ -100,10 +113,10 @@ const Candidates = () => {
             <Button onClick={() => onButtonExport()} variant="outlined">
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
-            <Button variant="outlined" endIcon={<Send />} disabled={isDisabled}>
+            <Button variant="outlined" endIcon={<Send />} disabled={isDisabledButtonSend}>
               {getFieldLabel('candidates.button.send')}
             </Button>
-            <Button variant="outlined" disabled={isDisabled}>
+            <Button onClick={() => addToWork()} variant="outlined" disabled={isDisabledButtonAddToWork}>
               {getFieldLabel('candidates.button.addToWork')}
             </Button>
           </Stack>
@@ -114,13 +127,16 @@ const Candidates = () => {
       </Box>
       <Box className="ag-theme-alpine" width="100%" height="calc(100% - 50px)">
         <AgGridReact
+          getRowNodeId={getRowNodeId}
           frameworkComponents={{
             linkFormatter: LinkFormatter,
           }}
+          onRowSelected={onRowSelected}
           suppressRowClickSelection
           rowData={newListOfCandidates}
           onColumnVisible={onColumnVisible}
-          onSelectionChanged={onSelectionChanged}
+          // onSelectionChanged={onSelectionChanged}
+          enableCellChangeFlash
           debug
           animateRows
           onGridReady={onGridReady}
