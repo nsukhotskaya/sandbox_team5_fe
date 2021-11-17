@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { fetchCandidate } from '../../store/commands';
-import { CandidateInfo } from '../../components';
+import { CandidateInfo, CandidateFeedbacks } from '../../components';
 
 const CandidateProfile = () => {
   const { id } = useParams();
@@ -32,9 +32,10 @@ const CandidateProfile = () => {
           flexDirection="column"
           backgroundColor="background.paper"
         >
-          <CandidateInfo candidateInfo={candidate} />
+          <CandidateInfo candidateInfo={candidate}  />
         </Box>
       </Box>
+      <CandidateFeedbacks />
     </Box>
   );
 };
