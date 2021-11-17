@@ -9,7 +9,6 @@ export const tableFields = [
   'interviewer',
   'testTaskEvaluation',
   'statusType',
-  'primarySkill',
 ];
 
 export const valueMenuItem = [10, 20, 30];
