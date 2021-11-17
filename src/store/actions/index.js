@@ -35,3 +35,10 @@ export {
   getUserInfoFailure,
   GET_USER_INFO,
 } from './getUserInfo';
+export {
+  getLocationsRequest,
+  getLocationsSuccess,
+  getLocationsFailure,
+  GET_LOCATIONS,
+} from './getLocations';
+
