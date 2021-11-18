@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import dayjs from 'dayjs';
 import {
   Box,
@@ -8,12 +8,14 @@ import {
   ListItem,
   ListItemText,
   Button,
+  Input,
 } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
 
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
 
 export const CandidateInfo = (props) => {
+  const [isEditModeOn, setIsEditModeOn] = useState(false);
   const { candidateInfo } = props;
 
   const formatInfo = (info) => {
@@ -27,15 +29,32 @@ export const CandidateInfo = (props) => {
     return newInfo;
   };
 
+  const onButtonEdit = () =>{
+    setIsEditModeOn(true)
+  }
+  const onButtonCancel = () =>{
+    setIsEditModeOn(false)
+  }
+
   const formatedInfo = formatInfo(candidateInfo);
 
   return (
     <Box>
       <Box display="flex" flexDirection="row" justifyContent="space-between">
-        <Typography paddingLeft="1%" variant="h4">
+        {!isEditModeOn && <Typography paddingLeft="1%" variant="h4">
           {formatedInfo.fullName}
-        </Typography>
-        <Button variant="outlined">{getFieldLabel('common.edit')}</Button>
+        </Typography>}
+        {isEditModeOn && <Input paddingLeft="1%" variant="h4" defaultValue = {formatedInfo.fullName} >
+        {/* {formatedInfo.fullName} */}
+        </Input>}
+        {!isEditModeOn && <Box className = "button1">
+          <Button variant="outlined" onClick = {() => onButtonEdit()}>{getFieldLabel('common.edit')}</Button>
+        </Box>}
+        {isEditModeOn && <Box className = "button">
+          <Button  variant="outlined">{getFieldLabel('common.save')}</Button>
+          <Button variant="outlined" onClick = {() => onButtonCancel()}>{getFieldLabel('common.cancel')}</Button>
+        </Box>}
+       
       </Box>
       <Divider />
 
@@ -43,9 +62,12 @@ export const CandidateInfo = (props) => {
         {tableCandidateInfoFields.map((item) => (
           <ListItem key={item}>
             <ListItemText primary={getFieldLabel(`candidate.info.${item}`)} />
-            <Typography variant="body1">
+            {!isEditModeOn && <Typography variant="body1">
               {formatedInfo[item]}
-            </Typography>
+            </Typography>}
+            {isEditModeOn && <Input variant="body1" defaultValue = {formatedInfo[item]} >
+              {/* {formatedInfo[item]} */}
+            </Input>}
           </ListItem>
         ))}
       </List>

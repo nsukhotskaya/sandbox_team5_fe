@@ -1,6 +1,8 @@
 {
+  "common.save": "Save",
   "common.search": "Search...",
   "common.open": "Open",
+  "common.cancel": "Cancel",
   "common.close": "Close",
   "common.filter": "Filter",
   "common.edit": "Edit",
