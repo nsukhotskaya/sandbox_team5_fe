@@ -15,56 +15,28 @@
   },
   "stacks": [
     {
+      "id": 0,
+      "name": "FrontEnd"
+    },
+    {
       "id": 1,
-      "name": "JS"
+      "name": "BackEnd"
     },
     {
       "id": 2,
-      "name": "Java"
+      "name": "FullStack"
     },
     {
       "id": 3,
-      "name": "C#"
+      "name": "BusinessAnalysis"
     },
     {
       "id": 4,
-      "name": "Python"
+      "name": "DevOps"
     },
     {
       "id": 5,
-      "name": "C++"
-    },
-    {
-      "id": 6,
-      "name": "Vue"
-    },
-    {
-      "id": 7,
-      "name": "Angular"
-    },
-    {
-      "id": 8,
-      "name": "React"
-    },
-    {
-      "id": 9,
-      "name": "Figma"
-    },
-    {
-      "id": 10,
-      "name": "Photoshop"
-    },
-    {
-      "id": 11,
-      "name": "MySQL"
-    },
-    {
-      "id": 12,
-      "name": "GraphQL"
-    },
-    {
-      "id": 13,
-      "name": "Wordpress"
+      "name": "Testing"
     }
   ],
   "languages": [
