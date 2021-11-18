@@ -51,10 +51,6 @@ const Candidates = () => {
     setGridApi(params.api);
   };
 
-  const onColumnVisible = () => {
-    gridApi.sizeColumnsToFit();
-  };
-
   const reformatCandidates = (candidates) =>
     candidates.map((candidate) => {
       const newObj = { ...candidate };
@@ -134,7 +130,6 @@ const Candidates = () => {
           onRowSelected={onRowSelected}
           suppressRowClickSelection
           rowData={newListOfCandidates}
-          onColumnVisible={onColumnVisible}
           enableCellChangeFlash
           debug
           animateRows
