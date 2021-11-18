@@ -41,4 +41,10 @@ export {
   getLocationsFailure,
   GET_LOCATIONS,
 } from './getLocations';
+export {
+  getSkillsRequest,
+  getSkillsSuccess,
+  getSkillsFailure,
+  GET_SKILLS,
+} from './getSkills';
 

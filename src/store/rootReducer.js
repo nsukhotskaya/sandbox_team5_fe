@@ -8,10 +8,12 @@ import {
   candidateById,
   locations,
   getUserInfo,
+  skills,
 } from './reducers';
 
 const rootReducer = (history) => combineReducers({
   locations,
+  skills,
   authorization: isAuthorized,
   candidates: candidateList,
   internships: internshipsList,
