@@ -3,7 +3,7 @@ import { Tabs, Tab, Card } from '@mui/material';
 import { getFieldLabel } from '../../utils';
 import { tableFeedback, activeInternships } from '../../mocks/profileData.json';
 import { columnDefsFeed, columnDefsInternships } from '../../constants';
-import ProfileTable from '../feedbacks/ProfileTable';
+import { TableTemplate } from '../tableTemplate';
 
 export default class CustomTabs extends React.Component {
   constructor(props) {
@@ -25,13 +25,13 @@ export default class CustomTabs extends React.Component {
           <Tab label={getFieldLabel('profile.tab.feedbacks')} />
         </Tabs>
         {selectedTab === 0 && (
-          <ProfileTable
+          <TableTemplate
             rowData={activeInternships}
             columnDefs={columnDefsInternships}
           />
         )}
         {selectedTab === 1 && (
-          <ProfileTable rowData={tableFeedback} columnDefs={columnDefsFeed} />
+          <TableTemplate rowData={tableFeedback} columnDefs={columnDefsFeed} />
         )}
       </Card>
     );

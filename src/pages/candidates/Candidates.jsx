@@ -17,6 +17,7 @@ import { tableFields } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import { fetchCandidateList, updateCandidateStatusById } from '../../store/commands';
 import { LinkFormatter } from '../../components';
+import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
@@ -55,15 +56,15 @@ const Candidates = () => {
     gridApi.sizeColumnsToFit();
   };
 
-  const reformatCandidates = (candidates) => candidates.map((candidate) => {
-    const newObj = { ...candidate };
-    newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
-    newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
-      'DD.MM.YYYY',
-    );
-    return newObj;
-  });
-
+  const reformatCandidates = (candidates) =>
+    candidates.map((candidate) => {
+      const newObj = { ...candidate };
+      newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
+      newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
+        'DD.MM.YYYY',
+      );
+      return newObj;
+    });
 
   const newListOfCandidates = reformatCandidates(listOfCandidates);
 
@@ -99,13 +100,7 @@ const Candidates = () => {
 
   return (
     <Box padding="1%" width="100%" height="100%">
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        paddingTop="10px"
-        paddingBottom="10px"
-      >
+      <Box className="candidatesPageHeader">
         <Typography variant="h4" component="div" gutterBottom color="#222">
           {getFieldLabel('candidates.internship.name')}
         </Typography>
@@ -116,13 +111,13 @@ const Candidates = () => {
             </IconButton>
           </Box>
           <Stack direction="row" spacing={2}>
-            <Button onClick={() => onButtonExport()} variant="outlined">
+            <Button className="candidatesPageButton" onClick={() => onButtonExport()} variant="outlined">
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
-            <Button variant="outlined" endIcon={<Send />} disabled={isDisabledButtonSend}>
+            <Button className="candidatesPageButton" variant="outlined" endIcon={<Send />} disabled={isDisabledButtonSend}>
               {getFieldLabel('candidates.button.send')}
             </Button>
-            <Button onClick={() => addToWork()} variant="outlined" disabled={isDisabledButtonAddToWork}>
+            <Button onClick={() => addToWork()} className="candidatesPageButton" variant="outlined" disabled={isDisabledButtonAddToWork}>
               {getFieldLabel('candidates.button.addToWork')}
             </Button>
           </Stack>
@@ -131,7 +126,7 @@ const Candidates = () => {
           </Popper>
         </Box>
       </Box>
-      <Box className="ag-theme-alpine" width="100%" height="calc(100% - 50px)">
+      <Box className="ag-theme-alpine">
         <AgGridReact
           getRowNodeId={getRowNodeId}
           frameworkComponents={{

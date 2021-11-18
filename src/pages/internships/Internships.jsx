@@ -50,7 +50,6 @@ export const Internships = () => {
             component="div"
             fontSize="35px"
             color="text"
-            marginLeft="30px"
           >
             {getFieldLabel('internships.title')}
           </Typography>
