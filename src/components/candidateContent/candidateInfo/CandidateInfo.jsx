@@ -13,7 +13,7 @@ import { getFieldLabel } from '../../../utils';
 
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
 
-export const CandidateInfo = (props) => {
+const CandidateInfo = (props) => {
   const { candidateInfo } = props;
 
   const formatInfo = (info) => {
@@ -52,3 +52,5 @@ export const CandidateInfo = (props) => {
     </Box>
   );
 };
+
+export default CandidateInfo;

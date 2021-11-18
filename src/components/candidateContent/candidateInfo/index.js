@@ -1,1 +1,1 @@
-export { CandidateInfo } from './CandidateInfo';
+export { default as CandidateInfo } from './CandidateInfo';
