@@ -94,8 +94,8 @@ const Candidates = () => {
     const candidateId = selectedRow && selectedRow.map((item) => item.id);
     dispatch(updateCandidateStatusById(1, candidateId));
     dispatch(fetchCandidateList(requestBody));
-    setIsSendButtonDisabled(true);
-    setIsAddToWorkButtonDisabled(true);
+    const rowNode = gridApi.getRowNode(candidateId);
+    rowNode.setSelected(false);
   };
 
   return (
