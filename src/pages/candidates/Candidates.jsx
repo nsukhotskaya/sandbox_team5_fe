@@ -25,8 +25,8 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
-  const [isDisabledButtonSend, setIsDisabledButtonSend] = useState(true);
-  const [isDisabledButtonAddToWork, setIsDisabledButtonAddToWork] = useState(true);
+  const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
+  const [isAddToWorkButtonDisabled, setIsAddToWorkButtonDisabled] = useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
 
@@ -78,14 +78,14 @@ const Candidates = () => {
     const rowSelected = event.node.isSelected();
     const rowSelectedHR = event.node.data.statusType === "HR";
     if (!rowSelected) {
-      setIsDisabledButtonSend(true);
-      setIsDisabledButtonAddToWork(true);
+      setIsSendButtonDisabled(true);
+      setIsAddToWorkButtonDisabled(true);
     }else if(rowSelected && rowSelectedHR) {
-      setIsDisabledButtonAddToWork(true);
-      setIsDisabledButtonSend(false);
+      setIsAddToWorkButtonDisabled(true);
+      setIsSendButtonDisabled(false);
     } else {
-      setIsDisabledButtonSend(false);
-      setIsDisabledButtonAddToWork(false);
+      setIsSendButtonDisabled(false);
+      setIsAddToWorkButtonDisabled(false);
     }
   };
 
@@ -94,8 +94,8 @@ const Candidates = () => {
     const candidateId = selectedRow && selectedRow.map((item) => item.id);
     dispatch(updateCandidateStatusById(1, candidateId));
     dispatch(fetchCandidateList(requestBody));
-    setIsDisabledButtonSend(true);
-    setIsDisabledButtonAddToWork(true);
+    setIsSendButtonDisabled(true);
+    setIsAddToWorkButtonDisabled(true);
   };
 
   return (
@@ -114,10 +114,10 @@ const Candidates = () => {
             <Button className="candidatesPageButton" onClick={() => onButtonExport()} variant="outlined">
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
-            <Button className="candidatesPageButton" variant="outlined" endIcon={<Send />} disabled={isDisabledButtonSend}>
+            <Button className="candidatesPageButton" variant="outlined" endIcon={<Send />} disabled={isSendButtonDisabled}>
               {getFieldLabel('candidates.button.send')}
             </Button>
-            <Button onClick={() => addToWork()} className="candidatesPageButton" variant="outlined" disabled={isDisabledButtonAddToWork}>
+            <Button onClick={() => addToWork()} className="candidatesPageButton" variant="outlined" disabled={isAddToWorkButtonDisabled}>
               {getFieldLabel('candidates.button.addToWork')}
             </Button>
           </Stack>
