@@ -14,7 +14,7 @@ const CandidateFeedbacks = ({candidateInfo}) => {
 
   useEffect(() => {
     if(candidateInfo.stackType){dispatch(fetchSkillsByStackType(candidateInfo.stackType))};
-  }, []);
+  }, [candidateInfo.stackType]);
   
   if ( skillsList ) {
     Object.values(skillsList).map((skill) => console.log(skill.name));
