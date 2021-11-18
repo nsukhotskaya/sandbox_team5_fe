@@ -34,7 +34,7 @@ const Candidates = () => {
 
   const dispatch = useDispatch();
   const requestBody = {
-    pageSize: 10,
+    pageSize: 20,
     pageNumber: 1,
     internshipId: id,
   };
@@ -49,11 +49,6 @@ const Candidates = () => {
 
   const onGridReady = (params) => {
     setGridApi(params.api);
-    params.api.sizeColumnsToFit();
-  };
-
-  const onColumnVisible = () => {
-    gridApi.sizeColumnsToFit();
   };
 
   const reformatCandidates = (candidates) =>
@@ -135,14 +130,13 @@ const Candidates = () => {
           onRowSelected={onRowSelected}
           suppressRowClickSelection
           rowData={newListOfCandidates}
-          onColumnVisible={onColumnVisible}
           enableCellChangeFlash
           debug
           animateRows
           onGridReady={onGridReady}
           rowSelection="multiple"
           pagination
-          paginationPageSize="10"
+          paginationPageSize="20"
           sideBar={{
             toolPanels: [
               {
@@ -182,6 +176,7 @@ const Candidates = () => {
               sortable
               filter
               resizable
+              flex={1}
             />
           ))}
         </AgGridReact>
