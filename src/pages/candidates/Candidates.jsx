@@ -58,10 +58,6 @@ const Candidates = () => {
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
   }, []);
-
-  // if (!listOfCandidates.length) {
-  //   return <ProgressIndicator />;
-  // } 
   
   if (!listOfCandidates.length && listOfCandidates.length !== 0 ) {
     <ProgressIndicator />;
