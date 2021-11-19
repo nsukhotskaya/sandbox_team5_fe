@@ -44,7 +44,7 @@ export const CandidateInfo = (props) => {
         {!isEditModeOn && <Typography paddingLeft="1%" variant="h4">
           {formatedInfo.fullName}
         </Typography>}
-        {isEditModeOn && <Input paddingLeft="1%" variant="h4" defaultValue = {formatedInfo.fullName} >
+        {isEditModeOn && <Input inputProps={{style: {fontSize: 25 }}}  variant="h4" defaultValue = {formatedInfo.fullName} >
         {/* {formatedInfo.fullName} */}
         </Input>}
         {!isEditModeOn && <Box className = "button1">
@@ -65,7 +65,7 @@ export const CandidateInfo = (props) => {
             {!isEditModeOn && <Typography variant="body1">
               {formatedInfo[item]}
             </Typography>}
-            {isEditModeOn && <Input variant="body1" defaultValue = {formatedInfo[item]} >
+            {isEditModeOn && <Input defaultValue = {formatedInfo[item]} >
               {/* {formatedInfo[item]} */}
             </Input>}
           </ListItem>
