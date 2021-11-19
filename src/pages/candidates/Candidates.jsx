@@ -9,17 +9,22 @@ import {
   Input,
   Stack,
   Button,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  Divider,
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFields } from '../../constants';
+import { tableFields, valueMenuItem } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
   updateCandidateStatusById,
 } from '../../store/commands';
-import { LinkFormatter, PaginationStatusBar } from '../../components';
+import { LinkFormatter } from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -36,9 +41,15 @@ const Candidates = () => {
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
 
+  const createMenuItem = valueMenuItem.map((item) => (
+    <MenuItem value={item} key={item}>
+      {item}
+    </MenuItem>
+  ));
+
   const dispatch = useDispatch();
   const requestBody = {
-    pageSize: 50,
+    pageSize: 100000,
     pageNumber: 1,
     internshipId: id,
   };
@@ -46,6 +57,11 @@ const Candidates = () => {
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
   }, []);
+
+  const onPageSizeChanged = (newPageSize) => {
+    const { value } = newPageSize.target;
+  gridApi.paginationSetPageSize(Number(value));
+  }; 
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -133,6 +149,22 @@ const Candidates = () => {
             >
               {getFieldLabel('candidates.button.addToWork')}
             </Button>
+            <Divider orientation="vertical" variant="middle" flexItem />
+            <Box width="80px">
+            <FormControl fullWidth size="small">
+              <InputLabel>
+                {getFieldLabel('candidates.form.inputLabel')}
+              </InputLabel>
+              <Select
+                defaultValue="20"
+                label=
+              {getFieldLabel('candidates.form.inputLabel')}
+                onChange={onPageSizeChanged}
+              >
+                {createMenuItem}
+              </Select>
+            </FormControl>
+          </Box>
           </Stack>
           <Popper open={open} anchorEl={anchorEl} placement="left">
             <Input placeholder={getFieldLabel('common.search')} />
@@ -144,7 +176,6 @@ const Candidates = () => {
           getRowNodeId={getRowNodeId}
           frameworkComponents={{
             linkFormatter: LinkFormatter,
-            paginationStatusBar: PaginationStatusBar,
           }}
           onRowSelected={onRowSelected}
           suppressRowClickSelection
@@ -156,9 +187,6 @@ const Candidates = () => {
           rowSelection="multiple"
           pagination
           paginationPageSize="20"
-          statusBar={{
-            statusPanels: [{ statusPanel: 'paginationStatusBar' }],
-          }}
           sideBar={{
             toolPanels: [
               {
