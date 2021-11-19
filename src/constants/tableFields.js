@@ -4,7 +4,7 @@ export const tableFields = [
   'language',
   'internship',
   'stackType',
-  'englishLevelName',
+  'englishLevelType',
   'hr',
   'interviewer',
   'testTaskEvaluation',
