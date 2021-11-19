@@ -11,4 +11,4 @@ export const tableFields = [
   'statusType',
 ];
 
-export const valueMenuItem = [10, 20, 30];
+export const valueMenuItem = [20, 30, 50];
