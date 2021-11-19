@@ -7,4 +7,3 @@ export * from './internshipsFilter';
 export * from './linkFormatter';
 export * from './sidePopUp';
 export * from './addProgram';
-export * from './paginationStatusBar';
