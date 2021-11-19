@@ -50,7 +50,7 @@ const Candidates = () => {
 
   const dispatch = useDispatch();
   const requestBody = {
-    pageSize: 0,
+    pageSize: 100000,
     pageNumber: 1,
     internshipId: id,
   };
