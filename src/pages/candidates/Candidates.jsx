@@ -25,6 +25,7 @@ import {
   updateCandidateStatusById,
 } from '../../store/commands';
 import { LinkFormatter } from '../../components';
+import { ProgressIndicator } from '../../components/progressIndicator';
 import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -57,6 +58,8 @@ const Candidates = () => {
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
   }, []);
+
+  if (!listOfCandidates.length) return <ProgressIndicator />;
 
   const onPageSizeChanged = (newPageSize) => {
     const { value } = newPageSize.target;
