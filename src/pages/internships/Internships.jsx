@@ -15,6 +15,7 @@ import './Internships.sass';
 import { getFieldLabel } from '../../utils';
 import { InternshipCard, InternshipsFilter, SidePopUp } from '../../components';
 import { fetchInternships } from '../../store/commands';
+import { ProgressIndicator } from '../../components/progressIndicator';
 
 export const Internships = () => {
   const [popUpActive, setPopUpActive] = useState(false);
@@ -39,6 +40,8 @@ export const Internships = () => {
   const onInputChange = (event) => {
     setSearchText(event.target.value);
   };
+
+  if (!internships.length) return <ProgressIndicator />;
 
   return (
     <Container fixed maxWidth="1400px">
@@ -102,11 +105,9 @@ export const Internships = () => {
           </Grid>
         </Box>
       </Box>
-      <SidePopUp
-        active={popUpActive}
-        setActive={setPopUpActive}
-      />
+      <SidePopUp active={popUpActive} setActive={setPopUpActive} />
     </Container>
   );
 };
+
 export default Internships;
