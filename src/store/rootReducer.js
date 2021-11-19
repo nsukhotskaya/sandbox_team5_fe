@@ -10,12 +10,14 @@ import {
   stacks,
   languages,
   getUserInfo,
+  skills,
 } from './reducers';
 
 const rootReducer = (history) => combineReducers({
   stacks,
   locations,
   languages,
+  skills,
   authorization: isAuthorized,
   candidates: candidateList,
   internships: internshipsList,

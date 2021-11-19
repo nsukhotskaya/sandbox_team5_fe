@@ -15,7 +15,7 @@ import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields } from '../../constants';
 import { getFieldLabel } from '../../utils';
-import { fetchCandidateList } from '../../store/commands';
+import { fetchCandidateList, updateCandidateStatusById } from '../../store/commands';
 import { LinkFormatter } from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
@@ -25,7 +25,8 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
+  const [isAddToWorkButtonDisabled, setIsAddToWorkButtonDisabled] = useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
 
@@ -33,7 +34,7 @@ const Candidates = () => {
 
   const dispatch = useDispatch();
   const requestBody = {
-    pageSize: 10,
+    pageSize: 20,
     pageNumber: 1,
     internshipId: id,
   };
@@ -46,22 +47,8 @@ const Candidates = () => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
-  const onColumnVisible = () => {
-    gridApi.sizeColumnsToFit();
-  };
-
   const onGridReady = (params) => {
     setGridApi(params.api);
-    params.api.sizeColumnsToFit();
-  };
-
-  const onSelectionChanged = (event) => {
-    const rowCount = event.api.getSelectedNodes().length;
-    if (rowCount) {
-      setIsDisabled(false);
-    } else {
-      setIsDisabled(true);
-    }
   };
 
   const reformatCandidates = (candidates) =>
@@ -80,6 +67,32 @@ const Candidates = () => {
     gridApi.exportDataAsExcel();
   };
 
+  const getRowNodeId = (data) => data.id;
+
+  const onRowSelected = (event) => {
+    const rowSelected = event.node.isSelected();
+    const rowSelectedHR = event.node.data.statusType === "HR";
+    if (!rowSelected) {
+      setIsSendButtonDisabled(true);
+      setIsAddToWorkButtonDisabled(true);
+    }else if(rowSelected && rowSelectedHR) {
+      setIsAddToWorkButtonDisabled(true);
+      setIsSendButtonDisabled(false);
+    } else {
+      setIsSendButtonDisabled(false);
+      setIsAddToWorkButtonDisabled(false);
+    }
+  };
+
+  const addToWork = () => {
+    const selectedRow = gridApi.getSelectedRows();
+    const candidateId = selectedRow && selectedRow.map((item) => item.id);
+    dispatch(updateCandidateStatusById(1, candidateId));
+    dispatch(fetchCandidateList(requestBody));
+    const rowNode = gridApi.getRowNode(candidateId);
+    rowNode.setSelected(false);
+  };
+
   return (
     <Box padding="1%" width="100%" height="100%">
       <Box className="candidatesPageHeader">
@@ -96,10 +109,10 @@ const Candidates = () => {
             <Button className="candidatesPageButton" onClick={() => onButtonExport()} variant="outlined">
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
-            <Button className="candidatesPageButton" variant="outlined" endIcon={<Send />} disabled={isDisabled}>
+            <Button className="candidatesPageButton" variant="outlined" endIcon={<Send />} disabled={isSendButtonDisabled}>
               {getFieldLabel('candidates.button.send')}
             </Button>
-            <Button className="candidatesPageButton" variant="outlined" disabled={isDisabled}>
+            <Button onClick={() => addToWork()} className="candidatesPageButton" variant="outlined" disabled={isAddToWorkButtonDisabled}>
               {getFieldLabel('candidates.button.addToWork')}
             </Button>
           </Stack>
@@ -110,19 +123,20 @@ const Candidates = () => {
       </Box>
       <Box className="ag-theme-alpine">
         <AgGridReact
+          getRowNodeId={getRowNodeId}
           frameworkComponents={{
             linkFormatter: LinkFormatter,
           }}
+          onRowSelected={onRowSelected}
           suppressRowClickSelection
           rowData={newListOfCandidates}
-          onColumnVisible={onColumnVisible}
-          onSelectionChanged={onSelectionChanged}
+          enableCellChangeFlash
           debug
           animateRows
           onGridReady={onGridReady}
           rowSelection="multiple"
           pagination
-          paginationPageSize="10"
+          paginationPageSize="20"
           sideBar={{
             toolPanels: [
               {
@@ -162,6 +176,7 @@ const Candidates = () => {
               sortable
               filter
               resizable
+              flex={1}
             />
           ))}
         </AgGridReact>
