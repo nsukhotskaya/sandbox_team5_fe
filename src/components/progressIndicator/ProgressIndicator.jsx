@@ -6,7 +6,7 @@ export default function ProgressIndicator() {
   return (
     <Box
       className="progressIndicatorBox"
-      height="100vh"
+      height="100%"
       display="flex"
       justifyContent="center"
       alignItems="center"
