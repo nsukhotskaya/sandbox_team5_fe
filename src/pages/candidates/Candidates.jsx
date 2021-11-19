@@ -15,8 +15,11 @@ import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields } from '../../constants';
 import { getFieldLabel } from '../../utils';
-import { fetchCandidateList, updateCandidateStatusById } from '../../store/commands';
-import { LinkFormatter } from '../../components';
+import {
+  fetchCandidateList,
+  updateCandidateStatusById,
+} from '../../store/commands';
+import { LinkFormatter, PaginationStatusBar } from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -26,7 +29,8 @@ const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
   const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
-  const [isAddToWorkButtonDisabled, setIsAddToWorkButtonDisabled] = useState(true);
+  const [isAddToWorkButtonDisabled, setIsAddToWorkButtonDisabled] =
+    useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
 
@@ -34,7 +38,7 @@ const Candidates = () => {
 
   const dispatch = useDispatch();
   const requestBody = {
-    pageSize: 20,
+    pageSize: 50,
     pageNumber: 1,
     internshipId: id,
   };
@@ -71,11 +75,11 @@ const Candidates = () => {
 
   const onRowSelected = (event) => {
     const rowSelected = event.node.isSelected();
-    const rowSelectedHR = event.node.data.statusType === "HR";
+    const rowSelectedHR = event.node.data.statusType === 'HR';
     if (!rowSelected) {
       setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
-    }else if(rowSelected && rowSelectedHR) {
+    } else if (rowSelected && rowSelectedHR) {
       setIsAddToWorkButtonDisabled(true);
       setIsSendButtonDisabled(false);
     } else {
@@ -106,13 +110,27 @@ const Candidates = () => {
             </IconButton>
           </Box>
           <Stack direction="row" spacing={2}>
-            <Button className="candidatesPageButton" onClick={() => onButtonExport()} variant="outlined">
+            <Button
+              className="candidatesPageButton"
+              onClick={() => onButtonExport()}
+              variant="outlined"
+            >
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
-            <Button className="candidatesPageButton" variant="outlined" endIcon={<Send />} disabled={isSendButtonDisabled}>
+            <Button
+              className="candidatesPageButton"
+              variant="outlined"
+              endIcon={<Send />}
+              disabled={isSendButtonDisabled}
+            >
               {getFieldLabel('candidates.button.send')}
             </Button>
-            <Button onClick={() => addToWork()} className="candidatesPageButton" variant="outlined" disabled={isAddToWorkButtonDisabled}>
+            <Button
+              onClick={() => addToWork()}
+              className="candidatesPageButton"
+              variant="outlined"
+              disabled={isAddToWorkButtonDisabled}
+            >
               {getFieldLabel('candidates.button.addToWork')}
             </Button>
           </Stack>
@@ -126,6 +144,7 @@ const Candidates = () => {
           getRowNodeId={getRowNodeId}
           frameworkComponents={{
             linkFormatter: LinkFormatter,
+            paginationStatusBar: PaginationStatusBar,
           }}
           onRowSelected={onRowSelected}
           suppressRowClickSelection
@@ -137,6 +156,9 @@ const Candidates = () => {
           rowSelection="multiple"
           pagination
           paginationPageSize="20"
+          statusBar={{
+            statusPanels: [{ statusPanel: 'paginationStatusBar' }],
+          }}
           sideBar={{
             toolPanels: [
               {
