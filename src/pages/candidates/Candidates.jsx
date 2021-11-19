@@ -50,7 +50,7 @@ const Candidates = () => {
 
   const dispatch = useDispatch();
   const requestBody = {
-    pageSize: 100000,
+    pageSize: 0,
     pageNumber: 1,
     internshipId: id,
   };
@@ -59,7 +59,13 @@ const Candidates = () => {
     dispatch(fetchCandidateList(requestBody));
   }, []);
 
-  if (!listOfCandidates.length) return <ProgressIndicator />;
+  // if (!listOfCandidates.length) {
+  //   return <ProgressIndicator />;
+  // } 
+  
+  if (!listOfCandidates.length && listOfCandidates.length !== 0 ) {
+    <ProgressIndicator />;
+  } 
 
   const onPageSizeChanged = (newPageSize) => {
     const { value } = newPageSize.target;
