@@ -60,8 +60,8 @@ const Candidates = () => {
 
   const onPageSizeChanged = (newPageSize) => {
     const { value } = newPageSize.target;
-  gridApi.paginationSetPageSize(Number(value));
-  }; 
+    gridApi.paginationSetPageSize(Number(value));
+  };
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -151,20 +151,19 @@ const Candidates = () => {
             </Button>
             <Divider orientation="vertical" variant="middle" flexItem />
             <Box width="80px">
-            <FormControl fullWidth size="small">
-              <InputLabel>
-                {getFieldLabel('candidates.form.inputLabel')}
-              </InputLabel>
-              <Select
-                defaultValue="20"
-                label=
-              {getFieldLabel('candidates.form.inputLabel')}
-                onChange={onPageSizeChanged}
-              >
-                {createMenuItem}
-              </Select>
-            </FormControl>
-          </Box>
+              <FormControl fullWidth size="small">
+                <InputLabel>
+                  {getFieldLabel('candidates.form.inputLabel')}
+                </InputLabel>
+                <Select
+                  defaultValue="20"
+                  label={getFieldLabel('candidates.form.inputLabel')}
+                  onChange={onPageSizeChanged}
+                >
+                  {createMenuItem}
+                </Select>
+              </FormControl>
+            </Box>
           </Stack>
           <Popper open={open} anchorEl={anchorEl} placement="left">
             <Input placeholder={getFieldLabel('common.search')} />
