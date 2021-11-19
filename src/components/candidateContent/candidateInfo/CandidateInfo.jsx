@@ -74,3 +74,5 @@ export const CandidateInfo = (props) => {
     </Box>
   );
 };
+
+export default CandidateInfo;
