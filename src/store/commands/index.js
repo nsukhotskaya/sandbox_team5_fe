@@ -6,3 +6,5 @@ export { default as fetchInternshipById } from './fetchInternshipById';
 export { default as fetchCandidate } from './fetchCandidate';
 export { default as fetchUserInfo } from './fetchUserInfo';
 export { default as fetchLocations } from './fetchLocations';
+export { default as fetchStacks } from './fetchStacks';
+export { default as fetchLanguages } from './fetchLanguages';

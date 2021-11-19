@@ -18,8 +18,10 @@ import {
 } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
-import { fetchLocations } from '../../store/commands';
-import { languages, stacks, initialValues } from '../../mocks/createInternshipData.json';
+import { fetchLocations, fetchStacks,
+  fetchLanguages
+} from '../../store/commands';
+import { initialValues } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
 
 const MenuProps = {
@@ -31,19 +33,38 @@ const MenuProps = {
   },
 };
 
+const stringToObject = (array) => array.map((item, index) => ({
+  id: index,
+  name: item,
+}));
+const checkDataReceived = (...arrays) => arrays.every((array) => array.length!==0)
+
 const AddProgram = (props) => {
   const { closeModal } = props;
-  const locationsList = useSelector((state) => state.locations.locations);
   const dispatch = useDispatch();
 
+  const locationsList = useSelector((state) => state.locations.locations);
+  const stacksList = useSelector((state) => state.stacks.stacks);
+  const languagesList = useSelector((state) => state.languages.languages);
+
+  const isDataReceived = checkDataReceived(locationsList, stacksList, languagesList);
+
   useEffect(() => {
-    dispatch(fetchLocations());
-  }, []);
+    if ( !isDataReceived ) {
+      dispatch(fetchLocations());
+      dispatch(fetchStacks());
+      dispatch(fetchLanguages());
+    }
+  }, [isDataReceived]);
+
+  const languagesListFormated = stringToObject(languagesList);
+  const stacksListFormated = stringToObject(stacksList);
 
   const formik = useFormik({
     initialValues,
     onSubmit: (values) => {
       const newInternship = { ...values };
+      newInternship.maxCandidateCount = +newInternship.maxCandidateCount;
       newInternship.locations = newInternship.locations.map((country) => {
         const countryObject = { name: country };
         return countryObject;
@@ -52,6 +73,7 @@ const AddProgram = (props) => {
         const stackObject = { technologyStackType: stack };
         return stackObject;
       });
+      console.log(JSON.stringify(newInternship, null, 2))
     },
   });
 
@@ -93,12 +115,17 @@ const AddProgram = (props) => {
     stackData: {
       keyName: 'internshipStacks',
       label: getFieldLabel('addprogram.field.label.stacks'),
-      array: stacks,
+      array: stacksListFormated,
     },
     locationData: {
       keyName: 'locations',
       label: getFieldLabel('addprogram.field.label.locations'),
       array: locationsList,
+    },
+    languagesData: {
+      keyName: 'languageType',
+      label: getFieldLabel('addprogram.field.label.languages'),
+      array: languagesListFormated,
     },
   };
 
@@ -121,18 +148,6 @@ const AddProgram = (props) => {
                   key={field.keyName}
                 />
               ))}
-              <TextField
-                select
-                label={getFieldLabel('addprogram.field.label.languages')}
-                name="languageType"
-                value={formik.values.languageType}
-                onChange={formik.handleChange}
-                variant="standard"
-              >
-                {languages.map((item) => (
-                  <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
-                ))}
-              </TextField>
               {/* eslint-disable react/jsx-props-no-spreading */}
               {Object.values(dataForRenderDatePicker).map((date) => (
                 <React.Fragment key={date.keyName}>
@@ -148,24 +163,24 @@ const AddProgram = (props) => {
                 </React.Fragment>
               ))}
               {/* eslint-enable react/jsx-props-no-spreading */}
-              { Object.values(dataForRenderSelect).map((select) => (
+              { (isDataReceived) && Object.values(dataForRenderSelect).map((select) => (
                 <FormControl key={select.keyName}>
-                <InputLabel>{select.label}</InputLabel>
-                <Select
-                  label={select.label}
-                  multiple
-                  value={formik.values[`${select.keyName}`]}
-                  onChange={(event) => formik.setFieldValue(select.keyName, event.target.value)}
-                  MenuProps={MenuProps}
-                >
-                  {select.array.map((item) => (
-                    <MenuItem key={item.id} value={item.name}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              ))}
+                  <InputLabel>{select.label}</InputLabel>
+                  <Select
+                    label={select.label}
+                    multiple
+                    value={formik.values[`${select.keyName}`]}
+                    onChange={(event) => formik.setFieldValue(select.keyName, event.target.value)}
+                    MenuProps={MenuProps}
+                  >
+                    {select.array.map((item) => (
+                      <MenuItem key={item.id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                ))}
             </Stack>
           </LocalizationProvider>
         </Box>

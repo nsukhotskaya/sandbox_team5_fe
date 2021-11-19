@@ -41,4 +41,15 @@ export {
   getLocationsFailure,
   GET_LOCATIONS,
 } from './getLocations';
-
+export {
+  getStacksRequest,
+  getStacksSuccess,
+  getStacksFailure,
+  GET_STACKS,
+} from './getStacks';
+export {
+  getLanguagesRequest,
+  getLanguagesSuccess,
+  getLanguagesFailure,
+  GET_LANGUAGES,
+} from './getLanguages';

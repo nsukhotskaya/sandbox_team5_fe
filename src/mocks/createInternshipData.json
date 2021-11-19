@@ -7,62 +7,19 @@
     "maxCandidateCount": 0,
     "registrationStartDate": "2001-11-09T17:31:07.301Z",
     "registrationFinishDate": "2001-11-09T17:31:07.301Z",
-    "languageType": "",
+    "languageType": [],
     "internshipStatusType": "",
     "imageLink": "",
     "internshipStacks": [],
-    "locations": []
-  },
-  "stacks": [
-    {
-      "id": 0,
-      "name": "FrontEnd"
-    },
-    {
-      "id": 1,
-      "name": "BackEnd"
-    },
-    {
-      "id": 2,
-      "name": "FullStack"
-    },
-    {
-      "id": 3,
-      "name": "BusinessAnalysis"
-    },
-    {
-      "id": 4,
-      "name": "DevOps"
-    },
-    {
-      "id": 5,
-      "name": "Testing"
-    }
-  ],
-  "languages": [
-    {
-      "id": 0,
-      "name": "English"
-    },
-    {
-      "id": 1,
-      "name": "Russian"
-    },
-    {
-      "id": 2,
-      "name": "German"
-    },
-    {
-      "id": 3,
-      "name": "French"
-    },
-    {
-      "id": 4,
-      "name": "Indian"
-    },
-    {
-      "id": 5,
-      "name": "Chinese"
-    }
-  ]
+    "locations": [],
+    "id": 0,
+    "candidatesCount": 0,
+    "declinedCandidatesCount": 0,
+    "acceptedCandidatesCount": 0,
+    "abandonedCandidatesCount": 0,
+    "successfullyFinishedCandidatesCount": 0,
+    "teamsCount": 0,
+    "teams": [],
+    "users": []
+  }
 }
