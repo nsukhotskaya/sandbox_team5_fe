@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
 import {
   Box,
@@ -11,12 +12,14 @@ import {
   Input,
 } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
-
+import { updateCandidateInfo } from '../../../store/commands';
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
 
 export const CandidateInfo = (props) => {
   const [isEditModeOn, setIsEditModeOn] = useState(false);
   const { candidateInfo } = props;
+  const [newValues, setNewValues] = useState([]);
+  const dispatch = useDispatch();
 
   const formatInfo = (info) => {
     const newInfo = { ...info };
@@ -29,14 +32,46 @@ export const CandidateInfo = (props) => {
     return newInfo;
   };
 
-  const onButtonEdit = () => {
-    setIsEditModeOn(true);
-  };
+
   const onButtonCancel = () => {
     setIsEditModeOn(false);
   };
 
+  const handleChange = index => e => {
+    console.log(`index => ${index}`)
+    console.log(`value => ${e.target.value}`)
+    // newValues[index] = e.target.value;
+    const newArr = {...newValues};
+    newArr[index] = e.target.value;
+    setNewValues(newArr)
+    // console.log('property name: '+ e.target.item);
+    // console.log(`typed => ${e.target.item}`)
+    // setNewValues(e.target.item)
+  }
+
   const formatedInfo = formatInfo(candidateInfo);
+
+  const onButtonEdit = () => {
+    setNewValues({...formatedInfo})
+    setIsEditModeOn(true);
+    console.log(newValues.statusType)
+    
+    
+  };
+
+  const onButtonSave = () => {
+ 
+    console.log(`SAVE HERE`)
+    console.log(`status after edit => ${candidateInfo.statusType}`)
+    console.log(`before delete => ${newValues.isPlanningToJoin}`)
+    delete newValues.fullName;
+    newValues.isPlanningToJoin = true;
+    console.log(`after delete => ${newValues.isPlanningToJoin}`)
+    console.log(newValues)
+    dispatch(updateCandidateInfo(newValues));
+    setIsEditModeOn(false);
+    
+  };
 
   return (
     <Box>
@@ -62,7 +97,7 @@ export const CandidateInfo = (props) => {
         )}
         {isEditModeOn && (
           <Box className="button">
-            <Button variant="outlined">{getFieldLabel('common.save')}</Button>
+            <Button variant="outlined" onClick={() => onButtonSave()}>{getFieldLabel('common.save')}</Button>
             <Button variant="outlined" onClick={() => onButtonCancel()}>
               {getFieldLabel('common.cancel')}
             </Button>
@@ -78,7 +113,7 @@ export const CandidateInfo = (props) => {
               <Typography variant="body1">{formatedInfo[item]}</Typography>
             )}
             {isEditModeOn && (
-              <Input defaultValue={formatedInfo[item]}/>
+              <Input value={newValues[item]}  onChange = {handleChange(item)} />
             )}
           </ListItem>
         ))}
