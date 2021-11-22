@@ -12,12 +12,12 @@ import {
 } from '@mui/material';
 import './UserProfile.sass';
 import { fetchUserInfo } from '../../store/commands';
-import { Calendar } from '../../components/calendar';
 import { getFieldLabel } from '../../utils';
 import { userProfileListFields } from '../../constants/userProfileListFields';
 import CustomTabs from '../../components/tabs/Tabs';
 import { useMediaDown } from '../../components/utils';
 import { header, headerMobile } from '../../constants/calendarHeader';
+import { Calendar } from '../../components/calendar';
 
 const UserProfile = () => {
   const userInfo = useSelector((state) => state.userInfo.userInfo);
