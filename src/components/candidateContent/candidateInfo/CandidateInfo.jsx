@@ -16,13 +16,19 @@ import { getFieldLabel } from '../../../utils';
 import { updateCandidateInfo } from '../../../store/commands';
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
 
+const utc = require('dayjs/plugin/utc')
+
+
+
+
 export const CandidateInfo = (props) => {
   const [isEditModeOn, setIsEditModeOn] = useState(false);
   const { candidateInfo } = props;
   const [newValues, setNewValues] = useState([]);
   const dispatch = useDispatch();
   dayjs.extend(customParseFormat)
-
+  dayjs.extend(utc)
+  
   const formatInfo = (info) => {
     const newInfo = { ...info };
     newInfo.fullName = `${info.firstName} ${info.lastName}`;
@@ -56,6 +62,9 @@ export const CandidateInfo = (props) => {
 
   const onButtonSave = () => {
     console.log(`SAVE`);
+    
+    // eslint-disable-next-line no-unused-vars
+    
     delete newValues.fullName;
     newValues.isPlanningToJoin = true;
     // console.log(newValues.registrationDate)
@@ -63,8 +72,8 @@ export const CandidateInfo = (props) => {
     
     console.log(newValues.bestContactTime)
     
-    newValues.registrationDate = dayjs(newValues.registrationDate, 'DD/MM/YYYYTHH:mm', 'is');
-    newValues.bestContactTime = dayjs(newValues.bestContactTime, 'HH:mm');
+    newValues.registrationDate = dayjs.utc(newValues.registrationDate, 'DD/MM/YYYYTHH:mm', 'is');
+    newValues.bestContactTime = dayjs.utc(newValues.bestContactTime, 'HH:mm');
     console.log(newValues.registrationDate)
     // newValues.bestContactTime = dayjs(`01.01.0001 ${newValues.bestContactTime}`).toISOString();
     // console.log((`01.01.0001 ${newValues.bestContactTime}`))
