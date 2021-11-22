@@ -31,9 +31,7 @@ export const CandidateInfo = (props) => {
     newInfo.registrationDate = dayjs(info.registrationDate).format(
       'DD.MM.YYYY HH:mm',
     );
-    console.log(`Best => ${newInfo.bestContactTime}`);
     newInfo.bestContactTime = dayjs(info.bestContactTime).format('HH:mm');
-    console.log(`Best 2 => ${newInfo.bestContactTime}`);
     newInfo.isPlanningToJoin = newInfo.isPlanningToJoin ? 'Yes' : 'No';
     return newInfo;
   };
@@ -63,9 +61,7 @@ export const CandidateInfo = (props) => {
 
     newValues.registrationDate = dayjs.utc(
       newValues.registrationDate,
-      'DD/MM/YYYYTHH:mm',
-      'is',
-    );
+      'DD/MM/YYYYTHH:mm');
     newValues.bestContactTime = dayjs.utc(newValues.bestContactTime, 'HH:mm');
 
     dispatch(updateCandidateInfo(newValues));
