@@ -12,14 +12,12 @@ import { getFieldLabel } from '../../utils';
 
 const Calendar = (props) => {
   const [freeTime, setFreeTime] = useState();
-  const [startT, setStart] = useState();
-  const [endT, setEnd] = useState();
+  const [startTime, setStart] = useState();
+  const [endTime, setEnd] = useState();
   const dispatch = useDispatch();
   const setTime = (time) => {
-    const startTime = dayjs(time.startStr, 'X');
-    const endTime = dayjs(time.endStr, 'X');
-    setStart(startTime);
-    setEnd(endTime);
+    setStart(dayjs(time.startStr, 'X'));
+    setEnd(dayjs(time.endStr, 'X'));
     const interval = 1800000;
     function splitInterval(start, end, step) {
       const result = [];
@@ -57,11 +55,10 @@ const Calendar = (props) => {
           },
         },
         textButton: {
-          // eslint-disable-next-line
           text: freeTime
             ? getFieldLabel('profile.calendar.buttonText.full')
-                .replace(/%(\w*)%/, `${startT}`)
-                .replace(/%(\w*)%/, `${endT}`)
+                .replace(/%(\w*)%/, `${startTime}`)
+                .replace(/%(\w*)%/, `${endTime}`)
             : getFieldLabel('profile.calendar.buttonText.empty'),
           click: () => {},
         },
