@@ -5,7 +5,7 @@ const initialState = {
   isLoading: false,
 };
 
-export default function candidateList(state = initialState, action) {
+export default function candidateSearch(state = initialState, action) {
   switch (action.type) {
     case GET_CANDIDATE_SEARCH.REQUEST:
       return { ...state, isLoading: true };

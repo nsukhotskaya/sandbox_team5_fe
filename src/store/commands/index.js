@@ -9,4 +9,3 @@ export { default as fetchUserInfo } from './fetchUserInfo';
 export { default as fetchLocations } from './fetchLocations';
 export { default as fetchSkillsByStackType } from './fetchSkillsByStackType';
 export { default as fetchCandidateSearch } from './fetchCandidateSearch';
-

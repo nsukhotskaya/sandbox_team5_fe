@@ -59,4 +59,3 @@ export {
   getCandidateSearchFailure,
   GET_CANDIDATE_SEARCH,
 } from './getCandidateSearch';
-
