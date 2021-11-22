@@ -32,45 +32,31 @@ export const CandidateInfo = (props) => {
     return newInfo;
   };
 
-
   const onButtonCancel = () => {
     setIsEditModeOn(false);
   };
 
-  const handleChange = index => e => {
-    console.log(`index => ${index}`)
-    console.log(`value => ${e.target.value}`)
-    // newValues[index] = e.target.value;
-    const newArr = {...newValues};
+  const handleChange = (index) => (e) => {
+    console.log(`value => ${e.target.value}`);
+    const newArr = { ...newValues };
     newArr[index] = e.target.value;
-    setNewValues(newArr)
-    // console.log('property name: '+ e.target.item);
-    // console.log(`typed => ${e.target.item}`)
-    // setNewValues(e.target.item)
-  }
+    setNewValues(newArr);
+  };
 
   const formatedInfo = formatInfo(candidateInfo);
 
   const onButtonEdit = () => {
-    setNewValues({...formatedInfo})
+    setNewValues({ ...formatedInfo });
     setIsEditModeOn(true);
-    console.log(newValues.statusType)
-    
-    
   };
 
   const onButtonSave = () => {
- 
-    console.log(`SAVE HERE`)
-    console.log(`status after edit => ${candidateInfo.statusType}`)
-    console.log(`before delete => ${newValues.isPlanningToJoin}`)
+    console.log(`SAVE`);
     delete newValues.fullName;
     newValues.isPlanningToJoin = true;
-    console.log(`after delete => ${newValues.isPlanningToJoin}`)
-    console.log(newValues)
+    console.log(newValues);
     dispatch(updateCandidateInfo(newValues));
     setIsEditModeOn(false);
-    
   };
 
   return (
@@ -97,7 +83,9 @@ export const CandidateInfo = (props) => {
         )}
         {isEditModeOn && (
           <Box className="button">
-            <Button variant="outlined" onClick={() => onButtonSave()}>{getFieldLabel('common.save')}</Button>
+            <Button variant="outlined" onClick={() => onButtonSave()}>
+              {getFieldLabel('common.save')}
+            </Button>
             <Button variant="outlined" onClick={() => onButtonCancel()}>
               {getFieldLabel('common.cancel')}
             </Button>
@@ -113,7 +101,7 @@ export const CandidateInfo = (props) => {
               <Typography variant="body1">{formatedInfo[item]}</Typography>
             )}
             {isEditModeOn && (
-              <Input value={newValues[item]}  onChange = {handleChange(item)} />
+              <Input value={newValues[item]} onChange={handleChange(item)} />
             )}
           </ListItem>
         ))}

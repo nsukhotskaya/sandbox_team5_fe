@@ -59,4 +59,3 @@ export {
   getSkillsFailure,
   GET_SKILLS,
 } from './getSkills';
-

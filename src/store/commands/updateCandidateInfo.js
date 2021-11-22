@@ -8,7 +8,9 @@ import {
 const updateCandidateInfo = (candidateInfo) => async (dispatch) => {
   dispatch(updateCandidateInfoRequest());
   try {
-    const response = await API.put(`/api/Candidate/updateCandidate?body=${candidateInfo}`);
+    const response = await API.put(
+      `/api/Candidate/updateCandidate?body=${candidateInfo}`,
+    );
     dispatch(updateCandidateInfoSuccess(response.data.candidateInfo));
   } catch (error) {
     dispatch(updateCandidateInfoFailure());
