@@ -9,6 +9,7 @@ import {
   locations,
   getUserInfo,
   skills,
+  candidateSearch,
 } from './reducers';
 
 const rootReducer = (history) => combineReducers({
@@ -20,6 +21,7 @@ const rootReducer = (history) => combineReducers({
   internship: internshipById,
   candidate: candidateById,
   userInfo: getUserInfo,
+  searchResult: candidateSearch,
   router: connectRouter(history),
 });
 
