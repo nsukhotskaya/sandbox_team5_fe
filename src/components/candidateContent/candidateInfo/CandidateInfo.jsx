@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat'
 import {
   Box,
   Typography,
@@ -20,6 +21,7 @@ export const CandidateInfo = (props) => {
   const { candidateInfo } = props;
   const [newValues, setNewValues] = useState([]);
   const dispatch = useDispatch();
+  dayjs.extend(customParseFormat)
 
   const formatInfo = (info) => {
     const newInfo = { ...info };
@@ -27,7 +29,9 @@ export const CandidateInfo = (props) => {
     newInfo.registrationDate = dayjs(info.registrationDate).format(
       'DD.MM.YYYY HH:mm',
     );
+    console.log(`Best => ${newInfo.bestContactTime}`);
     newInfo.bestContactTime = dayjs(info.bestContactTime).format('HH:mm');
+    console.log(`Best 2 => ${newInfo.bestContactTime}`);
     newInfo.isPlanningToJoin = newInfo.isPlanningToJoin ? 'Yes' : 'No';
     return newInfo;
   };
@@ -37,7 +41,7 @@ export const CandidateInfo = (props) => {
   };
 
   const handleChange = (index) => (e) => {
-    console.log(`value => ${e.target.value}`);
+    console.log(`Best => ${e.target.value}`);
     const newArr = { ...newValues };
     newArr[index] = e.target.value;
     setNewValues(newArr);
@@ -54,7 +58,19 @@ export const CandidateInfo = (props) => {
     console.log(`SAVE`);
     delete newValues.fullName;
     newValues.isPlanningToJoin = true;
-    console.log(newValues);
+    // console.log(newValues.registrationDate)
+    
+    
+    console.log(newValues.bestContactTime)
+    
+    newValues.registrationDate = dayjs(newValues.registrationDate, 'DD/MM/YYYYTHH:mm', 'is');
+    newValues.bestContactTime = dayjs(newValues.bestContactTime, 'HH:mm');
+    console.log(newValues.registrationDate)
+    // newValues.bestContactTime = dayjs(`01.01.0001 ${newValues.bestContactTime}`).toISOString();
+    // console.log((`01.01.0001 ${newValues.bestContactTime}`))
+    
+    // console.log(newValues.registrationDate);
+    // console.log(newValues);
     dispatch(updateCandidateInfo(newValues));
     setIsEditModeOn(false);
   };
