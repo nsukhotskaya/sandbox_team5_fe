@@ -1,64 +1,80 @@
 {
   "skills":{
     "interviewer":{
-      "name": "Unknown",
-      "role": "Tech Interviewer",
+      "name": "Kevin Systrom",
+      "role": "Technical Interviewer",
       "skillGrades": [
-          {
-              "name": "HTML",
-              "grade": 4
-          },
-          {
-              "name": "CSS",
-              "grade": 3
-          },
-          {
-              "name": "JS",
-              "grade": 2
-          }
+        {
+          "name": "HTML",
+          "grade": 4
+        },
+        {
+          "name": "CSS",
+          "grade": 4
+        },
+        {
+          "name": "JS",
+          "grade": 5
+        },
+        {
+          "name": "React",
+          "grade": 5
+        },
+        {
+          "name": "Typescript",
+          "grade": 4
+        },
+        {
+          "name": "DOM",
+          "grade": 3
+        },
+        {
+          "name": "Web API",
+          "grade": 3
+        }
       ],
-      "textReview": "Is rude. Unkempt.",
-      "generalImpression": 2
+      "textReview": "Nice young man. Purposeful. Looks to the future with hope. Likes to explore new technologies.",
+      "generalImpression": 4
     },
     "hr":{
-      "name": "Unknown",
+      "name": "Winona Ryder",
       "role": "HR",
       "skillGrades": [
-          {
-              "name": "Communication",
-              "grade": 4
-          },
-          {
-              "name": "Education",
-              "grade": 3
-          },
-          {
-              "name": "Honesty",
-              "grade": 2
-          }
+        {
+          "name": "Communication",
+          "grade": 4
+        },
+        {
+          "name": "Education",
+          "grade": 3
+        },
+        {
+          "name": "Honesty",
+          "grade": 2
+        }
       ],
-      "textReview": "Is rude. Unkempt. But HR" ,
+      "textReview": "He was rude during communication. Doesn't consider it important to win over people." ,
       "generalImpression": 3
     },
     "mentor":{
       "name": "Unknown",
       "role": "Mentor",
       "skillGrades": [
-          {
-              "name": "Angular",
-              "grade": 4
-          },
-          {
-              "name": "Vue",
-              "grade": 3
-          },
-          {
-              "name": "React",
-              "grade": 2
-          }
+        {
+          "name": "Angular",
+          "grade": 0
+        },
+        {
+          "name": "Vue",
+          "grade": 0
+        },
+        {
+          "name": "React",
+          "grade": 0
+        }
       ],
-      "textReview": "Is rude. Unkempt. Mentor. Mentor",
-      "generalImpression": 1
+      "textReview": "",
+      "generalImpression": 0
     }
   }
 }
