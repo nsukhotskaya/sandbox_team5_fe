@@ -16,13 +16,13 @@ import {
   Divider,
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
-import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFields, valueMenuItem } from '../../constants';
+import { tableFields, valueMenuItem, reformatCandidates } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
   updateCandidateStatusById,
+  fetchCandidateSearch,
 } from '../../store/commands';
 import { LinkFormatter } from '../../components';
 import './candidates.sass';
@@ -38,14 +38,10 @@ const Candidates = () => {
     useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
-
-  const listOfCandidates = useSelector((state) => state.candidates.candidates);
-
-  const createMenuItem = valueMenuItem.map((item) => (
-    <MenuItem value={item} key={item}>
-      {item}
-    </MenuItem>
-  ));
+  
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
 
   const dispatch = useDispatch();
   const requestBody = {
@@ -54,34 +50,33 @@ const Candidates = () => {
     internshipId: id,
   };
 
+  const listOfCandidates = useSelector((state) => state.candidates.candidates);
+  const candidateSearchResult = useSelector((state) => state.searchResult.searchResult);
+  const newListOfCandidates = reformatCandidates(listOfCandidates);
+  const newCandidateSearchResult = reformatCandidates(candidateSearchResult);
+
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
-  }, []);
-  
+  },[]);
+
+  useEffect(() => {
+    if (gridApi) gridApi.setRowData(newCandidateSearchResult);
+  },[candidateSearchResult]);
+
+  const createMenuItem = valueMenuItem.map((item) => (
+    <MenuItem value={item} key={item}>
+      {item}
+    </MenuItem>
+  ));
+
   const onPageSizeChanged = (newPageSize) => {
     const { value } = newPageSize.target;
     gridApi.paginationSetPageSize(Number(value));
   };
 
-  const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
-  };
-
   const onGridReady = (params) => {
     setGridApi(params.api);
   };
-
-  const reformatCandidates = (candidates) =>
-    candidates.map((candidate) => {
-      const newObj = { ...candidate };
-      newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
-      newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
-        'DD.MM.YYYY',
-      );
-      return newObj;
-    });
-
-  const newListOfCandidates = reformatCandidates(listOfCandidates);
 
   const onButtonExport = () => {
     gridApi.exportDataAsExcel();
@@ -111,6 +106,20 @@ const Candidates = () => {
     dispatch(fetchCandidateList(requestBody));
     const rowNode = gridApi.getRowNode(candidateId);
     rowNode.setSelected(false);
+  };
+
+  const candidateSearch = (event) => {
+    const { value } = event.target;
+    dispatch(
+      fetchCandidateSearch({
+        skip: 0,
+        take: 50,
+        searchText: `${value}`,
+        sortBy: 'lastName',
+        isDesc: true,
+        internshipId: id,
+      }),
+    );
   };
 
   return (
@@ -166,7 +175,10 @@ const Candidates = () => {
             </Box>
           </Stack>
           <Popper open={open} anchorEl={anchorEl} placement="left">
-            <Input placeholder={getFieldLabel('common.search')} />
+            <Input
+              placeholder={getFieldLabel('common.search')}
+              onChange={candidateSearch}
+            />
           </Popper>
         </Box>
       </Box>
@@ -179,7 +191,6 @@ const Candidates = () => {
           onRowSelected={onRowSelected}
           suppressRowClickSelection
           rowData={newListOfCandidates}
-          enableCellChangeFlash
           debug
           animateRows
           onGridReady={onGridReady}
