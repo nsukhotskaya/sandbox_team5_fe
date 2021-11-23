@@ -18,21 +18,23 @@ const CandidateFeedbacksItem = ({role}) => {
   return (
     <Box className="feedbackItem">
       <Box className="titleSection">
-        <Box className="feedbackTitle" display="flex" flexDirection="row" width="400px" alignItems="center">
-          <Typography variant="h5" overflow="hidden" textOverflow="ellipsis" noWrap width="50%" >
+        <Box className="flexboxRow" width="400px">
+          <Typography className="feedbackTitle" variant="h5">
             {role.name}
           </Typography>
-          <Typography variant="subtitle2" width="50%" overflow="hidden" textAlign="right" textOverflow="ellipsis" color="primary.main" noWrap>
+          <Typography className="feedbackTitle roleTitle" variant="subtitle2" color="primary.main">
             {role.role}
           </Typography>
         </Box>
-        <Box display="flex" flexDirection="row" alignItems="center">
+        <Box className="flexboxRow">
           <Rating value={role.generalImpression} readOnly/>
         </Box>
-        <IconButton onClick={handleButton}>{isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}</IconButton>
+        <IconButton onClick={handleButton}>
+          {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </IconButton>
       </Box>
       <Collapse in={isCriteriaShown}>
-        <Box border="1px solid" borderColor="background.default" display="flex" flexDirection="column">
+        <Box className="collapseContainer" borderColor="background.default">
           {role.skillGrades.map((skill) => 
             <StarRating 
             key={skill.name} 
@@ -41,21 +43,22 @@ const CandidateFeedbacksItem = ({role}) => {
             editMode={editMode}/>
           )}
           <TextField
-          sx={{margin: '0 20px 20px 20px'}}
+          sx={{margin: "0 20px 20px 20px"}}
           defaultValue={role.textReview}
           multiline
           minRows="3"
           label="Feedback"
           InputProps={{disabled: !editMode}}
           />
-          <StarRating 
-            title="General Impression" 
-            grade={role.generalImpression}
-            editMode={editMode}
-          />
-          {editMode ? <Button sx={{margin: '0 20px 20px 20px'}} variant="outlined" onClick={handleEditMode}>Save</Button>
-          : 
-          <Button sx={{margin: '0 20px 20px 20px'}} variant="outlined" onClick={handleEditMode}>Edit</Button>
+          <StarRating title="General Impression" grade={role.generalImpression} editMode={editMode}/>
+          {editMode ? 
+            <Button sx={{margin: "0 20px 20px 20px"}} variant="outlined" onClick={handleEditMode}>
+              Save
+            </Button>
+            : 
+            <Button sx={{margin: "0 20px 20px 20px"}} variant="outlined" onClick={handleEditMode}>
+              Edit
+            </Button>
           }
         </Box>
       </Collapse>
