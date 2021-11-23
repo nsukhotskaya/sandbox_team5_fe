@@ -1,0 +1,64 @@
+{
+  "skills":{
+    "interviewer":{
+      "name": "Unknown",
+      "role": "Tech Interviewer",
+      "skillGrades": [
+          {
+              "name": "HTML",
+              "grade": 4
+          },
+          {
+              "name": "CSS",
+              "grade": 3
+          },
+          {
+              "name": "JS",
+              "grade": 2
+          }
+      ],
+      "textReview": "Is rude. Unkempt.",
+      "generalImpression": 2
+    },
+    "hr":{
+      "name": "Unknown",
+      "role": "HR",
+      "skillGrades": [
+          {
+              "name": "Communication",
+              "grade": 4
+          },
+          {
+              "name": "Education",
+              "grade": 3
+          },
+          {
+              "name": "Honesty",
+              "grade": 2
+          }
+      ],
+      "textReview": "Is rude. Unkempt. But HR" ,
+      "generalImpression": 3
+    },
+    "mentor":{
+      "name": "Unknown",
+      "role": "Mentor",
+      "skillGrades": [
+          {
+              "name": "Angular",
+              "grade": 4
+          },
+          {
+              "name": "Vue",
+              "grade": 3
+          },
+          {
+              "name": "React",
+              "grade": 2
+          }
+      ],
+      "textReview": "Is rude. Unkempt. Mentor. Mentor",
+      "generalImpression": 1
+    }
+  }
+}

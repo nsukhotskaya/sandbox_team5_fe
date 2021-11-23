@@ -1,12 +1,16 @@
 .feedbackContainer
   height: 100%
-  display: grid
-  grid-template-rows: 1fr 1fr 1fr
-  gap: 30px
+  display: flex
+  flex-direction: column
 
 .feedbackItem
-  display: grid
-  grid-template-rows: 30px 30px 1fr
+  display: flex
+  flex-direction: column
+  margin-bottom: 30px
 
-.feedbackText
-  width: 100%
+.titleSection
+  height: 55px
+  display: flex
+  flex-direction: row
+  align-items: center
+  justify-content: space-between
