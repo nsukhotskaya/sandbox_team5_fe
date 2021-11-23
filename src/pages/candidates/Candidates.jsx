@@ -16,9 +16,8 @@ import {
   Divider,
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
-import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFields, valueMenuItem } from '../../constants';
+import { tableFields, valueMenuItem, reformatCandidates } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
@@ -39,6 +38,10 @@ const Candidates = () => {
     useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
+  
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
 
   const dispatch = useDispatch();
   const requestBody = {
@@ -49,24 +52,16 @@ const Candidates = () => {
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
   const candidateSearchResult = useSelector((state) => state.searchResult.searchResult);
-  console.log(candidateSearchResult);
+  const newListOfCandidates = reformatCandidates(listOfCandidates);
+  const newCandidateSearchResult = reformatCandidates(candidateSearchResult);
 
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
-  }, []);
+  },[]);
 
-  const reformatCandidates = (candidates) =>
-  candidates.map((candidate) => {
-    const newObj = { ...candidate };
-    newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
-    newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
-      'DD.MM.YYYY',
-    );
-    return newObj;
-  });
-
-  const newListOfCandidates = reformatCandidates(listOfCandidates);
-  const newCandidateSearchResult = reformatCandidates(candidateSearchResult);
+  useEffect(() => {
+    if (gridApi) gridApi.setRowData(newCandidateSearchResult);
+  },[candidateSearchResult]);
 
   const createMenuItem = valueMenuItem.map((item) => (
     <MenuItem value={item} key={item}>
@@ -77,10 +72,6 @@ const Candidates = () => {
   const onPageSizeChanged = (newPageSize) => {
     const { value } = newPageSize.target;
     gridApi.paginationSetPageSize(Number(value));
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
   };
 
   const onGridReady = (params) => {
@@ -129,7 +120,6 @@ const Candidates = () => {
         internshipId: id,
       }),
     );
-    gridApi.setRowData(newCandidateSearchResult);
   };
 
   return (
