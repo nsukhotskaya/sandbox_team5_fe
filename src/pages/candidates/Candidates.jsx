@@ -188,7 +188,9 @@ const Candidates = () => {
         </Box>
       </Box>
       <Box className="ag-theme-alpine">
-        {isLoading ? <LoadingIndicator /> : 
+        {isLoading ? ( 
+          <LoadingIndicator /> 
+        ) : (
         <AgGridReact
           getRowNodeId={getRowNodeId}
           frameworkComponents={{
@@ -246,7 +248,7 @@ const Candidates = () => {
               />
             ))}
           </AgGridReact>
-        }
+        )}
       </Box>
     </Box>
   );
