@@ -29,6 +29,8 @@ import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import { loadingSelector } from '../../store/selectors';
+import { LoadingIndicator } from '../../components/loadingIndicator';
 
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
@@ -38,6 +40,9 @@ const Candidates = () => {
     useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
+
+  const isLoading = useSelector(loadingSelector(['GET_CANDIDATE_LIST']));
+  useEffect(() => {}, [isLoading]);
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
 
@@ -57,7 +62,7 @@ const Candidates = () => {
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
   }, []);
-  
+
   const onPageSizeChanged = (newPageSize) => {
     const { value } = newPageSize.target;
     gridApi.paginationSetPageSize(Number(value));
@@ -171,64 +176,68 @@ const Candidates = () => {
         </Box>
       </Box>
       <Box className="ag-theme-alpine">
-        <AgGridReact
-          getRowNodeId={getRowNodeId}
-          frameworkComponents={{
-            linkFormatter: LinkFormatter,
-          }}
-          onRowSelected={onRowSelected}
-          suppressRowClickSelection
-          rowData={newListOfCandidates}
-          enableCellChangeFlash
-          debug
-          animateRows
-          onGridReady={onGridReady}
-          rowSelection="multiple"
-          pagination
-          paginationPageSize="20"
-          sideBar={{
-            toolPanels: [
-              {
-                id: 'columns',
-                labelDefault: 'Columns',
-                labelKey: 'columns',
-                iconKey: 'columns',
-                toolPanel: 'agColumnsToolPanel',
-              },
-              {
-                id: 'filters',
-                labelDefault: 'Filters',
-                labelKey: 'filters',
-                iconKey: 'filter',
-                toolPanel: 'agFiltersToolPanel',
-              },
-            ],
-            position: 'left',
-          }}
-        >
-          <AgGridColumn
-            field="fullName"
-            sortable
-            filter
-            checkboxSelection
-            resizable
-            headerCheckboxSelection
-            suppressSizeToFit
-            minWidth={250}
-            cellRenderer="linkFormatter"
-          />
-          {tableFields.map((field) => (
+        {isLoading ? (
+          <LoadingIndicator />
+        ) : (
+          <AgGridReact
+            getRowNodeId={getRowNodeId}
+            frameworkComponents={{
+              linkFormatter: LinkFormatter,
+            }}
+            onRowSelected={onRowSelected}
+            suppressRowClickSelection
+            rowData={newListOfCandidates}
+            enableCellChangeFlash
+            debug
+            animateRows
+            onGridReady={onGridReady}
+            rowSelection="multiple"
+            pagination
+            paginationPageSize="20"
+            sideBar={{
+              toolPanels: [
+                {
+                  id: 'columns',
+                  labelDefault: 'Columns',
+                  labelKey: 'columns',
+                  iconKey: 'columns',
+                  toolPanel: 'agColumnsToolPanel',
+                },
+                {
+                  id: 'filters',
+                  labelDefault: 'Filters',
+                  labelKey: 'filters',
+                  iconKey: 'filter',
+                  toolPanel: 'agFiltersToolPanel',
+                },
+              ],
+              position: 'left',
+            }}
+          >
             <AgGridColumn
-              field={field}
-              headerName={getFieldLabel(`candidates.table.${field}`)}
-              key={field}
+              field="fullName"
               sortable
               filter
+              checkboxSelection
               resizable
-              flex={1}
+              headerCheckboxSelection
+              suppressSizeToFit
+              minWidth={250}
+              cellRenderer="linkFormatter"
             />
-          ))}
-        </AgGridReact>
+            {tableFields.map((field) => (
+              <AgGridColumn
+                field={field}
+                headerName={getFieldLabel(`candidates.table.${field}`)}
+                key={field}
+                sortable
+                filter
+                resizable
+                flex={1}
+              />
+            ))}
+          </AgGridReact>
+        )}
       </Box>
     </Box>
   );

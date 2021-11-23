@@ -9,18 +9,21 @@ import {
   locations,
   getUserInfo,
   skills,
+  loadingReducer,
 } from './reducers';
 
-const rootReducer = (history) => combineReducers({
-  locations,
-  skills,
-  authorization: isAuthorized,
-  candidates: candidateList,
-  internships: internshipsList,
-  internship: internshipById,
-  candidate: candidateById,
-  userInfo: getUserInfo,
-  router: connectRouter(history),
-});
+const rootReducer = (history) =>
+  combineReducers({
+    loading: loadingReducer,
+    locations,
+    skills,
+    authorization: isAuthorized,
+    candidates: candidateList,
+    internships: internshipsList,
+    internship: internshipById,
+    candidate: candidateById,
+    userInfo: getUserInfo,
+    router: connectRouter(history),
+  });
 
 export default rootReducer;

@@ -9,9 +9,7 @@ const SidePopUp = ({ active, setActive }) => {
   };
 
   return (
-    <Box
-      className={active ? 'modal active' : 'modal'}
-    >
+    <Box className={active ? 'modal active' : 'modal'}>
       <Box
         className={active ? 'modalContent active' : 'modalContent'}
         onClick={(event) => event.stopPropagation()}
