@@ -4,6 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box, Typography, Rating, IconButton, Collapse, TextField, Button } from '@mui/material';
 import './CandidateFeedbacksItem.sass'
 import { StarRating } from '../index';
+import { getFieldLabel } from '../../../utils';
 
 const CandidateFeedbacksItem = ({role}) => {
   const [isCriteriaShown , setIsCriteriaShown] = React.useState(false);
@@ -47,17 +48,17 @@ const CandidateFeedbacksItem = ({role}) => {
           defaultValue={role.textReview}
           multiline
           minRows="3"
-          label="Feedback"
+          label={getFieldLabel('candidateFeedbacks.label.feedback')}
           InputProps={{disabled: !editMode}}
           />
-          <StarRating title="General Impression" grade={role.generalImpression} editMode={editMode}/>
+          <StarRating title={getFieldLabel('candidateFeedbacks.title.generalImpression')} grade={role.generalImpression} editMode={editMode}/>
           {editMode ? 
             <Button sx={{margin: "0 20px 20px 20px"}} variant="outlined" onClick={handleEditMode}>
-              Save
+              {getFieldLabel('common.save')}
             </Button>
             : 
             <Button sx={{margin: "0 20px 20px 20px"}} variant="outlined" onClick={handleEditMode}>
-              Edit
+              {getFieldLabel('common.edit')}
             </Button>
           }
         </Box>

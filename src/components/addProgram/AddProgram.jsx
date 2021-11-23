@@ -186,10 +186,10 @@ const AddProgram = (props) => {
         </Box>
         <Box className="buttonWrapper">
           <Button variant="contained" type="submit">
-            {getFieldLabel('addprogram.button.add')}
+            {getFieldLabel('common.add')}
           </Button>
           <Button variant="outlined" onClick={closeModal}>
-            {getFieldLabel('addprogram.button.cancel')}
+            {getFieldLabel('common.cancel')}
           </Button>
         </Box>
       </form>

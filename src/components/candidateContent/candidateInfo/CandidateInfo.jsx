@@ -10,7 +10,6 @@ import {
   Button,
 } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
-
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
 
 const CandidateInfo = (props) => {
