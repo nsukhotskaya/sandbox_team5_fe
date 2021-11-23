@@ -29,6 +29,8 @@ import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import { loadingSelector } from '../../store/selectors';
+import { LoadingIndicator } from '../../components/loadingIndicator';
 
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
@@ -38,6 +40,9 @@ const Candidates = () => {
     useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
+
+  const isLoading = useSelector(loadingSelector(['GET_CANDIDATE_LIST']));
+  useEffect(() => {}, [isLoading]);
   
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -183,6 +188,9 @@ const Candidates = () => {
         </Box>
       </Box>
       <Box className="ag-theme-alpine">
+        {isLoading ? ( 
+          <LoadingIndicator /> 
+        ) : (
         <AgGridReact
           getRowNodeId={getRowNodeId}
           frameworkComponents={{
@@ -217,29 +225,30 @@ const Candidates = () => {
             position: 'left',
           }}
         >
-          <AgGridColumn
-            field="fullName"
-            sortable
-            filter
-            checkboxSelection
-            resizable
-            headerCheckboxSelection
-            suppressSizeToFit
-            minWidth={250}
-            cellRenderer="linkFormatter"
-          />
-          {tableFields.map((field) => (
             <AgGridColumn
-              field={field}
-              headerName={getFieldLabel(`candidates.table.${field}`)}
-              key={field}
+              field="fullName"
               sortable
               filter
+              checkboxSelection
               resizable
-              flex={1}
+              headerCheckboxSelection
+              suppressSizeToFit
+              minWidth={250}
+              cellRenderer="linkFormatter"
             />
-          ))}
-        </AgGridReact>
+            {tableFields.map((field) => (
+              <AgGridColumn
+                field={field}
+                headerName={getFieldLabel(`candidates.table.${field}`)}
+                key={field}
+                sortable
+                filter
+                resizable
+                flex={1}
+              />
+            ))}
+          </AgGridReact>
+        )}
       </Box>
     </Box>
   );

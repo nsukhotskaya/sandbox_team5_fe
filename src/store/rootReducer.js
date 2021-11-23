@@ -10,10 +10,12 @@ import {
   getUserInfo,
   skills,
   candidateSearch,
+  loadingReducer,
 } from './reducers';
 
 const rootReducer = (history) =>
   combineReducers({
+    loading: loadingReducer,
     locations,
     skills,
     authorization: isAuthorized,

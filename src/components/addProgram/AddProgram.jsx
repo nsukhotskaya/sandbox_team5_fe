@@ -12,14 +12,15 @@ import {
   Select,
   Typography,
 } from '@mui/material';
-import {
-  LocalizationProvider,
-  MobileDateTimePicker,
-} from '@mui/lab';
+import { LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
 import { fetchLocations } from '../../store/commands';
-import { languages, stacks, initialValues } from '../../mocks/createInternshipData.json';
+import {
+  languages,
+  stacks,
+  initialValues,
+} from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
 
 const MenuProps = {
@@ -48,29 +49,31 @@ const AddProgram = (props) => {
         const countryObject = { name: country };
         return countryObject;
       });
-      newInternship.internshipStacks = newInternship.internshipStacks.map((stack) => {
-        const stackObject = { technologyStackType: stack };
-        return stackObject;
-      });
+      newInternship.internshipStacks = newInternship.internshipStacks.map(
+        (stack) => {
+          const stackObject = { technologyStackType: stack };
+          return stackObject;
+        },
+      );
     },
   });
 
   const dataForRenderDatePicker = {
     startData: {
-      keyName:'startDate',
-      label:getFieldLabel('addprogram.field.label.startDate'),
+      keyName: 'startDate',
+      label: getFieldLabel('addprogram.field.label.startDate'),
     },
     endData: {
-      keyName:'endDate',
-      label:getFieldLabel('addprogram.field.label.endDate'),
+      keyName: 'endDate',
+      label: getFieldLabel('addprogram.field.label.endDate'),
     },
     registrationStartData: {
-      keyName:'registrationStartDate',
-      label:getFieldLabel('addprogram.field.label.registrationStart'),
+      keyName: 'registrationStartDate',
+      label: getFieldLabel('addprogram.field.label.registrationStart'),
     },
     registrationFinishData: {
-      keyName:'registrationFinishDate',
-      label:getFieldLabel('addprogram.field.label.registrationFinish'),
+      keyName: 'registrationFinishDate',
+      label: getFieldLabel('addprogram.field.label.registrationFinish'),
     },
   };
 
@@ -89,7 +92,7 @@ const AddProgram = (props) => {
     },
   };
 
-  const dataForRenderSelect = { 
+  const dataForRenderSelect = {
     stackData: {
       keyName: 'internshipStacks',
       label: getFieldLabel('addprogram.field.label.stacks'),
@@ -107,7 +110,13 @@ const AddProgram = (props) => {
       <form onSubmit={formik.handleSubmit}>
         <Box className="container">
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Typography variant="h4" width="100%" component="div" gutterBottom color="#222">
+            <Typography
+              variant="h4"
+              width="100%"
+              component="div"
+              gutterBottom
+              color="#222"
+            >
               {getFieldLabel('addprogram.title')}
             </Typography>
             <Stack spacing={2} direction="column">
@@ -130,7 +139,9 @@ const AddProgram = (props) => {
                 variant="standard"
               >
                 {languages.map((item) => (
-                  <MenuItem key={item.id} value={item.name}>{item.name}</MenuItem>
+                  <MenuItem key={item.id} value={item.name}>
+                    {item.name}
+                  </MenuItem>
                 ))}
               </TextField>
               {/* eslint-disable react/jsx-props-no-spreading */}
@@ -141,30 +152,34 @@ const AddProgram = (props) => {
                     name={date.keyName}
                     value={formik.values[`${date.keyName}`]}
                     inputFormat={getFieldLabel('addprogram.input.date.format')}
-                    onChange={(dateValue) => formik.setFieldValue(date.keyName, dateValue)}
+                    onChange={(dateValue) =>
+                      formik.setFieldValue(date.keyName, dateValue)
+                    }
                     mask={getFieldLabel('addprogram.input.date.mask')}
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </React.Fragment>
               ))}
               {/* eslint-enable react/jsx-props-no-spreading */}
-              { Object.values(dataForRenderSelect).map((select) => (
+              {Object.values(dataForRenderSelect).map((select) => (
                 <FormControl key={select.keyName}>
-                <InputLabel>{select.label}</InputLabel>
-                <Select
-                  label={select.label}
-                  multiple
-                  value={formik.values[`${select.keyName}`]}
-                  onChange={(event) => formik.setFieldValue(select.keyName, event.target.value)}
-                  MenuProps={MenuProps}
-                >
-                  {select.array.map((item) => (
-                    <MenuItem key={item.id} value={item.name}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                  <InputLabel>{select.label}</InputLabel>
+                  <Select
+                    label={select.label}
+                    multiple
+                    value={formik.values[`${select.keyName}`]}
+                    onChange={(event) =>
+                      formik.setFieldValue(select.keyName, event.target.value)
+                    }
+                    MenuProps={MenuProps}
+                  >
+                    {select.array.map((item) => (
+                      <MenuItem key={item.id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
               ))}
             </Stack>
           </LocalizationProvider>

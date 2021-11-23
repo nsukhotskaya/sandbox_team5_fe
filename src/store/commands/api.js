@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const provider = axios.create({
   baseURL: 'http://petrov2021-001-site1.btempurl.com/',
-  
 });
 
 provider.interceptors.request.use((config) => {
