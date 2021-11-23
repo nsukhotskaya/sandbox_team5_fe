@@ -129,4 +129,3 @@ const InternshipInfo = ({ internshipInfo }) => {
 };
 
 export default InternshipInfo;
-

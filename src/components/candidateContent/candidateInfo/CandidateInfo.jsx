@@ -43,9 +43,7 @@ const CandidateInfo = (props) => {
         {tableCandidateInfoFields.map((item) => (
           <ListItem key={item}>
             <ListItemText primary={getFieldLabel(`candidate.info.${item}`)} />
-            <Typography variant="body1">
-              {formatedInfo[item]}
-            </Typography>
+            <Typography variant="body1">{formatedInfo[item]}</Typography>
           </ListItem>
         ))}
       </List>

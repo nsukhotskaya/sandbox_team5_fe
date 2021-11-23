@@ -11,7 +11,9 @@ const CandidateFeedbacks = ({candidateInfo}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(candidateInfo.stackType){dispatch(fetchSkillsByStackType(candidateInfo.stackType))};
+    if (candidateInfo.stackType) {
+      dispatch(fetchSkillsByStackType(candidateInfo.stackType));
+    }
   }, [candidateInfo.stackType]);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const CandidateFeedbacks = ({candidateInfo}) => {
     <Box className="feedbacksContainer">
       { Object.values(skills).map((role) => <CandidateFeedbacksItem key={role.role} role={role}/>)}
     </Box>
-  )
+  );
 };
 
 export default CandidateFeedbacks;
