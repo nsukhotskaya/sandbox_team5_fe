@@ -66,7 +66,7 @@
   "internship.page.table.role": "Role",
   "internship.page.table.position": "Position",
   "internship.page.table.team": "Team",
-  "candidates.table.englishLevelName": "English Level",
+  "candidates.table.englishLevelType": "English Level",
   "candidates.table.interviewer": "Interviewer",
   "candidates.table.testTaskEvaluation": "Test Task",
   "candidates.table.statusType": "Status",

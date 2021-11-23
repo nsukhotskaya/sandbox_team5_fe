@@ -9,13 +9,21 @@ import {
   Input,
   Stack,
   Button,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  Divider,
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFields } from '../../constants';
+import { tableFields, valueMenuItem } from '../../constants';
 import { getFieldLabel } from '../../utils';
-import { fetchCandidateList, updateCandidateStatusById } from '../../store/commands';
+import {
+  fetchCandidateList,
+  updateCandidateStatusById,
+} from '../../store/commands';
 import { LinkFormatter } from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
@@ -26,15 +34,22 @@ const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
   const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
-  const [isAddToWorkButtonDisabled, setIsAddToWorkButtonDisabled] = useState(true);
+  const [isAddToWorkButtonDisabled, setIsAddToWorkButtonDisabled] =
+    useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
 
+  const createMenuItem = valueMenuItem.map((item) => (
+    <MenuItem value={item} key={item}>
+      {item}
+    </MenuItem>
+  ));
+
   const dispatch = useDispatch();
   const requestBody = {
-    pageSize: 20,
+    pageSize: 100000,
     pageNumber: 1,
     internshipId: id,
   };
@@ -42,6 +57,11 @@ const Candidates = () => {
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
   }, []);
+  
+  const onPageSizeChanged = (newPageSize) => {
+    const { value } = newPageSize.target;
+    gridApi.paginationSetPageSize(Number(value));
+  };
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -71,11 +91,11 @@ const Candidates = () => {
 
   const onRowSelected = (event) => {
     const rowSelected = event.node.isSelected();
-    const rowSelectedHR = event.node.data.statusType === "HR";
+    const rowSelectedHR = event.node.data.statusType === 'HR';
     if (!rowSelected) {
       setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
-    }else if(rowSelected && rowSelectedHR) {
+    } else if (rowSelected && rowSelectedHR) {
       setIsAddToWorkButtonDisabled(true);
       setIsSendButtonDisabled(false);
     } else {
@@ -106,15 +126,44 @@ const Candidates = () => {
             </IconButton>
           </Box>
           <Stack direction="row" spacing={2}>
-            <Button className="candidatesPageButton" onClick={() => onButtonExport()} variant="outlined">
+            <Button
+              className="candidatesPageButton"
+              onClick={() => onButtonExport()}
+              variant="outlined"
+            >
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
-            <Button className="candidatesPageButton" variant="outlined" endIcon={<Send />} disabled={isSendButtonDisabled}>
+            <Button
+              className="candidatesPageButton"
+              variant="outlined"
+              endIcon={<Send />}
+              disabled={isSendButtonDisabled}
+            >
               {getFieldLabel('candidates.button.send')}
             </Button>
-            <Button onClick={() => addToWork()} className="candidatesPageButton" variant="outlined" disabled={isAddToWorkButtonDisabled}>
+            <Button
+              onClick={() => addToWork()}
+              className="candidatesPageButton"
+              variant="outlined"
+              disabled={isAddToWorkButtonDisabled}
+            >
               {getFieldLabel('candidates.button.addToWork')}
             </Button>
+            <Divider orientation="vertical" variant="middle" flexItem />
+            <Box width="80px">
+              <FormControl fullWidth size="small">
+                <InputLabel>
+                  {getFieldLabel('candidates.form.inputLabel')}
+                </InputLabel>
+                <Select
+                  defaultValue="20"
+                  label={getFieldLabel('candidates.form.inputLabel')}
+                  onChange={onPageSizeChanged}
+                >
+                  {createMenuItem}
+                </Select>
+              </FormControl>
+            </Box>
           </Stack>
           <Popper open={open} anchorEl={anchorEl} placement="left">
             <Input placeholder={getFieldLabel('common.search')} />
