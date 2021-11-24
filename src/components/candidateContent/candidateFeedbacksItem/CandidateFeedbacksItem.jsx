@@ -57,7 +57,6 @@ const CandidateFeedbacksItem = ({ role }) => {
             />
           ))}
           <TextField
-            sx={{ margin: '0 20px 20px 20px' }}
             defaultValue={role.textReview}
             multiline
             minRows="3"
@@ -71,7 +70,6 @@ const CandidateFeedbacksItem = ({ role }) => {
           />
           {editMode ? (
             <Button
-              sx={{ margin: '0 20px 20px 20px' }}
               variant="outlined"
               onClick={handleEditMode}
             >
@@ -79,7 +77,6 @@ const CandidateFeedbacksItem = ({ role }) => {
             </Button>
           ) : (
             <Button
-              sx={{ margin: '0 20px 20px 20px' }}
               variant="outlined"
               onClick={handleEditMode}
             >
