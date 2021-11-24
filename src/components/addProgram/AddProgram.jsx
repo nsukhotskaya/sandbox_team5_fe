@@ -68,7 +68,6 @@ const AddProgram = (props) => {
         const stackObject = { technologyStackType: stack };
         return stackObject;
       });
-      console.log(JSON.stringify(newInternship, null, 2))
     },
   });
 
