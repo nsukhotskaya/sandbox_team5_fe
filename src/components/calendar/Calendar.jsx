@@ -1,54 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+import dayjs from 'dayjs';
+import { useDispatch } from 'react-redux';
+import { setBestContactTime } from '../../store/commands';
 import { getFieldLabel } from '../../utils';
 
-export default class DemoApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const { headerType } = this.props;
-
-    return (
-      <FullCalendar
-        plugins={[
-          timeGridPlugin,
-          listPlugin,
-          dayGridPlugin,
-          googleCalendarPlugin,
-          interactionPlugin,
-        ]}
-        customButtons={{
-          approveButton: {
-            text: `${getFieldLabel('profile.calendar.button')}`,
-            click() {},
+const Calendar = (props) => {
+  const [freeTime, setFreeTime] = useState();
+  const [startTime, setStart] = useState();
+  const [endTime, setEnd] = useState();
+  const dispatch = useDispatch();
+  const setTime = (time) => {
+    setStart(dayjs(time.startStr, 'X'));
+    setEnd(dayjs(time.endStr, 'X'));
+    const interval = 1800000;
+    function splitInterval(start, end, step) {
+      const result = [];
+      for (let ts = start; ts < end; ts += step) {
+        result[result.length] = {
+          startTime: dayjs(ts).toISOString(),
+          endTime: dayjs(ts + step).toISOString(),
+        };
+      }
+      if (result.length === 1) {
+        result[result.length] = end;
+      }
+      return result;
+    }
+    const result = splitInterval(startTime, endTime, interval);
+    setFreeTime(result);
+  };
+  const { email } = props;
+  const { headerType } = props;
+  return (
+    <FullCalendar
+      plugins={[
+        timeGridPlugin,
+        listPlugin,
+        dayGridPlugin,
+        googleCalendarPlugin,
+        interactionPlugin,
+      ]}
+      customButtons={{
+        approveButton: {
+          text: getFieldLabel('profile.calendar.button'),
+          click: () => {
+            dispatch(setBestContactTime(freeTime));
+            setFreeTime();
           },
-        }}
-        headerToolbar={headerType}
-        footerToolbar={{
-          start: '',
-          center: '',
-          end: 'approveButton',
-        }}
-        initialView="timeGridWeek"
-        allDaySlot={false}
-        height="100%"
-        expandRows
-        navLinks
-        selectable
-        listDayFormat={false}
-        slotMinTime="08:00:00"
-        editable
-        googleCalendarApiKey="AIzaSyCedd9kcRmZ5SDFy4ORMvC9NwDxtnwEAl4"
-        events={{ googleCalendarId: 'ostroumov.alex.work@gmail.com' }}
-      />
-    );
-  }
-}
+        },
+        textButton: {
+          text: freeTime
+            ? getFieldLabel('profile.calendar.buttonText.full')
+                .replace(/%(\w*)%/, `${startTime}`)
+                .replace(/%(\w*)%/, `${endTime}`)
+            : getFieldLabel('profile.calendar.buttonText.empty'),
+          click: () => {},
+        },
+      }}
+      headerToolbar={headerType}
+      footerToolbar={{
+        start: 'textButton',
+        center: '',
+        end: 'approveButton',
+      }}
+      initialView="timeGridWeek"
+      allDaySlot={false}
+      height="100%"
+      expandRows
+      navLinks
+      selectable
+      select={setTime}
+      listDayFormat={false}
+      slotMinTime="08:00:00"
+      editable
+      googleCalendarApiKey="AIzaSyCedd9kcRmZ5SDFy4ORMvC9NwDxtnwEAl4"
+      events={{ googleCalendarId: email }}
+    />
+  );
+};
+
+export default Calendar;

@@ -17,7 +17,11 @@ import {
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFields, valueMenuItem, reformatCandidates } from '../../constants';
+import {
+  tableFields,
+  valueMenuItem,
+  reformatCandidates,
+} from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
@@ -43,7 +47,7 @@ const Candidates = () => {
 
   const isLoading = useSelector(loadingSelector(['GET_CANDIDATE_LIST']));
   useEffect(() => {}, [isLoading]);
-  
+
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
@@ -56,17 +60,19 @@ const Candidates = () => {
   };
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
-  const candidateSearchResult = useSelector((state) => state.searchResult.searchResult);
+  const candidateSearchResult = useSelector(
+    (state) => state.searchResult.searchResult,
+  );
   const newListOfCandidates = reformatCandidates(listOfCandidates);
   const newCandidateSearchResult = reformatCandidates(candidateSearchResult);
 
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (gridApi) gridApi.setRowData(newCandidateSearchResult);
-  },[candidateSearchResult]);
+  }, [candidateSearchResult]);
 
   const createMenuItem = valueMenuItem.map((item) => (
     <MenuItem value={item} key={item}>
@@ -188,43 +194,43 @@ const Candidates = () => {
         </Box>
       </Box>
       <Box className="ag-theme-alpine">
-        {isLoading ? ( 
-          <LoadingIndicator /> 
+        {isLoading ? (
+          <LoadingIndicator />
         ) : (
-        <AgGridReact
-          getRowNodeId={getRowNodeId}
-          frameworkComponents={{
-            linkFormatter: LinkFormatter,
-          }}
-          onRowSelected={onRowSelected}
-          suppressRowClickSelection
-          rowData={newListOfCandidates}
-          debug
-          animateRows
-          onGridReady={onGridReady}
-          rowSelection="multiple"
-          pagination
-          paginationPageSize="20"
-          sideBar={{
-            toolPanels: [
-              {
-                id: 'columns',
-                labelDefault: 'Columns',
-                labelKey: 'columns',
-                iconKey: 'columns',
-                toolPanel: 'agColumnsToolPanel',
-              },
-              {
-                id: 'filters',
-                labelDefault: 'Filters',
-                labelKey: 'filters',
-                iconKey: 'filter',
-                toolPanel: 'agFiltersToolPanel',
-              },
-            ],
-            position: 'left',
-          }}
-        >
+          <AgGridReact
+            getRowNodeId={getRowNodeId}
+            frameworkComponents={{
+              linkFormatter: LinkFormatter,
+            }}
+            onRowSelected={onRowSelected}
+            suppressRowClickSelection
+            rowData={newListOfCandidates}
+            debug
+            animateRows
+            onGridReady={onGridReady}
+            rowSelection="multiple"
+            pagination
+            paginationPageSize="20"
+            sideBar={{
+              toolPanels: [
+                {
+                  id: 'columns',
+                  labelDefault: 'Columns',
+                  labelKey: 'columns',
+                  iconKey: 'columns',
+                  toolPanel: 'agColumnsToolPanel',
+                },
+                {
+                  id: 'filters',
+                  labelDefault: 'Filters',
+                  labelKey: 'filters',
+                  iconKey: 'filter',
+                  toolPanel: 'agFiltersToolPanel',
+                },
+              ],
+              position: 'left',
+            }}
+          >
             <AgGridColumn
               field="fullName"
               sortable

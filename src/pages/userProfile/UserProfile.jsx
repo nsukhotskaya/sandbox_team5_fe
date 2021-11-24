@@ -12,12 +12,12 @@ import {
 } from '@mui/material';
 import './UserProfile.sass';
 import { fetchUserInfo } from '../../store/commands';
-import { Calendar } from '../../components/calendar';
 import { getFieldLabel } from '../../utils';
 import { userProfileListFields } from '../../constants/userProfileListFields';
 import CustomTabs from '../../components/tabs/Tabs';
 import { useMediaDown } from '../../components/utils';
 import { header, headerMobile } from '../../constants/calendarHeader';
+import { Calendar } from '../../components/calendar';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
 
@@ -90,7 +90,10 @@ const UserProfile = () => {
           </Box>
           <Box className={mobile ? 'calendarMobile' : 'calendar'}>
             <Card className={mobile ? 'calendarCardMobile' : 'calendarCard'}>
-              <Calendar headerType={mobile ? headerMobile : header} />
+              <Calendar
+                headerType={mobile ? headerMobile : header}
+                email={userInfo.email}
+              />
             </Card>
           </Box>
         </Box>
