@@ -15,20 +15,21 @@ import {
   loadingReducer,
 } from './reducers';
 
-const rootReducer = (history) => combineReducers({
-  stacks,
-  locations,
-  languages,
-  skills,
-  searchResult: candidateSearch,
-  loading: loadingReducer,
-  authorization: isAuthorized,
-  candidates: candidateList,
-  internships: internshipsList,
-  internship: internshipById,
-  candidate: candidateById,
-  userInfo: getUserInfo,
-  router: connectRouter(history),
-});
+const rootReducer = (history) =>
+  combineReducers({
+    stacks,
+    locations,
+    languages,
+    skills,
+    searchResult: candidateSearch,
+    loading: loadingReducer,
+    authorization: isAuthorized,
+    candidates: candidateList,
+    internships: internshipsList,
+    internship: internshipById,
+    candidate: candidateById,
+    userInfo: getUserInfo,
+    router: connectRouter(history),
+  });
 
 export default rootReducer;

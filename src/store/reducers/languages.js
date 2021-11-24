@@ -10,7 +10,11 @@ export default function languages(state = initialState, action) {
     case GET_LANGUAGES.REQUEST:
       return { ...state, isLoading: true };
     case GET_LANGUAGES.SUCCESS: {
-      return { ...state, languages: action.payload.languages, isLoading: false };
+      return {
+        ...state,
+        languages: action.payload.languages,
+        isLoading: false,
+      };
     }
     case GET_LANGUAGES.FAILURE:
       return { ...state, isLoading: false };

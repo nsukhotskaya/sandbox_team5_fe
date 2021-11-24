@@ -15,7 +15,11 @@ import {
 import { LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
-import { fetchLocations, fetchStacks, fetchLanguages } from '../../store/commands';
+import {
+  fetchLocations,
+  fetchStacks,
+  fetchLanguages,
+} from '../../store/commands';
 import { initialValues } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
 
@@ -28,11 +32,13 @@ const MenuProps = {
   },
 };
 
-const stringToObject = (array) => array.map((item, index) => ({
-  id: index,
-  name: item,
-}));
-const checkDataReceived = (...arrays) => arrays.every((array) => array.length!==0)
+const stringToObject = (array) =>
+  array.map((item, index) => ({
+    id: index,
+    name: item,
+  }));
+const checkDataReceived = (...arrays) =>
+  arrays.every((array) => array.length !== 0);
 
 const AddProgram = (props) => {
   const { closeModal } = props;
@@ -42,10 +48,14 @@ const AddProgram = (props) => {
   const stacksList = useSelector((state) => state.stacks.stacks);
   const languagesList = useSelector((state) => state.languages.languages);
 
-  const isDataReceived = checkDataReceived(locationsList, stacksList, languagesList);
+  const isDataReceived = checkDataReceived(
+    locationsList,
+    stacksList,
+    languagesList,
+  );
 
   useEffect(() => {
-    if ( !isDataReceived ) {
+    if (!isDataReceived) {
       dispatch(fetchLocations());
       dispatch(fetchStacks());
       dispatch(fetchLanguages());
@@ -64,11 +74,12 @@ const AddProgram = (props) => {
         const countryObject = { name: country };
         return countryObject;
       });
-      newInternship.internshipStacks = newInternship.internshipStacks.map((stack) => {
-        const stackObject = { technologyStackType: stack };
-        return stackObject;
-      });
-      console.log(JSON.stringify(newInternship, null, 2))
+      newInternship.internshipStacks = newInternship.internshipStacks.map(
+        (stack) => {
+          const stackObject = { technologyStackType: stack };
+          return stackObject;
+        },
+      );
     },
   });
 
@@ -166,23 +177,26 @@ const AddProgram = (props) => {
                 </React.Fragment>
               ))}
               {/* eslint-enable react/jsx-props-no-spreading */}
-              { (isDataReceived) && Object.values(dataForRenderSelect).map((select) => (
-                <FormControl key={select.keyName}>
-                  <InputLabel>{select.label}</InputLabel>
-                  <Select
-                    label={select.label}
-                    multiple
-                    value={formik.values[`${select.keyName}`]}
-                    onChange={(event) => formik.setFieldValue(select.keyName, event.target.value)}
-                    MenuProps={MenuProps}
-                  >
-                    {select.array.map((item) => (
-                      <MenuItem key={item.id} value={item.name}>
-                        {item.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+              {isDataReceived &&
+                Object.values(dataForRenderSelect).map((select) => (
+                  <FormControl key={select.keyName}>
+                    <InputLabel>{select.label}</InputLabel>
+                    <Select
+                      label={select.label}
+                      multiple
+                      value={formik.values[`${select.keyName}`]}
+                      onChange={(event) =>
+                        formik.setFieldValue(select.keyName, event.target.value)
+                      }
+                      MenuProps={MenuProps}
+                    >
+                      {select.array.map((item) => (
+                        <MenuItem key={item.id} value={item.name}>
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 ))}
             </Stack>
           </LocalizationProvider>
