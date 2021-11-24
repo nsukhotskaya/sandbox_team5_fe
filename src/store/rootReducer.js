@@ -11,6 +11,8 @@ import {
   languages,
   getUserInfo,
   skills,
+  candidateSearch,
+  loadingReducer,
 } from './reducers';
 
 const rootReducer = (history) => combineReducers({
@@ -18,6 +20,8 @@ const rootReducer = (history) => combineReducers({
   locations,
   languages,
   skills,
+  searchResult: candidateSearch,
+  loading: loadingReducer,
   authorization: isAuthorized,
   candidates: candidateList,
   internships: internshipsList,

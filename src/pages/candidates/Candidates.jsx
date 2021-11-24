@@ -9,59 +9,79 @@ import {
   Input,
   Stack,
   Button,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+  Divider,
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
-import dayjs from 'dayjs';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFields } from '../../constants';
+import { tableFields, valueMenuItem, reformatCandidates } from '../../constants';
 import { getFieldLabel } from '../../utils';
-import { fetchCandidateList, updateCandidateStatusById } from '../../store/commands';
+import {
+  fetchCandidateList,
+  updateCandidateStatusById,
+  fetchCandidateSearch,
+} from '../../store/commands';
 import { LinkFormatter } from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import { loadingSelector } from '../../store/selectors';
+import { LoadingIndicator } from '../../components/loadingIndicator';
 
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
   const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
-  const [isAddToWorkButtonDisabled, setIsAddToWorkButtonDisabled] = useState(true);
+  const [isAddToWorkButtonDisabled, setIsAddToWorkButtonDisabled] =
+    useState(true);
   const open = !!anchorEl;
   const { id } = useParams();
 
-  const listOfCandidates = useSelector((state) => state.candidates.candidates);
+  const isLoading = useSelector(loadingSelector(['GET_CANDIDATE_LIST']));
+  useEffect(() => {}, [isLoading]);
+  
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
 
   const dispatch = useDispatch();
   const requestBody = {
-    pageSize: 20,
+    pageSize: 100000,
     pageNumber: 1,
     internshipId: id,
   };
 
+  const listOfCandidates = useSelector((state) => state.candidates.candidates);
+  const candidateSearchResult = useSelector((state) => state.searchResult.searchResult);
+  const newListOfCandidates = reformatCandidates(listOfCandidates);
+  const newCandidateSearchResult = reformatCandidates(candidateSearchResult);
+
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
-  }, []);
+  },[]);
 
-  const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+  useEffect(() => {
+    if (gridApi) gridApi.setRowData(newCandidateSearchResult);
+  },[candidateSearchResult]);
+
+  const createMenuItem = valueMenuItem.map((item) => (
+    <MenuItem value={item} key={item}>
+      {item}
+    </MenuItem>
+  ));
+
+  const onPageSizeChanged = (newPageSize) => {
+    const { value } = newPageSize.target;
+    gridApi.paginationSetPageSize(Number(value));
   };
 
   const onGridReady = (params) => {
     setGridApi(params.api);
   };
-
-  const reformatCandidates = (candidates) =>
-    candidates.map((candidate) => {
-      const newObj = { ...candidate };
-      newObj.fullName = `${candidate.firstName} ${candidate.lastName}`;
-      newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
-        'DD.MM.YYYY',
-      );
-      return newObj;
-    });
-
-  const newListOfCandidates = reformatCandidates(listOfCandidates);
 
   const onButtonExport = () => {
     gridApi.exportDataAsExcel();
@@ -71,11 +91,11 @@ const Candidates = () => {
 
   const onRowSelected = (event) => {
     const rowSelected = event.node.isSelected();
-    const rowSelectedHR = event.node.data.statusType === "HR";
+    const rowSelectedHR = event.node.data.statusType === 'HR';
     if (!rowSelected) {
       setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
-    }else if(rowSelected && rowSelectedHR) {
+    } else if (rowSelected && rowSelectedHR) {
       setIsAddToWorkButtonDisabled(true);
       setIsSendButtonDisabled(false);
     } else {
@@ -93,6 +113,20 @@ const Candidates = () => {
     rowNode.setSelected(false);
   };
 
+  const candidateSearch = (event) => {
+    const { value } = event.target;
+    dispatch(
+      fetchCandidateSearch({
+        skip: 0,
+        take: 50,
+        searchText: `${value}`,
+        sortBy: 'lastName',
+        isDesc: true,
+        internshipId: id,
+      }),
+    );
+  };
+
   return (
     <Box padding="1%" width="100%" height="100%">
       <Box className="candidatesPageHeader">
@@ -106,22 +140,57 @@ const Candidates = () => {
             </IconButton>
           </Box>
           <Stack direction="row" spacing={2}>
-            <Button className="candidatesPageButton" onClick={() => onButtonExport()} variant="outlined">
+            <Button
+              className="candidatesPageButton"
+              onClick={() => onButtonExport()}
+              variant="outlined"
+            >
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
-            <Button className="candidatesPageButton" variant="outlined" endIcon={<Send />} disabled={isSendButtonDisabled}>
+            <Button
+              className="candidatesPageButton"
+              variant="outlined"
+              endIcon={<Send />}
+              disabled={isSendButtonDisabled}
+            >
               {getFieldLabel('candidates.button.send')}
             </Button>
-            <Button onClick={() => addToWork()} className="candidatesPageButton" variant="outlined" disabled={isAddToWorkButtonDisabled}>
+            <Button
+              onClick={() => addToWork()}
+              className="candidatesPageButton"
+              variant="outlined"
+              disabled={isAddToWorkButtonDisabled}
+            >
               {getFieldLabel('candidates.button.addToWork')}
             </Button>
+            <Divider orientation="vertical" variant="middle" flexItem />
+            <Box width="80px">
+              <FormControl fullWidth size="small">
+                <InputLabel>
+                  {getFieldLabel('candidates.form.inputLabel')}
+                </InputLabel>
+                <Select
+                  defaultValue="20"
+                  label={getFieldLabel('candidates.form.inputLabel')}
+                  onChange={onPageSizeChanged}
+                >
+                  {createMenuItem}
+                </Select>
+              </FormControl>
+            </Box>
           </Stack>
           <Popper open={open} anchorEl={anchorEl} placement="left">
-            <Input placeholder={getFieldLabel('common.search')} />
+            <Input
+              placeholder={getFieldLabel('common.search')}
+              onChange={candidateSearch}
+            />
           </Popper>
         </Box>
       </Box>
       <Box className="ag-theme-alpine">
+        {isLoading ? ( 
+          <LoadingIndicator /> 
+        ) : (
         <AgGridReact
           getRowNodeId={getRowNodeId}
           frameworkComponents={{
@@ -130,7 +199,6 @@ const Candidates = () => {
           onRowSelected={onRowSelected}
           suppressRowClickSelection
           rowData={newListOfCandidates}
-          enableCellChangeFlash
           debug
           animateRows
           onGridReady={onGridReady}
@@ -157,29 +225,30 @@ const Candidates = () => {
             position: 'left',
           }}
         >
-          <AgGridColumn
-            field="fullName"
-            sortable
-            filter
-            checkboxSelection
-            resizable
-            headerCheckboxSelection
-            suppressSizeToFit
-            minWidth={250}
-            cellRenderer="linkFormatter"
-          />
-          {tableFields.map((field) => (
             <AgGridColumn
-              field={field}
-              headerName={getFieldLabel(`candidates.table.${field}`)}
-              key={field}
+              field="fullName"
               sortable
               filter
+              checkboxSelection
               resizable
-              flex={1}
+              headerCheckboxSelection
+              suppressSizeToFit
+              minWidth={250}
+              cellRenderer="linkFormatter"
             />
-          ))}
-        </AgGridReact>
+            {tableFields.map((field) => (
+              <AgGridColumn
+                field={field}
+                headerName={getFieldLabel(`candidates.table.${field}`)}
+                key={field}
+                sortable
+                filter
+                resizable
+                flex={1}
+              />
+            ))}
+          </AgGridReact>
+        )}
       </Box>
     </Box>
   );

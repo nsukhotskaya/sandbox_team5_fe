@@ -8,3 +8,5 @@ export { default as locations } from './locations';
 export { default as stacks } from './stacks';
 export { default as languages } from './languages';
 export { default as skills } from './skills';
+export { default as loadingReducer } from './loadingReducer';
+export { default as candidateSearch } from './candidateSearch';

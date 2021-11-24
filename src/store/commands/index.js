@@ -10,3 +10,4 @@ export { default as fetchLocations } from './fetchLocations';
 export { default as fetchStacks } from './fetchStacks';
 export { default as fetchLanguages } from './fetchLanguages';
 export { default as fetchSkillsByStackType } from './fetchSkillsByStackType';
+export { default as fetchCandidateSearch } from './fetchCandidateSearch';

@@ -10,7 +10,11 @@ export default function locations(state = initialState, action) {
     case GET_LOCATIONS.REQUEST:
       return { ...state, isLoading: true };
     case GET_LOCATIONS.SUCCESS: {
-      return { ...state, locations: action.payload.locations, isLoading: false };
+      return {
+        ...state,
+        locations: action.payload.locations,
+        isLoading: false,
+      };
     }
     case GET_LOCATIONS.FAILURE:
       return { ...state, isLoading: false };
