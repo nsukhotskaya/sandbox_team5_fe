@@ -7,90 +7,19 @@
     "maxCandidateCount": 0,
     "registrationStartDate": "2001-11-09T17:31:07.301Z",
     "registrationFinishDate": "2001-11-09T17:31:07.301Z",
-    "languageType": "",
+    "languageType": [],
     "internshipStatusType": "",
     "imageLink": "",
     "internshipStacks": [],
-    "locations": []
-  },
-  "stacks": [
-    {
-      "id": 1,
-      "name": "JS"
-    },
-    {
-      "id": 2,
-      "name": "Java"
-    },
-    {
-      "id": 3,
-      "name": "C#"
-    },
-    {
-      "id": 4,
-      "name": "Python"
-    },
-    {
-      "id": 5,
-      "name": "C++"
-    },
-    {
-      "id": 6,
-      "name": "Vue"
-    },
-    {
-      "id": 7,
-      "name": "Angular"
-    },
-    {
-      "id": 8,
-      "name": "React"
-    },
-    {
-      "id": 9,
-      "name": "Figma"
-    },
-    {
-      "id": 10,
-      "name": "Photoshop"
-    },
-    {
-      "id": 11,
-      "name": "MySQL"
-    },
-    {
-      "id": 12,
-      "name": "GraphQL"
-    },
-    {
-      "id": 13,
-      "name": "Wordpress"
-    }
-  ],
-  "languages": [
-    {
-      "id": 0,
-      "name": "English"
-    },
-    {
-      "id": 1,
-      "name": "Russian"
-    },
-    {
-      "id": 2,
-      "name": "German"
-    },
-    {
-      "id": 3,
-      "name": "French"
-    },
-    {
-      "id": 4,
-      "name": "Indian"
-    },
-    {
-      "id": 5,
-      "name": "Chinese"
-    }
-  ]
+    "locations": [],
+    "id": 0,
+    "candidatesCount": 0,
+    "declinedCandidatesCount": 0,
+    "acceptedCandidatesCount": 0,
+    "abandonedCandidatesCount": 0,
+    "successfullyFinishedCandidatesCount": 0,
+    "teamsCount": 0,
+    "teams": [],
+    "users": []
+  }
 }
