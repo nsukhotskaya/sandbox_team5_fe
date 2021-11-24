@@ -45,7 +45,7 @@
   "profile.calendar.buttonText.empty":"You not choose time interval",
   "candidates.table.registrationDate": "Application Date",
   "candidates.table.location": "Location",
-  "candidates.table.language": "Language",
+  "candidates.table.languageType": "Language",
   "candidates.table.internship": "Internship",
   "candidates.table.stackType": "Stack",
   "candidates.table.hr": "HR",
