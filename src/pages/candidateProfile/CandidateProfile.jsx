@@ -17,7 +17,6 @@ const CandidateProfile = () => {
   useEffect(() => {}, [isLoading]);
 
   useEffect(() => {
-    console.log("useEffect here")
     dispatch(fetchCandidate(id));
   }, []);
 

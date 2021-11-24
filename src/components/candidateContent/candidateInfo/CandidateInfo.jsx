@@ -13,8 +13,7 @@ import {
   Input,
 } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
-// eslint-disable-next-line no-unused-vars
-import { updateCandidateInfo, fetchCandidate } from '../../../store/commands';
+import { updateCandidateInfo } from '../../../store/commands';
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
 
 const utc = require('dayjs/plugin/utc');
@@ -37,8 +36,6 @@ export const CandidateInfo = (props) => {
     return newInfo;
   };
 
- 
-
   const onButtonCancel = () => {
     setIsEditModeOn(false);
   };
@@ -51,31 +48,23 @@ export const CandidateInfo = (props) => {
 
   const formatedInfo = formatInfo(candidateInfo);
 
-
   const onButtonEdit = () => {
     setNewValues({ ...formatedInfo });
     setIsEditModeOn(true);
-    
   };
 
   const onButtonSave = () => {
-    console.log(`SAVE`);
-
     newValues.isPlanningToJoin = true;
 
     newValues.registrationDate = dayjs.utc(
       newValues.registrationDate,
-      'DD/MM/YYYY HH:mm');
+      'DD/MM/YYYY HH:mm',
+    );
     newValues.bestContactTime = dayjs.utc(newValues.bestContactTime, 'HH:mm');
 
     dispatch(updateCandidateInfo(newValues));
- 
-    // dispatch(fetchCandidate(newValues.id));
-    // dispatch(fetchCandidate(newValues.id));
 
     setIsEditModeOn(false);
-    
-    
   };
 
   return (
