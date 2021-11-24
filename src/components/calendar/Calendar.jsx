@@ -7,7 +7,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import dayjs from 'dayjs';
 import { useDispatch } from 'react-redux';
-import setBestContactTime from '../../store/commands/setBestContactTime';
+import { setBestContactTime } from '../../store/commands';
 import { getFieldLabel } from '../../utils';
 
 const Calendar = (props) => {
@@ -35,7 +35,7 @@ const Calendar = (props) => {
     const result = splitInterval(startTime, endTime, interval);
     setFreeTime(result);
   };
-
+  const { email } = props;
   const { headerType } = props;
   return (
     <FullCalendar
@@ -80,7 +80,7 @@ const Calendar = (props) => {
       slotMinTime="08:00:00"
       editable
       googleCalendarApiKey="AIzaSyCedd9kcRmZ5SDFy4ORMvC9NwDxtnwEAl4"
-      events={{ googleCalendarId: 'ostroumov.alex.work@gmail.com' }}
+      events={{ googleCalendarId: email }}
     />
   );
 };

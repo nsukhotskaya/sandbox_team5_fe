@@ -78,7 +78,7 @@ const UserProfile = () => {
       </Box>
       <Box className={mobile ? 'calendarMobile' : 'calendar'}>
         <Card className={mobile ? 'calendarCardMobile' : 'calendarCard'}>
-          <Calendar headerType={mobile ? headerMobile : header} />
+          <Calendar headerType={mobile ? headerMobile : header} email={userInfo.email}/>
         </Card>
       </Box>
     </Box>
