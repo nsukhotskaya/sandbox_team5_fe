@@ -103,7 +103,7 @@ const Candidates = () => {
     if (selectedNodes.length === 0) {
       setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
-    } else if (selectedNodes !== 0 && selectedData.includes('HR')) {
+    } else if (selectedNodes !== 0 && selectedData.includes('HRReview')) {
       setIsAddToWorkButtonDisabled(true);
       setIsSendButtonDisabled(false);
     } else {
