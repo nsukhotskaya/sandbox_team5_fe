@@ -13,7 +13,8 @@ import {
   Input,
 } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
-import { updateCandidateInfo } from '../../../store/commands';
+// eslint-disable-next-line no-unused-vars
+import { updateCandidateInfo, fetchCandidate } from '../../../store/commands';
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
 
 const utc = require('dayjs/plugin/utc');
@@ -36,12 +37,13 @@ export const CandidateInfo = (props) => {
     return newInfo;
   };
 
+ 
+
   const onButtonCancel = () => {
     setIsEditModeOn(false);
   };
 
   const handleChange = (index) => (e) => {
-    console.log(`Best => ${e.target.value}`);
     const newArr = { ...newValues };
     newArr[index] = e.target.value;
     setNewValues(newArr);
@@ -49,9 +51,11 @@ export const CandidateInfo = (props) => {
 
   const formatedInfo = formatInfo(candidateInfo);
 
+
   const onButtonEdit = () => {
     setNewValues({ ...formatedInfo });
     setIsEditModeOn(true);
+    
   };
 
   const onButtonSave = () => {
@@ -61,11 +65,17 @@ export const CandidateInfo = (props) => {
 
     newValues.registrationDate = dayjs.utc(
       newValues.registrationDate,
-      'DD/MM/YYYYTHH:mm');
+      'DD/MM/YYYY HH:mm');
     newValues.bestContactTime = dayjs.utc(newValues.bestContactTime, 'HH:mm');
 
     dispatch(updateCandidateInfo(newValues));
+ 
+    // dispatch(fetchCandidate(newValues.id));
+    // dispatch(fetchCandidate(newValues.id));
+
     setIsEditModeOn(false);
+    
+    
   };
 
   return (

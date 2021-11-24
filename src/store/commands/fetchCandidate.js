@@ -8,6 +8,7 @@ import {
 const fetchCandidate = (id) => async (dispatch) => {
   dispatch(getCandidateRequest());
   try {
+    console.log("fetching")
     const response = await API.get(`/api/Candidate/getCandidateById?id=${id}`);
     dispatch(getCandidateSuccess(response.data));
   } catch (error) {

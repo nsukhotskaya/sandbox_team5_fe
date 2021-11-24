@@ -12,6 +12,7 @@ const CandidateProfile = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("useEffect here")
     dispatch(fetchCandidate(id));
   }, []);
 
@@ -22,10 +23,10 @@ const CandidateProfile = () => {
       className="candidateProfileWrapper"
     >
       <Box className="candidateProfileCardWrapper" border="1px solid #e0e0e0">
-        <CandidateInfo candidateInfo={candidate} />
+        <CandidateInfo candidateInfo={candidate}/>
       </Box>
       <Box className="candidateProfileCardWrapper">
-        <CandidateFeedbacks candidateInfo={candidate} />
+        <CandidateFeedbacks candidateInfo={candidate}/>
       </Box>
     </Box>
   );
