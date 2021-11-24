@@ -133,8 +133,8 @@ const Candidates = () => {
         <Typography variant="h4" component="div" gutterBottom color="#222">
           {getFieldLabel('candidates.internship.name')}
         </Typography>
-        <Box display="flex" alignItems="center">
-          <Box marginRight="15px">
+        <Box className="candidatesButtons">
+          <Box className="searchBox" marginRight="15px">
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>

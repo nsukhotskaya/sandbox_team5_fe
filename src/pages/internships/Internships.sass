@@ -1,4 +1,4 @@
-.internshipMenu
+.internshipsHeader
     display: flex
     flex-direction: row
     align-items: center
@@ -12,3 +12,21 @@
         flex-direction: column
         align-items: center
         justify-content: space-between
+
+.internshipsMenu
+    width: 280px
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+
+    @media screen and (max-width: 899px)
+        display: flex
+        flex-direction: column
+        align-items: flex-end
+        justify-content: space-between
+
+.menuItemsBox
+    display: flex
+    flex-direction: row
+    justify-content: space-between
