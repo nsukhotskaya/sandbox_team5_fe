@@ -1,20 +1,28 @@
 import React from 'react';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Box, Typography, Rating, IconButton, Collapse, TextField, Button } from '@mui/material';
-import './CandidateFeedbacksItem.sass'
+import {
+  Box,
+  Typography,
+  Rating,
+  IconButton,
+  Collapse,
+  TextField,
+  Button,
+} from '@mui/material';
+import './CandidateFeedbacksItem.sass';
 import { StarRating } from '../index';
 import { getFieldLabel } from '../../../utils';
 
-const CandidateFeedbacksItem = ({role}) => {
-  const [isCriteriaShown , setIsCriteriaShown] = React.useState(false);
+const CandidateFeedbacksItem = ({ role }) => {
+  const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
   const [editMode, setEditMode] = React.useState(false);
   const handleButton = () => {
-    setIsCriteriaShown(!isCriteriaShown)
-  }
+    setIsCriteriaShown(!isCriteriaShown);
+  };
   const handleEditMode = () => {
-    setEditMode(!editMode)
-  }
+    setEditMode(!editMode);
+  };
 
   return (
     <Box className="feedbackItem">
@@ -23,12 +31,16 @@ const CandidateFeedbacksItem = ({role}) => {
           <Typography className="feedbackTitle" variant="h5">
             {role.name}
           </Typography>
-          <Typography className="feedbackTitle roleTitle" variant="subtitle2" color="primary.main">
+          <Typography
+            className="feedbackTitle roleTitle"
+            variant="subtitle2"
+            color="primary.main"
+          >
             {role.role}
           </Typography>
         </Box>
         <Box className="flexboxRow">
-          <Rating value={role.generalImpression} readOnly/>
+          <Rating value={role.generalImpression} readOnly />
         </Box>
         <IconButton onClick={handleButton}>
           {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -36,35 +48,48 @@ const CandidateFeedbacksItem = ({role}) => {
       </Box>
       <Collapse in={isCriteriaShown}>
         <Box className="collapseContainer" borderColor="background.default">
-          {role.skillGrades.map((skill) => 
-            <StarRating 
-            key={skill.name} 
-            title={skill.name} 
-            grade={skill.grade} 
-            editMode={editMode}/>
-          )}
+          {role.skillGrades.map((skill) => (
+            <StarRating
+              key={skill.name}
+              title={skill.name}
+              grade={skill.grade}
+              editMode={editMode}
+            />
+          ))}
           <TextField
-          sx={{margin: "0 20px 20px 20px"}}
-          defaultValue={role.textReview}
-          multiline
-          minRows="3"
-          label={getFieldLabel('candidateFeedbacks.label.feedback')}
-          InputProps={{disabled: !editMode}}
+            sx={{ margin: '0 20px 20px 20px' }}
+            defaultValue={role.textReview}
+            multiline
+            minRows="3"
+            label={getFieldLabel('candidateFeedbacks.label.feedback')}
+            InputProps={{ disabled: !editMode }}
           />
-          <StarRating title={getFieldLabel('candidateFeedbacks.title.generalImpression')} grade={role.generalImpression} editMode={editMode}/>
-          {editMode ? 
-            <Button sx={{margin: "0 20px 20px 20px"}} variant="outlined" onClick={handleEditMode}>
+          <StarRating
+            title={getFieldLabel('candidateFeedbacks.title.generalImpression')}
+            grade={role.generalImpression}
+            editMode={editMode}
+          />
+          {editMode ? (
+            <Button
+              sx={{ margin: '0 20px 20px 20px' }}
+              variant="outlined"
+              onClick={handleEditMode}
+            >
               {getFieldLabel('common.save')}
             </Button>
-            : 
-            <Button sx={{margin: "0 20px 20px 20px"}} variant="outlined" onClick={handleEditMode}>
+          ) : (
+            <Button
+              sx={{ margin: '0 20px 20px 20px' }}
+              variant="outlined"
+              onClick={handleEditMode}
+            >
               {getFieldLabel('common.edit')}
             </Button>
-          }
+          )}
         </Box>
       </Collapse>
     </Box>
-  )
+  );
 };
 
 export default CandidateFeedbacksItem;

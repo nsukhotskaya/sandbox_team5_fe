@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box } from '@mui/material';
 import { fetchSkillsByStackType } from '../../../store/commands';
-import './CandidateFeedbacks.sass'
+import './CandidateFeedbacks.sass';
 import { skills } from '../../../mocks/candidateFeedbacks.json';
 import { CandidateFeedbacksItem } from '../index';
 
-const CandidateFeedbacks = ({candidateInfo}) => {
+const CandidateFeedbacks = ({ candidateInfo }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -15,9 +15,11 @@ const CandidateFeedbacks = ({candidateInfo}) => {
     }
   }, [candidateInfo.stackType]);
 
-  return(
+  return (
     <Box className="feedbacksContainer">
-      { Object.values(skills).map((role) => <CandidateFeedbacksItem key={role.role} role={role}/>)}
+      {Object.values(skills).map((role) => (
+        <CandidateFeedbacksItem key={role.role} role={role} />
+      ))}
     </Box>
   );
 };
