@@ -2,7 +2,7 @@ export const tableFields = [
   'registrationDate',
   'location',
   'languageType',
-  'internship',
+  'internshipName',
   'stackType',
   'englishLevelType',
   'hr',
