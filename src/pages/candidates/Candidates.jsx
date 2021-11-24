@@ -65,8 +65,8 @@ const Candidates = () => {
   );
   const newListOfCandidates = reformatCandidates(listOfCandidates);
   const newCandidateSearchResult = reformatCandidates(candidateSearchResult);
-  const internshipName = listOfCandidates && listOfCandidates.map((item) => item.internshipName);
-
+  const internshipName =
+    listOfCandidates && listOfCandidates.map((item) => item.internshipName);
 
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
@@ -99,11 +99,11 @@ const Candidates = () => {
 
   const onRowSelected = () => {
     const selectedNodes = gridApi.getSelectedNodes();
-    const selectedData = selectedNodes.map(node => node.data.statusType);
+    const selectedData = selectedNodes.map((node) => node.data.statusType);
     if (selectedNodes.length === 0) {
       setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
-    } else if (selectedNodes !==0 && selectedData.includes('HR')) {
+    } else if (selectedNodes !== 0 && selectedData.includes('HR')) {
       setIsAddToWorkButtonDisabled(true);
       setIsSendButtonDisabled(false);
     } else {
@@ -117,7 +117,7 @@ const Candidates = () => {
     const candidateId = selectedRow && selectedRow.map((item) => item.id);
     dispatch(updateCandidateStatusById(candidateId));
     const rowNode = gridApi.getRowNode(candidateId);
-    if(rowNode) rowNode.setSelected(false);
+    if (rowNode) rowNode.setSelected(false);
   };
 
   const candidateSearch = (event) => {
