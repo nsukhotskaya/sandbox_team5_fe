@@ -60,6 +60,12 @@ export {
   GET_SKILLS,
 } from './getSkills';
 export {
+  setBestContactTimeRequest,
+  setBestContactTimeSuccess,
+  setBestContactTimeFailure,
+  SET_BEST_CONTACT_TIME,
+} from './setBestContactTime';
+export {
   getCandidateSearchRequest,
   getCandidateSearchSuccess,
   getCandidateSearchFailure,
