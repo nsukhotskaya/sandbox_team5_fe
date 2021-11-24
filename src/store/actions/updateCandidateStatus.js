@@ -9,10 +9,9 @@ export const updateCandidateStatusRequest = () => ({
   payload: null,
 });
 
-export const updateCandidateStatusSuccess = (statusType, candidateId) => ({
+export const updateCandidateStatusSuccess = (data) => ({
   type: UPDATE_CANDIDATE_STATUS.SUCCESS,
-  statusType,
-  candidateId,
+  payload: { candidatrInformation : data },
 });
 
 export const updateCandidateStatusFailure = (error) => ({
