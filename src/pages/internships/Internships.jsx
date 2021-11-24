@@ -15,7 +15,8 @@ import './Internships.sass';
 import { getFieldLabel } from '../../utils';
 import { InternshipCard, InternshipsFilter, SidePopUp } from '../../components';
 import { fetchInternships } from '../../store/commands';
-import { ProgressIndicator } from '../../components/progressIndicator';
+import { loadingSelector } from '../../store/selectors';
+import { LoadingIndicator } from '../../components/loadingIndicator';
 
 export const Internships = () => {
   const [popUpActive, setPopUpActive] = useState(false);
@@ -24,6 +25,9 @@ export const Internships = () => {
   const open = !!anchorEl;
   const internships = useSelector((state) => state.internships.internships);
   const dispatch = useDispatch();
+
+  const isLoading = useSelector(loadingSelector(['GET_INTERNSHIPS']));
+  useEffect(() => {}, [isLoading]);
 
   useEffect(() => {
     dispatch(fetchInternships());
@@ -40,8 +44,6 @@ export const Internships = () => {
   const onInputChange = (event) => {
     setSearchText(event.target.value);
   };
-
-  if (!internships.length) return <ProgressIndicator />;
 
   return (
     <Container fixed maxWidth="1400px">
@@ -79,30 +81,34 @@ export const Internships = () => {
           </Box>
         </Box>
         <Box>
-          <Grid container spacing={3}>
-            {internships
-              .filter((internship) => {
-                if (!searchText) return true;
-                return (
-                  `${internship.name}`
-                    .toLowerCase()
-                    .indexOf(`${searchText}`.toLowerCase()) !== -1
-                );
-              })
-              .map((internshipItem) => (
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={6}
-                  lg={4}
-                  xl={3}
-                  key={internshipItem.id}
-                >
-                  <InternshipCard data={internshipItem} />
-                </Grid>
-              ))}
-          </Grid>
+          {isLoading ? (
+            <LoadingIndicator />
+          ) : (
+            <Grid container spacing={3}>
+              {internships
+                .filter((internship) => {
+                  if (!searchText) return true;
+                  return (
+                    `${internship.name}`
+                      .toLowerCase()
+                      .indexOf(`${searchText}`.toLowerCase()) !== -1
+                  );
+                })
+                .map((internshipItem) => (
+                  <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    lg={4}
+                    xl={3}
+                    key={internshipItem.id}
+                  >
+                    <InternshipCard data={internshipItem} />
+                  </Grid>
+                ))}
+            </Grid>
+          )}
         </Box>
       </Box>
       <SidePopUp active={popUpActive} setActive={setPopUpActive} />
