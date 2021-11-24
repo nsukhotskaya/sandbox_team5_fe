@@ -36,6 +36,12 @@ export {
   updateCandidateStatusFailure,
 } from './updateCandidateStatus';
 export {
+  UPDATE_CANDIDATE_INFO,
+  updateCandidateInfoRequest,
+  updateCandidateInfoSuccess,
+  updateCandidateInfoFailure,
+} from './updateCandidateInfo';
+export {
   getUserInfoRequest,
   getUserInfoSuccess,
   getUserInfoFailure,
@@ -65,6 +71,12 @@ export {
   getSkillsFailure,
   GET_SKILLS,
 } from './getSkills';
+export {
+  setBestContactTimeRequest,
+  setBestContactTimeSuccess,
+  setBestContactTimeFailure,
+  SET_BEST_CONTACT_TIME,
+} from './setBestContactTime';
 export {
   getCandidateSearchRequest,
   getCandidateSearchSuccess,

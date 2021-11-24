@@ -1,6 +1,8 @@
 {
+  "common.save": "Save",
   "common.search": "Search...",
   "common.open": "Open",
+  "common.cancel": "Cancel",
   "common.close": "Close",
   "common.filter": "Filter",
   "common.edit": "Edit",
@@ -41,6 +43,8 @@
   "profile.tab.feedbacks.fields.fullname": "Full Name",
   "profile.tab.feedbacks.fields.text": "Text",
   "profile.calendar.button": "Approve time",
+  "profile.calendar.buttonText.full":"You chose interval between %startT% and %endT%",
+  "profile.calendar.buttonText.empty":"You not choose time interval",
   "candidates.table.registrationDate": "Application Date",
   "candidates.table.location": "Location",
   "candidates.table.languageType": "Language",
