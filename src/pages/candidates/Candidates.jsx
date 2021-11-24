@@ -134,7 +134,7 @@ const Candidates = () => {
           {getFieldLabel('candidates.internship.name')}
         </Typography>
         <Box className="candidatesButtons">
-          <Box className="searchBox" marginRight="15px">
+          <Box className="searchBox">
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>
