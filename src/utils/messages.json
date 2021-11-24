@@ -6,6 +6,7 @@
   "common.close": "Close",
   "common.filter": "Filter",
   "common.edit": "Edit",
+  "common.add": "Add",
   "header.menu.link.internships": "INTERNSHIP PROGRAMS",
   "header.menu.link.profile": "PROFILE",
   "footer.title": "© 2021 [Team5] Exadel Internship JS&.NET",
@@ -108,8 +109,6 @@
   "candidate.info.links" : "Links",
   "candidate.info.currentJob" : "Current job",
   "addprogram.title": "Add Program",
-  "addprogram.button.add": "Add",
-  "addprogram.button.cancel": "Cancel",
   "addprogram.field.label.startDate": "Start date",
   "addprogram.field.label.endDate": "End date",
   "addprogram.field.label.registrationStart": "Registration start",
@@ -121,5 +120,7 @@
   "addprogram.field.label.locations": "Locations",
   "addprogram.field.label.languages": "Languages",
   "addprogram.input.date.format": "yyyy/MM/dd hh:mm a",
-  "addprogram.input.date.mask": "___/__/__ __:__ _M"
+  "addprogram.input.date.mask": "___/__/__ __:__ _M",
+  "candidateFeedbacks.label.feedback": "Feedback",
+  "candidateFeedbacks.title.generalImpression": "General Impression"
 }

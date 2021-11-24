@@ -1,0 +1,80 @@
+{
+  "skills":{
+    "interviewer":{
+      "name": "Kevin Systrom",
+      "role": "Technical Interviewer",
+      "skillGrades": [
+        {
+          "name": "HTML",
+          "grade": 4
+        },
+        {
+          "name": "CSS",
+          "grade": 4
+        },
+        {
+          "name": "JS",
+          "grade": 5
+        },
+        {
+          "name": "React",
+          "grade": 5
+        },
+        {
+          "name": "Typescript",
+          "grade": 4
+        },
+        {
+          "name": "DOM",
+          "grade": 3
+        },
+        {
+          "name": "Web API",
+          "grade": 3
+        }
+      ],
+      "textReview": "Nice young man. Purposeful. Looks to the future with hope. Likes to explore new technologies.",
+      "generalImpression": 4
+    },
+    "hr":{
+      "name": "Winona Ryder",
+      "role": "HR",
+      "skillGrades": [
+        {
+          "name": "Communication",
+          "grade": 4
+        },
+        {
+          "name": "Education",
+          "grade": 3
+        },
+        {
+          "name": "Honesty",
+          "grade": 2
+        }
+      ],
+      "textReview": "He was rude during communication. Doesn't consider it important to win over people." ,
+      "generalImpression": 3
+    },
+    "mentor":{
+      "name": "Unknown",
+      "role": "Mentor",
+      "skillGrades": [
+        {
+          "name": "Angular",
+          "grade": 0
+        },
+        {
+          "name": "Vue",
+          "grade": 0
+        },
+        {
+          "name": "React",
+          "grade": 0
+        }
+      ],
+      "textReview": "",
+      "generalImpression": 0
+    }
+  }
+}
