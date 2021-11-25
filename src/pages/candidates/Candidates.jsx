@@ -6,29 +6,22 @@ import {
   Typography,
   IconButton,
   Popper,
-  Input,
   Stack,
   Button,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
   Divider,
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import {
   tableFields,
-  valueMenuItem,
   reformatCandidates,
 } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
   updateCandidateStatusById,
-  fetchCandidateSearch,
 } from '../../store/commands';
-import { LinkFormatter } from '../../components';
+import { LinkFormatter, PageSize, CandidatesSearch } from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -76,17 +69,6 @@ const Candidates = () => {
     if (gridApi) gridApi.setRowData(newCandidateSearchResult);
   }, [candidateSearchResult]);
 
-  const createMenuItem = valueMenuItem.map((item) => (
-    <MenuItem value={item} key={item}>
-      {item}
-    </MenuItem>
-  ));
-
-  const onPageSizeChanged = (newPageSize) => {
-    const { value } = newPageSize.target;
-    gridApi.paginationSetPageSize(Number(value));
-  };
-
   const onGridReady = (params) => {
     setGridApi(params.api);
   };
@@ -120,20 +102,6 @@ const Candidates = () => {
       rowNode.setSelected(false)
     };
     gridApi.forEachNode(rowNodes )
-  };
-
-  const candidateSearch = (event) => {
-    const { value } = event.target;
-    dispatch(
-      fetchCandidateSearch({
-        skip: 0,
-        take: 50,
-        searchText: `${value}`,
-        sortBy: 'lastName',
-        isDesc: true,
-        internshipId: id,
-      }),
-    );
   };
 
   return (
@@ -173,26 +141,10 @@ const Candidates = () => {
               {getFieldLabel('candidates.button.addToWork')}
             </Button>
             <Divider orientation="vertical" variant="middle" flexItem />
-            <Box width="80px">
-              <FormControl fullWidth size="small">
-                <InputLabel>
-                  {getFieldLabel('candidates.form.inputLabel')}
-                </InputLabel>
-                <Select
-                  defaultValue="20"
-                  label={getFieldLabel('candidates.form.inputLabel')}
-                  onChange={onPageSizeChanged}
-                >
-                  {createMenuItem}
-                </Select>
-              </FormControl>
-            </Box>
+            <PageSize gridApi={gridApi} />
           </Stack>
           <Popper open={open} anchorEl={anchorEl} placement="left">
-            <Input
-              placeholder={getFieldLabel('common.search')}
-              onChange={candidateSearch}
-            />
+            <CandidatesSearch id={id} />
           </Popper>
         </Box>
       </Box>
