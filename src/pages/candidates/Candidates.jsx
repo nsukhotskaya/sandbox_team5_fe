@@ -142,8 +142,8 @@ const Candidates = () => {
         <Typography variant="h4" component="div" gutterBottom color="#757575">
           {internshipName[0]}
         </Typography>
-        <Box display="flex" alignItems="center">
-          <Box marginRight="15px">
+        <Box className="candidatesButtons">
+          <Box className="searchBox">
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>

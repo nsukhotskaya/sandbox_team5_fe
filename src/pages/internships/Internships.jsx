@@ -48,7 +48,7 @@ export const Internships = () => {
   return (
     <Container fixed maxWidth="1400px">
       <Box display="flex" flexDirection="column" marginTop="20px">
-        <Box className="internshipMenu">
+        <Box className="internshipsHeader">
           <Typography
             className="internshipsTitle"
             variant="h1"
@@ -59,22 +59,21 @@ export const Internships = () => {
             {getFieldLabel('internships.title')}
           </Typography>
           <Box
-            width="280px"
-            display="flex"
-            flexDirection="row"
-            justifyContent="space-between"
+            className="internshipsMenu"
           >
-            <IconButton onClick={handleClick}>
-              <ManageSearchIcon fontSize="large" />
-            </IconButton>
-            <Popper open={open} anchorEl={anchorEl} placement="left">
-              <Input
-                onChange={onInputChange}
-                type="text"
-                placeholder={getFieldLabel('common.search')}
-              />
-            </Popper>
-            <InternshipsFilter />
+            <Box className="menuItemsBox">
+              <IconButton onClick={handleClick}>
+                <ManageSearchIcon fontSize="large" />
+              </IconButton>
+                <Popper open={open} anchorEl={anchorEl} placement="left">
+                  <Input
+                    onChange={onInputChange}
+                    type="text"
+                    placeholder={getFieldLabel('common.search')}
+                  />
+                </Popper>
+              <InternshipsFilter />
+            </Box>
             <Button variant="outlined" size="small" onClick={openPopUpWindow}>
               {getFieldLabel('internships.button.add.program')}
             </Button>
