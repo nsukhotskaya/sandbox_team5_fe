@@ -79,7 +79,7 @@ const Calendar = (props) => {
       listDayFormat={false}
       slotMinTime="08:00:00"
       editable
-      googleCalendarApiKey="AIzaSyCedd9kcRmZ5SDFy4ORMvC9NwDxtnwEAl4"
+      googleCalendarApiKey="AIzaSyCN8PD2jFBb_K6p7U7PpWQ6JuYb_CAptkU"
       events={{ googleCalendarId: email }}
     />
   );
