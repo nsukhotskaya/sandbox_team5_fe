@@ -12,10 +12,7 @@ import {
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import {
-  tableFields,
-  reformatCandidates,
-} from '../../constants';
+import { tableFields, reformatCandidates } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
@@ -99,9 +96,9 @@ const Candidates = () => {
     const candidateId = selectedRow && selectedRow.map((item) => item.id);
     dispatch(updateCandidateStatusById(candidateId));
     const rowNodes = (rowNode) => {
-      rowNode.setSelected(false)
+      rowNode.setSelected(false);
     };
-    gridApi.forEachNode(rowNodes )
+    gridApi.forEachNode(rowNodes);
   };
 
   return (

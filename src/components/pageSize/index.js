@@ -1,1 +1,1 @@
-export { default as PageSize} from './PageSize';
+export { default as PageSize } from './PageSize';
