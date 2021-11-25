@@ -8,3 +8,5 @@ export * from './linkFormatter';
 export * from './sidePopUp';
 export * from './addProgram';
 export * from './calendar';
+export * from './pageSize';
+export * from './candidatesSearch';
