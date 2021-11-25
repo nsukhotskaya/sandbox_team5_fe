@@ -116,8 +116,10 @@ const Candidates = () => {
     const selectedRow = gridApi.getSelectedRows();
     const candidateId = selectedRow && selectedRow.map((item) => item.id);
     dispatch(updateCandidateStatusById(candidateId));
-    const rowNode = gridApi.getRowNode(candidateId);
-    if (rowNode) rowNode.setSelected(false);
+    const rowNodes = (rowNode) => {
+      rowNode.setSelected(false)
+    };
+    gridApi.forEachNode(rowNodes )
   };
 
   const candidateSearch = (event) => {
@@ -137,7 +139,7 @@ const Candidates = () => {
   return (
     <Box padding="1%" width="100%" height="100%">
       <Box className="candidatesPageHeader">
-        <Typography variant="h4" component="div" gutterBottom color="#929292">
+        <Typography variant="h4" component="div" gutterBottom color="#757575">
           {internshipName[0]}
         </Typography>
         <Box display="flex" alignItems="center">
