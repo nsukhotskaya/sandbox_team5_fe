@@ -65,6 +65,8 @@ const Candidates = () => {
   );
   const newListOfCandidates = reformatCandidates(listOfCandidates);
   const newCandidateSearchResult = reformatCandidates(candidateSearchResult);
+  const internshipName =
+    listOfCandidates && listOfCandidates.map((item) => item.internshipName);
 
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
@@ -95,13 +97,13 @@ const Candidates = () => {
 
   const getRowNodeId = (data) => data.id;
 
-  const onRowSelected = (event) => {
-    const rowSelected = event.node.isSelected();
-    const rowSelectedHR = event.node.data.statusType === 'HR';
-    if (!rowSelected) {
+  const onRowSelected = () => {
+    const selectedNodes = gridApi.getSelectedNodes();
+    const selectedData = selectedNodes.map((node) => node.data.statusType);
+    if (selectedNodes.length === 0) {
       setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
-    } else if (rowSelected && rowSelectedHR) {
+    } else if (selectedNodes !== 0 && selectedData.includes('HRReview')) {
       setIsAddToWorkButtonDisabled(true);
       setIsSendButtonDisabled(false);
     } else {
@@ -113,10 +115,11 @@ const Candidates = () => {
   const addToWork = () => {
     const selectedRow = gridApi.getSelectedRows();
     const candidateId = selectedRow && selectedRow.map((item) => item.id);
-    dispatch(updateCandidateStatusById(1, candidateId));
-    dispatch(fetchCandidateList(requestBody));
-    const rowNode = gridApi.getRowNode(candidateId);
-    rowNode.setSelected(false);
+    dispatch(updateCandidateStatusById(candidateId));
+    const rowNodes = (rowNode) => {
+      rowNode.setSelected(false)
+    };
+    gridApi.forEachNode(rowNodes )
   };
 
   const candidateSearch = (event) => {
@@ -136,8 +139,8 @@ const Candidates = () => {
   return (
     <Box padding="1%" width="100%" height="100%">
       <Box className="candidatesPageHeader">
-        <Typography variant="h4" component="div" gutterBottom color="#222">
-          {getFieldLabel('candidates.internship.name')}
+        <Typography variant="h4" component="div" gutterBottom color="#757575">
+          {internshipName[0]}
         </Typography>
         <Box display="flex" alignItems="center">
           <Box marginRight="15px">
