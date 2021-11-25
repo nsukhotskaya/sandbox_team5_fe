@@ -27,7 +27,9 @@ const UserProfile = () => {
   const internships = useSelector((state) => state.internships.internships);
   const dispatch = useDispatch();
 
-  const isLoading = useSelector(loadingSelector(['GET_USER_INFO'],['GET_INTERNSHIPS']));
+  const isLoading = useSelector(
+    loadingSelector(['GET_USER_INFO'], ['GET_INTERNSHIPS']),
+  );
   useEffect(() => {}, [isLoading]);
 
   useEffect(() => {
@@ -42,12 +44,12 @@ const UserProfile = () => {
         <LoadingIndicator />
       ) : (
         <Box className={mobile ? 'pageWrapperMobile' : 'pageWrapper'}>
-          <Box 
-          width={{ md: '40%', lg: '33%'}} 
-          className={mobile ? 'informationMobile' : 'information'}>
+          <Box
+            width={{ md: '40%', lg: '33%' }}
+            className={mobile ? 'informationMobile' : 'information'}
+          >
             <Card raised className="informationCard">
               <Box
-                
                 className={
                   mobile ? 'informationContainerMobile' : 'informationContainer'
                 }
@@ -75,7 +77,11 @@ const UserProfile = () => {
                         <ListItemText
                           primary={getFieldLabel(`profile.${item}`)}
                         />
-                        <Typography padding="0px 0px 0px 10px" variant="body1" className="text">
+                        <Typography
+                          padding="0px 0px 0px 10px"
+                          variant="body1"
+                          className="text"
+                        >
                           {userInfo && userInfo[item]}
                         </Typography>
                       </ListItem>
@@ -86,8 +92,9 @@ const UserProfile = () => {
             </Card>
           </Box>
           <Box
-          width={{ md: '60%', lg: '33%'}}  
-          className={mobile ? 'activityMobile' : 'activity'}>
+            width={{ md: '60%', lg: '33%' }}
+            className={mobile ? 'activityMobile' : 'activity'}
+          >
             <Card className="activityTab">
               <TableTemplate
                 rowData={tableFiller(userInfo, internships)}
@@ -97,10 +104,12 @@ const UserProfile = () => {
           </Box>
           <Box className={large ? 'calendarMobile' : 'calendar'}>
             <Card className={mobile ? 'calendarCardMobile' : 'calendarCard'}>
-              {userInfo.email && <Calendar
-                headerType={mobile ? headerMobile : header}
-                email={userInfo.email}
-              />}
+              {userInfo.email && (
+                <Calendar
+                  headerType={mobile ? headerMobile : header}
+                  email={userInfo.email}
+                />
+              )}
             </Card>
           </Box>
         </Box>
