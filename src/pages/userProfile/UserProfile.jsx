@@ -32,8 +32,6 @@ const UserProfile = () => {
 
   useEffect(() => {
     dispatch(fetchUserInfo());
-  }, []);
-  useEffect(() => {
     dispatch(fetchInternships());
   }, []);
   const mobile = useMediaDown('md');
@@ -99,10 +97,10 @@ const UserProfile = () => {
           </Box>
           <Box className={large ? 'calendarMobile' : 'calendar'}>
             <Card className={mobile ? 'calendarCardMobile' : 'calendarCard'}>
-              <Calendar
+              {userInfo.email && <Calendar
                 headerType={mobile ? headerMobile : header}
                 email={userInfo.email}
-              />
+              />}
             </Card>
           </Box>
         </Box>
