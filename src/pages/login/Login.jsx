@@ -22,6 +22,9 @@ const Login = (props) => {
     email: '',
     password: '',
   });
+  let errorMessages = [];
+  let emailIsValid = true;
+  let passwordIsValid = true;
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -30,8 +33,33 @@ const Login = (props) => {
     setUser(userObj);
   };
 
+  const validate = () => {
+    const errors = [];
+    if (!user.email) {
+      errors.push("Email can't be empty");
+      emailIsValid = false;
+    } else if(user.email.match(/^\S+@\S+\.\S+$/) === null) {
+      errors.push("Incorrect email");
+      emailIsValid = false;
+    }
+    if (!user.password) {
+      errors.push("Password can't be empty");
+      passwordIsValid = false;
+    }else if (user.password.match(/^[a-zA-Z0-9]+$/) === null) {
+      errors.push("Incorrect password");
+      passwordIsValid = false;
+    }
+    if ( errors.length ) { 
+      errorMessages = [...errors];
+    }
+  }
+
   const handleSubmit = () => {
-    props.fetchUserToken(user);
+    validate();
+    console.log(errorMessages);
+    if ( emailIsValid && passwordIsValid ) {
+      props.fetchUserToken(user);
+    }
   };
 
   const handleForm = (event) => {
@@ -43,6 +71,7 @@ const Login = (props) => {
   const preventDefault = (event) => {
     event.preventDefault();
   };
+
   return (
     <Box className="loginContainer">
       <Box className="loginCardWrapper">
@@ -72,6 +101,7 @@ const Login = (props) => {
                 name="email"
                 onChange={handleChange}
                 value={user.email}
+                error = {!emailIsValid}
               />
               <TextField
                 id="outlinedPasswordInput"
@@ -82,6 +112,7 @@ const Login = (props) => {
                 size="small"
                 onChange={handleChange}
                 value={user.password}
+                error = {!passwordIsValid}
               />
               <Button onClick={handleSubmit} variant="contained">
                 {getFieldLabel('login.button.login')}
