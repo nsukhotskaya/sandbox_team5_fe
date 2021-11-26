@@ -12,12 +12,12 @@ import {
 import { getFieldLabel } from '../../../utils';
 
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
-// eslint-disable-next-line import/no-named-as-default
-import CandidateInfoEdit from '../candidateInfoEdit/CandidateInfoEdit';
+
+import { CandidateInfoEdit } from '../index';
 
 const utc = require('dayjs/plugin/utc');
 
-export const CandidateInfo = (props) => {
+ const CandidateInfo = (props) => {
   const { candidateInfo } = props;
 
   dayjs.extend(customParseFormat);
