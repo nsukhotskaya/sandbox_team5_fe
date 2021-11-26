@@ -61,6 +61,7 @@ export const CandidateInfoEdit = (props) => {
     }));
 
   const englishLevelListFormated = stringToObject(englishLevelList);
+  const statusTypeListFormated = stringToObject(candidateStatusTypeList)
 
   const initInfo = { ...candidateInfo };
 
@@ -124,14 +125,11 @@ export const CandidateInfoEdit = (props) => {
   };
 
   const dataForRenderSelect = {
-    // status: {
-    //   keyName: 'statusType',
-    //   label: getFieldLabel('candidate.info.statusType'),
-    // },
-    // stack: {
-    //   keyName: 'stackType',
-    //   label: getFieldLabel('candidate.info.stackType'),
-    // },
+    status: {
+      keyName: 'statusType',
+      label: getFieldLabel('candidate.info.statusType'),
+      array: statusTypeListFormated,
+    },
     englishLevelType: {
       keyName: 'englishLevelType',
       label: getFieldLabel('candidate.info.englishLevelName'),
@@ -171,7 +169,7 @@ export const CandidateInfoEdit = (props) => {
                   {Object.values(dataForRenderSelect).map((select) => (
                     <Select
                       fullWidth
-                      value={formik.values.englishLevelType}
+                      value={formik.values[select.keyName]}
                       onChange={(event) =>
                         formik.setFieldValue(select.keyName, event.target.value)
                       }
