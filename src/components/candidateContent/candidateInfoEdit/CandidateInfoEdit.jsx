@@ -24,6 +24,8 @@ import {
   updateCandidateInfo,
 } from '../../../store/commands';
 
+const utc = require('dayjs/plugin/utc');
+
 const checkDataReceived = (...arrays) =>
   arrays.every((array) => array.length !== 0);
 
@@ -32,6 +34,7 @@ export const CandidateInfoEdit = (props) => {
   const [open, setOpen] = React.useState(false);
 
   dayjs.extend(customParseFormat);
+  dayjs.extend(utc);
 
   const dispatch = useDispatch();
 
@@ -61,7 +64,7 @@ export const CandidateInfoEdit = (props) => {
     }));
 
   const englishLevelListFormated = stringToObject(englishLevelList);
-  const statusTypeListFormated = stringToObject(candidateStatusTypeList)
+  const statusTypeListFormated = stringToObject(candidateStatusTypeList);
 
   const initInfo = { ...candidateInfo };
 
@@ -148,9 +151,9 @@ export const CandidateInfoEdit = (props) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <form>
-        <Box width="200px" backgroundColor="primary.main">
-          <Button variant="contained" onClick={handleClickOpen}>
-            Open form dialog
+        <Box>
+          <Button variant="outlined" onClick={handleClickOpen}>
+            {getFieldLabel('common.edit')}
           </Button>
           <Drawer anchor="left" open={open}>
             <form onSubmit={formik.handleSubmit}>
