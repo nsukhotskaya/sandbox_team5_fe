@@ -9,7 +9,7 @@ export const tableCandidateInfoFields = [
   'email',
   'bestContactTime',
   'stackType',
-  'englishLevelName',
+  'englishLevelType',
   'registrationDate',
   'currentJob',
   'links',

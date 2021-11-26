@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import dayjs from 'dayjs';
@@ -15,6 +16,8 @@ import {
 import { getFieldLabel } from '../../../utils';
 import { updateCandidateInfo } from '../../../store/commands';
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
+// eslint-disable-next-line import/no-named-as-default
+import CandidateInfoEdit from '../candidateInfoEdit/CandidateInfoEdit';
 
 const utc = require('dayjs/plugin/utc');
 
@@ -29,7 +32,7 @@ export const CandidateInfo = (props) => {
   const formatInfo = (info) => {
     const newInfo = { ...info };
     newInfo.registrationDate = dayjs(info.registrationDate).format(
-      'DD.MM.YYYY HH:mm',
+      'DD/MM/YYYY HH:mm',
     );
     newInfo.bestContactTime = dayjs(info.bestContactTime).format('HH:mm');
     newInfo.isPlanningToJoin = newInfo.isPlanningToJoin ? 'Yes' : 'No';
@@ -50,6 +53,7 @@ export const CandidateInfo = (props) => {
 
   const onButtonEdit = () => {
     setNewValues({ ...formatedInfo });
+    console.log(formatedInfo);
     setIsEditModeOn(true);
   };
 
@@ -61,6 +65,8 @@ export const CandidateInfo = (props) => {
       'DD/MM/YYYY HH:mm',
     );
     newValues.bestContactTime = dayjs.utc(newValues.bestContactTime, 'HH:mm');
+
+    console.log(newValues);
 
     dispatch(updateCandidateInfo(newValues));
 
@@ -87,6 +93,9 @@ export const CandidateInfo = (props) => {
             <Button variant="outlined" onClick={() => onButtonEdit()}>
               {getFieldLabel('common.edit')}
             </Button>
+            {/* <Button variant="outlined" onClick={() => CandidateInfoEdit}>
+              {getFieldLabel('common.edit')}
+            </Button> */}
           </Box>
         )}
         {isEditModeOn && (
@@ -114,6 +123,7 @@ export const CandidateInfo = (props) => {
           </ListItem>
         ))}
       </List>
+      <CandidateInfoEdit candidateInfo={formatedInfo} />
     </Box>
   );
 };
