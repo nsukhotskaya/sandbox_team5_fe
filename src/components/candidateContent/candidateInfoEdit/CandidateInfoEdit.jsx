@@ -1,6 +1,4 @@
-/* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import dayjs from 'dayjs';
@@ -14,7 +12,7 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
-import { DateTimePicker, LocalizationProvider, TimePicker } from '@mui/lab';
+import { LocalizationProvider, TimePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 import { getFieldLabel } from '../../../utils';
@@ -26,8 +24,6 @@ import {
 
 const utc = require('dayjs/plugin/utc');
 
-const checkDataReceived = (...arrays) =>
-  arrays.every((array) => array.length !== 0);
 
 export const CandidateInfoEdit = (props) => {
   const { candidateInfo } = props;
@@ -45,17 +41,12 @@ export const CandidateInfoEdit = (props) => {
     (state) => state.englishLevelType.englishLevelType,
   );
 
-  const isDataReceived = checkDataReceived(
-    candidateStatusTypeList,
-    englishLevelList,
-  );
 
-  useEffect(() => {
-    if (!isDataReceived) {
+    useEffect(() => {
       dispatch(fetchCandidateStatusTypes());
       dispatch(fetchEnglishLevels());
-    }
-  }, [isDataReceived]);
+  }, []);
+
 
   const stringToObject = (array) =>
     array.map((item, index) => ({
@@ -66,16 +57,25 @@ export const CandidateInfoEdit = (props) => {
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
 
-  const initInfo = { ...candidateInfo };
 
-  const handleClickOpen = () => {
+
+  const formatInfo = (info) => {
+    const initInfo = { ...info };
     initInfo.registrationDate = dayjs(
       initInfo.registrationDate,
       'DD/MM/YYYY HH:mm',
     );
+    
     initInfo.bestContactTime = dayjs(initInfo.bestContactTime, 'HH:mm');
-    console.log(initInfo);
     initInfo.isPlanningToJoin = true;
+    
+    return initInfo;
+  };
+
+  const formatedInitInfo = formatInfo(candidateInfo);
+
+  const handleClickOpen = () => {
+
 
     setOpen(true);
   };
@@ -149,7 +149,7 @@ export const CandidateInfoEdit = (props) => {
   };
 
   const formik = useFormik({
-    initialValues: initInfo,
+    initialValues: formatedInitInfo,
     onSubmit: (values) => {
       console.log(values);
       dispatch(updateCandidateInfo(values));
@@ -194,17 +194,7 @@ export const CandidateInfoEdit = (props) => {
                       ))}
                     </Select>
                   ))}
-                  <DateTimePicker
-                    label="Registration date"
-                    name="registrationDate"
-                    value={formik.values.registrationDate}
-                    onChange={(dateValue) =>
-                      formik.setFieldValue('registrationDate', dateValue)
-                    }
-                    ampm={false}
-                    // eslint-disable-next-line react/jsx-props-no-spreading
-                    renderInput={(params) => <TextField {...params} />}
-                  />
+
                   <TimePicker
                     label="Best contact time"
                     name="bestContactTime"
