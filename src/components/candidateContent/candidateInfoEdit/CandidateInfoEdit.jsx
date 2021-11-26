@@ -101,6 +101,14 @@ export const CandidateInfoEdit = (props) => {
       keyName: 'email',
       label: getFieldLabel('candidate.info.email'),
     },
+    internshipNameData: {
+      keyName: 'internshipName',
+      label: getFieldLabel('candidate.info.internshipName'),
+    },
+    languageData: {
+      keyName: 'languageType',
+      label: getFieldLabel('candidate.info.languageType'),
+    },
     currentJobData: {
       keyName: 'currentJob',
       label: getFieldLabel('candidate.info.currentJob'),
