@@ -6,29 +6,19 @@ import {
   Typography,
   IconButton,
   Popper,
-  Input,
   Stack,
   Button,
-  FormControl,
-  Select,
-  MenuItem,
-  InputLabel,
   Divider,
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import {
-  tableFields,
-  valueMenuItem,
-  reformatCandidates,
-} from '../../constants';
+import { tableFields, reformatCandidates } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
   updateCandidateStatusById,
-  fetchCandidateSearch,
 } from '../../store/commands';
-import { LinkFormatter } from '../../components';
+import { LinkFormatter, PageSize, CandidatesSearch } from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -65,6 +55,8 @@ const Candidates = () => {
   );
   const newListOfCandidates = reformatCandidates(listOfCandidates);
   const newCandidateSearchResult = reformatCandidates(candidateSearchResult);
+  const internshipName =
+    listOfCandidates && listOfCandidates.map((item) => item.internshipName);
 
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
@@ -73,17 +65,6 @@ const Candidates = () => {
   useEffect(() => {
     if (gridApi) gridApi.setRowData(newCandidateSearchResult);
   }, [candidateSearchResult]);
-
-  const createMenuItem = valueMenuItem.map((item) => (
-    <MenuItem value={item} key={item}>
-      {item}
-    </MenuItem>
-  ));
-
-  const onPageSizeChanged = (newPageSize) => {
-    const { value } = newPageSize.target;
-    gridApi.paginationSetPageSize(Number(value));
-  };
 
   const onGridReady = (params) => {
     setGridApi(params.api);
@@ -95,13 +76,13 @@ const Candidates = () => {
 
   const getRowNodeId = (data) => data.id;
 
-  const onRowSelected = (event) => {
-    const rowSelected = event.node.isSelected();
-    const rowSelectedHR = event.node.data.statusType === 'HR';
-    if (!rowSelected) {
+  const onRowSelected = () => {
+    const selectedNodes = gridApi.getSelectedNodes();
+    const selectedData = selectedNodes.map((node) => node.data.statusType);
+    if (selectedNodes.length === 0) {
       setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
-    } else if (rowSelected && rowSelectedHR) {
+    } else if (selectedNodes !== 0 && selectedData.includes('HRReview')) {
       setIsAddToWorkButtonDisabled(true);
       setIsSendButtonDisabled(false);
     } else {
@@ -113,34 +94,21 @@ const Candidates = () => {
   const addToWork = () => {
     const selectedRow = gridApi.getSelectedRows();
     const candidateId = selectedRow && selectedRow.map((item) => item.id);
-    dispatch(updateCandidateStatusById(1, candidateId));
-    dispatch(fetchCandidateList(requestBody));
-    const rowNode = gridApi.getRowNode(candidateId);
-    rowNode.setSelected(false);
-  };
-
-  const candidateSearch = (event) => {
-    const { value } = event.target;
-    dispatch(
-      fetchCandidateSearch({
-        skip: 0,
-        take: 50,
-        searchText: `${value}`,
-        sortBy: 'lastName',
-        isDesc: true,
-        internshipId: id,
-      }),
-    );
+    dispatch(updateCandidateStatusById(candidateId));
+    const rowNodes = (rowNode) => {
+      rowNode.setSelected(false);
+    };
+    gridApi.forEachNode(rowNodes);
   };
 
   return (
     <Box padding="1%" width="100%" height="100%">
       <Box className="candidatesPageHeader">
-        <Typography variant="h4" component="div" gutterBottom color="#222">
-          {getFieldLabel('candidates.internship.name')}
+        <Typography variant="h4" component="div" gutterBottom color="#757575">
+          {internshipName[0]}
         </Typography>
-        <Box display="flex" alignItems="center">
-          <Box marginRight="15px">
+        <Box className="candidatesButtons">
+          <Box className="searchBox">
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>
@@ -170,26 +138,10 @@ const Candidates = () => {
               {getFieldLabel('candidates.button.addToWork')}
             </Button>
             <Divider orientation="vertical" variant="middle" flexItem />
-            <Box width="80px">
-              <FormControl fullWidth size="small">
-                <InputLabel>
-                  {getFieldLabel('candidates.form.inputLabel')}
-                </InputLabel>
-                <Select
-                  defaultValue="20"
-                  label={getFieldLabel('candidates.form.inputLabel')}
-                  onChange={onPageSizeChanged}
-                >
-                  {createMenuItem}
-                </Select>
-              </FormControl>
-            </Box>
+            <PageSize gridApi={gridApi} />
           </Stack>
           <Popper open={open} anchorEl={anchorEl} placement="left">
-            <Input
-              placeholder={getFieldLabel('common.search')}
-              onChange={candidateSearch}
-            />
+            <CandidatesSearch id={id} />
           </Popper>
         </Box>
       </Box>

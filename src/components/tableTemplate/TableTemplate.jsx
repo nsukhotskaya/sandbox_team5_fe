@@ -19,7 +19,7 @@ export default class TableTemplate extends React.Component {
       pagination,
     } = this.props;
     return (
-      <Box width="100%" height="90%" className="ag-theme-alpine">
+      <Box width="100%" height="100%" className="ag-theme-alpine">
         <AgGridReact
           rowSelection="multiple"
           checkboxSelection={checkboxSelection}

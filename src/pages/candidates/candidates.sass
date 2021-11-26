@@ -2,21 +2,21 @@
     width: 100%
     height: calc(100% - 50px)
 
-    @media screen and (max-width: 899px)
+    @media screen and (max-width: 1199px)
         height: calc(100% - 100px)
 
 .candidatesPageHeader
     display: flex
     flex-direction: row
-    alignItems: center
-    paddingTop: 10px
-    paddingBottom: 10px
+    align-items: center
+    padding-top: 5px
+    padding-bottom: 5px
     justify-content: space-between
 
-    @media screen and (max-width: 899px)
+    @media screen and (max-width: 1199px)
         display: flex
         flex-direction: column
-        align-items: center
+        align-items: flex-end
         justify-content: space-between
 
     @media screen and (max-width: 500px)
@@ -29,4 +29,20 @@
 .candidatesPageButton
     white-space: nowrap
 
+.candidatesButtons
+    display: flex
+    flex-direction: row
+    align-items: center
+
+    @media screen and (max-width: 1199px)
+        display: flex
+        align-items: flex-end
+        flex-direction: column
+        margin-bottom: 5px
+
+.searchBox
+    margin-right: 15px
+
+    @media screen and (max-width: 1199px)   
+        margin-bottom: 10px
 

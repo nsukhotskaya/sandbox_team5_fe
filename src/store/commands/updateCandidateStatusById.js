@@ -4,23 +4,27 @@ import {
   updateCandidateStatusSuccess,
   updateCandidateStatusFailure,
 } from '../actions';
+import fetchCandidateList from './fetchCandidateList';
 
-const updateCandidateStatusById =
-  (statusType, candidateId) => async (dispatch) => {
-    dispatch(updateCandidateStatusRequest());
-    try {
-      const response = await API.put(
-        `/api/Candidate/updateCandidateStatus/${candidateId}?status=${statusType}`,
-      );
-      dispatch(
-        updateCandidateStatusSuccess(
-          response.data.statusType,
-          response.data.id,
-        ),
-      );
-    } catch (error) {
-      dispatch(updateCandidateStatusFailure());
-    }
-  };
+const updateCandidateStatusById = (data) => async (dispatch) => {
+  dispatch(updateCandidateStatusRequest());
+  try {
+    const response = await API.put(
+      '/api/Candidate/updateCandidatesStatus?status=1',
+      data,
+    );
+    const id = response.data && response.data[0].internshipId;
+    dispatch(updateCandidateStatusSuccess(response.data));
+    dispatch(
+      fetchCandidateList({
+        pageSize: 100000,
+        pageNumber: 1,
+        internshipId: id,
+      }),
+    );
+  } catch (error) {
+    dispatch(updateCandidateStatusFailure());
+  }
+};
 
 export default updateCandidateStatusById;
