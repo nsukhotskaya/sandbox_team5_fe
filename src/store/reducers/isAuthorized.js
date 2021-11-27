@@ -11,7 +11,7 @@ export default function isAuthorized(state = initialState, action) {
     case USER_LOGIN.SUCCESS:
       return { ...state, isAuthorized: true };
     case USER_LOGIN.FAILURE:
-      return state;
+      return {...state, error: action.payload};
     case USER_LOGOUT.SUCCESS:
       return { ...state, isAuthorized: false };
     default:

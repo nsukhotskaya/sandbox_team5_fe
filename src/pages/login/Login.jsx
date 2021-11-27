@@ -1,30 +1,34 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import {
-  Typography,
-  Card,
-  Button,
-  TextField,
-  Stack,
-  Box,
-  FormControl,
-} from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Typography, Card, Button, TextField, Stack, Box, FormControl } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 import { fetchUserToken } from '../../store/commands';
-
 import './Login.sass';
 import { Footer } from '../../components';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
 
-const Login = (props) => {
+const Login = () => {
   const smallScreen = useMediaDown('sm');
+  const dispatch = useDispatch();
+  const authorization = useSelector((state) => state.authorization);
+  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [passwordIsValid, setPasswordIsValid] = useState(true);
+  const [openToaster, setOpenToaster] = React.useState(false);
+  const [errorMessages, setErrorMessages] = React.useState([]);
   const [user, setUser] = useState({
     email: '',
     password: '',
   });
-  let errorMessages = [];
-  let emailIsValid = true;
-  let passwordIsValid = true;
+
+  useEffect(() => {
+    if(authorization.error && authorization.error.status === 401){
+      setEmailIsValid(false);
+      setPasswordIsValid(false);
+      setErrorMessages([getFieldLabel('login.error.noSuchUser')])
+    }
+  }, [authorization]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -34,31 +38,43 @@ const Login = (props) => {
   };
 
   const validate = () => {
+    setEmailIsValid(true);
+    setPasswordIsValid(true);
+    setErrorMessages([]);
     const errors = [];
-    if (!user.email) {
-      errors.push("Email can't be empty");
-      emailIsValid = false;
-    } else if(user.email.match(/^\S+@\S+\.\S+$/) === null) {
-      errors.push("Incorrect email");
-      emailIsValid = false;
+    if ( !user.email ) {
+      errors.push( getFieldLabel('login.error.emailEmpty') );
+      setEmailIsValid(false);
+    } else if ( user.email.match(/^\S+@\S+\.\S+$/) === null ) {
+      errors.push( getFieldLabel('login.error.emailIncorrect') );
+      setEmailIsValid(false);
     }
-    if (!user.password) {
-      errors.push("Password can't be empty");
-      passwordIsValid = false;
-    }else if (user.password.match(/^[a-zA-Z0-9]+$/) === null) {
-      errors.push("Incorrect password");
-      passwordIsValid = false;
+    if ( !user.password ) {
+      errors.push( getFieldLabel('login.error.passwordEmpty') );
+      setPasswordIsValid(false);
+    } else if ( user.password.match(/^[a-zA-Z0-9]+$/) === null ) {
+      errors.push( getFieldLabel('login.error.passwordIncorrect') );
+      setPasswordIsValid(false);
     }
     if ( errors.length ) { 
-      errorMessages = [...errors];
+      setErrorMessages(errors);
+      return false;
     }
+    return true;
   }
+  
+  const handleCloseToaster = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenToaster(false);
+  };
 
   const handleSubmit = () => {
-    validate();
-    console.log(errorMessages);
-    if ( emailIsValid && passwordIsValid ) {
-      props.fetchUserToken(user);
+    const isValid = validate();
+    setOpenToaster(true);
+    if ( isValid ) {
+        dispatch(fetchUserToken(user))
     }
   };
 
@@ -74,6 +90,26 @@ const Login = (props) => {
 
   return (
     <Box className="loginContainer">
+      {!!errorMessages.length &&
+        <Snackbar
+          open = {openToaster}
+          autoHideDuration = {8000}
+          onClose = {handleCloseToaster}
+          anchorOrigin = {
+            smallScreen ? { vertical: 'top', horizontal: 'center'} : { vertical: 'top', horizontal: 'left' }
+          }
+        >
+          <Box>
+            {errorMessages.map((message) => (
+              <Box key={message} m="10px">
+                <Alert onClose={handleCloseToaster} severity="error">
+                  {message}
+                </Alert>
+              </Box>
+            ))}
+          </Box>   
+        </Snackbar>
+      }
       <Box className="loginCardWrapper">
         <FormControl onKeyPress={handleForm} onSubmit={preventDefault}>
           <Card
@@ -126,9 +162,4 @@ const Login = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchUserToken: (user) => dispatch(fetchUserToken(user)),
-});
-const mapStateToProps = (state) => state;
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;
