@@ -17,8 +17,12 @@ import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
   updateCandidateStatusById,
+  fetchLocations,
+  fetchLanguages,
+  fetchEnglishLevel,
+  fetchCandidateStatusTypes
 } from '../../store/commands';
-import { LinkFormatter, PageSize, CandidatesSearch } from '../../components';
+import { LinkFormatter, PageSize, CandidatesSearch, FilterCandidates } from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -43,11 +47,6 @@ const Candidates = () => {
   };
 
   const dispatch = useDispatch();
-  const requestBody = {
-    pageSize: 100000,
-    pageNumber: 1,
-    internshipId: id,
-  };
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
   const candidateSearchResult = useSelector(
@@ -58,9 +57,22 @@ const Candidates = () => {
   const internshipName =
     listOfCandidates && listOfCandidates.map((item) => item.internshipName);
 
+    const requestBody = {
+      pageSize: 100000,
+      pageNumber: 1,
+      internshipId: id,
+    };
+
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
+    dispatch(fetchLocations());
+    dispatch(fetchLanguages());
+    dispatch(fetchEnglishLevel());
+    dispatch(fetchCandidateStatusTypes());
   }, []);
+
+  const onFilter = (filters) => 
+    dispatch(fetchCandidateList(requestBody, filters))
 
   useEffect(() => {
     if (gridApi) gridApi.setRowData(newCandidateSearchResult);
@@ -82,7 +94,7 @@ const Candidates = () => {
     if (selectedNodes.length === 0) {
       setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
-    } else if (selectedNodes !== 0 && selectedData.includes('HRReview')) {
+    } else if (selectedNodes !== 0 && selectedData.includes('HR_Review')) {
       setIsAddToWorkButtonDisabled(true);
       setIsSendButtonDisabled(false);
     } else {
@@ -112,6 +124,9 @@ const Candidates = () => {
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>
+          </Box>
+            <Box className="filterBox">
+          <FilterCandidates onFilter={onFilter}/>
           </Box>
           <Stack direction="row" spacing={2}>
             <Button
@@ -153,6 +168,7 @@ const Candidates = () => {
             getRowNodeId={getRowNodeId}
             frameworkComponents={{
               linkFormatter: LinkFormatter,
+              // filterCandidates: FilterCandidates, 
             }}
             onRowSelected={onRowSelected}
             suppressRowClickSelection
@@ -172,13 +188,20 @@ const Candidates = () => {
                   iconKey: 'columns',
                   toolPanel: 'agColumnsToolPanel',
                 },
-                {
-                  id: 'filters',
-                  labelDefault: 'Filters',
-                  labelKey: 'filters',
-                  iconKey: 'filter',
-                  toolPanel: 'agFiltersToolPanel',
-                },
+                // {
+                //   id: 'filters',
+                //   labelDefault: 'Filters',
+                //   labelKey: 'filters',
+                //   iconKey: 'filter',
+                //   toolPanel: 'agFiltersToolPanel',
+                // },
+                // {
+                //   id: 'filters',
+                //   labelDefault: 'Filters',
+                //   labelKey: 'filters',
+                //   iconKey: 'filter',
+                //   toolPanel: 'filterCandidates',
+                // },
               ],
               position: 'left',
             }}
