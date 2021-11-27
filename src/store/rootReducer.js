@@ -13,6 +13,8 @@ import {
   skills,
   candidateSearch,
   loadingReducer,
+  englishLevels,
+  candidateStatusTypes,
 } from './reducers';
 
 const rootReducer = (history) =>
@@ -21,6 +23,8 @@ const rootReducer = (history) =>
     locations,
     languages,
     skills,
+    englishLevels,
+    candidateStatusTypes,
     searchResult: candidateSearch,
     loading: loadingReducer,
     authorization: isAuthorized,
