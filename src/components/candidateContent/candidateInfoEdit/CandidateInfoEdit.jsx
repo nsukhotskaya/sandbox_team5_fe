@@ -13,7 +13,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import { LocalizationProvider, TimePicker } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import AdapterDayJs from '@mui/lab/AdapterDayjs';
 
 import { getFieldLabel } from '../../../utils';
 import {
@@ -24,6 +24,7 @@ import {
 
 const utc = require('dayjs/plugin/utc');
 
+dayjs.extend(utc);
 
 export const CandidateInfoEdit = (props) => {
   const { candidateInfo } = props;
@@ -41,12 +42,10 @@ export const CandidateInfoEdit = (props) => {
     (state) => state.englishLevelType.englishLevelType,
   );
 
-
-    useEffect(() => {
-      dispatch(fetchCandidateStatusTypes());
-      dispatch(fetchEnglishLevels());
+  useEffect(() => {
+    dispatch(fetchCandidateStatusTypes());
+    dispatch(fetchEnglishLevels());
   }, []);
-
 
   const stringToObject = (array) =>
     array.map((item, index) => ({
@@ -57,26 +56,22 @@ export const CandidateInfoEdit = (props) => {
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
 
-
-
   const formatInfo = (info) => {
     const initInfo = { ...info };
-    initInfo.registrationDate = dayjs(
+    initInfo.registrationDate = dayjs.utc(
       initInfo.registrationDate,
       'DD/MM/YYYY HH:mm',
     );
-    
-    initInfo.bestContactTime = dayjs(initInfo.bestContactTime, 'HH:mm');
+
+    initInfo.bestContactTime = dayjs.utc(initInfo.bestContactTime, 'HH:mm');
     initInfo.isPlanningToJoin = true;
-    
+
     return initInfo;
   };
 
   const formatedInitInfo = formatInfo(candidateInfo);
 
   const handleClickOpen = () => {
-
-
     setOpen(true);
   };
 
@@ -157,7 +152,7 @@ export const CandidateInfoEdit = (props) => {
   });
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns}>
+    <LocalizationProvider dateAdapter={AdapterDayJs}>
       <form>
         <Box>
           <Button variant="outlined" onClick={handleClickOpen}>

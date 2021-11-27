@@ -17,7 +17,7 @@ import { CandidateInfoEdit } from '../index';
 
 const utc = require('dayjs/plugin/utc');
 
- const CandidateInfo = (props) => {
+const CandidateInfo = (props) => {
   const { candidateInfo } = props;
 
   dayjs.extend(customParseFormat);
