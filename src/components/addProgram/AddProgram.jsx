@@ -37,6 +37,13 @@ const stringToObject = (array) =>
     id: index,
     name: item,
   }));
+
+const formatStacks = (array) =>
+array.map((item) => ({
+  id: item.id,
+  name: item.technologyStackType,
+}));
+
 const checkDataReceived = (...arrays) =>
   arrays.every((array) => array.length !== 0);
 
@@ -63,7 +70,7 @@ const AddProgram = (props) => {
   }, [isDataReceived]);
 
   const languagesListFormated = stringToObject(languagesList);
-  const stacksListFormated = stringToObject(stacksList);
+  const stacksListFormated = formatStacks(stacksList);
 
   const formik = useFormik({
     initialValues,
@@ -80,6 +87,7 @@ const AddProgram = (props) => {
           return stackObject;
         },
       );
+      console.log(JSON.stringify(newInternship, null, 2));
     },
   });
 
@@ -114,6 +122,14 @@ const AddProgram = (props) => {
     maxCandidateCountData: {
       keyName: 'maxCandidateCount',
       label: getFieldLabel('addprogram.field.label.candidateCount'),
+    },
+    spreadSheetId: {
+      keyName: 'spreadSheetId',
+      label: getFieldLabel('addprogram.field.label.spreadSheetId'),
+    },
+    imageLink: {
+      keyName: 'imageLink',
+      label: getFieldLabel('addprogram.field.label.imageLink'),
     },
   };
 

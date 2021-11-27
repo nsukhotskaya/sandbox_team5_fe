@@ -111,6 +111,8 @@
   "addprogram.field.label.title": "Title",
   "addprogram.field.label.requirements": "Requirements",
   "addprogram.field.label.candidateCount": "Candidate Count",
+  "addprogram.field.label.spreadSheetId": "Spread Sheet Id",
+  "addprogram.field.label.imageLink": "Image Link",
   "addprogram.field.label.stacks": "Stacks",
   "addprogram.field.label.locations": "Locations",
   "addprogram.field.label.languages": "Languages",
