@@ -105,17 +105,18 @@ const AddProgram = (props) => {
           return languageObject;
         },
       );
-      newInternship.users = newInternship.users.map(
-        (user) => {
-          const userObject = {...allUsersList.find((item) => {
-            if (user === item.userName){
-              return true
-            }
-            return false
-          })}
-          return userObject;
-        },
-      );
+      // newInternship.users = newInternship.users.map(
+      //   (user) => {
+      //     const userObject = {...allUsersList.find((item) => {
+      //       if (user === item.userName){
+      //         return true
+      //       }
+      //       return false
+      //     })}
+      //     return userObject;
+      //   },
+      // );
+      newInternship.users = [];
       dispatch(createNewInternship(newInternship));
     },
   });

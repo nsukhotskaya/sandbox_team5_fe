@@ -8,12 +8,9 @@ import {
 const createNewInternship = (newInternship) => async (dispatch) => {
   dispatch(postNewInternshipRequest());
   try {
-    console.log(JSON.stringify(newInternship));
-    const response = await API.post('/api/Internship/createInternship', newInternship);
-    console.log(response)
+    await API.post('/api/Internship/createInternship', newInternship);
     dispatch(postNewInternshipSuccess());
   } catch (error) {
-    console.log(error);
     dispatch(postNewInternshipFailure());
   }
 };
