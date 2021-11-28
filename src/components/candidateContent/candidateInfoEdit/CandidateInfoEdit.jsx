@@ -46,20 +46,13 @@ export const CandidateInfoEdit = (props) => {
   const englishLevelList = useSelector(
     (state) => state.englishLevelType.englishLevelType,
   );
-  const languagesList = useSelector(
-    (state) => state.languages.languages,
-  );
-  const locationsList = useSelector(
-    (state) => state.locations.locations,
-  );
-  const internshipsList = useSelector(
-    (state) => state.internships.internships,
-  );
+  const languagesList = useSelector((state) => state.languages.languages);
+  const locationsList = useSelector((state) => state.locations.locations);
+  const internshipsList = useSelector((state) => state.internships.internships);
 
   const stacksList = useSelector(
     (state) => state.stacksByInternshipId.stacksByInternshipId,
   );
-
 
   useEffect(() => {
     dispatch(fetchCandidateStatusTypes());
@@ -67,7 +60,7 @@ export const CandidateInfoEdit = (props) => {
     dispatch(fetchLanguages());
     dispatch(fetchLocations());
     dispatch(fetchInternships());
-    dispatch(fetchStacksByInternshipId(2));
+    dispatch(fetchStacksByInternshipId(candidateInfo.internshipId));
   }, []);
 
   const stringToObject = (array) =>
@@ -76,27 +69,19 @@ export const CandidateInfoEdit = (props) => {
       name: item,
     }));
 
-
-
-    
-
-
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
   const languagesListFormated = stringToObject(languagesList);
 
-  const formatList = (list) =>{
-    const formatedList = list.map(
-      (stack) => {
-        // eslint-disable-next-line no-param-reassign
-        stack.name = stack.technologyStackType;
-        return stack;
-      }
-    )
+  const formatList = (list) => {
+    const formatedList = list.map((stack) => {
+      // eslint-disable-next-line no-param-reassign
+      stack.name = stack.technologyStackType;
+      return stack;
+    });
 
     return formatedList;
-  }
-
+  };
 
   const formatInfo = (info) => {
     const initInfo = { ...info };
@@ -111,17 +96,10 @@ export const CandidateInfoEdit = (props) => {
     return initInfo;
   };
 
-
-
-
-
   const formatedInitInfo = formatInfo(candidateInfo);
 
-
   const handleClickOpen = () => {
-
     console.log(formatedInitInfo);
-
 
     setOpen(true);
   };
@@ -206,20 +184,12 @@ export const CandidateInfoEdit = (props) => {
       label: getFieldLabel('candidate.info.location'),
       array: locationsList,
     },
-    internships: {
-      keyName: 'internshipName',
-      label: getFieldLabel('candidate.info.internshipName'),
-      array: internshipsList,
-    },
     stacksData: {
       keyName: 'stackType',
       label: getFieldLabel('candidate.info.stackType'),
       array: formatList(stacksList),
     },
-
-
   };
-
 
   const formik = useFormik({
     initialValues: formatedInitInfo,
@@ -250,8 +220,7 @@ export const CandidateInfoEdit = (props) => {
                     />
                   ))}
 
-                  {Object.values(dataForRenderSelect).map((select) => 
-                  ( 
+                  {Object.values(dataForRenderSelect).map((select) => (
                     <Select
                       fullWidth
                       value={formik.values[select.keyName]}
@@ -268,6 +237,25 @@ export const CandidateInfoEdit = (props) => {
                       ))}
                     </Select>
                   ))}
+                  <Select
+                    fullWidth
+                    value={formik.values.internshipName}
+                    onChange={(event, child) => {
+                      formik.setFieldValue(
+                        'internshipName',
+                        event.target.value,
+                      );
+                      formik.setFieldValue('internshipId', child.props.id);
+                    }}
+                    name="internshipName"
+                    label="Internship name"
+                  >
+                    {Object.values(internshipsList).map((item) => (
+                      <MenuItem id={item.id} value={item.name}>
+                        {item.name};
+                      </MenuItem>
+                    ))}
+                  </Select>
 
                   <TimePicker
                     label="Best contact time"
