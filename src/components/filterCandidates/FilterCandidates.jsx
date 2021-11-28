@@ -28,9 +28,6 @@ export const FilterCandidates = ({ onFilter }) => {
   const languagesList = useSelector((state) => state.languages.languages);
   const englishLevelList = useSelector((state) => state.englishLevels.englishLevels);
   const candidateStatusTypesList = useSelector((state) => state.candidateStatusTypes.candidateStatusTypes);
-  const locationName =
-  locationsList && locationsList.map((item) => item.name);
-  console.log(locationName)
   const [anchorEl, setAnchorEl] = useState();
 
   const handleClick = (event) => {
@@ -46,11 +43,11 @@ export const FilterCandidates = ({ onFilter }) => {
 
   const handleSubmit = () => {
     onFilter({
-      "location": filterLocation.length? filterLocation[0] : null,
-      "languageType": filterLanguage.length? filterLanguage[0] : null,
-      "statusType": filterStatus.length ? filterStatus[0] : null,
-      "englishLevel": filterEnglishLevel.length ? filterEnglishLevel[0] : null,
-    //   "auserId": checked?,
+      "locations": filterLocation.length? filterLocation : null,
+      "languageTypes": filterLanguage.length? filterLanguage : null,
+      "statusTypes": filterStatus.length? filterStatus : null,
+      "englishLevels": filterEnglishLevel.length ? filterEnglishLevel : null,
+      "userId": checked? "15cef508-4e16-4b6c-9f26-e6418dd55685": null,
     })
   }
  
