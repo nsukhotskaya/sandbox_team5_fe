@@ -13,10 +13,12 @@ import {
   skills,
   candidateSearch,
   loadingReducer,
+  candidateFeedbacks,
 } from './reducers';
 
 const rootReducer = (history) =>
   combineReducers({
+    candidateFeedbacks,
     stacks,
     locations,
     languages,

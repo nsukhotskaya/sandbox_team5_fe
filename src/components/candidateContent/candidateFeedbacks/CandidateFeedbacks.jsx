@@ -1,54 +1,39 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
-import { fetchSkillsByStackType, fetchFeedbacksByCandidateId } from '../../../store/commands';
+import { 
+  // fetchSkillsByStackType,
+   fetchFeedbacksByCandidateId } from '../../../store/commands';
 import './CandidateFeedbacks.sass';
-import { skills } from '../../../mocks/candidateFeedbacks.json';
+// import { skills } from '../../../mocks/candidateFeedbacks.json';
 import { CandidateFeedbacksItem, CreateFeedback } from '../index';
 
 const CandidateFeedbacks = ({ candidateInfo }) => {
   const dispatch = useDispatch();
-  const skillsList = useSelector((state) => state.skills.skills);
-  const feedbacksList = useSelector((state) => state.feedbacks.feedbacks);
+  // const skillsList = useSelector((state) => state.skills.skills);
+  const feedbacksList = useSelector((state) => state.candidateFeedbacks.candidateFeedbacks);
 
   useEffect(() => {
     if (!feedbacksList.length && candidateInfo.id) {
       dispatch(fetchFeedbacksByCandidateId(candidateInfo.id));
     }
-  }, [feedbacksList]);
+  }, [candidateInfo.id]);
 
-  useEffect(() => {
-    if (!skillsList.length && candidateInfo.stackType) {
-      dispatch(fetchSkillsByStackType(candidateInfo.stackType));
-    }
-  }, [skillsList]);
-
-  const lineUpFeedback = (role, roleName, roleCriteria) => ({
-    name: roleName,
-    role,
-    skillGrades: roleCriteria.map((criterion) => 
-      ({
-        name: criterion.name,
-        grade: 0
-      })),
-    textReview: "" ,
-    generalImpression: 0
-  });
+  // useEffect(() => {
+  //   if (!skillsList.length && candidateInfo.stackType) {
+  //     dispatch(fetchSkillsByStackType(candidateInfo.stackType));
+  //   }
+  // }, [skillsList]);
 
   return (
     <Box className="feedbacksContainer">
-      {console.log(candidateInfo)}
-      {!!candidateInfo.users && candidateInfo.users.map((user) => (
-        <Box key={user.userName}>
-          {!user.feedbacks.length ?
-            <CreateFeedback role={user.roleType} name={user.userName} userId={user.id} englishLevelType={candidateInfo.englishLevelType} candidateId={candidateInfo.id}/>
-            :
-            user.feedbacks.map((feedback) => (
-            <CandidateFeedbacksItem key={feedback.id} role={lineUpFeedback(user.roleType, user.userName, skills.hr.skillGrades)}/>
-            ))
-          }
-        </Box>
-      ))}
+        {!!candidateInfo.users && candidateInfo.users.map((user)=>(
+          !user.feedbacks.length &&
+          <CreateFeedback key={user.id} role={user.roleType} name={user.userName} userId={user.id} englishLevelType={candidateInfo.englishLevelType} candidateId={candidateInfo.id}/>
+        ))}
+        {!!feedbacksList.length && feedbacksList.map((feedback) => (
+        <CandidateFeedbacksItem key={feedback.id} feedback={feedback} users={candidateInfo.users}/>
+        ))}
     </Box>
   );
 };

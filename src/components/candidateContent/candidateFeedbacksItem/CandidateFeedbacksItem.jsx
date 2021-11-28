@@ -13,8 +13,9 @@ import {
 import './CandidateFeedbacksItem.sass';
 import { StarRating } from '../index';
 import { getFieldLabel } from '../../../utils';
+import { hrSkillGrades } from '../../../mocks/candidateFeedbacks.json';
 
-const CandidateFeedbacksItem = ({ role }) => {
+const CandidateFeedbacksItem = ({ feedback, users }) => {
   const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
   const [editMode, setEditMode] = React.useState(false);
   const handleButton = () => {
@@ -23,24 +24,26 @@ const CandidateFeedbacksItem = ({ role }) => {
   const handleEditMode = () => {
     setEditMode(!editMode);
   };
+  const skillGrades = !feedback.evaluations.length ? hrSkillGrades : feedback.evaluations;
+  const feedbackUser = users.find(({id})=> id === feedback.userId);
 
   return (
     <Box className="feedbackItem">
       <Box className="titleSection">
         <Box className="flexboxRow" width="400px">
           <Typography className="feedbackTitle" variant="h5">
-            {role.name}
+            {feedbackUser.userName}
           </Typography>
           <Typography
             className="feedbackTitle roleTitle"
             variant="subtitle2"
             color="primary.main"
           >
-            {role.role}
+            {feedbackUser.roleType}
           </Typography>
         </Box>
         <Box className="flexboxRow">
-          <Rating value={role.generalImpression} readOnly />
+          <Rating value={feedback.finalEvaluation} readOnly />
         </Box>
         <IconButton onClick={handleButton}>
           {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -48,7 +51,7 @@ const CandidateFeedbacksItem = ({ role }) => {
       </Box>
       <Collapse in={isCriteriaShown}>
         <Box className="collapseContainer" borderColor="background.default">
-          {role.skillGrades.map((skill) => (
+          {skillGrades.map((skill) => (
             <StarRating
               key={skill.name}
               title={skill.name}
@@ -57,7 +60,7 @@ const CandidateFeedbacksItem = ({ role }) => {
             />
           ))}
           <TextField
-            defaultValue={role.textReview}
+            defaultValue={feedback.description}
             multiline
             minRows="3"
             label={getFieldLabel('candidateFeedbacks.label.feedback')}
@@ -65,7 +68,7 @@ const CandidateFeedbacksItem = ({ role }) => {
           />
           <StarRating
             title={getFieldLabel('candidateFeedbacks.title.generalImpression')}
-            grade={role.generalImpression}
+            grade={feedback.finalEvaluation}
             editMode={editMode}
           />
           {editMode ? (

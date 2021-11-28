@@ -1,44 +1,30 @@
 {
-  "skills":{
-    "hr":{
-      "name": "Winona Ryder",
-      "role": "HR",
-      "skillGrades": [
-        {
-          "name": "Communication",
-          "grade": 4
-        },
-        {
-          "name": "Education",
-          "grade": 3
-        },
-        {
-          "name": "Honesty",
-          "grade": 2
-        }
-      ],
-      "textReview": "He was rude during communication. Doesn't consider it important to win over people." ,
-      "generalImpression": 3
+  "hrSkillGrades": [
+    {
+      "name": "Communication",
+      "grade": 0
     },
-    "mentor":{
-      "name": "Unknown",
-      "role": "Mentor",
-      "skillGrades": [
-        {
-          "name": "Angular",
-          "grade": 0
-        },
-        {
-          "name": "Vue",
-          "grade": 0
-        },
-        {
-          "name": "React",
-          "grade": 0
-        }
-      ],
-      "textReview": "",
-      "generalImpression": 0
+    {
+      "name": "Education",
+      "grade": 0
+    },
+    {
+      "name": "Honesty",
+      "grade": 0
     }
-  }
+  ],
+  "mentorSkillGrades":[
+    {
+      "name": "Angular",
+      "grade": 0
+    },
+    {
+      "name": "Vue",
+      "grade": 0
+    },
+    {
+      "name": "React",
+      "grade": 0
+    }
+  ]
 }
