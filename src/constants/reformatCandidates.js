@@ -7,5 +7,9 @@ export const reformatCandidates = (candidates) =>
     newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
       'DD.MM.YYYY',
     );
+    const rolyType = candidate.users && candidate.users.map((item) => item.roleType)
+    if (rolyType[0] === "Hr") {
+      newObj.userName = candidate.users && candidate.users.map((item) => item.userName);
+    }  
     return newObj;
   });
