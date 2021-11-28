@@ -168,7 +168,6 @@ const Candidates = () => {
             getRowNodeId={getRowNodeId}
             frameworkComponents={{
               linkFormatter: LinkFormatter,
-              // filterCandidates: FilterCandidates, 
             }}
             onRowSelected={onRowSelected}
             suppressRowClickSelection
@@ -188,20 +187,6 @@ const Candidates = () => {
                   iconKey: 'columns',
                   toolPanel: 'agColumnsToolPanel',
                 },
-                // {
-                //   id: 'filters',
-                //   labelDefault: 'Filters',
-                //   labelKey: 'filters',
-                //   iconKey: 'filter',
-                //   toolPanel: 'agFiltersToolPanel',
-                // },
-                // {
-                //   id: 'filters',
-                //   labelDefault: 'Filters',
-                //   labelKey: 'filters',
-                //   iconKey: 'filter',
-                //   toolPanel: 'filterCandidates',
-                // },
               ],
               position: 'left',
             }}
@@ -209,7 +194,6 @@ const Candidates = () => {
             <AgGridColumn
               field="fullName"
               sortable
-              filter
               checkboxSelection
               resizable
               headerCheckboxSelection
@@ -223,7 +207,6 @@ const Candidates = () => {
                 headerName={getFieldLabel(`candidates.table.${field}`)}
                 key={field}
                 sortable
-                filter
                 resizable
                 flex={1}
               />
