@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
-import { fetchSkillsByStackType } from '../../../store/commands';
+import { fetchSkillsByStackType, fetchFeedbacksByCandidateId } from '../../../store/commands';
 import './CandidateFeedbacks.sass';
 import { skills } from '../../../mocks/candidateFeedbacks.json';
 import { CandidateFeedbacksItem, CreateFeedback } from '../index';
@@ -9,7 +9,14 @@ import { CandidateFeedbacksItem, CreateFeedback } from '../index';
 const CandidateFeedbacks = ({ candidateInfo }) => {
   const dispatch = useDispatch();
   const skillsList = useSelector((state) => state.skills.skills);
-  
+  const feedbacksList = useSelector((state) => state.feedbacks.feedbacks);
+
+  useEffect(() => {
+    if (!feedbacksList.length && candidateInfo.id) {
+      dispatch(fetchFeedbacksByCandidateId(candidateInfo.id));
+    }
+  }, [feedbacksList]);
+
   useEffect(() => {
     if (!skillsList.length && candidateInfo.stackType) {
       dispatch(fetchSkillsByStackType(candidateInfo.stackType));
