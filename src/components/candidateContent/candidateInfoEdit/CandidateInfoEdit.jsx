@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
@@ -22,6 +23,8 @@ import {
   fetchLanguages,
   fetchLocations,
   updateCandidateInfo,
+  fetchInternships,
+  fetchStacksByInternshipId,
 } from '../../../store/commands';
 
 const utc = require('dayjs/plugin/utc');
@@ -49,12 +52,22 @@ export const CandidateInfoEdit = (props) => {
   const locationsList = useSelector(
     (state) => state.locations.locations,
   );
+  const internshipsList = useSelector(
+    (state) => state.internships.internships,
+  );
+
+  const stacksList = useSelector(
+    (state) => state.stacksByInternshipId.stacksByInternshipId,
+  );
+
 
   useEffect(() => {
     dispatch(fetchCandidateStatusTypes());
     dispatch(fetchEnglishLevels());
     dispatch(fetchLanguages());
     dispatch(fetchLocations());
+    dispatch(fetchInternships());
+    dispatch(fetchStacksByInternshipId(2));
   }, []);
 
   const stringToObject = (array) =>
@@ -63,11 +76,26 @@ export const CandidateInfoEdit = (props) => {
       name: item,
     }));
 
+
+
+    
+
+
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
   const languagesListFormated = stringToObject(languagesList);
-  // const locationsListFormated = stringToObject(locationsList);
 
+  const formatList = (list) =>{
+    const formatedList = list.map(
+      (stack) => {
+        // eslint-disable-next-line no-param-reassign
+        stack.name = stack.technologyStackType;
+        return stack;
+      }
+    )
+
+    return formatedList;
+  }
 
 
   const formatInfo = (info) => {
@@ -83,10 +111,18 @@ export const CandidateInfoEdit = (props) => {
     return initInfo;
   };
 
+
+
+
+
   const formatedInitInfo = formatInfo(candidateInfo);
 
+
   const handleClickOpen = () => {
-    // console.log(locationsListFormated);
+
+    console.log(formatedInitInfo);
+
+
     setOpen(true);
   };
 
@@ -111,9 +147,9 @@ export const CandidateInfoEdit = (props) => {
       keyName: 'email',
       label: getFieldLabel('candidate.info.email'),
     },
-    internshipNameData: {
-      keyName: 'internshipName',
-      label: getFieldLabel('candidate.info.internshipName'),
+    internshipIdData: {
+      keyName: 'internshipId',
+      label: getFieldLabel('candidate.info.internshipId'),
     },
     currentJobData: {
       keyName: 'currentJob',
@@ -170,7 +206,20 @@ export const CandidateInfoEdit = (props) => {
       label: getFieldLabel('candidate.info.location'),
       array: locationsList,
     },
+    internships: {
+      keyName: 'internshipName',
+      label: getFieldLabel('candidate.info.internshipName'),
+      array: internshipsList,
+    },
+    stacksData: {
+      keyName: 'stackType',
+      label: getFieldLabel('candidate.info.stackType'),
+      array: formatList(stacksList),
+    },
+
+
   };
+
 
   const formik = useFormik({
     initialValues: formatedInitInfo,
@@ -201,7 +250,8 @@ export const CandidateInfoEdit = (props) => {
                     />
                   ))}
 
-                  {Object.values(dataForRenderSelect).map((select) => (
+                  {Object.values(dataForRenderSelect).map((select) => 
+                  ( 
                     <Select
                       fullWidth
                       value={formik.values[select.keyName]}
