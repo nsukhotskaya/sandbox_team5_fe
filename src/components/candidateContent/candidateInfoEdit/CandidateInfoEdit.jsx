@@ -20,6 +20,7 @@ import {
   fetchCandidateStatusTypes,
   fetchEnglishLevels,
   fetchLanguages,
+  fetchLocations,
   updateCandidateInfo,
 } from '../../../store/commands';
 
@@ -45,11 +46,15 @@ export const CandidateInfoEdit = (props) => {
   const languagesList = useSelector(
     (state) => state.languages.languages,
   );
+  const locationsList = useSelector(
+    (state) => state.locations.locations,
+  );
 
   useEffect(() => {
     dispatch(fetchCandidateStatusTypes());
     dispatch(fetchEnglishLevels());
     dispatch(fetchLanguages());
+    dispatch(fetchLocations());
   }, []);
 
   const stringToObject = (array) =>
@@ -61,6 +66,8 @@ export const CandidateInfoEdit = (props) => {
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
   const languagesListFormated = stringToObject(languagesList);
+  // const locationsListFormated = stringToObject(locationsList);
+
 
 
   const formatInfo = (info) => {
@@ -79,6 +86,7 @@ export const CandidateInfoEdit = (props) => {
   const formatedInitInfo = formatInfo(candidateInfo);
 
   const handleClickOpen = () => {
+    // console.log(locationsListFormated);
     setOpen(true);
   };
 
@@ -119,9 +127,17 @@ export const CandidateInfoEdit = (props) => {
       keyName: 'otherInfo',
       label: getFieldLabel('candidate.info.otherInfo'),
     },
-    location: {
-      keyName: 'location',
-      label: getFieldLabel('candidate.info.location'),
+    professionalCertificatesData: {
+      keyName: 'professionalCertificates',
+      label: getFieldLabel('candidate.info.professionalCertificates'),
+    },
+    phoneData: {
+      keyName: 'phone',
+      label: getFieldLabel('candidate.info.phone'),
+    },
+    skypeData: {
+      keyName: 'skype',
+      label: getFieldLabel('candidate.info.skype'),
     },
     testTaskEvaluation: {
       keyName: 'testTaskEvaluation',
@@ -148,7 +164,12 @@ export const CandidateInfoEdit = (props) => {
       keyName: 'languageType',
       label: getFieldLabel('candidate.info.languageType'),
       array: languagesListFormated,
-    }
+    },
+    locationsData: {
+      keyName: 'location',
+      label: getFieldLabel('candidate.info.location'),
+      array: locationsList,
+    },
   };
 
   const formik = useFormik({
