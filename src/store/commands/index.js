@@ -13,3 +13,4 @@ export { default as fetchLanguages } from './fetchLanguages';
 export { default as fetchSkillsByStackType } from './fetchSkillsByStackType';
 export { default as setBestContactTime } from './setBestContactTime';
 export { default as fetchCandidateSearch } from './fetchCandidateSearch';
+export { default as createFeedback } from './createFeedback';

@@ -83,3 +83,9 @@ export {
   getCandidateSearchFailure,
   GET_CANDIDATE_SEARCH,
 } from './getCandidateSearch';
+export {
+  postFeedbackRequest,
+  postFeedbackSuccess,
+  postFeedbackFailure,
+  POST_FEEDBACK,
+} from './postFeedback';
