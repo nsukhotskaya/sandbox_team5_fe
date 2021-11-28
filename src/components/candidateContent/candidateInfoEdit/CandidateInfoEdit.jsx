@@ -19,6 +19,7 @@ import { getFieldLabel } from '../../../utils';
 import {
   fetchCandidateStatusTypes,
   fetchEnglishLevels,
+  fetchLanguages,
   updateCandidateInfo,
 } from '../../../store/commands';
 
@@ -41,10 +42,14 @@ export const CandidateInfoEdit = (props) => {
   const englishLevelList = useSelector(
     (state) => state.englishLevelType.englishLevelType,
   );
+  const languagesList = useSelector(
+    (state) => state.languages.languages,
+  );
 
   useEffect(() => {
     dispatch(fetchCandidateStatusTypes());
     dispatch(fetchEnglishLevels());
+    dispatch(fetchLanguages());
   }, []);
 
   const stringToObject = (array) =>
@@ -55,6 +60,8 @@ export const CandidateInfoEdit = (props) => {
 
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
+  const languagesListFormated = stringToObject(languagesList);
+
 
   const formatInfo = (info) => {
     const initInfo = { ...info };
@@ -100,10 +107,6 @@ export const CandidateInfoEdit = (props) => {
       keyName: 'internshipName',
       label: getFieldLabel('candidate.info.internshipName'),
     },
-    languageData: {
-      keyName: 'languageType',
-      label: getFieldLabel('candidate.info.languageType'),
-    },
     currentJobData: {
       keyName: 'currentJob',
       label: getFieldLabel('candidate.info.currentJob'),
@@ -141,6 +144,11 @@ export const CandidateInfoEdit = (props) => {
       label: getFieldLabel('candidate.info.englishLevelName'),
       array: englishLevelListFormated,
     },
+    languagesData: {
+      keyName: 'languageType',
+      label: getFieldLabel('candidate.info.languageType'),
+      array: languagesListFormated,
+    }
   };
 
   const formik = useFormik({
