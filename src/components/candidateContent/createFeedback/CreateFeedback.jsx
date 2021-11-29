@@ -5,7 +5,7 @@ import {
   Button,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { createFeedback } from '../../../store/commands';
+import { createFeedback, fetchFeedbacksByCandidateId, fetchCandidate } from '../../../store/commands';
 import './CreateFeedback.sass';
 // import { getFieldLabel } from '../../../utils';
 
@@ -23,6 +23,8 @@ const CreateFeedback = ({ role, name, userId, candidateId, englishLevelType }) =
 
   const handleClick = () => {
     dispatch(createFeedback(createFeedbackRequestBody()));
+    dispatch(fetchFeedbacksByCandidateId(candidateId));
+    dispatch(fetchCandidate(candidateId));
   }
 
   return(

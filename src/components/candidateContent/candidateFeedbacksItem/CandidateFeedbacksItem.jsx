@@ -13,7 +13,6 @@ import {
 import './CandidateFeedbacksItem.sass';
 import { StarRating } from '../index';
 import { getFieldLabel } from '../../../utils';
-import { hrSkillGrades } from '../../../mocks/candidateFeedbacks.json';
 
 const CandidateFeedbacksItem = ({ feedback, users }) => {
   const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
@@ -24,7 +23,7 @@ const CandidateFeedbacksItem = ({ feedback, users }) => {
   const handleEditMode = () => {
     setEditMode(!editMode);
   };
-  const skillGrades = !feedback.evaluations.length ? hrSkillGrades : feedback.evaluations;
+  const skillGrades = feedback.evaluations;
   const feedbackUser = users.find(({id})=> id === feedback.userId);
 
   return (
@@ -32,14 +31,14 @@ const CandidateFeedbacksItem = ({ feedback, users }) => {
       <Box className="titleSection">
         <Box className="flexboxRow" width="400px">
           <Typography className="feedbackTitle" variant="h5">
-            {feedbackUser.userName}
+            {!!feedbackUser.userName && feedbackUser.userName}
           </Typography>
           <Typography
             className="feedbackTitle roleTitle"
             variant="subtitle2"
             color="primary.main"
           >
-            {feedbackUser.roleType}
+            {!!feedbackUser.userName && feedbackUser.roleType}
           </Typography>
         </Box>
         <Box className="flexboxRow">

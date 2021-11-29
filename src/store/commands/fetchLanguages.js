@@ -8,7 +8,7 @@ import {
 const fetchLanguages = () => async (dispatch) => {
   dispatch(getLanguagesRequest());
   try {
-    const response = await API.get('api/Enum/getLaguageTypes');
+    const response = await API.get('api/Enum/getLanguageTypes');
     dispatch(getLanguagesSuccess(response.data));
   } catch (error) {
     dispatch(getLanguagesFailure());
