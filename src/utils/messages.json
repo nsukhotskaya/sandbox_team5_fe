@@ -69,6 +69,8 @@
   "candidates.table.interviewer": "Interviewer",
   "candidates.table.testTaskEvaluation": "Test Task",
   "candidates.table.statusType": "Status",
+  "candidates.filter.title": "Filter Candidates",
+  "candidates.filter.label.englishLevel": "English Level",
   "candidates.popper.inputPlaceholder": "Search...",
   "candidates.button.addToWork": "Add to work",
   "candidates.button.send": "Send",

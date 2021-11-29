@@ -17,8 +17,13 @@ import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
   updateCandidateStatusById,
+  fetchLocations,
+  fetchLanguages,
+  fetchEnglishLevel,
+  fetchCandidateStatusTypes,
+  fetchAllUsers,
 } from '../../store/commands';
-import { LinkFormatter, PageSize, CandidatesSearch } from '../../components';
+import { LinkFormatter, PageSize, CandidatesSearch, FilterCandidates } from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -43,11 +48,6 @@ const Candidates = () => {
   };
 
   const dispatch = useDispatch();
-  const requestBody = {
-    pageSize: 100000,
-    pageNumber: 1,
-    internshipId: id,
-  };
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
   const candidateSearchResult = useSelector(
@@ -58,9 +58,23 @@ const Candidates = () => {
   const internshipName =
     listOfCandidates && listOfCandidates.map((item) => item.internshipName);
 
+    const requestBody = {
+      pageSize: 100000,
+      pageNumber: 1,
+      internshipId: id,
+    };
+
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
+    dispatch(fetchLocations());
+    dispatch(fetchLanguages());
+    dispatch(fetchEnglishLevel());
+    dispatch(fetchCandidateStatusTypes());
+    dispatch(fetchAllUsers());
   }, []);
+
+  const onFilter = (filters) => 
+    dispatch(fetchCandidateList(requestBody, filters))
 
   useEffect(() => {
     if (gridApi) gridApi.setRowData(newCandidateSearchResult);
@@ -82,7 +96,7 @@ const Candidates = () => {
     if (selectedNodes.length === 0) {
       setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
-    } else if (selectedNodes !== 0 && selectedData.includes('HRReview')) {
+    } else if (selectedNodes !== 0 && selectedData.includes('HR_Review')) {
       setIsAddToWorkButtonDisabled(true);
       setIsSendButtonDisabled(false);
     } else {
@@ -112,6 +126,9 @@ const Candidates = () => {
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>
+          </Box>
+            <Box className="filterBox">
+          <FilterCandidates onFilter={onFilter} />
           </Box>
           <Stack direction="row" spacing={2}>
             <Button
@@ -172,13 +189,6 @@ const Candidates = () => {
                   iconKey: 'columns',
                   toolPanel: 'agColumnsToolPanel',
                 },
-                {
-                  id: 'filters',
-                  labelDefault: 'Filters',
-                  labelKey: 'filters',
-                  iconKey: 'filter',
-                  toolPanel: 'agFiltersToolPanel',
-                },
               ],
               position: 'left',
             }}
@@ -186,7 +196,6 @@ const Candidates = () => {
             <AgGridColumn
               field="fullName"
               sortable
-              filter
               checkboxSelection
               resizable
               headerCheckboxSelection
@@ -200,7 +209,6 @@ const Candidates = () => {
                 headerName={getFieldLabel(`candidates.table.${field}`)}
                 key={field}
                 sortable
-                filter
                 resizable
                 flex={1}
               />
