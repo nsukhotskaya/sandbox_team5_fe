@@ -48,6 +48,8 @@
   "candidates.table.internshipName": "Internship",
   "candidates.table.stackType": "Stack",
   "candidates.table.hr": "HR",
+  "candidates.table.hrReview": "HR Review",
+  "candidates.table.interviewerReview": "Interviewer Review",
   "candidates.form.inputLabel": "Page Size",
   "internship.page.technology": "Stack type",
   "internship.page.language": "Languages",
