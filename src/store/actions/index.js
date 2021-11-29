@@ -89,3 +89,9 @@ export {
   getAllUsersFailure,
   GET_ALL_USERS,
 } from './getAllUsers';
+export {
+  postNewInternshipRequest,
+  postNewInternshipSuccess,
+  postNewInternshipFailure,
+  POST_NEW_INTERNSHIP,
+} from './postNewInternship';
