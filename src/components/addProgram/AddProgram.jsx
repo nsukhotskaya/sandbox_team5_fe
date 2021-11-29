@@ -19,6 +19,8 @@ import {
   fetchLocations,
   fetchStacks,
   fetchLanguages,
+  fetchAllUsers,
+  createNewInternship,
 } from '../../store/commands';
 import { initialValues } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
@@ -37,6 +39,19 @@ const stringToObject = (array) =>
     id: index,
     name: item,
   }));
+
+const formatStacks = (array) =>
+array.map((item) => ({
+  id: item.id,
+  name: item.technologyStackType,
+}));
+
+const formatAllUsers = (array) =>
+array.map((item) => ({
+  id: item.id,
+  name: item.userName,
+}));
+
 const checkDataReceived = (...arrays) =>
   arrays.every((array) => array.length !== 0);
 
@@ -47,11 +62,13 @@ const AddProgram = (props) => {
   const locationsList = useSelector((state) => state.locations.locations);
   const stacksList = useSelector((state) => state.stacks.stacks);
   const languagesList = useSelector((state) => state.languages.languages);
+  const allUsersList = useSelector((state) => state.allUsers.allUsers);
 
   const isDataReceived = checkDataReceived(
     locationsList,
     stacksList,
     languagesList,
+    allUsersList,
   );
 
   useEffect(() => {
@@ -59,11 +76,13 @@ const AddProgram = (props) => {
       dispatch(fetchLocations());
       dispatch(fetchStacks());
       dispatch(fetchLanguages());
+      dispatch(fetchAllUsers());
     }
   }, [isDataReceived]);
 
   const languagesListFormated = stringToObject(languagesList);
-  const stacksListFormated = stringToObject(stacksList);
+  const stacksListFormated = formatStacks(stacksList);
+  const allUsersListFormated = formatAllUsers(allUsersList);
 
   const formik = useFormik({
     initialValues,
@@ -80,6 +99,25 @@ const AddProgram = (props) => {
           return stackObject;
         },
       );
+      newInternship.languageTypes = newInternship.languageTypes.map(
+        (language) => {
+          const languageObject = { language };
+          return languageObject;
+        },
+      );
+      // newInternship.users = newInternship.users.map(
+      //   (user) => {
+      //     const userObject = {...allUsersList.find((item) => {
+      //       if (user === item.userName){
+      //         return true
+      //       }
+      //       return false
+      //     })}
+      //     return userObject;
+      //   },
+      // );
+      newInternship.users = [];
+      dispatch(createNewInternship(newInternship));
     },
   });
 
@@ -115,6 +153,14 @@ const AddProgram = (props) => {
       keyName: 'maxCandidateCount',
       label: getFieldLabel('addprogram.field.label.candidateCount'),
     },
+    spreadSheetId: {
+      keyName: 'spreadSheetId',
+      label: getFieldLabel('addprogram.field.label.spreadSheetId'),
+    },
+    imageLink: {
+      keyName: 'imageLink',
+      label: getFieldLabel('addprogram.field.label.imageLink'),
+    },
   };
 
   const dataForRenderSelect = {
@@ -129,10 +175,15 @@ const AddProgram = (props) => {
       array: locationsList,
     },
     languagesData: {
-      keyName: 'languageType',
+      keyName: 'languageTypes',
       label: getFieldLabel('addprogram.field.label.languages'),
       array: languagesListFormated,
     },
+    allUsersData: {
+      keyName: 'users',
+      label: getFieldLabel('addprogram.field.label.allUsers'),
+      array: allUsersListFormated,
+    }
   };
 
   return (

@@ -13,6 +13,7 @@ import {
   skills,
   candidateSearch,
   loadingReducer,
+  allUsers,
 } from './reducers';
 
 const rootReducer = (history) =>
@@ -21,6 +22,7 @@ const rootReducer = (history) =>
     locations,
     languages,
     skills,
+    allUsers,
     searchResult: candidateSearch,
     loading: loadingReducer,
     authorization: isAuthorized,
