@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
@@ -55,12 +54,14 @@ export const CandidateInfoEdit = (props) => {
   );
 
   useEffect(() => {
-    dispatch(fetchCandidateStatusTypes());
-    dispatch(fetchEnglishLevels());
-    dispatch(fetchLanguages());
-    dispatch(fetchLocations());
-    dispatch(fetchInternships());
-    dispatch(fetchStacksByInternshipId(candidateInfo.internshipId));
+    if (Object.prototype.hasOwnProperty.call(candidateInfo, 'internshipId')) {
+      dispatch(fetchCandidateStatusTypes());
+      dispatch(fetchEnglishLevels());
+      dispatch(fetchLanguages());
+      dispatch(fetchLocations());
+      dispatch(fetchInternships());
+      dispatch(fetchStacksByInternshipId(candidateInfo.internshipId));
+    }
   }, []);
 
   const stringToObject = (array) =>
@@ -69,19 +70,16 @@ export const CandidateInfoEdit = (props) => {
       name: item,
     }));
 
+  const adaptStacks = (list) =>
+    list.map((item) => ({
+      id: item.id,
+      name: item.technologyStackType,
+    }));
+
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
   const languagesListFormated = stringToObject(languagesList);
-
-  const formatList = (list) => {
-    const formatedList = list.map((stack) => {
-      // eslint-disable-next-line no-param-reassign
-      stack.name = stack.technologyStackType;
-      return stack;
-    });
-
-    return formatedList;
-  };
+  const stacksListAdapted = adaptStacks(stacksList);
 
   const formatInfo = (info) => {
     const initInfo = { ...info };
@@ -187,7 +185,7 @@ export const CandidateInfoEdit = (props) => {
     stacksData: {
       keyName: 'stackType',
       label: getFieldLabel('candidate.info.stackType'),
-      array: formatList(stacksList),
+      array: stacksListAdapted,
     },
   };
 
@@ -223,7 +221,7 @@ export const CandidateInfoEdit = (props) => {
 
                   {Object.values(dataForRenderSelect).map((select) => (
                     <Select
-                      key = {select.keyName}
+                      key={select.keyName}
                       fullWidth
                       value={formik.values[select.keyName]}
                       onChange={(event) =>
@@ -253,7 +251,7 @@ export const CandidateInfoEdit = (props) => {
                     label="Internship name"
                   >
                     {Object.values(internshipsList).map((item) => (
-                      <MenuItem id={item.id} value={item.name} key = {item.id}>
+                      <MenuItem id={item.id} value={item.name} key={item.id}>
                         {item.name};
                       </MenuItem>
                     ))}
