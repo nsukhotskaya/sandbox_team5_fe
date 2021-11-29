@@ -15,7 +15,7 @@ export {
   getInternshipsSuccess,
   getInternshipsFailure,
   GET_INTERNSHIPS,
-} from './internships';
+} from './getInternships';
 export {
   userLogInRequest,
   userLogInSuccess,
@@ -83,3 +83,9 @@ export {
   getCandidateSearchFailure,
   GET_CANDIDATE_SEARCH,
 } from './getCandidateSearch';
+export {
+  getAllUsersRequest,
+  getAllUsersSuccess,
+  getAllUsersFailure,
+  GET_ALL_USERS,
+} from './getAllUsers';
