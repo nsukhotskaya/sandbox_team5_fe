@@ -16,6 +16,7 @@ import {
   englishLevels,
   candidateStatusTypes,
   stacksByInternshipIdList,
+  allUsers,
 } from './reducers';
 
 const rootReducer = (history) =>
@@ -27,6 +28,7 @@ const rootReducer = (history) =>
     englishLevels,
     candidateStatusTypes,
     stacksByInternshipId: stacksByInternshipIdList,
+    allUsers,
     searchResult: candidateSearch,
     loading: loadingReducer,
     authorization: isAuthorized,
