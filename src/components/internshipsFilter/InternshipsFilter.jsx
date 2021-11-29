@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Popover,
   IconButton,
@@ -13,11 +14,20 @@ import {
   Typography,
 } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { locations, stacks, hrs } from '../../mocks/internshipsFilter.json';
+import { fetchAllUsers } from '../../store/commands';
 import { getFieldLabel } from '../../utils';
 
-export const InternshipsFilter = () => {
+export const InternshipsFilter = ({ onFilter }) => {
   const [anchorEl, setAnchorEl] = useState();
+  const locationsList = useSelector((state) => state.locations.locations);
+  const stacksList = useSelector((state) => state.stacks.stacks);
+  const languagesList = useSelector((state) => state.languages.languages);
+  const allUsers = useSelector((state) => state.allUsers.allUsers);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllUsers());
+  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,6 +47,26 @@ export const InternshipsFilter = () => {
   const [filterHRs, setFilterHRs] = useState([]);
   const [filterInterviewers, setFilterInterviewers] = useState([]);
   const [filterMentors, setFilterMentors] = useState([]);
+
+  const handleSubmit = () => {
+    onFilter({
+      locations: filterLocation.length ? filterLocation : null,
+      languageTypes: filterLanguage.length ? filterLanguage : null,
+      internshipStatusType: filterStatus.length ? filterStatus : null,
+      internshipStacks: filterStack.length ? filterStack : null,
+      attachedUsers: [
+        ...filterHRs,
+        ...filterInterviewers,
+        ...filterMentors,
+      ].map((user) => user.userName),
+    });
+  };
+
+  const hrs = allUsers.filter((user) => user.roleType === 'Hr');
+  const interviewers = allUsers.filter(
+    (user) => user.roleType === 'Interviewer',
+  );
+  const mentors = allUsers.filter((user) => user.roleType === 'Mentor');
 
   return (
     <Box>
@@ -66,42 +96,6 @@ export const InternshipsFilter = () => {
           </Typography>
           <FormControl size="small" fullWidth>
             <InputLabel>
-              {getFieldLabel('internships.filter.label.location')}
-            </InputLabel>
-            <Select
-              multiple
-              value={filterLocation}
-              onChange={(event) => setFilterLocation(event.target.value)}
-              label="Location"
-              renderValue={(selected) => selected.join(', ')}
-            >
-              {locations.map((location) => (
-                <MenuItem key={location} value={location}>
-                  <Checkbox checked={filterLocation.indexOf(location) > -1} />
-                  <ListItemText primary={location} />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl size="small" fullWidth>
-            <InputLabel>
-              {getFieldLabel('internships.filter.label.language')}
-            </InputLabel>
-            <Select
-              value={filterLanguage}
-              label="Language"
-              onChange={(event) => setFilterLanguage(event.target.value)}
-            >
-              <MenuItem value="English">
-                {getFieldLabel('internships.filter.language.english')}
-              </MenuItem>
-              <MenuItem value="Russian">
-                {getFieldLabel('internships.filter.language.russian')}
-              </MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl size="small" fullWidth>
-            <InputLabel>
               {getFieldLabel('internships.filter.label.status')}
             </InputLabel>
             <Select
@@ -115,6 +109,44 @@ export const InternshipsFilter = () => {
           </FormControl>
           <FormControl size="small" fullWidth>
             <InputLabel>
+              {getFieldLabel('internships.filter.label.location')}
+            </InputLabel>
+            <Select
+              multiple
+              value={filterLocation}
+              onChange={(event) => setFilterLocation(event.target.value)}
+              label="Location"
+              renderValue={(selected) => selected.join(', ')}
+            >
+              {locationsList.map((location) => (
+                <MenuItem key={location} value={location}>
+                  <Checkbox checked={filterLocation.indexOf(location) > -1} />
+                  <ListItemText primary={location} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl size="small" fullWidth>
+            <InputLabel>
+              {getFieldLabel('internships.filter.label.language')}
+            </InputLabel>
+            <Select
+              multiple
+              value={filterLanguage}
+              onChange={(event) => setFilterLanguage(event.target.value)}
+              label="Language"
+              renderValue={(selected) => selected.join(', ')}
+            >
+              {languagesList.map((language) => (
+                <MenuItem key={language} value={language}>
+                  <Checkbox checked={filterLanguage.indexOf(language) > -1} />
+                  <ListItemText primary={language} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl size="small" fullWidth>
+            <InputLabel>
               {getFieldLabel('internships.filter.label.stack')}
             </InputLabel>
             <Select
@@ -124,7 +156,7 @@ export const InternshipsFilter = () => {
               label="Stack"
               renderValue={(selected) => selected.join(', ')}
             >
-              {stacks.map((stack) => (
+              {stacksList.map((stack) => (
                 <MenuItem key={stack} value={stack}>
                   <Checkbox checked={filterStack.indexOf(stack) > -1} />
                   <ListItemText primary={stack} />
@@ -143,10 +175,10 @@ export const InternshipsFilter = () => {
               label="HRs"
               renderValue={(selected) => selected.join(', ')}
             >
-              {hrs.map((hr) => (
-                <MenuItem key={hr} value={hr}>
-                  <Checkbox checked={filterHRs.indexOf(hr) > -1} />
-                  <ListItemText primary={hr} />
+              {hrs.map((user) => (
+                <MenuItem key={user.id} value={user.userName}>
+                  <Checkbox checked={filterHRs.indexOf(user.userName) > -1} />
+                  <ListItemText primary={user.userName} />
                 </MenuItem>
               ))}
             </Select>
@@ -162,10 +194,12 @@ export const InternshipsFilter = () => {
               label="Interviewers"
               renderValue={(selected) => selected.join(', ')}
             >
-              {hrs.map((hr) => (
-                <MenuItem key={hr} value={hr}>
-                  <Checkbox checked={filterInterviewers.indexOf(hr) > -1} />
-                  <ListItemText primary={hr} />
+              {interviewers.map((user) => (
+                <MenuItem key={user.id} value={user.userName}>
+                  <Checkbox
+                    checked={filterInterviewers.indexOf(user.userName) > -1}
+                  />
+                  <ListItemText primary={user.userName} />
                 </MenuItem>
               ))}
             </Select>
@@ -181,15 +215,17 @@ export const InternshipsFilter = () => {
               label="Mentors"
               renderValue={(selected) => selected.join(', ')}
             >
-              {hrs.map((hr) => (
-                <MenuItem key={hr} value={hr}>
-                  <Checkbox checked={filterMentors.indexOf(hr) > -1} />
-                  <ListItemText primary={hr} />
+              {mentors.map((user) => (
+                <MenuItem key={user.id} value={user.userName}>
+                  <Checkbox
+                    checked={filterMentors.indexOf(user.userName) > -1}
+                  />
+                  <ListItemText primary={user.userName} />
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
-          <Button size="small" variant="contained">
+          <Button onClick={handleSubmit} size="small" variant="contained">
             {getFieldLabel('common.filter')}
           </Button>
         </Box>

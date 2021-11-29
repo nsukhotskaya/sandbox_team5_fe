@@ -69,17 +69,11 @@ const CandidateFeedbacksItem = ({ role }) => {
             editMode={editMode}
           />
           {editMode ? (
-            <Button
-              variant="outlined"
-              onClick={handleEditMode}
-            >
+            <Button variant="outlined" onClick={handleEditMode}>
               {getFieldLabel('common.save')}
             </Button>
           ) : (
-            <Button
-              variant="outlined"
-              onClick={handleEditMode}
-            >
+            <Button variant="outlined" onClick={handleEditMode}>
               {getFieldLabel('common.edit')}
             </Button>
           )}

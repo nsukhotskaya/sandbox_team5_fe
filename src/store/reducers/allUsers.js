@@ -10,11 +10,7 @@ export default function allUsers(state = initialState, action) {
     case GET_ALL_USERS.REQUEST:
       return { ...state, isLoading: true };
     case GET_ALL_USERS.SUCCESS: {
-      return {
-        ...state,
-        allUsers: action.payload.allUsers,
-        isLoading: false,
-      };
+      return { ...state, allUsers: action.payload.allUsers, isLoading: false };
     }
     case GET_ALL_USERS.FAILURE:
       return { ...state, isLoading: false };

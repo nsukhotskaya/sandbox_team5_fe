@@ -58,21 +58,21 @@ export const Internships = () => {
           >
             {getFieldLabel('internships.title')}
           </Typography>
-          <Box
-            className="internshipsMenu"
-          >
+          <Box className="internshipsMenu">
             <Box className="menuItemsBox">
               <IconButton onClick={handleClick}>
                 <ManageSearchIcon fontSize="large" />
               </IconButton>
-                <Popper open={open} anchorEl={anchorEl} placement="left">
-                  <Input
-                    onChange={onInputChange}
-                    type="text"
-                    placeholder={getFieldLabel('common.search')}
-                  />
-                </Popper>
-              <InternshipsFilter />
+              <Popper open={open} anchorEl={anchorEl} placement="left">
+                <Input
+                  onChange={onInputChange}
+                  type="text"
+                  placeholder={getFieldLabel('common.search')}
+                />
+              </Popper>
+              <InternshipsFilter
+                onFilter={(filters) => dispatch(fetchInternships(filters))}
+              />
             </Box>
             <Button variant="outlined" size="small" onClick={openPopUpWindow}>
               {getFieldLabel('internships.button.add.program')}

@@ -8,7 +8,7 @@ import {
 const fetchAllUsers = () => async (dispatch) => {
   dispatch(getAllUsersRequest());
   try {
-    const response = await API.get('api/User/getAllUsers');
+    const response = await API.get('/api/User/getAllUsers');
     dispatch(getAllUsersSuccess(response.data));
   } catch (error) {
     dispatch(getAllUsersFailure());

@@ -15,7 +15,7 @@ export {
   getInternshipsSuccess,
   getInternshipsFailure,
   GET_INTERNSHIPS,
-} from './internships';
+} from './getInternships';
 export {
   userLogInRequest,
   userLogInSuccess,

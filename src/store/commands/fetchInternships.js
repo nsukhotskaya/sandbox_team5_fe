@@ -10,13 +10,13 @@ const requestBody = {
   pageNumber: 1,
 };
 
-const fetchInternships = () => async (dispatch) => {
+const fetchInternships = (filters) => async (dispatch) => {
   dispatch(getInternshipsRequest());
   try {
-    const response = await API.post(
-      '/api/Internship/getInternships',
-      requestBody,
-    );
+    const response = await API.post('/api/Internship/getInternships', {
+      ...requestBody,
+      intershipsFilterBy: filters || {},
+    });
     dispatch(getInternshipsSuccess(response.data));
   } catch (error) {
     dispatch(getInternshipsFailure());
