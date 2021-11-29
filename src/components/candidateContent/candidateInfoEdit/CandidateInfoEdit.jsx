@@ -23,7 +23,7 @@ import AdapterDayJs from '@mui/lab/AdapterDayjs';
 import { getFieldLabel } from '../../../utils';
 import {
   fetchCandidateStatusTypes,
-  fetchEnglishLevels,
+  fetchEnglishLevel,
   fetchLanguages,
   fetchLocations,
   updateCandidateInfo,
@@ -59,7 +59,7 @@ export const CandidateInfoEdit = (props) => {
   useEffect(() => {
     if (Object.prototype.hasOwnProperty.call(candidateInfo, 'internshipId')) {
       dispatch(fetchCandidateStatusTypes());
-      dispatch(fetchEnglishLevels());
+      dispatch(fetchEnglishLevel());
       dispatch(fetchLanguages());
       dispatch(fetchLocations());
       dispatch(fetchInternships());

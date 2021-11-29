@@ -70,7 +70,9 @@ export const Internships = () => {
                   placeholder={getFieldLabel('common.search')}
                 />
               </Popper>
-              <InternshipsFilter />
+              <InternshipsFilter
+                onFilter={(filters) => dispatch(fetchInternships(filters))}
+              />
             </Box>
             <Button variant="outlined" size="small" onClick={openPopUpWindow}>
               {getFieldLabel('internships.button.add.program')}

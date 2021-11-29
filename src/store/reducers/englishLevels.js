@@ -1,21 +1,22 @@
-import { GET_ENGLISH_LEVELS } from '../actions';
+import { GET_ENGLISH_LEVEL } from '../actions';
 
 const initialState = {
   englishLevels: [],
   isLoading: false,
 };
 
-export default function englishLevels(state = initialState, action) {
+export default function englishLevel(state = initialState, action) {
   switch (action.type) {
-    case GET_ENGLISH_LEVELS.REQUEST:
+    case GET_ENGLISH_LEVEL.REQUEST:
       return { ...state, isLoading: true };
-    case GET_ENGLISH_LEVELS.SUCCESS:
+    case GET_ENGLISH_LEVEL.SUCCESS: {
       return {
         ...state,
         englishLevels: action.payload.englishLevels,
         isLoading: false,
       };
-    case GET_ENGLISH_LEVELS.FAILURE:
+    }
+    case GET_ENGLISH_LEVEL.FAILURE:
       return { ...state, isLoading: false };
     default:
       return state;

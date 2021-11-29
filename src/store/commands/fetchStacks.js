@@ -8,7 +8,7 @@ import {
 const fetchStacks = () => async (dispatch) => {
   dispatch(getStacksRequest());
   try {
-    const response = await API.get('getInternshipStacks');
+    const response = await API.get('/api/Enum/getInternshipStackTypes');
     dispatch(getStacksSuccess(response.data));
   } catch (error) {
     dispatch(getStacksFailure());

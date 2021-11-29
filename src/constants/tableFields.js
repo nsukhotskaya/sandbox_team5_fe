@@ -6,7 +6,9 @@ export const tableFields = [
   'stackType',
   'englishLevelType',
   'hr',
+  'hrReview',
   'interviewer',
+  'interviewerReview',
   'testTaskEvaluation',
   'statusType',
 ];

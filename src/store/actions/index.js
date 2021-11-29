@@ -15,7 +15,7 @@ export {
   getInternshipsSuccess,
   getInternshipsFailure,
   GET_INTERNSHIPS,
-} from './internships';
+} from './getInternships';
 export {
   userLogInRequest,
   userLogInSuccess,
@@ -84,16 +84,16 @@ export {
   GET_CANDIDATE_SEARCH,
 } from './getCandidateSearch';
 export {
-  getEnglishLevelsRequest,
-  getEnglishLevelsSuccess,
-  getEnglishLevelsFailure,
-  GET_ENGLISH_LEVELS,
-} from './getEnglishLevels';
+  getEnglishLevelRequest,
+  getEnglishLevelSuccess,
+  getEnglishLevelFailure,
+  GET_ENGLISH_LEVEL,
+} from './getEnglishLevel';
 export {
   getCandidateStatusTypesRequest,
   getCandidateStatusTypesSuccess,
   getCandidateStatusTypesFailure,
-  GET_CANDIDATE_STATUS_TYPES,
+  GET_CANDIDATE_STATUS_TYPE,
 } from './getCandidateStatusTypes';
 export {
   getStacksByInternshipIdRequest,
