@@ -5,10 +5,8 @@ export const tableFields = [
   'internshipName',
   'stackType',
   'englishLevelType',
-  'userName',
-  'hrReview',
+  'hr',
   'interviewer',
-  'interviewerReview',
   'testTaskEvaluation',
   'statusType',
 ];
