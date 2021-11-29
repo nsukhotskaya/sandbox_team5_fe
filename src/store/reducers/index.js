@@ -10,6 +10,6 @@ export { default as languages } from './languages';
 export { default as skills } from './skills';
 export { default as loadingReducer } from './loadingReducer';
 export { default as candidateSearch } from './candidateSearch';
-export { default as englishLevelType } from './englishLevelType';
+export { default as englishLevels } from './englishLevels';
 export { default as candidateStatusTypes } from './candidateStatusTypes';
 export { default as stacksByInternshipIdList } from './stacksByInternshipIdList';

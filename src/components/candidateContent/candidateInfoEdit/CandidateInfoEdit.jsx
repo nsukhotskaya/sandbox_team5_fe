@@ -33,22 +33,20 @@ dayjs.extend(utc);
 export const CandidateInfoEdit = (props) => {
   const { candidateInfo } = props;
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   dayjs.extend(customParseFormat);
   dayjs.extend(utc);
-
-  const dispatch = useDispatch();
 
   const candidateStatusTypeList = useSelector(
     (state) => state.candidateStatusTypes.candidateStatusTypes,
   );
   const englishLevelList = useSelector(
-    (state) => state.englishLevelType.englishLevelType,
+    (state) => state.englishLevels.englishLevels,
   );
   const languagesList = useSelector((state) => state.languages.languages);
   const locationsList = useSelector((state) => state.locations.locations);
   const internshipsList = useSelector((state) => state.internships.internships);
-
   const stacksList = useSelector(
     (state) => state.stacksByInternshipId.stacksByInternshipId,
   );
@@ -76,11 +74,6 @@ export const CandidateInfoEdit = (props) => {
       name: item.technologyStackType,
     }));
 
-  const englishLevelListFormated = stringToObject(englishLevelList);
-  const statusTypeListFormated = stringToObject(candidateStatusTypeList);
-  const languagesListFormated = stringToObject(languagesList);
-  const stacksListAdapted = adaptStacks(stacksList);
-
   const formatInfo = (info) => {
     const initInfo = { ...info };
     initInfo.registrationDate = dayjs.utc(
@@ -95,10 +88,12 @@ export const CandidateInfoEdit = (props) => {
   };
 
   const formatedInitInfo = formatInfo(candidateInfo);
+  const englishLevelListFormated = stringToObject(englishLevelList);
+  const statusTypeListFormated = stringToObject(candidateStatusTypeList);
+  const languagesListFormated = stringToObject(languagesList);
+  const stacksListAdapted = adaptStacks(stacksList);
 
   const handleClickOpen = () => {
-    console.log(formatedInitInfo);
-
     setOpen(true);
   };
 
@@ -192,7 +187,6 @@ export const CandidateInfoEdit = (props) => {
   const formik = useFormik({
     initialValues: formatedInitInfo,
     onSubmit: (values) => {
-      console.log(values);
       dispatch(updateCandidateInfo(values));
     },
   });
@@ -224,11 +218,11 @@ export const CandidateInfoEdit = (props) => {
                       key={select.keyName}
                       fullWidth
                       value={formik.values[select.keyName]}
+                      name={select.keyName}
+                      label={select.label}
                       onChange={(event) =>
                         formik.setFieldValue(select.keyName, event.target.value)
                       }
-                      name={select.keyName}
-                      label={select.label}
                     >
                       {select.array.map((item) => (
                         <MenuItem key={item.id} value={item.name}>
@@ -248,7 +242,7 @@ export const CandidateInfoEdit = (props) => {
                       formik.setFieldValue('internshipId', child.props.id);
                     }}
                     name="internshipName"
-                    label="Internship name"
+                    label={getFieldLabel('candidate.info.internshipName')}
                   >
                     {Object.values(internshipsList).map((item) => (
                       <MenuItem id={item.id} value={item.name} key={item.id}>
@@ -258,7 +252,7 @@ export const CandidateInfoEdit = (props) => {
                   </Select>
 
                   <TimePicker
-                    label="Best contact time"
+                    label={getFieldLabel('candidate.info.bestContactTime')}
                     name="bestContactTime"
                     value={formik.values.bestContactTime}
                     onChange={(dateValue) =>
@@ -270,10 +264,10 @@ export const CandidateInfoEdit = (props) => {
                   />
                 </Stack>
                 <Button variant="contained" type="submit" onClick={handleClose}>
-                  Submit
+                  {getFieldLabel('common.save')}
                 </Button>
                 <Button variant="contained" onClick={handleClose}>
-                  Close
+                  {getFieldLabel('common.close')}
                 </Button>
               </Box>
             </form>

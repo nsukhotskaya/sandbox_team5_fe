@@ -11,7 +11,7 @@ export const getEnglishLevelsRequest = () => ({
 
 export const getEnglishLevelsSuccess = (data) => ({
   type: GET_ENGLISH_LEVELS.SUCCESS,
-  payload: { englishLevelType: data },
+  payload: { englishLevels: data },
 });
 
 export const getEnglishLevelsFailure = (error) => ({

@@ -13,7 +13,7 @@ import {
   skills,
   candidateSearch,
   loadingReducer,
-  englishLevelType,
+  englishLevels,
   candidateStatusTypes,
   stacksByInternshipIdList,
 } from './reducers';
@@ -24,7 +24,7 @@ const rootReducer = (history) =>
     locations,
     languages,
     skills,
-    englishLevelType,
+    englishLevels,
     candidateStatusTypes,
     stacksByInternshipId: stacksByInternshipIdList,
     searchResult: candidateSearch,
