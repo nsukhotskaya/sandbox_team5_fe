@@ -1,30 +1,11 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import { Box } from '@mui/material';
-import { 
-  // fetchSkillsByStackType,
-   fetchFeedbacksByCandidateId } from '../../../store/commands';
 import './CandidateFeedbacks.sass';
-// import { skills } from '../../../mocks/candidateFeedbacks.json';
 import { CandidateFeedbacksItem, CreateFeedback } from '../index';
 
-const CandidateFeedbacks = ({ candidateInfo }) => {
-  const dispatch = useDispatch();
-  // const skillsList = useSelector((state) => state.skills.skills);
-  const feedbacksList = useSelector((state) => state.candidateFeedbacks.candidateFeedbacks);
-
-  useEffect(() => {
-    if (!feedbacksList.length && candidateInfo.id) {
-      dispatch(fetchFeedbacksByCandidateId(candidateInfo.id));
-    }
-  }, [candidateInfo.id]);
-
-  // useEffect(() => {
-  //   if (!skillsList.length && candidateInfo.stackType) {
-  //     dispatch(fetchSkillsByStackType(candidateInfo.stackType));
-  //   }
-  // }, [skillsList]);
-
+const CandidateFeedbacks = ({ candidateInfo, feedbacksList }) => {
+  console.log(candidateInfo)
+  console.log(feedbacksList)
   return (
     <Box className="feedbacksContainer">
         {!!candidateInfo.users && candidateInfo.users.map((user)=>(

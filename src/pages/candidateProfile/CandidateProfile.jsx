@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { fetchCandidate } from '../../store/commands';
+import { fetchCandidate, fetchFeedbacksByCandidateId } from '../../store/commands';
 import { CandidateInfo, CandidateFeedbacks } from '../../components';
 import './CandidateProfile.sass';
 import { loadingSelector } from '../../store/selectors';
@@ -11,6 +11,7 @@ import { LoadingIndicator } from '../../components/loadingIndicator';
 const CandidateProfile = () => {
   const { id } = useParams();
   const candidate = useSelector((state) => state.candidate.candidate);
+  const feedbacksList = useSelector((state) => state.candidateFeedbacks.candidateFeedbacks);
   const dispatch = useDispatch();
 
   const isLoading = useSelector(loadingSelector(['GET_CANDIDATE']));
@@ -18,6 +19,7 @@ const CandidateProfile = () => {
 
   useEffect(() => {
     dispatch(fetchCandidate(id));
+    dispatch(fetchFeedbacksByCandidateId(id));
   }, []);
 
   return (
@@ -37,7 +39,7 @@ const CandidateProfile = () => {
             <CandidateInfo candidateInfo={candidate} />
           </Box>
           <Box className="candidateProfileCardWrapper">
-            <CandidateFeedbacks candidateInfo={candidate} />
+            <CandidateFeedbacks candidateInfo={candidate} feedbacksList={feedbacksList} />
           </Box>
         </Box>
       )}
