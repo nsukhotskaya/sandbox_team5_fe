@@ -13,7 +13,10 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  Typography,
+  IconButton,
 } from '@mui/material';
+import ClearIcon from '@mui/icons-material/Clear';
 import { LocalizationProvider, TimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
 
@@ -187,7 +190,6 @@ export const CandidateInfoEdit = (props) => {
     },
   };
 
-
   const formik = useFormik({
     initialValues: formatedInitInfo,
     onSubmit: (values) => {
@@ -203,8 +205,27 @@ export const CandidateInfoEdit = (props) => {
             {getFieldLabel('common.edit')}
           </Button>
           <Drawer anchor="left" open={open}>
+            <Box
+                position="sticky"
+                top = "0px"
+                height="auto"
+                padding="20px"
+                backgroundColor="background.paper"
+                zIndex="2"
+                boxShadow="0px -4px 10px 0px #c9c9c9"
+                width="100%"
+                display="flex"
+                justifyContent="space-between"
+            >
+              <Typography variant="h4" color="gray">
+                {getFieldLabel('candidate.edit.editCandidateTitle')}
+              </Typography>
+              <IconButton onClick={handleClose}>
+                <ClearIcon fontSize="small" />
+              </IconButton>
+            </Box>
             <form onSubmit={formik.handleSubmit}>
-              <Box width="50vw">
+              <Box width="50vw" padding="20px">
                 <Stack spacing={2} direction="column">
                   {Object.values(dataForRenderTextField).map((item) => (
                     <TextField
@@ -278,6 +299,19 @@ export const CandidateInfoEdit = (props) => {
                     renderInput={(params) => <TextField {...params} />}
                   />
                 </Stack>
+              </Box>
+              <Box
+                position="sticky"
+                bottom="0px"
+                height="auto"
+                padding="20px"
+                backgroundColor="background.paper"
+                zIndex="1"
+                boxShadow="0px -4px 10px 0px #c9c9c9"
+                width="100%"
+                display="flex"
+                justifyContent="space-between"
+              >
                 <Button variant="contained" type="submit" onClick={handleClose}>
                   {getFieldLabel('common.save')}
                 </Button>

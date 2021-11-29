@@ -84,6 +84,7 @@
   "internship.page.abandonedCandidatesCount":"Refused",
   "internship.page.successfullyFinishedCandidatesCount":"Graduated",
   "internship.page.teamsCount":"Number of teams:",
+  "candidate.edit.editCandidateTitle": "Candidate edit",
   "candidate.info.status" : "Status",
   "candidate.info.firstName" : "First name",
   "candidate.info.lastName" : "Last name",
