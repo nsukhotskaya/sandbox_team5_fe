@@ -217,11 +217,13 @@ export const CandidateInfoEdit = (props) => {
                       onChange={formik.handleChange}
                       name={item.keyName}
                       label={item.label}
+                      key={item.keyName}
                     />
                   ))}
 
                   {Object.values(dataForRenderSelect).map((select) => (
                     <Select
+                      key = {select.keyName}
                       fullWidth
                       value={formik.values[select.keyName]}
                       onChange={(event) =>
@@ -251,7 +253,7 @@ export const CandidateInfoEdit = (props) => {
                     label="Internship name"
                   >
                     {Object.values(internshipsList).map((item) => (
-                      <MenuItem id={item.id} value={item.name}>
+                      <MenuItem id={item.id} value={item.name} key = {item.id}>
                         {item.name};
                       </MenuItem>
                     ))}
