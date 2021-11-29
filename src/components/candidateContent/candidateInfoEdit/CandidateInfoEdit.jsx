@@ -11,6 +11,8 @@ import {
   TextField,
   Select,
   MenuItem,
+  InputLabel,
+  FormControl,
 } from '@mui/material';
 import { LocalizationProvider, TimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
@@ -91,14 +93,15 @@ export const CandidateInfoEdit = (props) => {
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
   const languagesListFormated = stringToObject(languagesList);
+  const locationsListFormated = stringToObject(locationsList);
   const stacksListAdapted = adaptStacks(stacksList);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
   };
 
   const dataForRenderTextField = {
@@ -164,7 +167,7 @@ export const CandidateInfoEdit = (props) => {
     },
     englishLevelType: {
       keyName: 'englishLevelType',
-      label: getFieldLabel('candidate.info.englishLevelName'),
+      label: getFieldLabel('candidate.info.englishLevelType'),
       array: englishLevelListFormated,
     },
     languagesData: {
@@ -175,7 +178,7 @@ export const CandidateInfoEdit = (props) => {
     locationsData: {
       keyName: 'location',
       label: getFieldLabel('candidate.info.location'),
-      array: locationsList,
+      array: locationsListFormated,
     },
     stacksData: {
       keyName: 'stackType',
@@ -183,6 +186,7 @@ export const CandidateInfoEdit = (props) => {
       array: stacksListAdapted,
     },
   };
+
 
   const formik = useFormik({
     initialValues: formatedInitInfo,
@@ -214,42 +218,53 @@ export const CandidateInfoEdit = (props) => {
                   ))}
 
                   {Object.values(dataForRenderSelect).map((select) => (
+                    <FormControl key={select.keyName}>
+                      <InputLabel>{select.label}</InputLabel>
+                      <Select
+                        key={select.keyName}
+                        fullWidth
+                        value={formik.values[select.keyName]}
+                        name={select.keyName}
+                        label={select.label}
+                        onChange={(event) =>
+                          formik.setFieldValue(
+                            select.keyName,
+                            event.target.value,
+                          )
+                        }
+                      >
+                        {select.array.map((item) => (
+                          <MenuItem key={item.id} value={item.name}>
+                            {item.name};
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  ))}
+                  <FormControl>
+                    <InputLabel>
+                      {getFieldLabel('candidate.info.internshipName')}
+                    </InputLabel>
                     <Select
-                      key={select.keyName}
                       fullWidth
-                      value={formik.values[select.keyName]}
-                      name={select.keyName}
-                      label={select.label}
-                      onChange={(event) =>
-                        formik.setFieldValue(select.keyName, event.target.value)
-                      }
+                      value={formik.values.internshipName}
+                      onChange={(event, child) => {
+                        formik.setFieldValue(
+                          'internshipName',
+                          event.target.value,
+                        );
+                        formik.setFieldValue('internshipId', child.props.id);
+                      }}
+                      name="internshipName"
+                      label={getFieldLabel('candidate.info.internshipName')}
                     >
-                      {select.array.map((item) => (
-                        <MenuItem key={item.id} value={item.name}>
+                      {Object.values(internshipsList).map((item) => (
+                        <MenuItem id={item.id} value={item.name} key={item.id}>
                           {item.name};
                         </MenuItem>
                       ))}
                     </Select>
-                  ))}
-                  <Select
-                    fullWidth
-                    value={formik.values.internshipName}
-                    onChange={(event, child) => {
-                      formik.setFieldValue(
-                        'internshipName',
-                        event.target.value,
-                      );
-                      formik.setFieldValue('internshipId', child.props.id);
-                    }}
-                    name="internshipName"
-                    label={getFieldLabel('candidate.info.internshipName')}
-                  >
-                    {Object.values(internshipsList).map((item) => (
-                      <MenuItem id={item.id} value={item.name} key={item.id}>
-                        {item.name};
-                      </MenuItem>
-                    ))}
-                  </Select>
+                  </FormControl>
 
                   <TimePicker
                     label={getFieldLabel('candidate.info.bestContactTime')}
