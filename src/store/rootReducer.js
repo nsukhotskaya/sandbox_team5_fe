@@ -15,6 +15,7 @@ import {
   loadingReducer,
   englishLevels,
   candidateStatusTypes,
+  allUsers,
 } from './reducers';
 
 const rootReducer = (history) =>
@@ -25,6 +26,7 @@ const rootReducer = (history) =>
     skills,
     englishLevels,
     candidateStatusTypes,
+    allUsers,
     searchResult: candidateSearch,
     loading: loadingReducer,
     authorization: isAuthorized,
