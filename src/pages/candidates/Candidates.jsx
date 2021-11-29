@@ -20,7 +20,8 @@ import {
   fetchLocations,
   fetchLanguages,
   fetchEnglishLevel,
-  fetchCandidateStatusTypes
+  fetchCandidateStatusTypes,
+  fetchAllUsers,
 } from '../../store/commands';
 import { LinkFormatter, PageSize, CandidatesSearch, FilterCandidates } from '../../components';
 import './candidates.sass';
@@ -69,6 +70,7 @@ const Candidates = () => {
     dispatch(fetchLanguages());
     dispatch(fetchEnglishLevel());
     dispatch(fetchCandidateStatusTypes());
+    dispatch(fetchAllUsers());
   }, []);
 
   const onFilter = (filters) => 
@@ -126,7 +128,7 @@ const Candidates = () => {
             </IconButton>
           </Box>
             <Box className="filterBox">
-          <FilterCandidates onFilter={onFilter}/>
+          <FilterCandidates onFilter={onFilter} />
           </Box>
           <Stack direction="row" spacing={2}>
             <Button

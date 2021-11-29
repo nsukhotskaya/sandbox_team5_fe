@@ -25,10 +25,11 @@ export const FilterCandidates = ({ onFilter }) => {
   const [filterEnglishLevel, setFilterEnglishLevel] = useState([]);
   const [checked, setChecked] = useState(false);
   const locationsList = useSelector((state) => state.locations.locations);
-console.log(locationsList)
   const languagesList = useSelector((state) => state.languages.languages);
   const englishLevelList = useSelector((state) => state.englishLevels.englishLevels);
   const candidateStatusTypesList = useSelector((state) => state.candidateStatusTypes.candidateStatusTypes);
+  const allUsersList = useSelector((state) => state.allUsers.allUsers);
+  const allUsersId = allUsersList && allUsersList.map((item) => item.id);
   const [anchorEl, setAnchorEl] = useState();
 
   const handleClick = (event) => {
@@ -48,7 +49,7 @@ console.log(locationsList)
       "languageTypes": filterLanguage.length? filterLanguage : null,
       "statusTypes": filterStatus.length? filterStatus : null,
       "englishLevels": filterEnglishLevel.length ? filterEnglishLevel : null,
-      "userId": checked? "15cef508-4e16-4b6c-9f26-e6418dd55685": null,
+      "userId": checked? allUsersId[0]: null,
     })
   }
  
@@ -72,7 +73,6 @@ console.log(locationsList)
       }}
     >
         <Box
-        //   width="250px"
           padding="20px"
           width="350px"
           height="480px"
