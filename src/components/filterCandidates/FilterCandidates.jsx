@@ -25,6 +25,7 @@ export const FilterCandidates = ({ onFilter }) => {
   const [filterEnglishLevel, setFilterEnglishLevel] = useState([]);
   const [checked, setChecked] = useState(false);
   const locationsList = useSelector((state) => state.locations.locations);
+console.log(locationsList)
   const languagesList = useSelector((state) => state.languages.languages);
   const englishLevelList = useSelector((state) => state.englishLevels.englishLevels);
   const candidateStatusTypesList = useSelector((state) => state.candidateStatusTypes.candidateStatusTypes);
@@ -93,9 +94,9 @@ export const FilterCandidates = ({ onFilter }) => {
             >
               {locationsList
                  .map((location) => (
-                <MenuItem key={location.name} value={location.name}>
-                  <Checkbox checked={filterLocation.indexOf(location.name) > -1} />
-                  <ListItemText primary={location.name} />
+                <MenuItem key={location} value={location}>
+                  <Checkbox checked={filterLocation.indexOf(location) > -1} />
+                  <ListItemText primary={location} />
                 </MenuItem>
               ))
               }
