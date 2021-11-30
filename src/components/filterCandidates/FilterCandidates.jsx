@@ -10,11 +10,11 @@ import {
   Checkbox,
   ListItemText,
   Typography,
-  Stack,
   FormControlLabel,
   IconButton,
   Popover,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { getFieldLabel } from '../../utils';
 
@@ -52,6 +52,15 @@ export const FilterCandidates = ({ onFilter }) => {
       "userId": checked? allUsersId[0]: null,
     })
   }
+
+  const reset = () => {
+    setFilterLocation([])
+    setFilterLanguage([])
+    setFilterStatus([])
+    setFilterEnglishLevel([])
+    setChecked(false)
+    onFilter({})
+  }
  
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -73,11 +82,14 @@ export const FilterCandidates = ({ onFilter }) => {
       }}
     >
         <Box
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-between"
           padding="20px"
-          width="350px"
-          height="480px"
+          width="340px"
+          height="400px"
         >
-        <Stack direction="column" spacing={2}>
+           <CloseIcon onClick={handleClose} />
           <Typography align="center" color="primary" fontSize="20px">
             {getFieldLabel('candidates.filter.title')}
           </Typography>
@@ -165,10 +177,15 @@ export const FilterCandidates = ({ onFilter }) => {
           <FormControlLabel className="filterFormControlLabel" control={<Checkbox checked={checked}
            onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} />} label="My candidates" />
            </FormControl>
+           <Box display="flex"
+          justifyContent="space-between">
           <Button onClick={handleSubmit} size="small" variant="contained">
-            {getFieldLabel('common.filter')}
+            APPLY FILTER
           </Button>
-          </Stack>
+          <Button onClick={reset} size="small" variant="contained">
+            CLEAN FILTER
+          </Button>
+          </Box>
         </Box>
         </Popover>
     </Box>
