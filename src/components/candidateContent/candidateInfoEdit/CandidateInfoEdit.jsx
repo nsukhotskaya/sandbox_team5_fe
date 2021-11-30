@@ -193,29 +193,24 @@ export const CandidateInfoEdit = (props) => {
                       key={item}
                     />
                   ))}
-                  {dataForRenderSelect.map((select) => (
-                    <FormControl key={select.keyName}>
+                  {dataForRenderSelect.map(({ keyName, array }) => (
+                    <FormControl key={keyName}>
                       <InputLabel>
-                        {getFieldLabel(`candidate.info.${select.keyName}`)}
+                        {getFieldLabel(`candidate.info.${keyName}`)}
                       </InputLabel>
                       <Select
-                        key={select.keyName}
+                        key={keyName}
                         fullWidth
-                        value={formik.values[select.keyName]}
-                        name={select.keyName}
-                        label={getFieldLabel(
-                          `candidate.info.${select.keyName}`,
-                        )}
+                        value={formik.values[keyName]}
+                        name={keyName}
+                        label={getFieldLabel(`candidate.info.${keyName}`)}
                         onChange={(event) =>
-                          formik.setFieldValue(
-                            select.keyName,
-                            event.target.value,
-                          )
+                          formik.setFieldValue(keyName, event.target.value)
                         }
                       >
-                        {select.array.map((item) => (
-                          <MenuItem key={item.id} value={item.name}>
-                            {item.name}
+                        {array.map(({ id, name }) => (
+                          <MenuItem key={id} value={name}>
+                            {name}
                           </MenuItem>
                         ))}
                       </Select>
