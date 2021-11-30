@@ -30,7 +30,11 @@ export const Internships = () => {
   useEffect(() => {}, [isLoading]);
 
   useEffect(() => {
-    dispatch(fetchInternships());
+    dispatch(fetchInternships()); 
+  }, [popUpActive]);
+
+  useEffect(() => {
+    dispatch(fetchInternships()); 
   }, []);
 
   const openPopUpWindow = () => {

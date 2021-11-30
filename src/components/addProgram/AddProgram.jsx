@@ -21,6 +21,7 @@ import {
   fetchLanguages,
   fetchAllUsers,
   createNewInternship,
+  fetchInternships,
 } from '../../store/commands';
 import { initialValues } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
@@ -38,12 +39,6 @@ const stringToObject = (array) =>
   array.map((item, index) => ({
     id: index,
     name: item,
-  }));
-
-const formatStacks = (array) =>
-  array.map((item) => ({
-    id: item.id,
-    name: item.technologyStackType,
   }));
 
 const formatAllUsers = (array) =>
@@ -80,8 +75,9 @@ const AddProgram = (props) => {
     }
   }, [isDataReceived]);
 
+  const locationsListFormated = stringToObject(locationsList);
   const languagesListFormated = stringToObject(languagesList);
-  const stacksListFormated = formatStacks(stacksList);
+  const stacksListFormated = stringToObject(stacksList);
   const allUsersListFormated = formatAllUsers(allUsersList);
 
   const formik = useFormik({
@@ -118,6 +114,8 @@ const AddProgram = (props) => {
       // );
       newInternship.users = [];
       dispatch(createNewInternship(newInternship));
+      dispatch(fetchInternships());
+      closeModal();
     },
   });
 
@@ -172,7 +170,7 @@ const AddProgram = (props) => {
     locationData: {
       keyName: 'locations',
       label: getFieldLabel('addprogram.field.label.locations'),
-      array: locationsList,
+      array: locationsListFormated,
     },
     languagesData: {
       keyName: 'languageTypes',
