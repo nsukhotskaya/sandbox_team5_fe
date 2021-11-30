@@ -15,6 +15,8 @@ export { default as setBestContactTime } from './setBestContactTime';
 export { default as fetchCandidateSearch } from './fetchCandidateSearch';
 export { default as createFeedback } from './createFeedback';
 export { default as fetchFeedbacksByCandidateId } from './fetchFeedbacksByCandidateId';
+export { default as fetchEnglishLevel } from './fetchEnglishLevel';
+export { default as fetchCandidateStatusTypes } from './fetchCandidateStatusTypes';
 export { default as fetchAllUsers } from './fetchAllUsers';
 export { default as createNewInternship } from './createNewInternship';
 export { default as updateFeedback } from './updateFeedback';
