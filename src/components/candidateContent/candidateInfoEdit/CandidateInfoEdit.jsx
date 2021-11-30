@@ -110,41 +110,41 @@ export const CandidateInfoEdit = (props) => {
     setOpen(true);
   };
 
-  const dataForRenderTextField = {
-    firstNameData: { keyName: 'firstName' },
-    secondNameData: { keyName: 'lastName' },
-    educationData: { keyName: 'education' },
-    emailData: { keyName: 'email' },
-    currentJobData: { keyName: 'currentJob' },
-    linksData: { keyName: 'links' },
-    otherInfoData: { keyName: 'otherInfo' },
-    professionalCertificatesData: { keyName: 'professionalCertificates' },
-    phoneData: { keyName: 'phone' },
-    skypeData: { keyName: 'skype' },
-  };
+  const dataForRenderTextField = [
+    'firstName',
+    'lastName',
+    'education',
+    'email',
+    'currentJob',
+    'links',
+    'otherInfo',
+    'professionalCertificates',
+    'phone',
+    'skype',
+  ];
 
-  const dataForRenderSelect = {
-    status: {
+  const dataForRenderSelect = [
+    {
       keyName: 'statusType',
       array: statusTypeListFormated,
     },
-    englishLevelType: {
+    {
       keyName: 'englishLevelType',
       array: englishLevelListFormated,
     },
-    languagesData: {
+    {
       keyName: 'languageType',
       array: languagesListFormated,
     },
-    locationsData: {
+    {
       keyName: 'location',
       array: locationsListFormated,
     },
-    stacksData: {
+    {
       keyName: 'stackType',
       array: stacksListAdapted,
     },
-  };
+  ];
 
   const formik = useFormik({
     initialValues: formatedInitInfo,
@@ -183,18 +183,17 @@ export const CandidateInfoEdit = (props) => {
             <form onSubmit={formik.handleSubmit}>
               <Box width="35vw" padding="20px">
                 <Stack spacing={2} direction="column">
-                  {Object.values(dataForRenderTextField).map((item) => (
+                  {dataForRenderTextField.map((item) => (
                     <TextField
                       fullWidth
-                      value={formik.values[item.keyName]}
+                      value={formik.values[item]}
                       onChange={formik.handleChange}
-                      name={item.keyName}
-                      label={getFieldLabel(`candidate.info.${item.keyName}`)}
-                      key={item.keyName}
+                      name={item}
+                      label={getFieldLabel(`candidate.info.${item}`)}
+                      key={item}
                     />
                   ))}
-
-                  {Object.values(dataForRenderSelect).map((select) => (
+                  {dataForRenderSelect.map((select) => (
                     <FormControl key={select.keyName}>
                       <InputLabel>
                         {getFieldLabel(`candidate.info.${select.keyName}`)}
