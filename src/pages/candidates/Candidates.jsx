@@ -122,7 +122,7 @@ const Candidates = () => {
           {internshipName[0]}
         </Typography>
         <Box className="candidatesButtons">
-          <Box className="searchBox">
+          <Box>
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>
