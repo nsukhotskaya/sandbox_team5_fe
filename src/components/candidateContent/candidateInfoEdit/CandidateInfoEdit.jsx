@@ -15,8 +15,11 @@ import {
   FormControl,
   Typography,
   IconButton,
+  Checkbox,
+  FormControlLabel,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import EditIcon from '@mui/icons-material/Edit';
 import { LocalizationProvider, TimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
 
@@ -81,13 +84,13 @@ export const CandidateInfoEdit = (props) => {
 
   const formatInfo = (info) => {
     const initInfo = { ...info };
+    initInfo.isPlanningToJoin = initInfo.isPlanningToJoin.includes('Yes');
     initInfo.registrationDate = dayjs.utc(
       initInfo.registrationDate,
       'DD/MM/YYYY HH:mm',
     );
 
     initInfo.bestContactTime = dayjs.utc(initInfo.bestContactTime, 'HH:mm');
-    initInfo.isPlanningToJoin = true;
 
     return initInfo;
   };
@@ -108,84 +111,37 @@ export const CandidateInfoEdit = (props) => {
   };
 
   const dataForRenderTextField = {
-    firstNameData: {
-      keyName: 'firstName',
-      label: getFieldLabel('candidate.info.firstName'),
-    },
-    secondNameData: {
-      keyName: 'lastName',
-      label: getFieldLabel('candidate.info.lastName'),
-    },
-    educationData: {
-      keyName: 'education',
-      label: getFieldLabel('candidate.info.education'),
-    },
-    emailData: {
-      keyName: 'email',
-      label: getFieldLabel('candidate.info.email'),
-    },
-    internshipIdData: {
-      keyName: 'internshipId',
-      label: getFieldLabel('candidate.info.internshipId'),
-    },
-    currentJobData: {
-      keyName: 'currentJob',
-      label: getFieldLabel('candidate.info.currentJob'),
-    },
-    linksData: {
-      keyName: 'links',
-      label: getFieldLabel('candidate.info.links'),
-    },
-    otherInfoData: {
-      keyName: 'otherInfo',
-      label: getFieldLabel('candidate.info.otherInfo'),
-    },
-    professionalCertificatesData: {
-      keyName: 'professionalCertificates',
-      label: getFieldLabel('candidate.info.professionalCertificates'),
-    },
-    phoneData: {
-      keyName: 'phone',
-      label: getFieldLabel('candidate.info.phone'),
-    },
-    skypeData: {
-      keyName: 'skype',
-      label: getFieldLabel('candidate.info.skype'),
-    },
-    testTaskEvaluation: {
-      keyName: 'testTaskEvaluation',
-      label: getFieldLabel('candidate.info.testTaskEvaluation'),
-    },
-    isPlanningToJoin: {
-      keyName: 'isPlanningToJoin',
-      label: getFieldLabel('candidate.info.isPlanningToJoin'),
-    },
+    firstNameData: { keyName: 'firstName' },
+    secondNameData: { keyName: 'lastName' },
+    educationData: { keyName: 'education' },
+    emailData: { keyName: 'email' },
+    currentJobData: { keyName: 'currentJob' },
+    linksData: { keyName: 'links' },
+    otherInfoData: { keyName: 'otherInfo' },
+    professionalCertificatesData: { keyName: 'professionalCertificates' },
+    phoneData: { keyName: 'phone' },
+    skypeData: { keyName: 'skype' },
   };
 
   const dataForRenderSelect = {
     status: {
       keyName: 'statusType',
-      label: getFieldLabel('candidate.info.statusType'),
       array: statusTypeListFormated,
     },
     englishLevelType: {
       keyName: 'englishLevelType',
-      label: getFieldLabel('candidate.info.englishLevelType'),
       array: englishLevelListFormated,
     },
     languagesData: {
       keyName: 'languageType',
-      label: getFieldLabel('candidate.info.languageType'),
       array: languagesListFormated,
     },
     locationsData: {
       keyName: 'location',
-      label: getFieldLabel('candidate.info.location'),
       array: locationsListFormated,
     },
     stacksData: {
       keyName: 'stackType',
-      label: getFieldLabel('candidate.info.stackType'),
       array: stacksListAdapted,
     },
   };
@@ -201,21 +157,21 @@ export const CandidateInfoEdit = (props) => {
     <LocalizationProvider dateAdapter={AdapterDayJs}>
       <form>
         <Box>
-          <Button variant="outlined" onClick={handleClickOpen}>
-            {getFieldLabel('common.edit')}
-          </Button>
+          <IconButton variant="outlined" onClick={handleClickOpen}>
+            <EditIcon fontSize="medium" />
+          </IconButton>
           <Drawer anchor="left" open={open}>
             <Box
-                position="sticky"
-                top = "0px"
-                height="auto"
-                padding="20px"
-                backgroundColor="background.paper"
-                zIndex="2"
-                boxShadow="0px -4px 10px 0px #c9c9c9"
-                width="100%"
-                display="flex"
-                justifyContent="space-between"
+              position="sticky"
+              top="0px"
+              height="auto"
+              padding="20px"
+              backgroundColor="background.paper"
+              zIndex="2"
+              boxShadow="0px -4px 10px 0px #c9c9c9"
+              width="100%"
+              display="flex"
+              justifyContent="space-between"
             >
               <Typography variant="h4" color="gray">
                 {getFieldLabel('candidate.edit.editCandidateTitle')}
@@ -233,20 +189,24 @@ export const CandidateInfoEdit = (props) => {
                       value={formik.values[item.keyName]}
                       onChange={formik.handleChange}
                       name={item.keyName}
-                      label={item.label}
+                      label={getFieldLabel(`candidate.info.${item.keyName}`)}
                       key={item.keyName}
                     />
                   ))}
 
                   {Object.values(dataForRenderSelect).map((select) => (
                     <FormControl key={select.keyName}>
-                      <InputLabel>{select.label}</InputLabel>
+                      <InputLabel>
+                        {getFieldLabel(`candidate.info.${select.keyName}`)}
+                      </InputLabel>
                       <Select
                         key={select.keyName}
                         fullWidth
                         value={formik.values[select.keyName]}
                         name={select.keyName}
-                        label={select.label}
+                        label={getFieldLabel(
+                          `candidate.info.${select.keyName}`,
+                        )}
                         onChange={(event) =>
                           formik.setFieldValue(
                             select.keyName,
@@ -298,6 +258,16 @@ export const CandidateInfoEdit = (props) => {
                     // eslint-disable-next-line react/jsx-props-no-spreading
                     renderInput={(params) => <TextField {...params} />}
                   />
+                  <FormControl fullWidth>
+                    <FormControlLabel
+                      label={getFieldLabel('candidate.info.isPlanningToJoin')}
+                      control={<Checkbox />}
+                      name="isPlanningToJoin"
+                      onChange={formik.handleChange}
+                      checked={formik.values.isPlanningToJoin}
+                      value={formik.values.isPlanningToJoin}
+                    />
+                  </FormControl>
                 </Stack>
               </Box>
               <Box
@@ -312,11 +282,13 @@ export const CandidateInfoEdit = (props) => {
                 display="flex"
                 justifyContent="space-between"
               >
-                <Button variant="contained" type="submit" onClick={handleClose}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  onClick={handleClose}
+                  fullWidth
+                >
                   {getFieldLabel('common.save')}
-                </Button>
-                <Button variant="contained" onClick={handleClose}>
-                  {getFieldLabel('common.close')}
                 </Button>
               </Box>
             </form>
