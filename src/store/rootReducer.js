@@ -13,6 +13,7 @@ import {
   skills,
   candidateSearch,
   loadingReducer,
+  candidateFeedbacks,
   englishLevels,
   candidateStatusTypes,
   allUsers,
@@ -20,6 +21,7 @@ import {
 
 const rootReducer = (history) =>
   combineReducers({
+    candidateFeedbacks,
     stacks,
     locations,
     languages,
