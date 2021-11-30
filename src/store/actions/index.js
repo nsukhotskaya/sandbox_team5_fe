@@ -84,6 +84,18 @@ export {
   GET_CANDIDATE_SEARCH,
 } from './getCandidateSearch';
 export {
+  postFeedbackRequest,
+  postFeedbackSuccess,
+  postFeedbackFailure,
+  POST_FEEDBACK,
+} from './postFeedback';
+export {
+  getFeedbacksByCandidateIdRequest,
+  getFeedbacksByCandidateIdSuccess,
+  getFeedbacksByCandidateIdFailure,
+  GET_FEEDBACKS_BY_CANDIDATE_ID,
+} from './getFeedbacksByCandidateId';
+export {
   getEnglishLevelRequest,
   getEnglishLevelSuccess,
   getEnglishLevelFailure,
@@ -113,3 +125,9 @@ export {
   postNewInternshipFailure,
   POST_NEW_INTERNSHIP,
 } from './postNewInternship';
+export {
+  putFeedbackRequest,
+  putFeedbackSuccess,
+  putFeedbackFailure,
+  PUT_FEEDBACK,
+} from './putFeedback';

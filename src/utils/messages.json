@@ -129,5 +129,6 @@
   "addprogram.input.date.format": "yyyy/MM/dd hh:mm a",
   "addprogram.input.date.mask": "___/__/__ __:__ _M",
   "candidateFeedbacks.label.feedback": "Feedback",
-  "candidateFeedbacks.title.generalImpression": "General Impression"
+  "candidateFeedbacks.title.generalImpression": "General Impression",
+  "candidateFeedbacks.button.createFeedback": "Create feedback"
 }
