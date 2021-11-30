@@ -111,7 +111,7 @@ export const InternshipsFilter = ({ onFilter }) => {
           <CloseIcon onClick={handleClose} className="closeFilterButton" />
           <Box display="flex" flexDirection="row" justifyContent="space-between" paddingRight="35px">
             <Typography align="center" color="text" fontSize="20px">
-              {getFieldLabel('internships.filter.title')}
+              {getFieldLabel('common.filter.title')}
             </Typography>
             <Button onClick={cleanFilter} size="small">
                 {getFieldLabel('common.reset.filter')}
