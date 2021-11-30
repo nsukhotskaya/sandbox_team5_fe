@@ -215,7 +215,7 @@ export const CandidateInfoEdit = (props) => {
                       >
                         {select.array.map((item) => (
                           <MenuItem key={item.id} value={item.name}>
-                            {item.name};
+                            {item.name}
                           </MenuItem>
                         ))}
                       </Select>
@@ -240,7 +240,7 @@ export const CandidateInfoEdit = (props) => {
                     >
                       {Object.values(internshipsList).map((item) => (
                         <MenuItem id={item.id} value={item.name} key={item.id}>
-                          {item.name};
+                          {item.name}
                         </MenuItem>
                       ))}
                     </Select>
