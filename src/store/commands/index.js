@@ -17,3 +17,4 @@ export { default as fetchEnglishLevel } from './fetchEnglishLevel';
 export { default as fetchCandidateStatusTypes } from './fetchCandidateStatusTypes';
 export { default as fetchAllUsers } from './fetchAllUsers';
 export { default as createNewInternship } from './createNewInternship';
+export { default as fetchGoogleSheet } from './fetchGoogleSheet';
