@@ -181,7 +181,7 @@ export const CandidateInfoEdit = (props) => {
               </IconButton>
             </Box>
             <form onSubmit={formik.handleSubmit}>
-              <Box width="50vw" padding="20px">
+              <Box width="35vw" padding="20px">
                 <Stack spacing={2} direction="column">
                   {Object.values(dataForRenderTextField).map((item) => (
                     <TextField
