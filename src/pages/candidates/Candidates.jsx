@@ -11,6 +11,7 @@ import {
   Divider,
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
+import CachedIcon from '@mui/icons-material/Cached';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields, reformatCandidates } from '../../constants';
 import { getFieldLabel } from '../../utils';
@@ -22,6 +23,7 @@ import {
   fetchEnglishLevel,
   fetchCandidateStatusTypes,
   fetchAllUsers,
+  fetchGoogleSheet,
 } from '../../store/commands';
 import { LinkFormatter, PageSize, CandidatesSearch, FilterCandidates } from '../../components';
 import './candidates.sass';
@@ -77,8 +79,12 @@ const Candidates = () => {
     dispatch(fetchCandidateList(requestBody, filters))
 
   useEffect(() => {
-    if (gridApi) gridApi.setRowData(newCandidateSearchResult);
+    if (gridApi) gridApi.setRowData(newCandidateSearchResult); 
   }, [candidateSearchResult]);
+
+  useEffect(() => {
+    if (gridApi) gridApi.setRowData(newListOfCandidates); 
+  }, [newListOfCandidates]);
 
   const onGridReady = (params) => {
     setGridApi(params.api);
@@ -115,12 +121,21 @@ const Candidates = () => {
     gridApi.forEachNode(rowNodes);
   };
 
+  const googleSheet = () => {
+    dispatch(fetchGoogleSheet(id));
+  }
+
   return (
     <Box padding="1%" width="100%" height="100%">
       <Box className="candidatesPageHeader">
-        <Typography variant="h4" component="div" gutterBottom color="#757575">
+        <Box display="flex" alignItems="center">
+        <Typography variant="h4" component="div" color="#757575">
           {internshipName[0]}
         </Typography>
+        <IconButton onClick={googleSheet}>
+        <CachedIcon fontSize="large" />
+        </IconButton>
+        </Box>
         <Box className="candidatesButtons">
           <Box>
             <IconButton onClick={handleClick}>
@@ -195,17 +210,21 @@ const Candidates = () => {
           >
             <AgGridColumn
               field="fullName"
+              tooltipField="fullName"
+              headerTooltip={getFieldLabel("candidates.table.fullName")}
               sortable
               checkboxSelection
               resizable
               headerCheckboxSelection
               suppressSizeToFit
-              minWidth={250}
+              minWidth={200}
               cellRenderer="linkFormatter"
             />
             {tableFields.map((field) => (
               <AgGridColumn
                 field={field}
+                tooltipField={field}
+                headerTooltip={getFieldLabel(`candidates.table.${field}`)}
                 headerName={getFieldLabel(`candidates.table.${field}`)}
                 key={field}
                 sortable
