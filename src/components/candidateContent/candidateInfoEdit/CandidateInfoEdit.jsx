@@ -183,14 +183,14 @@ export const CandidateInfoEdit = (props) => {
             <form onSubmit={formik.handleSubmit}>
               <Box width="35vw" padding="20px">
                 <Stack spacing={2} direction="column">
-                  {dataForRenderTextField.map((item) => (
+                  {dataForRenderTextField.map((fieldName) => (
                     <TextField
                       fullWidth
-                      value={formik.values[item]}
+                      value={formik.values[fieldName]}
                       onChange={formik.handleChange}
-                      name={item}
-                      label={getFieldLabel(`candidate.info.${item}`)}
-                      key={item}
+                      name={fieldName}
+                      label={getFieldLabel(`candidate.info.${fieldName}`)}
+                      key={fieldName}
                     />
                   ))}
                   {dataForRenderSelect.map(({ keyName, array }) => (
