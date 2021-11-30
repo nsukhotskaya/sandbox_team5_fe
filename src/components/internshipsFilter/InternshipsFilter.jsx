@@ -13,7 +13,9 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
+import './internshipsFilter.sass';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import CloseIcon from '@mui/icons-material/Close';
 import { fetchAllUsers } from '../../store/commands';
 import { getFieldLabel } from '../../utils';
 
@@ -62,6 +64,17 @@ export const InternshipsFilter = ({ onFilter }) => {
     });
   };
 
+  const cleanFilter = () => {
+    setFilterLocation([]);
+    setFilterLanguage([]);
+    setFilterStatus([]);
+    setFilterStack([]);
+    setFilterHRs([]);
+    setFilterInterviewers([]);
+    setFilterMentors([]);
+    onFilter({});
+  };
+
   const hrs = allUsers.filter((user) => user.roleType === 'Hr');
   const interviewers = allUsers.filter(
     (user) => user.roleType === 'Interviewer',
@@ -70,7 +83,10 @@ export const InternshipsFilter = ({ onFilter }) => {
 
   return (
     <Box>
-      <IconButton aria-describedby={id} onClick={handleClick}>
+      <IconButton
+        aria-describedby={id}
+        onClick={handleClick}
+      >
         <FilterListIcon fontSize="large" />
       </IconButton>
       <Popover
@@ -90,10 +106,17 @@ export const InternshipsFilter = ({ onFilter }) => {
           display="flex"
           flexDirection="column"
           justifyContent="space-between"
+          position="relative"
         >
-          <Typography align="center" color="primary" fontSize="20px">
-            {getFieldLabel('internships.filter.title')}
-          </Typography>
+          <CloseIcon onClick={handleClose} className="closeFilterButton" />
+          <Box display="flex" flexDirection="row" justifyContent="space-between" paddingRight="35px">
+            <Typography align="center" color="text" fontSize="20px">
+              {getFieldLabel('common.filter.title')}
+            </Typography>
+            <Button onClick={cleanFilter} size="small">
+                {getFieldLabel('common.reset.filter')}
+            </Button>
+          </Box>
           <FormControl size="small" fullWidth>
             <InputLabel>
               {getFieldLabel('internships.filter.label.status')}
@@ -225,9 +248,9 @@ export const InternshipsFilter = ({ onFilter }) => {
               ))}
             </Select>
           </FormControl>
-          <Button onClick={handleSubmit} size="small" variant="contained">
-            {getFieldLabel('common.filter')}
-          </Button>
+            <Button onClick={handleSubmit} size="small" variant="contained">
+              {getFieldLabel('common.filter')}
+            </Button>
         </Box>
       </Popover>
     </Box>
