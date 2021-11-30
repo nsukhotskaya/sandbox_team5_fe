@@ -47,34 +47,38 @@ export const Internships = () => {
 
   return (
     <Container fixed maxWidth="1400px">
-      <Box display="flex" flexDirection="column" marginTop="20px">
+      <Box
+        display="flex"
+        flexDirection="column"
+        padding="20px"
+      >
         <Box className="internshipsHeader">
           <Typography
             className="internshipsTitle"
             variant="h1"
             component="div"
             fontSize="35px"
-            color="text"
+            color="#757575"
           >
             {getFieldLabel('internships.title')}
           </Typography>
-          <Box
-            className="internshipsMenu"
-          >
+          <Box className="internshipsMenu">
             <Box className="menuItemsBox">
               <IconButton onClick={handleClick}>
                 <ManageSearchIcon fontSize="large" />
               </IconButton>
-                <Popper open={open} anchorEl={anchorEl} placement="left">
-                  <Input
-                    onChange={onInputChange}
-                    type="text"
-                    placeholder={getFieldLabel('common.search')}
-                  />
-                </Popper>
-              <InternshipsFilter />
+              <Popper open={open} anchorEl={anchorEl} placement="left">
+                <Input
+                  onChange={onInputChange}
+                  type="text"
+                  placeholder={getFieldLabel('common.search')}
+                />
+              </Popper>
+              <InternshipsFilter
+                onFilter={(filters) => dispatch(fetchInternships(filters))}
+              />
             </Box>
-            <Button variant="outlined" size="small" onClick={openPopUpWindow}>
+            <Button variant="outlined" onClick={openPopUpWindow}>
               {getFieldLabel('internships.button.add.program')}
             </Button>
           </Box>

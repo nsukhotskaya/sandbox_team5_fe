@@ -6,14 +6,7 @@ import './InternshipCard.sass';
 import { getFieldLabel } from '../../utils';
 
 export const InternshipCard = ({
-  data: {
-    imageLink,
-    name,
-    registrationStartDate,
-    registrationFinishDate,
-    maxCandidateCount,
-    id,
-  },
+  data: { imageLink, name, startDate, endDate, maxCandidateCount, id },
 }) => (
   <Card raised className="internshipCard" sx={{ borderRadius: 5 }}>
     <CardMedia
@@ -28,9 +21,8 @@ export const InternshipCard = ({
       </Typography>
       <Typography variant="subtitle2" color="text">
         {getFieldLabel('internships.program.dates')}
-        {dayjs(registrationStartDate, registrationFinishDate).format(
-          'D.MM.YYYY - D.MM.YYYY',
-        )}
+        {dayjs(startDate).format('D.MM.YYYY')} -{' '}
+        {dayjs(endDate).format('D.MM.YYYY')}
       </Typography>
       <Typography variant="subtitle2" color="text">
         {getFieldLabel('internships.program.selection')}

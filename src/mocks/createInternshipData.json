@@ -7,19 +7,12 @@
     "maxCandidateCount": 0,
     "registrationStartDate": "2001-11-09T17:31:07.301Z",
     "registrationFinishDate": "2001-11-09T17:31:07.301Z",
-    "languageType": [],
-    "internshipStatusType": "",
+    "languageTypes": [],
+    "internshipStatusType": "Open",
     "imageLink": "",
     "internshipStacks": [],
     "locations": [],
-    "id": 0,
-    "candidatesCount": 0,
-    "declinedCandidatesCount": 0,
-    "acceptedCandidatesCount": 0,
-    "abandonedCandidatesCount": 0,
-    "successfullyFinishedCandidatesCount": 0,
-    "teamsCount": 0,
-    "teams": [],
+    "spreadSheetId": "",
     "users": []
   }
 }

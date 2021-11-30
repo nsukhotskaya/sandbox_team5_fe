@@ -16,7 +16,8 @@ const Login = () => {
   const [emailIsValid, setEmailIsValid] = useState(true);
   const [passwordIsValid, setPasswordIsValid] = useState(true);
   const [openToaster, setOpenToaster] = React.useState(false);
-  const [errorMessages, setErrorMessages] = React.useState([]);
+  const [emailErrorMessage, setEmailErrorMessage] = React.useState(' ');
+  const [errorMessage, setErrorMessage] = React.useState('');
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -25,8 +26,8 @@ const Login = () => {
   useEffect(() => {
     if(authorization.error && authorization.error.status === 401){
       setEmailIsValid(false);
-      setPasswordIsValid(false);
-      setErrorMessages([getFieldLabel('login.error.noSuchUser')])
+      setEmailErrorMessage(' ')
+      setErrorMessage([getFieldLabel('login.error.noSuchUser')])
     }
   }, [authorization]);
 
@@ -40,26 +41,28 @@ const Login = () => {
   const validate = () => {
     setEmailIsValid(true);
     setPasswordIsValid(true);
-    setErrorMessages([]);
-    const errors = [];
+    setEmailErrorMessage(' ');
+    setErrorMessage('');
     if ( !user.email ) {
-      errors.push( getFieldLabel('login.error.emailEmpty') );
+      setEmailErrorMessage(getFieldLabel('login.error.emailEmpty'));
       setEmailIsValid(false);
     } else if ( user.email.match(/^\S+@\S+\.\S+$/) === null ) {
-      errors.push( getFieldLabel('login.error.emailIncorrect') );
+      setEmailErrorMessage(getFieldLabel('login.error.emailIncorrect'));
       setEmailIsValid(false);
-    }
-    if ( !user.password ) {
-      errors.push( getFieldLabel('login.error.passwordEmpty') );
-      setPasswordIsValid(false);
-    } else if ( user.password.match(/^[a-zA-Z0-9]+$/) === null ) {
-      errors.push( getFieldLabel('login.error.passwordIncorrect') );
-      setPasswordIsValid(false);
-    }
-    if ( errors.length ) { 
-      setErrorMessages(errors);
+      if ( !user.password ) {
+        setPasswordIsValid(false);
+        return false;
+      } 
       return false;
     }
+    if ( !user.password ) {
+      setPasswordIsValid(false);
+      return false;
+    } 
+    // if ( errors.length ) { 
+    //   setErrorMessage(errors);
+    //   return false;
+    // }
     return true;
   }
   
@@ -72,7 +75,7 @@ const Login = () => {
 
   const handleSubmit = () => {
     const isValid = validate();
-    setOpenToaster(true);
+    setOpenToaster(true)
     if ( isValid ) {
         dispatch(fetchUserToken(user))
     }
@@ -90,7 +93,7 @@ const Login = () => {
 
   return (
     <Box className="loginContainer">
-      {!!errorMessages.length &&
+      {(errorMessage !== '') &&
         <Snackbar
           open = {openToaster}
           autoHideDuration = {8000}
@@ -99,15 +102,11 @@ const Login = () => {
             smallScreen ? { vertical: 'top', horizontal: 'center'} : { vertical: 'top', horizontal: 'left' }
           }
         >
-          <Box>
-            {errorMessages.map((message) => (
-              <Box key={message} m="10px">
-                <Alert onClose={handleCloseToaster} severity="error">
-                  {message}
-                </Alert>
-              </Box>
-            ))}
-          </Box>   
+          <Box m="10px">
+            <Alert onClose={handleCloseToaster} severity="error">
+              {errorMessage}
+            </Alert>
+          </Box>
         </Snackbar>
       }
       <Box className="loginCardWrapper">
@@ -117,7 +116,7 @@ const Login = () => {
             className={smallScreen ? 'loginCardMobile' : 'loginCard'}
           >
             <Typography
-              m={smallScreen ? '10px' : '30px'}
+              m={smallScreen ? '10px' : '25px'}
               variant="h5"
               color="#1976d2"
               textAlign="center"
@@ -127,20 +126,19 @@ const Login = () => {
             <Stack
               m={smallScreen ? '10px auto' : '20px auto'}
               width={smallScreen ? '195px' : '250px'}
-              spacing={2}
+              spacing={1}
               direction="column"
             >
               <TextField
-                id="outlinedBasic"
                 label={getFieldLabel('login.email')}
                 size="small"
                 name="email"
                 onChange={handleChange}
                 value={user.email}
                 error = {!emailIsValid}
+                helperText = {!emailIsValid ? emailErrorMessage : ' '}
               />
               <TextField
-                id="outlinedPasswordInput"
                 label={getFieldLabel('login.password')}
                 name="password"
                 type="password"
@@ -148,7 +146,8 @@ const Login = () => {
                 size="small"
                 onChange={handleChange}
                 value={user.password}
-                error = {!passwordIsValid}
+                error = {!passwordIsValid || !emailIsValid }
+                helperText = {!passwordIsValid? getFieldLabel('login.error.passwordEmpty') : ' '}
               />
               <Button onClick={handleSubmit} variant="contained">
                 {getFieldLabel('login.button.login')}
