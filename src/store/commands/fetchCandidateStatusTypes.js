@@ -1,8 +1,8 @@
 import API from './api';
 import {
-getCandidateStatusTypesRequest,
-getCandidateStatusTypesSuccess,
-getCandidateStatusTypesFailure,
+  getCandidateStatusTypesRequest,
+  getCandidateStatusTypesSuccess,
+  getCandidateStatusTypesFailure,
 } from '../actions';
 
 const fetchCandidateStatusTypes = () => async (dispatch) => {

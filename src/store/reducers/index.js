@@ -13,4 +13,5 @@ export { default as candidateSearch } from './candidateSearch';
 export { default as candidateFeedbacks } from './candidateFeedbacks';
 export { default as englishLevels } from './englishLevels';
 export { default as candidateStatusTypes } from './candidateStatusTypes';
+export { default as stacksByInternshipIdList } from './stacksByInternshipIdList';
 export { default as allUsers } from './allUsers';

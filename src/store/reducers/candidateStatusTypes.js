@@ -1,7 +1,7 @@
 import { GET_CANDIDATE_STATUS_TYPE } from '../actions';
 
 const initialState = {
-  englishLevels: [],
+  candidateStatusTypes: [],
   isLoading: false,
 };
 

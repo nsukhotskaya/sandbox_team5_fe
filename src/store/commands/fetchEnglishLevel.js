@@ -1,8 +1,8 @@
 import API from './api';
 import {
-getEnglishLevelRequest,
-getEnglishLevelSuccess,
-getEnglishLevelFailure,
+  getEnglishLevelRequest,
+  getEnglishLevelSuccess,
+  getEnglishLevelFailure,
 } from '../actions';
 
 const fetchEnglishLevel = () => async (dispatch) => {
