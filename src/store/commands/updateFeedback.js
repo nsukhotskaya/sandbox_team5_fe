@@ -8,7 +8,10 @@ import {
 const updateFeedback = (feedbackBody) => async (dispatch) => {
   dispatch(putFeedbackRequest());
   try {
-    const response = await API.put('/api/Feedback/updateFeedback', feedbackBody);
+    const response = await API.put(
+      '/api/Feedback/updateFeedback',
+      feedbackBody,
+    );
     dispatch(putFeedbackSuccess(response.data));
   } catch (error) {
     dispatch(putFeedbackFailure());

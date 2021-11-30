@@ -14,17 +14,17 @@ import { useDispatch } from 'react-redux';
 import './CandidateFeedbacksItem.sass';
 import { StarRating } from '../index';
 import { getFieldLabel } from '../../../utils';
-import { updateFeedback,
-  createFeedback
-} from '../../../store/commands';
+import { updateFeedback, createFeedback } from '../../../store/commands';
 
-const CandidateFeedbacksItem = ({user, candidateInfo}) => {
+const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
   const dispatch = useDispatch();
   const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
   const now = new Date(Date.now());
-  const {feedbacks, userName, roleType } = user;
+  const { feedbacks, userName, roleType } = user;
   const feedback = feedbacks[0];
-  const [finalEvaluation, setFinalEvaluation] = React.useState(feedback.finalEvaluation);
+  const [finalEvaluation, setFinalEvaluation] = React.useState(
+    feedback.finalEvaluation,
+  );
   const [editMode, setEditMode] = React.useState(false);
 
   const updateToNewFeedback = () => ({
@@ -33,7 +33,7 @@ const CandidateFeedbacksItem = ({user, candidateInfo}) => {
     candidateId: feedback.candidateId,
     englishLevelType: feedback.englishLevelType,
     date: now.toISOString(),
-    description: ".",
+    description: '.',
     evaluations: [],
     finalEvaluation,
   });
@@ -43,18 +43,18 @@ const CandidateFeedbacksItem = ({user, candidateInfo}) => {
     candidateId: candidateInfo.id,
     englishLevelType: candidateInfo.englishLevelType,
     date: now.toISOString(),
-    description: ".",
-    finalEvaluation: 0
+    description: '.',
+    finalEvaluation: 0,
   });
 
   const handleButton = () => {
     setIsCriteriaShown(!isCriteriaShown);
   };
-  
+
   const handleEditMode = () => {
     setEditMode(!editMode);
   };
-  
+
   const handleChangeFinalEvaluation = (newEvaluation) => {
     setFinalEvaluation(newEvaluation);
   };
@@ -66,11 +66,11 @@ const CandidateFeedbacksItem = ({user, candidateInfo}) => {
 
   const handleClick = () => {
     dispatch(createFeedback(createFeedbackRequestBody()));
-  }
+  };
 
   return (
     <Box className="feedbackItem">
-      {!feedbacks.length ?
+      {!feedbacks.length ? (
         <Box className="titleSection">
           <Typography className="feedbackTitle" variant="h5">
             {userName}
@@ -82,9 +82,11 @@ const CandidateFeedbacksItem = ({user, candidateInfo}) => {
           >
             {roleType}
           </Typography>
-          <Button variant="outlined" onClick={handleClick}>Create feedback</Button>
+          <Button variant="outlined" onClick={handleClick}>
+            Create feedback
+          </Button>
         </Box>
-      :
+      ) : (
         <Box className="titleSection">
           <Box className="flexboxRow" width="400px">
             <Typography className="feedbackTitle" variant="h5">
@@ -105,18 +107,19 @@ const CandidateFeedbacksItem = ({user, candidateInfo}) => {
             {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </Box>
-      }
-      {!!feedbacks.length &&
+      )}
+      {!!feedbacks.length && (
         <Collapse in={isCriteriaShown}>
           <Box className="collapseContainer" borderColor="background.default">
-            {!!feedback.evaluations && feedback.evaluations.map((skill) => (
-              <StarRating
-                key={skill.name}
-                title={skill.name}
-                grade={skill.grade}
-                editMode={editMode}
-              />
-            ))}
+            {!!feedback.evaluations &&
+              feedback.evaluations.map((skill) => (
+                <StarRating
+                  key={skill.name}
+                  title={skill.name}
+                  grade={skill.grade}
+                  editMode={editMode}
+                />
+              ))}
             <TextField
               defaultValue={feedback.description}
               multiline
@@ -125,29 +128,25 @@ const CandidateFeedbacksItem = ({user, candidateInfo}) => {
               InputProps={{ disabled: !editMode }}
             />
             <StarRating
-              title={getFieldLabel('candidateFeedbacks.title.generalImpression')}
+              title={getFieldLabel(
+                'candidateFeedbacks.title.generalImpression',
+              )}
               grade={feedback.finalEvaluation}
               editMode={editMode}
               callbackFunction={handleChangeFinalEvaluation}
             />
             {editMode ? (
-              <Button
-                variant="outlined"
-                onClick={handleSaveButton}
-              >
+              <Button variant="outlined" onClick={handleSaveButton}>
                 {getFieldLabel('common.save')}
               </Button>
             ) : (
-              <Button
-                variant="outlined"
-                onClick={handleEditMode}
-              >
+              <Button variant="outlined" onClick={handleEditMode}>
                 {getFieldLabel('common.edit')}
               </Button>
             )}
           </Box>
         </Collapse>
-      }
+      )}
     </Box>
   );
 };

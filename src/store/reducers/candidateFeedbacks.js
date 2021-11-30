@@ -10,7 +10,11 @@ export default function candidateFeedbacks(state = initialState, action) {
     case GET_FEEDBACKS_BY_CANDIDATE_ID.REQUEST:
       return { ...state, isLoading: true };
     case GET_FEEDBACKS_BY_CANDIDATE_ID.SUCCESS: {
-      return { ...state, candidateFeedbacks: action.payload.candidateFeedbacks, isLoading: false };
+      return {
+        ...state,
+        candidateFeedbacks: action.payload.candidateFeedbacks,
+        isLoading: false,
+      };
     }
     case GET_FEEDBACKS_BY_CANDIDATE_ID.FAILURE:
       return { ...state, isLoading: false };

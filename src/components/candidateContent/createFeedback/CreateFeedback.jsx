@@ -1,15 +1,18 @@
 import React from 'react';
-import {
-  Box,
-  Typography,
-  Button,
-} from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { createFeedback } from '../../../store/commands';
 import './CreateFeedback.sass';
 // import { getFieldLabel } from '../../../utils';
 
-const CreateFeedback = ({ role, name, userId, candidateId, englishLevelType, callbackFunction }) => {
+const CreateFeedback = ({
+  role,
+  name,
+  userId,
+  candidateId,
+  englishLevelType,
+  callbackFunction,
+}) => {
   const dispatch = useDispatch();
   const now = new Date(Date.now());
   const createFeedbackRequestBody = () => ({
@@ -17,19 +20,19 @@ const CreateFeedback = ({ role, name, userId, candidateId, englishLevelType, cal
     candidateId,
     englishLevelType,
     date: now.toISOString(),
-    description: ".",
-    finalEvaluation: 0
+    description: '.',
+    finalEvaluation: 0,
   });
 
   const handleClick = () => {
     callbackFunction();
     dispatch(createFeedback(createFeedbackRequestBody()));
-  }
+  };
 
-  return(
+  return (
     <Box className="titleSection">
       <Typography className="feedbackTitle" variant="h5">
-      {name}
+        {name}
       </Typography>
       <Typography
         className="roleTitle"
@@ -38,10 +41,11 @@ const CreateFeedback = ({ role, name, userId, candidateId, englishLevelType, cal
       >
         {role}
       </Typography>
-      <Button variant="outlined" onClick={handleClick}>Create feedback</Button>
+      <Button variant="outlined" onClick={handleClick}>
+        Create feedback
+      </Button>
     </Box>
-  )
-}
-
+  );
+};
 
 export default CreateFeedback;

@@ -8,7 +8,10 @@ import {
 const createFeedback = (feedbackBody) => async (dispatch) => {
   dispatch(postFeedbackRequest());
   try {
-    const response = await API.post('/api/Feedback/createFeedback', feedbackBody);
+    const response = await API.post(
+      '/api/Feedback/createFeedback',
+      feedbackBody,
+    );
     dispatch(postFeedbackSuccess(response.data));
   } catch (error) {
     dispatch(postFeedbackFailure());

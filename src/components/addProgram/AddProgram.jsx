@@ -41,16 +41,16 @@ const stringToObject = (array) =>
   }));
 
 const formatStacks = (array) =>
-array.map((item) => ({
-  id: item.id,
-  name: item.technologyStackType,
-}));
+  array.map((item) => ({
+    id: item.id,
+    name: item.technologyStackType,
+  }));
 
 const formatAllUsers = (array) =>
-array.map((item) => ({
-  id: item.id,
-  name: item.userName,
-}));
+  array.map((item) => ({
+    id: item.id,
+    name: item.userName,
+  }));
 
 const checkDataReceived = (...arrays) =>
   arrays.every((array) => array.length !== 0);
@@ -183,7 +183,7 @@ const AddProgram = (props) => {
       keyName: 'users',
       label: getFieldLabel('addprogram.field.label.allUsers'),
       array: allUsersListFormated,
-    }
+    },
   };
 
   return (
