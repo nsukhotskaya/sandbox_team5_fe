@@ -89,10 +89,23 @@ export const FilterCandidates = ({ onFilter }) => {
           width="340px"
           height="400px"
         >
-           <CloseIcon onClick={handleClose} />
-          <Typography align="center" color="primary" fontSize="20px">
-            {getFieldLabel('candidates.filter.title')}
+          <Box display="flex"
+          justifyContent="space-between" alignItems="center">
+            <Box>
+          <Typography color="#757575" fontSize="20px">
+          {getFieldLabel('common.filter.title')}
           </Typography>
+          </Box>
+          <Box display="flex"
+          justifyContent="space-between" alignItems="center">
+          <Button onClick={reset} size="small">
+                {getFieldLabel('common.reset.filter')}
+            </Button>
+            <IconButton onClick={handleClose} >         
+              <CloseIcon />
+              </IconButton>
+          </Box>
+          </Box>
           <FormControl size="small" fullWidth>
             <InputLabel>
               {getFieldLabel('internships.filter.label.location')}
@@ -177,15 +190,9 @@ export const FilterCandidates = ({ onFilter }) => {
           <FormControlLabel className="filterFormControlLabel" control={<Checkbox checked={checked}
            onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} />} label="My candidates" />
            </FormControl>
-           <Box display="flex"
-          justifyContent="space-between">
           <Button onClick={handleSubmit} size="small" variant="contained">
-            APPLY FILTER
+          {getFieldLabel('common.filter')}
           </Button>
-          <Button onClick={reset} size="small" variant="contained">
-            CLEAN FILTER
-          </Button>
-          </Box>
         </Box>
         </Popover>
     </Box>
