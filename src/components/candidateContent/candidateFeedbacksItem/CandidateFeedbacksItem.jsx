@@ -21,9 +21,9 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
   const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
   const now = new Date(Date.now());
   const { feedbacks, userName, roleType } = user;
-  const feedback = feedbacks[0];
+  const feedback = feedbacks.length ? feedbacks[0] : {};
   const [finalEvaluation, setFinalEvaluation] = React.useState(
-    feedback.finalEvaluation,
+    feedbacks.length ? feedback.finalEvaluation : 0,
   );
   const [editMode, setEditMode] = React.useState(false);
 
@@ -83,7 +83,7 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
             {roleType}
           </Typography>
           <Button variant="outlined" onClick={handleClick}>
-            Create feedback
+            {getFieldLabel('candidateFeedbacks.button.createFeedback')}
           </Button>
         </Box>
       ) : (

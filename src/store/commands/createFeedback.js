@@ -4,6 +4,7 @@ import {
   postFeedbackSuccess,
   postFeedbackFailure,
 } from '../actions';
+import fetchCandidate from './fetchCandidate';
 
 const createFeedback = (feedbackBody) => async (dispatch) => {
   dispatch(postFeedbackRequest());
@@ -13,6 +14,7 @@ const createFeedback = (feedbackBody) => async (dispatch) => {
       feedbackBody,
     );
     dispatch(postFeedbackSuccess(response.data));
+    dispatch(fetchCandidate(feedbackBody.candidateId));
   } catch (error) {
     dispatch(postFeedbackFailure());
   }
