@@ -107,3 +107,9 @@ export {
   postNewInternshipFailure,
   POST_NEW_INTERNSHIP,
 } from './postNewInternship';
+export {
+  putFeedbackRequest,
+  putFeedbackSuccess,
+  putFeedbackFailure,
+  PUT_FEEDBACK,
+} from './putFeedback';

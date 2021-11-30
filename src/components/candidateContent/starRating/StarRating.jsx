@@ -2,10 +2,7 @@ import React from 'react';
 import { Box, Typography, Rating } from '@mui/material';
 import './StarRating.sass';
 
-const StarRating = ({ title, grade, editMode }) => {
-  const [starsCount, setStarsCount] = React.useState(grade);
-
-  return (
+const StarRating = ({ title, grade, editMode, callbackFunction }) => (
     <Box className="starRating flexboxRow">
       {title && (
         <Typography
@@ -17,15 +14,14 @@ const StarRating = ({ title, grade, editMode }) => {
         </Typography>
       )}
       <Rating
-        value={starsCount}
+        defaultValue={grade}
         precision={1}
         disabled={!editMode}
         onChange={(event, newValue) => {
-          setStarsCount(newValue);
+          callbackFunction(newValue);
         }}
       />
     </Box>
-  );
-};
+);
 
 export default StarRating;

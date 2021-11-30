@@ -5,11 +5,11 @@ import {
   Button,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { createFeedback, fetchFeedbacksByCandidateId, fetchCandidate } from '../../../store/commands';
+import { createFeedback } from '../../../store/commands';
 import './CreateFeedback.sass';
 // import { getFieldLabel } from '../../../utils';
 
-const CreateFeedback = ({ role, name, userId, candidateId, englishLevelType }) => {
+const CreateFeedback = ({ role, name, userId, candidateId, englishLevelType, callbackFunction }) => {
   const dispatch = useDispatch();
   const now = new Date(Date.now());
   const createFeedbackRequestBody = () => ({
@@ -22,9 +22,8 @@ const CreateFeedback = ({ role, name, userId, candidateId, englishLevelType }) =
   });
 
   const handleClick = () => {
+    callbackFunction();
     dispatch(createFeedback(createFeedbackRequestBody()));
-    dispatch(fetchFeedbacksByCandidateId(candidateId));
-    dispatch(fetchCandidate(candidateId));
   }
 
   return(

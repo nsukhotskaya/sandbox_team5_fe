@@ -9,9 +9,9 @@ export const postFeedbackRequest = () => ({
   payload: null,
 });
 
-export const postFeedbackSuccess = (data) => ({
+export const postFeedbackSuccess = () => ({
   type: POST_FEEDBACK.SUCCESS,
-  payload: { data },
+  payload: null,
 });
 
 export const postFeedbackFailure = (error) => ({

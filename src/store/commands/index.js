@@ -17,3 +17,4 @@ export { default as createFeedback } from './createFeedback';
 export { default as fetchFeedbacksByCandidateId } from './fetchFeedbacksByCandidateId';
 export { default as fetchAllUsers } from './fetchAllUsers';
 export { default as createNewInternship } from './createNewInternship';
+export { default as updateFeedback } from './updateFeedback';
