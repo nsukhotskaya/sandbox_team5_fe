@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Box,
@@ -26,10 +26,14 @@ export const FilterCandidates = ({ onFilter }) => {
   const [checked, setChecked] = useState(false);
   const locationsList = useSelector((state) => state.locations.locations);
   const languagesList = useSelector((state) => state.languages.languages);
-  const englishLevelList = useSelector((state) => state.englishLevels.englishLevels);
-  const candidateStatusTypesList = useSelector((state) => state.candidateStatusTypes.candidateStatusTypes);
+  const englishLevelList = useSelector(
+    (state) => state.englishLevels.englishLevels,
+  );
+  const candidateStatusTypesList = useSelector(
+    (state) => state.candidateStatusTypes.candidateStatusTypes,
+  );
   const authorizedUser = useSelector((state) => state.userInfo.userInfo);
-  const authorizedUserId = authorizedUser.id
+  const authorizedUserId = authorizedUser.id;
   const [anchorEl, setAnchorEl] = useState();
 
   const handleClick = (event) => {
@@ -45,42 +49,42 @@ export const FilterCandidates = ({ onFilter }) => {
 
   const handleSubmit = () => {
     onFilter({
-      "locations": filterLocation.length? filterLocation : null,
-      "languageTypes": filterLanguage.length? filterLanguage : null,
-      "statusTypes": filterStatus.length? filterStatus : null,
-      "englishLevels": filterEnglishLevel.length ? filterEnglishLevel : null,
-      "userId": checked? authorizedUserId : null,
-    })
-  }
+      locations: filterLocation.length ? filterLocation : null,
+      languageTypes: filterLanguage.length ? filterLanguage : null,
+      statusTypes: filterStatus.length ? filterStatus : null,
+      englishLevels: filterEnglishLevel.length ? filterEnglishLevel : null,
+      userId: checked ? authorizedUserId : null,
+    });
+  };
 
   const reset = () => {
-    setFilterLocation([])
-    setFilterLanguage([])
-    setFilterStatus([])
-    setFilterEnglishLevel([])
-    setChecked(false)
-    onFilter({})
-  }
- 
+    setFilterLocation([]);
+    setFilterLanguage([]);
+    setFilterStatus([]);
+    setFilterEnglishLevel([]);
+    setChecked(false);
+    onFilter({});
+  };
+
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
 
-   return (
+  return (
     <Box>
-    <IconButton aria-describedby={id} onClick={handleClick}>
-      <FilterListIcon fontSize="large" />
-    </IconButton>
-    <Popover
-      id={id}
-      open={open}
-      onClose={handleClose}
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-    >
+      <IconButton aria-describedby={id} onClick={handleClick}>
+        <FilterListIcon fontSize="large" />
+      </IconButton>
+      <Popover
+        id={id}
+        open={open}
+        onClose={handleClose}
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
         <Box
           display="flex"
           flexDirection="column"
@@ -89,22 +93,28 @@ export const FilterCandidates = ({ onFilter }) => {
           width="340px"
           height="400px"
         >
-          <Box display="flex"
-          justifyContent="space-between" alignItems="center">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Box>
-          <Typography color="#757575" fontSize="20px">
-          {getFieldLabel('common.filter.title')}
-          </Typography>
-          </Box>
-          <Box display="flex"
-          justifyContent="space-between" alignItems="center">
-          <Button onClick={reset} size="small">
+              <Typography color="#757575" fontSize="20px">
+                {getFieldLabel('common.filter.title')}
+              </Typography>
+            </Box>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Button onClick={reset} size="small">
                 {getFieldLabel('common.reset.filter')}
-            </Button>
-            <IconButton onClick={handleClose} >         
-              <CloseIcon />
+              </Button>
+              <IconButton onClick={handleClose}>
+                <CloseIcon />
               </IconButton>
-          </Box>
+            </Box>
           </Box>
           <FormControl size="small" fullWidth>
             <InputLabel>
@@ -117,14 +127,12 @@ export const FilterCandidates = ({ onFilter }) => {
               label="Location"
               renderValue={(selected) => selected.join(', ')}
             >
-              {locationsList
-                 .map((location) => (
+              {locationsList.map((location) => (
                 <MenuItem key={location} value={location}>
                   <Checkbox checked={filterLocation.indexOf(location) > -1} />
                   <ListItemText primary={location} />
                 </MenuItem>
-              ))
-              }
+              ))}
             </Select>
           </FormControl>
           <FormControl size="small" fullWidth>
@@ -138,15 +146,13 @@ export const FilterCandidates = ({ onFilter }) => {
               onChange={(event) => setFilterLanguage(event.target.value)}
               renderValue={(selected) => selected.join(', ')}
             >
-            {languagesList
-                 .map((language) => (
+              {languagesList.map((language) => (
                 <MenuItem key={language} value={language}>
                   <Checkbox checked={filterLanguage.indexOf(language) > -1} />
                   <ListItemText primary={language} />
                 </MenuItem>
-              ))
-              }
-              </Select>
+              ))}
+            </Select>
           </FormControl>
           <FormControl size="small" fullWidth>
             <InputLabel>
@@ -159,17 +165,18 @@ export const FilterCandidates = ({ onFilter }) => {
               onChange={(event) => setFilterStatus(event.target.value)}
               renderValue={(selected) => selected.join(', ')}
             >
-              {candidateStatusTypesList && candidateStatusTypesList.map((statusType) => (
-                <MenuItem key={statusType} value={statusType}>
-                  <Checkbox checked={filterStatus.indexOf(statusType) > -1} />
-                  <ListItemText primary={statusType} />
-                </MenuItem>
-              ))}
+              {candidateStatusTypesList &&
+                candidateStatusTypesList.map((statusType) => (
+                  <MenuItem key={statusType} value={statusType}>
+                    <Checkbox checked={filterStatus.indexOf(statusType) > -1} />
+                    <ListItemText primary={statusType} />
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
           <FormControl size="small" fullWidth>
             <InputLabel>
-              {getFieldLabel("candidates.filter.label.englishLevel")}
+              {getFieldLabel('candidates.filter.label.englishLevel')}
             </InputLabel>
             <Select
               multiple
@@ -187,16 +194,25 @@ export const FilterCandidates = ({ onFilter }) => {
             </Select>
           </FormControl>
           <FormControl size="small" fullWidth>
-          <FormControlLabel className="filterFormControlLabel" control={<Checkbox checked={checked}
-           onChange={handleChange} inputProps={{ 'aria-label': 'controlled' }} />} label="My candidates" />
-           </FormControl>
+            <FormControlLabel
+              className="filterFormControlLabel"
+              control={
+                <Checkbox
+                  checked={checked}
+                  onChange={handleChange}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+              }
+              label="My candidates"
+            />
+          </FormControl>
           <Button onClick={handleSubmit} size="small" variant="contained">
-          {getFieldLabel('common.filter')}
+            {getFieldLabel('common.filter')}
           </Button>
         </Box>
-        </Popover>
+      </Popover>
     </Box>
-  )
-    };
+  );
+};
 
 export default FilterCandidates;
