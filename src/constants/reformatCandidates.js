@@ -10,6 +10,7 @@ export const reformatCandidates = (candidates) =>
     const rolyType = candidate.users && candidate.users.map((item) => item.roleType)
     if (rolyType[0] === "Hr") {
       newObj.hr = candidate.users && candidate.users.map((item) => item.userName);
+      newObj.hrReview = candidate.users && candidate.users.map((item) => item.feedbacks.map((i) => i.finalEvaluation));
     } 
     return newObj;
   });
