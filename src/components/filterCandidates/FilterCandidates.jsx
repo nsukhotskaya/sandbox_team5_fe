@@ -28,8 +28,8 @@ export const FilterCandidates = ({ onFilter }) => {
   const languagesList = useSelector((state) => state.languages.languages);
   const englishLevelList = useSelector((state) => state.englishLevels.englishLevels);
   const candidateStatusTypesList = useSelector((state) => state.candidateStatusTypes.candidateStatusTypes);
-  const allUsersList = useSelector((state) => state.allUsers.allUsers);
-  const allUsersId = allUsersList && allUsersList.map((item) => item.id);
+  const authorizedUser = useSelector((state) => state.userInfo.userInfo);
+  const authorizedUserId = authorizedUser.id
   const [anchorEl, setAnchorEl] = useState();
 
   const handleClick = (event) => {
@@ -49,7 +49,7 @@ export const FilterCandidates = ({ onFilter }) => {
       "languageTypes": filterLanguage.length? filterLanguage : null,
       "statusTypes": filterStatus.length? filterStatus : null,
       "englishLevels": filterEnglishLevel.length ? filterEnglishLevel : null,
-      "userId": checked? allUsersId[0]: null,
+      "userId": checked? authorizedUserId : null,
     })
   }
 
