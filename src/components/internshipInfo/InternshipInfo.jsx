@@ -6,9 +6,10 @@ import {
   CardContent,
   Typography,
   List,
+  Link,
   ListItem,
   ListItemText,
-  Button,
+  IconButton,
 } from '@mui/material';
 import './InternshipInfo.sass';
 import dayjs from 'dayjs';
@@ -16,14 +17,22 @@ import EditIcon from '@mui/icons-material/Edit';
 import { getFieldLabel } from '../../utils';
 import { useMediaDown } from '../utils';
 
-const InternshipInfo = ({ internshipInfo }) => {
+const InternshipInfo = (props) => {
   const mobile = useMediaDown('md');
-
-  const internshipMainInfo = ['requirements', 'languageType'];
+  const internshipMainInfo = ['requirements'];
+  const internshipHard = [
+    { locations: 'name' },
+    { internshipStacks: 'technologyStackType' },
+    { languageTypes: 'language' },
+  ];
+  const { internshipInfo } = props;
+  const { onChange } = props;
+  const internshipCandidatesInfoWithLink = [
+    { candidatesCount: 0 },
+    { declinedCandidatesCount: 1 },
+    { acceptedCandidatesCount: 2 },
+  ];
   const internshipCandidatesInfo = [
-    'candidatesCount',
-    'declinedCandidatesCount',
-    'acceptedCandidatesCount',
     'abandonedCandidatesCount',
     'successfullyFinishedCandidatesCount',
     'teamsCount',
@@ -41,87 +50,101 @@ const InternshipInfo = ({ internshipInfo }) => {
       >
         <CardMedia component="img" image={internshipInfo.imageLink} />
         <CardContent className="cardContent">
-          <Typography variant="h4" color="primary" textAlign="center">
-            {internshipInfo.name}
-          </Typography>
+          <Box display="flex" justifyContent="space-between">
+            <Typography variant="h5" color="primary" mt="5px">
+              {internshipInfo.name}
+            </Typography>
+            <IconButton variant="outlined" onClick={onChange}>
+              <EditIcon fontSize="medium" />
+            </IconButton>
+          </Box>
           <List>
             <ListItem disablePadding>
               <ListItemText
                 primary={
-                  <Typography variant="h6">
+                  <Typography fontWeight="bold" variant="body1">
                     {getFieldLabel('internship.page.date')}
                   </Typography>
                 }
               />
-              <Typography variant="body1">
-                {dayjs(internshipInfo.startDate, internshipInfo.endDate).format(
-                  'D.MM.YYYY - D.MM.YYYY',
-                )}
+              <Typography variant="body2">
+                {dayjs(internshipInfo.startDate).format('D.MM.YYYY')} -{' '}
+                {dayjs(internshipInfo.endDate).format('D.MM.YYYY')}
               </Typography>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="h6">
-                    {getFieldLabel('internship.page.locations')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body1">
-                {internshipInfo.locations &&
-                  internshipInfo.locations.map((item) => item.name)}
-              </Typography>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography variant="h6">
-                    {getFieldLabel('internship.page.internshipStacks')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body1">
-                {internshipInfo.internshipStacks &&
-                  internshipInfo.internshipStacks.map(
-                    (item) => item.technologyStackType,
-                  )}
-              </Typography>
-            </ListItem>
+            {internshipHard.map((item) => (
+              <ListItem key={item} disablePadding>
+                <ListItemText
+                  primary={
+                    <Typography fontWeight="bold" variant="body1">
+                      {getFieldLabel(`internship.page.${Object.keys(item)}`)}
+                    </Typography>
+                  }
+                />
+                <Typography className="internshipInfoValue" variant="body2">
+                  {internshipInfo[Object.keys(item)] &&
+                    internshipInfo[Object.keys(item)].map((secondItem) =>
+                      secondItem[Object.values(item)].concat(' '),
+                    )}
+                </Typography>
+              </ListItem>
+            ))}
             {internshipMainInfo.map((item) => (
               <ListItem key={item} disablePadding>
                 <ListItemText
                   primary={
-                    <Typography variant="h6">
+                    <Typography fontWeight="bold" variant="body1">
                       {getFieldLabel(`internship.page.${item}`)}
                     </Typography>
                   }
                 />
-                <Typography className="internshipInfoValue" variant="body1">
+                <Typography className="internshipInfoValue" variant="body2">
                   {internshipInfo[item]}
                 </Typography>
               </ListItem>
             ))}
-            <Typography variant="h6">
+            <Typography fontWeight="bold" variant="body1">
               {getFieldLabel('internship.page.candidates')}
             </Typography>
+            {internshipCandidatesInfoWithLink.map((item) => (
+              <ListItem key={[Object.keys(item)]} disablePadding>
+                <ListItemText
+                  primary={
+                    <Typography fontWeight="bold" variant="body1">
+                      {getFieldLabel(`internship.page.${[Object.keys(item)]}`)}
+                    </Typography>
+                  }
+                />
+                <Typography className="internshipInfoValue" variant="body2">
+                  {internshipInfo[Object.keys(item)] !== 0 ? (
+                    <Link
+                      href={`http://petrov2021-001-site1.btempurl.com/api/Report/getCandidatesReportByInternshipId?InternshipId=${
+                        internshipInfo.id
+                      }&ReportType=${[Object.values(item)]}`}
+                    >
+                      {internshipInfo[Object.keys(item)]}
+                    </Link>
+                  ) : (
+                    internshipInfo[Object.keys(item)]
+                  )}
+                </Typography>
+              </ListItem>
+            ))}
             {internshipCandidatesInfo.map((item) => (
               <ListItem key={item} disablePadding>
                 <ListItemText
                   primary={
-                    <Typography variant="h6">
+                    <Typography fontWeight="bold" variant="body1">
                       {getFieldLabel(`internship.page.${item}`)}
                     </Typography>
                   }
                 />
-                <Typography className="internshipInfoValue" variant="body1">
+                <Typography className="internshipInfoValue" variant="body2">
                   {internshipInfo[item]}
                 </Typography>
               </ListItem>
             ))}
           </List>
-          <Button variant="outlined" endIcon={<EditIcon />}>
-            {getFieldLabel('common.edit')}
-          </Button>
         </CardContent>
       </Card>
     </Box>

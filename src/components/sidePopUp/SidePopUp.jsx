@@ -1,13 +1,20 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { AddProgram } from '../addProgram';
+import { AddProgram } from '..';
 import './SidePopUp.sass';
 
-const SidePopUp = ({ active, setActive }) => {
+const SidePopUp = ({
+  active,
+  setActive,
+  initialData,
+  title,
+  dispatchFunction,
+  button,
+  updateFunction,
+}) => {
   const closeModal = () => {
     setActive(false);
   };
-
   return (
     <Box className={active ? 'modal active' : 'modal'}>
       <Box
@@ -15,7 +22,14 @@ const SidePopUp = ({ active, setActive }) => {
         onClick={(event) => event.stopPropagation()}
         backgroundColor="background.paper"
       >
-        <AddProgram closeModal={closeModal} />
+        <AddProgram
+          updateFunction={updateFunction}
+          initialData={initialData}
+          title={title}
+          dispatchFunction={dispatchFunction}
+          button={button}
+          closeModal={closeModal}
+        />
       </Box>
     </Box>
   );
