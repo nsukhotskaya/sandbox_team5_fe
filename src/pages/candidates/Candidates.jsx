@@ -206,8 +206,6 @@ const Candidates = () => {
           >
             <AgGridColumn
               field="fullName"
-              tooltipField="fullName"
-              headerTooltip={getFieldLabel("candidates.table.fullName")}
               sortable
               checkboxSelection
               resizable
@@ -219,8 +217,6 @@ const Candidates = () => {
             {tableFields.map((field) => (
               <AgGridColumn
                 field={field}
-                tooltipField={field}
-                headerTooltip={getFieldLabel(`candidates.table.${field}`)}
                 headerName={getFieldLabel(`candidates.table.${field}`)}
                 key={field}
                 sortable
