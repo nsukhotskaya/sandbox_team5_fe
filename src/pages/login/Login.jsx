@@ -16,7 +16,7 @@ const Login = () => {
   const [passwordIsValid, setPasswordIsValid] = useState(true);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState(' ');
 
-  const toaster = useToaster();
+  const { isToasterOpen, handleCloseToaster, alertMessages, addToast } = useToaster();
 
   const [user, setUser] = useState({
     email: '',
@@ -27,7 +27,7 @@ const Login = () => {
     if(authorization.error && authorization.error.status === 401){
       setEmailIsValid(false);
       setEmailErrorMessage(' ');
-      toaster.addToast(getFieldLabel('login.error.noSuchUser'))
+      addToast(getFieldLabel('login.error.noSuchUser'))
     }
   }, [authorization]);
 
@@ -42,7 +42,7 @@ const Login = () => {
     setEmailIsValid(true);
     setPasswordIsValid(true);
     setEmailErrorMessage(' ');
-    toaster.handleCloseToaster()
+    handleCloseToaster()
     if ( !user.email ) {
       setEmailErrorMessage(getFieldLabel('login.error.emailEmpty'));
       setEmailIsValid(false);
@@ -81,18 +81,18 @@ const Login = () => {
 
   return (
     <Box className="loginContainer">
-      {!!toaster.alertMessages.length && toaster.alertMessages.map((message)=>(
+      {!!alertMessages.length && alertMessages.map((message)=>(
         <Snackbar
           key = {message}
-          open = {toaster.isToasterOpen}
+          open = {isToasterOpen}
           autoHideDuration = {8000}
-          onClose = {toaster.handleCloseToaster}
+          onClose = {handleCloseToaster}
           anchorOrigin = {
             smallScreen ? { vertical: 'top', horizontal: 'center'} : { vertical: 'top', horizontal: 'left' }
           }
         >
           <Box m="10px">
-            <Alert onClose={toaster.handleCloseToaster} severity="error">
+            <Alert onClose={handleCloseToaster} severity="error">
               {message}
             </Alert>
           </Box>
@@ -106,7 +106,7 @@ const Login = () => {
             className={smallScreen ? 'loginCardMobile' : 'loginCard'}
           >
             <Typography
-              m={smallScreen ? '10px' : '25px'}
+              m={smallScreen ? '18px' : '25px'}
               variant="h5"
               color="#1976d2"
               textAlign="center"
