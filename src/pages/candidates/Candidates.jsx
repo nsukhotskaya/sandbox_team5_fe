@@ -82,10 +82,6 @@ const Candidates = () => {
     if (gridApi) gridApi.setRowData(newCandidateSearchResult); 
   }, [candidateSearchResult]);
 
-  useEffect(() => {
-    if (gridApi) gridApi.setRowData(newListOfCandidates); 
-  }, [newListOfCandidates]);
-
   const onGridReady = (params) => {
     setGridApi(params.api);
   };
