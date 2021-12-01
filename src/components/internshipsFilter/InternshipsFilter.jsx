@@ -13,7 +13,6 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import './internshipsFilter.sass';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CloseIcon from '@mui/icons-material/Close';
 import { fetchAllUsers } from '../../store/commands';
@@ -108,14 +107,18 @@ export const InternshipsFilter = ({ onFilter }) => {
           justifyContent="space-between"
           position="relative"
         >
-          <CloseIcon onClick={handleClose} className="closeFilterButton" />
-          <Box display="flex" flexDirection="row" justifyContent="space-between" paddingRight="35px">
-            <Typography align="center" color="text" fontSize="20px">
+          <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Typography align="center" color="#757575" fontSize="20px">
               {getFieldLabel('common.filter.title')}
             </Typography>
-            <Button onClick={cleanFilter} size="small">
-                {getFieldLabel('common.reset.filter')}
-            </Button>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+              <Button onClick={cleanFilter} size="small">
+                  {getFieldLabel('common.reset.filter')}
+              </Button>
+              <IconButton onClick={handleClose}>
+                <CloseIcon/>
+              </IconButton>
+            </Box>
           </Box>
           <FormControl size="small" fullWidth>
             <InputLabel>

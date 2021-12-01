@@ -203,7 +203,7 @@ const AddProgram = (props) => {
               width="100%"
               component="div"
               gutterBottom
-              color="#222"
+              color="#757575"
             >
               {getFieldLabel('addprogram.title')}
             </Typography>
@@ -261,7 +261,7 @@ const AddProgram = (props) => {
         </Box>
         <Box className="buttonWrapper">
           <Button variant="contained" type="submit">
-            {getFieldLabel('common.add')}
+            {getFieldLabel('common.create')}
           </Button>
           <Button variant="outlined" onClick={closeModal}>
             {getFieldLabel('common.cancel')}
