@@ -16,7 +16,7 @@ export const InternshipCard = ({
       alt="internship logo"
     />
     <CardContent className="cardContent">
-      <Typography color="primary" gutterBottom variant="h6" component="div">
+      <Typography color="text" gutterBottom variant="h6" component="div">
         {name}
       </Typography>
       <Typography variant="subtitle2" color="text">
@@ -30,7 +30,7 @@ export const InternshipCard = ({
         {getFieldLabel('internships.program.members')}
       </Typography>
     </CardContent>
-    <Box textAlign="center" className="test">
+    <Box textAlign="center">
       <Link to={`/internshipPage/${id}`} className="internshipCardButton">
         {getFieldLabel('internships.button.program.info')}
       </Link>
