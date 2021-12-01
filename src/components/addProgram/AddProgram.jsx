@@ -21,6 +21,7 @@ import {
   fetchLanguages,
   fetchAllUsers,
   createNewInternship,
+  fetchInternships,
 } from '../../store/commands';
 import { initialValues } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
@@ -40,17 +41,11 @@ const stringToObject = (array) =>
     name: item,
   }));
 
-const formatStacks = (array) =>
-array.map((item) => ({
-  id: item.id,
-  name: item.technologyStackType,
-}));
-
 const formatAllUsers = (array) =>
-array.map((item) => ({
-  id: item.id,
-  name: item.userName,
-}));
+  array.map((item) => ({
+    id: item.id,
+    name: item.userName,
+  }));
 
 const checkDataReceived = (...arrays) =>
   arrays.every((array) => array.length !== 0);
@@ -80,8 +75,9 @@ const AddProgram = (props) => {
     }
   }, [isDataReceived]);
 
+  const locationsListFormated = stringToObject(locationsList);
   const languagesListFormated = stringToObject(languagesList);
-  const stacksListFormated = formatStacks(stacksList);
+  const stacksListFormated = stringToObject(stacksList);
   const allUsersListFormated = formatAllUsers(allUsersList);
 
   const formik = useFormik({
@@ -105,6 +101,15 @@ const AddProgram = (props) => {
           return languageObject;
         },
       );
+      newInternship.imageLink = (() => {
+        let newLink;
+        const oldLink = newInternship.imageLink;
+        if (oldLink.includes('drive.google.com/file/d/')) {
+          const imageId = oldLink.slice(oldLink.lastIndexOf('/d/') + 3).slice(0,oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'))
+          newLink = `https://drive.google.com/uc?export=view&id=${imageId}`
+        }
+        return newLink || oldLink;
+      })();
       // newInternship.users = newInternship.users.map(
       //   (user) => {
       //     const userObject = {...allUsersList.find((item) => {
@@ -118,6 +123,8 @@ const AddProgram = (props) => {
       // );
       newInternship.users = [];
       dispatch(createNewInternship(newInternship));
+      dispatch(fetchInternships());
+      closeModal();
     },
   });
 
@@ -172,7 +179,7 @@ const AddProgram = (props) => {
     locationData: {
       keyName: 'locations',
       label: getFieldLabel('addprogram.field.label.locations'),
-      array: locationsList,
+      array: locationsListFormated,
     },
     languagesData: {
       keyName: 'languageTypes',
@@ -183,7 +190,7 @@ const AddProgram = (props) => {
       keyName: 'users',
       label: getFieldLabel('addprogram.field.label.allUsers'),
       array: allUsersListFormated,
-    }
+    },
   };
 
   return (
@@ -196,7 +203,7 @@ const AddProgram = (props) => {
               width="100%"
               component="div"
               gutterBottom
-              color="#222"
+              color="#757575"
             >
               {getFieldLabel('addprogram.title')}
             </Typography>
@@ -254,7 +261,7 @@ const AddProgram = (props) => {
         </Box>
         <Box className="buttonWrapper">
           <Button variant="contained" type="submit">
-            {getFieldLabel('common.add')}
+            {getFieldLabel('common.create')}
           </Button>
           <Button variant="outlined" onClick={closeModal}>
             {getFieldLabel('common.cancel')}

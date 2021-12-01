@@ -5,7 +5,7 @@ const initialState = {
   isLoading: false,
 };
 
-export default function locations(state = initialState, action) {
+export default function skills(state = initialState, action) {
   switch (action.type) {
     case GET_SKILLS.REQUEST:
       return { ...state, isLoading: true };
