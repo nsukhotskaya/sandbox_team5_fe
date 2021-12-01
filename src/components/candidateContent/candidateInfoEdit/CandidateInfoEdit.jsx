@@ -110,41 +110,41 @@ export const CandidateInfoEdit = (props) => {
     setOpen(true);
   };
 
-  const dataForRenderTextField = {
-    firstNameData: { keyName: 'firstName' },
-    secondNameData: { keyName: 'lastName' },
-    educationData: { keyName: 'education' },
-    emailData: { keyName: 'email' },
-    currentJobData: { keyName: 'currentJob' },
-    linksData: { keyName: 'links' },
-    otherInfoData: { keyName: 'otherInfo' },
-    professionalCertificatesData: { keyName: 'professionalCertificates' },
-    phoneData: { keyName: 'phone' },
-    skypeData: { keyName: 'skype' },
-  };
+  const dataForRenderTextField = [
+    'firstName',
+    'lastName',
+    'education',
+    'email',
+    'currentJob',
+    'links',
+    'otherInfo',
+    'professionalCertificates',
+    'phone',
+    'skype',
+  ];
 
-  const dataForRenderSelect = {
-    status: {
+  const dataForRenderSelect = [
+    {
       keyName: 'statusType',
       array: statusTypeListFormated,
     },
-    englishLevelType: {
+    {
       keyName: 'englishLevelType',
       array: englishLevelListFormated,
     },
-    languagesData: {
+    {
       keyName: 'languageType',
       array: languagesListFormated,
     },
-    locationsData: {
+    {
       keyName: 'location',
       array: locationsListFormated,
     },
-    stacksData: {
+    {
       keyName: 'stackType',
       array: stacksListAdapted,
     },
-  };
+  ];
 
   const formik = useFormik({
     initialValues: formatedInitInfo,
@@ -183,40 +183,34 @@ export const CandidateInfoEdit = (props) => {
             <form onSubmit={formik.handleSubmit}>
               <Box width="35vw" padding="20px">
                 <Stack spacing={2} direction="column">
-                  {Object.values(dataForRenderTextField).map((item) => (
+                  {dataForRenderTextField.map((fieldName) => (
                     <TextField
                       fullWidth
-                      value={formik.values[item.keyName]}
+                      value={formik.values[fieldName]}
                       onChange={formik.handleChange}
-                      name={item.keyName}
-                      label={getFieldLabel(`candidate.info.${item.keyName}`)}
-                      key={item.keyName}
+                      name={fieldName}
+                      label={getFieldLabel(`candidate.info.${fieldName}`)}
+                      key={fieldName}
                     />
                   ))}
-
-                  {Object.values(dataForRenderSelect).map((select) => (
-                    <FormControl key={select.keyName}>
+                  {dataForRenderSelect.map(({ keyName, array }) => (
+                    <FormControl key={keyName}>
                       <InputLabel>
-                        {getFieldLabel(`candidate.info.${select.keyName}`)}
+                        {getFieldLabel(`candidate.info.${keyName}`)}
                       </InputLabel>
                       <Select
-                        key={select.keyName}
+                        key={keyName}
                         fullWidth
-                        value={formik.values[select.keyName]}
-                        name={select.keyName}
-                        label={getFieldLabel(
-                          `candidate.info.${select.keyName}`,
-                        )}
+                        value={formik.values[keyName]}
+                        name={keyName}
+                        label={getFieldLabel(`candidate.info.${keyName}`)}
                         onChange={(event) =>
-                          formik.setFieldValue(
-                            select.keyName,
-                            event.target.value,
-                          )
+                          formik.setFieldValue(keyName, event.target.value)
                         }
                       >
-                        {select.array.map((item) => (
-                          <MenuItem key={item.id} value={item.name}>
-                            {item.name};
+                        {array.map(({ id, name }) => (
+                          <MenuItem key={id} value={name}>
+                            {name}
                           </MenuItem>
                         ))}
                       </Select>
@@ -241,7 +235,7 @@ export const CandidateInfoEdit = (props) => {
                     >
                       {Object.values(internshipsList).map((item) => (
                         <MenuItem id={item.id} value={item.name} key={item.id}>
-                          {item.name};
+                          {item.name}
                         </MenuItem>
                       ))}
                     </Select>

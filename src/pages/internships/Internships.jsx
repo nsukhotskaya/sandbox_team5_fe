@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
   Box,
-  Typography,
   IconButton,
   Grid,
   Button,
@@ -46,22 +45,12 @@ export const Internships = () => {
   };
 
   return (
-    <Container fixed maxWidth="1400px">
+    <Container fixed maxWidth="1600px">
       <Box
         display="flex"
         flexDirection="column"
-        padding="20px"
+        padding="10px"
       >
-        <Box className="internshipsHeader">
-          <Typography
-            className="internshipsTitle"
-            variant="h1"
-            component="div"
-            fontSize="35px"
-            color="#757575"
-          >
-            {getFieldLabel('internships.title')}
-          </Typography>
           <Box className="internshipsMenu">
             <Box className="menuItemsBox">
               <IconButton onClick={handleClick}>
@@ -82,7 +71,6 @@ export const Internships = () => {
               {getFieldLabel('internships.button.add.program')}
             </Button>
           </Box>
-        </Box>
         <Box>
           {isLoading ? (
             <LoadingIndicator />
