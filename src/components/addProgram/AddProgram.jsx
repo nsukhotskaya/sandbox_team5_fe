@@ -101,6 +101,15 @@ const AddProgram = (props) => {
           return languageObject;
         },
       );
+      newInternship.imageLink = (() => {
+        let newLink;
+        const oldLink = newInternship.imageLink;
+        if (oldLink.includes('drive.google.com/file/d/')) {
+          const imageId = oldLink.slice(oldLink.lastIndexOf('/d/') + 3).slice(0,oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'))
+          newLink = `https://drive.google.com/uc?export=view&id=${imageId}`
+        }
+        return newLink || oldLink;
+      })();
       // newInternship.users = newInternship.users.map(
       //   (user) => {
       //     const userObject = {...allUsersList.find((item) => {

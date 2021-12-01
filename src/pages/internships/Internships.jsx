@@ -31,10 +31,6 @@ export const Internships = () => {
 
   useEffect(() => {
     dispatch(fetchInternships()); 
-  }, [popUpActive]);
-
-  useEffect(() => {
-    dispatch(fetchInternships()); 
   }, []);
 
   const openPopUpWindow = () => {
