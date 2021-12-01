@@ -22,8 +22,8 @@ import {
   fetchLanguages,
   fetchEnglishLevel,
   fetchCandidateStatusTypes,
-  fetchAllUsers,
   fetchGoogleSheet,
+  fetchUserInfo
 } from '../../store/commands';
 import { LinkFormatter, PageSize, CandidatesSearch, FilterCandidates } from '../../components';
 import './candidates.sass';
@@ -72,7 +72,7 @@ const Candidates = () => {
     dispatch(fetchLanguages());
     dispatch(fetchEnglishLevel());
     dispatch(fetchCandidateStatusTypes());
-    dispatch(fetchAllUsers());
+    dispatch(fetchUserInfo());
   }, []);
 
   const onFilter = (filters) => 
