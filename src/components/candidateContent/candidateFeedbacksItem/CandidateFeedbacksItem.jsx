@@ -84,17 +84,24 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
   return (
     <Box className="feedbackItem">
       {!feedbacks.length ? (
-        <Box className="titleSection">
-          <Typography className="feedbackTitle" variant="h5">
-            {userName}
-          </Typography>
-          <Typography
-            className="roleTitle"
-            variant="subtitle2"
-            color="primary.main"
-          >
-            {roleType}
-          </Typography>
+        <Box className="createTitleSection flexboxRow" p="10px">
+          <Box className="createTitles flexboxRow" >
+            <Typography
+              overflow= 'hidden'
+              textOverflow= 'ellipsis'
+              whiteSpace= 'nowrap'
+              variant="h5"
+              pr="10px"
+            >
+              {userName}
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              color="primary.main"
+            >
+              {roleType}
+            </Typography>
+          </Box>
           <Button variant="outlined" onClick={handleClick}>
             {getFieldLabel('candidateFeedbacks.button.createFeedback')}
           </Button>
