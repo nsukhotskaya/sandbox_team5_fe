@@ -138,6 +138,12 @@ export {
   PUT_FEEDBACK,
 } from './putFeedback';
 export {
+  updateInternshipRequest,
+  updateInternshipSuccess,
+  updateInternshipFailure,
+  UPDATE_INTERNSHIP,
+} from './updateInternship';
+export {
   getEnglishLevelsRequest,
   getEnglishLevelsSuccess,
   getEnglishLevelsFailure,

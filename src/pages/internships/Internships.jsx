@@ -13,9 +13,10 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import './Internships.sass';
 import { getFieldLabel } from '../../utils';
 import { InternshipCard, InternshipsFilter, SidePopUp } from '../../components';
-import { fetchInternships } from '../../store/commands';
+import { createNewInternship, fetchInternships } from '../../store/commands';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
+import { initialValues } from '../../mocks/createInternshipData.json';
 
 export const Internships = () => {
   const [popUpActive, setPopUpActive] = useState(false);
@@ -98,7 +99,15 @@ export const Internships = () => {
           )}
         </Box>
       </Box>
-      <SidePopUp active={popUpActive} setActive={setPopUpActive} />
+      <SidePopUp
+        updateFunction={fetchInternships()}
+        active={popUpActive}
+        setActive={setPopUpActive}
+        initialData={initialValues}
+        button="common.create"
+        dispatchFunction={createNewInternship}
+        title="addprogram.title"
+      />
     </Container>
   );
 };

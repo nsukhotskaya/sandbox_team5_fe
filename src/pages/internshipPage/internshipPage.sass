@@ -2,8 +2,9 @@
 
 .flexContainer
   display: flex
+  overflow: hidden
   box-sizing: border-box
-  height: auto
+  height: 100%
   background-color: $common-background 
 
 .flexContainerMobile
@@ -14,23 +15,9 @@
   overflow: scroll
   justify-content: space-between
 
-.internshipContentWrapper
-  width: 25%
-  height: 100%
-  padding: 1%
-  padding-right: 0
-  box-sizing: border-box
-
-.internshipContentWrapperMobile
-  width: 100%
-  height: 100%
-  padding: 1%
-  padding-right: 0
-  box-sizing: border-box
-
 .tableWrapper      
   height: auto
-  width: 75%
+  flex: 1 0 auto
   padding: 1%
   box-sizing: border-box
 
