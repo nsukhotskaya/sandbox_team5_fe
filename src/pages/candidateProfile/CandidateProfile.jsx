@@ -25,15 +25,11 @@ const CandidateProfile = () => {
       {isLoading ? (
         <LoadingIndicator />
       ) : (
-        <Box
-          borderColor="primary.main"
+        <Box borderColor="primary.main"
           backgroundColor="background.paper"
           className="candidateProfileWrapper"
         >
-          <Box
-            className="candidateProfileCardWrapper"
-            border="1px solid #e0e0e0"
-          >
+          <Box className="candidateInfoCardWrapper" boxShadow="5">
             <CandidateInfo candidateInfo={candidate} />
           </Box>
           <Box className="candidateProfileCardWrapper">

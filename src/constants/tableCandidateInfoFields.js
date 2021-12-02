@@ -1,20 +1,22 @@
 export const tableCandidateInfoFields = [
-  'statusType',
-  'location',
-  'education',
-  'professionalCertificates',
-  'internshipName',
-  'languageType',
   'phone',
-  'skype',
+  'statusType',
   'email',
-  'bestContactTime',
+  'internshipName',
+  'skype',
   'stackType',
-  'englishLevelType',
+  'location',
   'registrationDate',
+  'languageType',
+  'bestContactTime',
+  'englishLevelType',
+  'professionalCertificates',
   'currentJob',
-  'links',
+
   'otherInfo',
-  'testTaskEvaluation',
+
+  'education',
   'isPlanningToJoin',
+
+  'links',
 ];
