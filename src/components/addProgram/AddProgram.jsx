@@ -52,15 +52,17 @@ const formatAllUsers = (array) =>
 const checkDataReceived = (...arrays) =>
   arrays.every((array) => array.length !== 0);
 
-const linkСorrection = (oldValue, includedPart, firstPartOfLink='') => {
+const linkСorrection = (oldValue, includedPart, firstPartOfLink = '') => {
   let newLink;
   const oldLink = oldValue;
   if (oldLink.includes(includedPart)) {
-    const fieldId = oldLink.slice(oldLink.lastIndexOf('/d/') + 3).slice(0,oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'))
-    newLink = `${firstPartOfLink}${fieldId}`
+    const fieldId = oldLink
+      .slice(oldLink.lastIndexOf('/d/') + 3)
+      .slice(0, oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'));
+    newLink = `${firstPartOfLink}${fieldId}`;
   }
   return newLink || oldLink;
-}
+};
 
 const AddProgram = (props) => {
   const { closeModal } = props;
@@ -119,19 +121,26 @@ const AddProgram = (props) => {
           return languageObject;
         },
       );
-      newInternship.imageLink = linkСorrection(newInternship.imageLink, 'drive.google.com/file/d/', 'https://drive.google.com/uc?export=view&id=' );
-      newInternship.spreadSheetId = linkСorrection(newInternship.spreadSheetId, 'docs.google.com');
-      newInternship.users = newInternship.users.map(
-        (user) => {
-          const userObject = {...allUsersList.find((item) => {
-            if (user === item.userName){
-              return true
-            }
-            return false
-          })}
-          return userObject;
-        },
+      newInternship.imageLink = linkСorrection(
+        newInternship.imageLink,
+        'drive.google.com/file/d/',
+        'https://drive.google.com/uc?export=view&id=',
       );
+      newInternship.spreadSheetId = linkСorrection(
+        newInternship.spreadSheetId,
+        'docs.google.com',
+      );
+      newInternship.users = newInternship.users.map((user) => {
+        const userObject = {
+          ...allUsersList.find((item) => {
+            if (user === item.userName) {
+              return true;
+            }
+            return false;
+          }),
+        };
+        return userObject;
+      });
       closeModal();
       dispatch(updateFunction);
       // dispatch(dispatchFunction(newInternship));
@@ -220,7 +229,7 @@ const AddProgram = (props) => {
             <Stack spacing={2} direction="column">
               {Object.values(dataForRenderTextField).map((field) => (
                 <TextField
-                  label={(field.label).concat('*')}
+                  label={field.label.concat('*')}
                   name={field.keyName}
                   value={formik.values[`${field.keyName}`]}
                   onChange={formik.handleChange}
@@ -247,52 +256,47 @@ const AddProgram = (props) => {
                       formik.setFieldValue(date.keyName, dateValue)
                     }
                     mask={getFieldLabel('addprogram.input.date.mask')}
-                    renderInput={({
-                      label,
-                      inputProps,
-                    }) => (
-                      <TextField
-                        label={label}
-                        inputProps={inputProps}
-                      />
+                    renderInput={({ label, inputProps }) => (
+                      <TextField label={label} inputProps={inputProps} />
                     )}
                   />
                 </React.Fragment>
               ))}
-              {isDataReceived && Object.values(dataForRenderSelect).map((select) => (
-                <FormControl
-                  key={select.keyName}
-                  error={
-                    formik.touched[`${select.keyName}`] &&
-                    Boolean(formik.errors[`${select.keyName}`])
-                  }
-                >
-                  <InputLabel>{(select.label).concat('*')}</InputLabel>
-                  <Select
-                    label={(select.label).concat('*')}
-                    multiple
-                    value={formik.values[`${select.keyName}`]}
-                    onChange={(event) =>
-                      formik.setFieldValue(select.keyName, event.target.value)
-                    }
+              {isDataReceived &&
+                Object.values(dataForRenderSelect).map((select) => (
+                  <FormControl
+                    key={select.keyName}
                     error={
                       formik.touched[`${select.keyName}`] &&
                       Boolean(formik.errors[`${select.keyName}`])
                     }
-                    MenuProps={MenuProps}
                   >
-                    {select.array.map((item) => (
-                      <MenuItem key={item.id} value={item.name}>
-                        {item.name}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                  <FormHelperText error>
-                    {formik.touched[`${select.keyName}`] &&
-                      formik.errors[`${select.keyName}`]}
-                  </FormHelperText>
-                </FormControl>
-              ))}
+                    <InputLabel>{select.label.concat('*')}</InputLabel>
+                    <Select
+                      label={select.label.concat('*')}
+                      multiple
+                      value={formik.values[`${select.keyName}`]}
+                      onChange={(event) =>
+                        formik.setFieldValue(select.keyName, event.target.value)
+                      }
+                      error={
+                        formik.touched[`${select.keyName}`] &&
+                        Boolean(formik.errors[`${select.keyName}`])
+                      }
+                      MenuProps={MenuProps}
+                    >
+                      {select.array.map((item) => (
+                        <MenuItem key={item.id} value={item.name}>
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                    <FormHelperText error>
+                      {formik.touched[`${select.keyName}`] &&
+                        formik.errors[`${select.keyName}`]}
+                    </FormHelperText>
+                  </FormControl>
+                ))}
             </Stack>
           </LocalizationProvider>
         </Box>

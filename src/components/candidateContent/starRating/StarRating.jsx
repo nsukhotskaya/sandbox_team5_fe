@@ -14,7 +14,7 @@ const StarRating = ({ title, grade, editMode, callbackFunction }) => (
       </Typography>
     )}
     <Rating
-    max={4}
+      max={4}
       defaultValue={grade}
       precision={1}
       disabled={!editMode}

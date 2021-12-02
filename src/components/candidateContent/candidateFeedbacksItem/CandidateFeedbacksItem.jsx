@@ -23,7 +23,7 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
   const { feedbacks, userName, roleType } = user;
   const feedback = feedbacks.length ? feedbacks[0] : {};
   const [description, setDescription] = React.useState(
-    feedback.description==="." ? "" : feedback.description,
+    feedback.description === '.' ? '' : feedback.description,
   );
   const [finalEvaluation, setFinalEvaluation] = React.useState(
     feedbacks.length ? feedback.finalEvaluation : 0,
@@ -31,7 +31,7 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
   const [editMode, setEditMode] = React.useState(false);
 
   const updateToNewFeedback = () => {
-    const newFeedback =  {
+    const newFeedback = {
       id: feedback.id,
       userId: feedback.userId,
       candidateId: feedback.candidateId,
@@ -40,11 +40,11 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
       description,
       evaluations: [],
       finalEvaluation,
+    };
+    if (!newFeedback.description) {
+      newFeedback.description = '.';
     }
-    if(!newFeedback.description){
-      newFeedback.description = "."
-    }
-    return newFeedback
+    return newFeedback;
   };
 
   const createFeedbackRequestBody = () => ({
