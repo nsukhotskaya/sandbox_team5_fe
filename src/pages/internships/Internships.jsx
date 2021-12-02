@@ -46,31 +46,27 @@ export const Internships = () => {
 
   return (
     <Container fixed maxWidth="1600px">
-      <Box
-        display="flex"
-        flexDirection="column"
-        padding="10px"
-      >
-          <Box className="internshipsMenu">
-            <Box className="menuItemsBox">
-              <IconButton onClick={handleClick}>
-                <ManageSearchIcon fontSize="large" />
-              </IconButton>
-              <Popper open={open} anchorEl={anchorEl} placement="left">
-                <Input
-                  onChange={onInputChange}
-                  type="text"
-                  placeholder={getFieldLabel('common.search')}
-                />
-              </Popper>
-              <InternshipsFilter
-                onFilter={(filters) => dispatch(fetchInternships(filters))}
+      <Box display="flex" flexDirection="column" padding="10px">
+        <Box className="internshipsMenu">
+          <Box className="menuItemsBox">
+            <IconButton onClick={handleClick}>
+              <ManageSearchIcon fontSize="large" />
+            </IconButton>
+            <Popper open={open} anchorEl={anchorEl} placement="left">
+              <Input
+                onChange={onInputChange}
+                type="text"
+                placeholder={getFieldLabel('common.search')}
               />
-            </Box>
-            <Button variant="outlined" onClick={openPopUpWindow}>
-              {getFieldLabel('internships.button.add.program')}
-            </Button>
+            </Popper>
+            <InternshipsFilter
+              onFilter={(filters) => dispatch(fetchInternships(filters))}
+            />
           </Box>
+          <Button variant="outlined" onClick={openPopUpWindow}>
+            {getFieldLabel('internships.button.add.program')}
+          </Button>
+        </Box>
         <Box>
           {isLoading ? (
             <LoadingIndicator />

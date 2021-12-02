@@ -82,10 +82,7 @@ export const InternshipsFilter = ({ onFilter }) => {
 
   return (
     <Box>
-      <IconButton
-        aria-describedby={id}
-        onClick={handleClick}
-      >
+      <IconButton aria-describedby={id} onClick={handleClick}>
         <FilterListIcon fontSize="large" />
       </IconButton>
       <Popover
@@ -107,16 +104,24 @@ export const InternshipsFilter = ({ onFilter }) => {
           justifyContent="space-between"
           position="relative"
         >
-          <Box display="flex" justifyContent="space-between" alignItems="center">
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Typography align="center" color="#757575" fontSize="20px">
               {getFieldLabel('common.filter.title')}
             </Typography>
-            <Box display="flex" justifyContent="space-between" alignItems="center">
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
               <Button onClick={cleanFilter} size="small">
-                  {getFieldLabel('common.reset.filter')}
+                {getFieldLabel('common.reset.filter')}
               </Button>
               <IconButton onClick={handleClose}>
-                <CloseIcon/>
+                <CloseIcon />
               </IconButton>
             </Box>
           </Box>
@@ -251,9 +256,9 @@ export const InternshipsFilter = ({ onFilter }) => {
               ))}
             </Select>
           </FormControl>
-            <Button onClick={handleSubmit} size="small" variant="contained">
-              {getFieldLabel('common.filter')}
-            </Button>
+          <Button onClick={handleSubmit} size="small" variant="contained">
+            {getFieldLabel('common.filter')}
+          </Button>
         </Box>
       </Popover>
     </Box>

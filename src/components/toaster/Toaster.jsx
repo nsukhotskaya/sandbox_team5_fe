@@ -2,15 +2,17 @@ import React from 'react';
 import { Box, Snackbar, Alert } from '@mui/material';
 import { useMediaDown } from '../utils';
 
-const Toaster = ({isToasterOpen, handleCloseToaster, message, severity}) => {
+const Toaster = ({ isToasterOpen, handleCloseToaster, message, severity }) => {
   const smallScreen = useMediaDown('sm');
-  return(
+  return (
     <Snackbar
-      open = {isToasterOpen}
-      autoHideDuration = {8000}
-      onClose = {handleCloseToaster}
-      anchorOrigin = {
-        smallScreen ? { vertical: 'top', horizontal: 'center'} : { vertical: 'top', horizontal: 'left' }
+      open={isToasterOpen}
+      autoHideDuration={8000}
+      onClose={handleCloseToaster}
+      anchorOrigin={
+        smallScreen
+          ? { vertical: 'top', horizontal: 'center' }
+          : { vertical: 'top', horizontal: 'left' }
       }
     >
       <Box m="10px">
@@ -19,7 +21,7 @@ const Toaster = ({isToasterOpen, handleCloseToaster, message, severity}) => {
         </Alert>
       </Box>
     </Snackbar>
-  )
-}
+  );
+};
 
 export default Toaster;
