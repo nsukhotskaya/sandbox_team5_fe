@@ -11,3 +11,4 @@ export * from './calendar';
 export * from './pageSize';
 export * from './candidatesSearch';
 export * from './filterCandidates';
+export * from './toaster';

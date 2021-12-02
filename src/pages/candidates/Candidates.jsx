@@ -11,6 +11,7 @@ import {
   Divider,
 } from '@mui/material';
 import { ManageSearch, Send } from '@mui/icons-material';
+import CachedIcon from '@mui/icons-material/Cached';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import { tableFields, reformatCandidates } from '../../constants';
 import { getFieldLabel } from '../../utils';
@@ -21,9 +22,15 @@ import {
   fetchLanguages,
   fetchEnglishLevel,
   fetchCandidateStatusTypes,
-  fetchAllUsers,
+  fetchGoogleSheet,
+  fetchUserInfo,
 } from '../../store/commands';
-import { LinkFormatter, PageSize, CandidatesSearch, FilterCandidates } from '../../components';
+import {
+  LinkFormatter,
+  PageSize,
+  CandidatesSearch,
+  FilterCandidates,
+} from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -58,11 +65,11 @@ const Candidates = () => {
   const internshipName =
     listOfCandidates && listOfCandidates.map((item) => item.internshipName);
 
-    const requestBody = {
-      pageSize: 100000,
-      pageNumber: 1,
-      internshipId: id,
-    };
+  const requestBody = {
+    pageSize: 100000,
+    pageNumber: 1,
+    internshipId: id,
+  };
 
   useEffect(() => {
     dispatch(fetchCandidateList(requestBody));
@@ -70,11 +77,11 @@ const Candidates = () => {
     dispatch(fetchLanguages());
     dispatch(fetchEnglishLevel());
     dispatch(fetchCandidateStatusTypes());
-    dispatch(fetchAllUsers());
+    dispatch(fetchUserInfo());
   }, []);
 
-  const onFilter = (filters) => 
-    dispatch(fetchCandidateList(requestBody, filters))
+  const onFilter = (filters) =>
+    dispatch(fetchCandidateList(requestBody, filters));
 
   useEffect(() => {
     if (gridApi) gridApi.setRowData(newCandidateSearchResult);
@@ -115,20 +122,29 @@ const Candidates = () => {
     gridApi.forEachNode(rowNodes);
   };
 
+  const googleSheet = () => {
+    dispatch(fetchGoogleSheet(id));
+  };
+
   return (
     <Box padding="1%" width="100%" height="100%">
       <Box className="candidatesPageHeader">
-        <Typography variant="h4" component="div" gutterBottom color="#757575">
-          {internshipName[0]}
-        </Typography>
+        <Box display="flex" alignItems="center">
+          <Typography variant="h4" component="div" color="#757575">
+            {internshipName[0]}
+          </Typography>
+          <IconButton onClick={googleSheet}>
+            <CachedIcon fontSize="large" />
+          </IconButton>
+        </Box>
         <Box className="candidatesButtons">
-          <Box className="searchBox">
+          <Box>
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>
           </Box>
-            <Box className="filterBox">
-          <FilterCandidates onFilter={onFilter} />
+          <Box className="filterBox">
+            <FilterCandidates onFilter={onFilter} />
           </Box>
           <Stack direction="row" spacing={2}>
             <Button
@@ -200,7 +216,7 @@ const Candidates = () => {
               resizable
               headerCheckboxSelection
               suppressSizeToFit
-              minWidth={250}
+              minWidth={200}
               cellRenderer="linkFormatter"
             />
             {tableFields.map((field) => (

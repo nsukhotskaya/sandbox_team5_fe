@@ -52,6 +52,16 @@ const formatAllUsers = (array) =>
 const checkDataReceived = (...arrays) =>
   arrays.every((array) => array.length !== 0);
 
+const linkСorrection = (oldValue, includedPart, firstPartOfLink='') => {
+  let newLink;
+  const oldLink = oldValue;
+  if (oldLink.includes(includedPart)) {
+    const fieldId = oldLink.slice(oldLink.lastIndexOf('/d/') + 3).slice(0,oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'))
+    newLink = `${firstPartOfLink}${fieldId}`
+  }
+  return newLink || oldLink;
+}
+
 const AddProgram = (props) => {
   const { closeModal } = props;
   const { initialData } = props;
@@ -109,21 +119,19 @@ const AddProgram = (props) => {
           return languageObject;
         },
       );
-      newInternship.imageLink = (() => {
-        let newLink;
-        const oldLink = newInternship.imageLink;
-        if (oldLink.includes('drive.google.com/file/d/')) {
-          const imageId = oldLink.slice(oldLink.lastIndexOf('/d/') + 3).slice(0,oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'))
-          newLink = `https://drive.google.com/uc?export=view&id=${imageId}`
-        }
-        return newLink || oldLink;
-      })();
-      newInternship.users = newInternship.users.map((user) => {
-        const userObject = {
-          ...allUsersList.filter((item) => item.userName === user),
-        };
-        return userObject;
-      });
+      newInternship.imageLink = linkСorrection(newInternship.imageLink, 'drive.google.com/file/d/', 'https://drive.google.com/uc?export=view&id=' );
+      newInternship.spreadSheetId = linkСorrection(newInternship.spreadSheetId, 'docs.google.com');
+      newInternship.users = newInternship.users.map(
+        (user) => {
+          const userObject = {...allUsersList.find((item) => {
+            if (user === item.userName){
+              return true
+            }
+            return false
+          })}
+          return userObject;
+        },
+      );
       closeModal();
       dispatch(updateFunction);
       // dispatch(dispatchFunction(newInternship));
@@ -228,7 +236,6 @@ const AddProgram = (props) => {
                   }
                 />
               ))}
-              {/* eslint-disable react/jsx-props-no-spreading */}
               {Object.values(dataForRenderDatePicker).map((date) => (
                 <React.Fragment key={date.keyName}>
                   <MobileDateTimePicker
@@ -240,11 +247,19 @@ const AddProgram = (props) => {
                       formik.setFieldValue(date.keyName, dateValue)
                     }
                     mask={getFieldLabel('addprogram.input.date.mask')}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={({
+                      label,
+                      inputProps,
+                    }) => (
+                      <TextField
+                        label={label}
+                        inputProps={inputProps}
+                      />
+                    )}
                   />
                 </React.Fragment>
               ))}
-              {Object.values(dataForRenderSelect).map((select) => (
+              {isDataReceived && Object.values(dataForRenderSelect).map((select) => (
                 <FormControl
                   key={select.keyName}
                   error={
