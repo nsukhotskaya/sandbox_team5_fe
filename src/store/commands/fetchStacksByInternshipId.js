@@ -9,7 +9,7 @@ const fetchStacksByInternshipId = (id) => async (dispatch) => {
   dispatch(getStacksByInternshipIdRequest());
   try {
     const response = await API.get(
-      `/getInternshipStacksByInternshipId?internshipId=${id}`,
+      `/api/InternshipStack/getInternshipStacksByInternshipId?internshipId=${id}`,
     );
     dispatch(getStacksByInternshipIdSuccess(response.data));
   } catch (error) {

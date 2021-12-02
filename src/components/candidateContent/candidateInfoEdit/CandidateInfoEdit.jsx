@@ -99,7 +99,6 @@ export const CandidateInfoEdit = (props) => {
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
   const languagesListFormated = stringToObject(languagesList);
-  const locationsListFormated = stringToObject(locationsList);
   const stacksListAdapted = adaptStacks(stacksList);
 
   const handleClose = () => {
@@ -138,7 +137,7 @@ export const CandidateInfoEdit = (props) => {
     },
     {
       keyName: 'location',
-      array: locationsListFormated,
+      array: locationsList,
     },
     {
       keyName: 'stackType',
