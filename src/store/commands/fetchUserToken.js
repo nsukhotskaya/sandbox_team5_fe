@@ -15,7 +15,7 @@ const fetchUserToken = (user) => async (dispatch) => {
     dispatch(userLogInSuccess());
     dispatch(push('/profile'));
   } catch (error) {
-    dispatch(userLogInFailure());
+    dispatch(userLogInFailure(error.response));
   }
 };
 export default fetchUserToken;
