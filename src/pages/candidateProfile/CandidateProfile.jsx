@@ -25,7 +25,8 @@ const CandidateProfile = () => {
       {isLoading ? (
         <LoadingIndicator />
       ) : (
-        <Box borderColor="primary.main"
+        <Box
+          borderColor="primary.main"
           backgroundColor="background.paper"
           className="candidateProfileWrapper"
         >

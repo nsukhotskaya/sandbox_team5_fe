@@ -1,12 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import {
-  Box,
-  Typography,
-  Divider,
-  Grid,
-} from '@mui/material';
+import { Box, Typography, Divider, Grid } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
 
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';

@@ -5,9 +5,9 @@ const useToaster = (...messages) => {
   const [alertMessages, setAlertMessages] = useState([...messages]);
 
   const addToast = (...newMessages) => {
-    setAlertMessages([...newMessages])
-    seIsToasterOpen(true)
-  }
+    setAlertMessages([...newMessages]);
+    seIsToasterOpen(true);
+  };
 
   const handleCloseToaster = (event, reason) => {
     if (reason === 'clickaway') {
@@ -17,6 +17,6 @@ const useToaster = (...messages) => {
   };
 
   return { isToasterOpen, handleCloseToaster, alertMessages, addToast };
-}
+};
 
 export default useToaster;
