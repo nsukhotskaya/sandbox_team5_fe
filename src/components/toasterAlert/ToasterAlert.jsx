@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Snackbar, Alert } from '@mui/material';
 import { useMediaDown } from '../utils';
 
-const ToasterAlert = ({isToasterOpen, handleCloseToaster, message}) => {
+const ToasterAlert = ({isToasterOpen, handleCloseToaster, message, alertTypeSeverity}) => {
   const smallScreen = useMediaDown('sm');
   return(
     <Snackbar
@@ -14,7 +14,7 @@ const ToasterAlert = ({isToasterOpen, handleCloseToaster, message}) => {
       }
     >
       <Box m="10px">
-        <Alert onClose={handleCloseToaster} severity="error">
+        <Alert onClose={handleCloseToaster} severity={alertTypeSeverity}>
           {message}
         </Alert>
       </Box>

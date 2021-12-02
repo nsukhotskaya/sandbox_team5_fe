@@ -82,7 +82,7 @@ const Login = () => {
   return (
     <Box className="loginContainer">
       {!!alertMessages.length && alertMessages.map((message)=>(
-        <ToasterAlert key = {message} isToasterOpen={isToasterOpen} handleCloseToaster={handleCloseToaster} message={message}/>
+        <ToasterAlert key = {message} isToasterOpen={isToasterOpen} handleCloseToaster={handleCloseToaster} message={message} alertTypeSeverity="error"/>
       ))
       }
       <Box className="loginCardWrapper">
