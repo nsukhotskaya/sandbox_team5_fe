@@ -18,25 +18,34 @@ import { updateFeedback, createFeedback } from '../../../store/commands';
 
 const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
   const dispatch = useDispatch();
-  const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
+  const [isCriteriaShown, setIsCriteriaShown] = React.useState(true);
   const now = new Date(Date.now());
   const { feedbacks, userName, roleType } = user;
   const feedback = feedbacks.length ? feedbacks[0] : {};
+  const [description, setDescription] = React.useState(
+    feedback.description==="." ? "" : feedback.description,
+  );
   const [finalEvaluation, setFinalEvaluation] = React.useState(
     feedbacks.length ? feedback.finalEvaluation : 0,
   );
   const [editMode, setEditMode] = React.useState(false);
 
-  const updateToNewFeedback = () => ({
-    id: feedback.id,
-    userId: feedback.userId,
-    candidateId: feedback.candidateId,
-    englishLevelType: feedback.englishLevelType,
-    date: now.toISOString(),
-    description: '.',
-    evaluations: [],
-    finalEvaluation,
-  });
+  const updateToNewFeedback = () => {
+    const newFeedback =  {
+      id: feedback.id,
+      userId: feedback.userId,
+      candidateId: feedback.candidateId,
+      englishLevelType: feedback.englishLevelType,
+      date: now.toISOString(),
+      description,
+      evaluations: [],
+      finalEvaluation,
+    }
+    if(!newFeedback.description){
+      newFeedback.description = "."
+    }
+    return newFeedback
+  };
 
   const createFeedbackRequestBody = () => ({
     userId: user.id,
@@ -57,6 +66,10 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
 
   const handleChangeFinalEvaluation = (newEvaluation) => {
     setFinalEvaluation(newEvaluation);
+  };
+
+  const handleChange = (event) => {
+    setDescription(event.target.value);
   };
 
   const handleSaveButton = () => {
@@ -101,7 +114,7 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
             </Typography>
           </Box>
           <Box className="flexboxRow">
-            <Rating value={finalEvaluation} readOnly />
+            <Rating value={finalEvaluation} max={4} readOnly />
           </Box>
           <IconButton onClick={handleButton}>
             {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -110,7 +123,7 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
       )}
       {!!feedbacks.length && (
         <Collapse in={isCriteriaShown}>
-          <Box className="collapseContainer" borderColor="background.default">
+          <Box className="collapseContainer">
             {!!feedback.evaluations &&
               feedback.evaluations.map((skill) => (
                 <StarRating
@@ -121,11 +134,12 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
                 />
               ))}
             <TextField
-              defaultValue={feedback.description}
+              value={description}
               multiline
               minRows="3"
               label={getFieldLabel('candidateFeedbacks.label.feedback')}
               InputProps={{ disabled: !editMode }}
+              onChange={handleChange}
             />
             <StarRating
               title={getFieldLabel(
