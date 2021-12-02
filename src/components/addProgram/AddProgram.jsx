@@ -17,7 +17,7 @@ import {
 import { LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
-import { initialTouched, formValidation } from '../../constants';
+import { formValidation } from '../../constants';
 import {
   fetchLocations,
   fetchStacks,
@@ -90,7 +90,6 @@ const AddProgram = (props) => {
   const formik = useFormik({
     initialValues: initialData,
     validationSchema: FormValidation,
-    initialTouched,
     onSubmit: (values) => {
       const newInternship = { ...values };
       newInternship.maxCandidateCount = +newInternship.maxCandidateCount;
@@ -213,7 +212,7 @@ const AddProgram = (props) => {
             <Stack spacing={2} direction="column">
               {Object.values(dataForRenderTextField).map((field) => (
                 <TextField
-                  label={field.label}
+                  label={(field.label).concat('*')}
                   name={field.keyName}
                   value={formik.values[`${field.keyName}`]}
                   onChange={formik.handleChange}
@@ -245,7 +244,6 @@ const AddProgram = (props) => {
                   />
                 </React.Fragment>
               ))}
-              {/* eslint-enable react/jsx-props-no-spreading */}
               {Object.values(dataForRenderSelect).map((select) => (
                 <FormControl
                   key={select.keyName}
@@ -254,9 +252,9 @@ const AddProgram = (props) => {
                     Boolean(formik.errors[`${select.keyName}`])
                   }
                 >
-                  <InputLabel>{select.label}</InputLabel>
+                  <InputLabel>{(select.label).concat('*')}</InputLabel>
                   <Select
-                    label={select.label}
+                    label={(select.label).concat('*')}
                     multiple
                     value={formik.values[`${select.keyName}`]}
                     onChange={(event) =>

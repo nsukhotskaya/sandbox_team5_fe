@@ -3,4 +3,4 @@ export { columnDefsEmployees } from './tableInternshipPageFields';
 export { columnDefsInternships } from './tableFieldsProfile';
 export { tableCandidateInfoFields } from './tableCandidateInfoFields';
 export { reformatCandidates } from './reformatCandidates';
-export { initialTouched, formValidation } from './addProgramConstants';
+export { formValidation } from './addProgramConstants';
