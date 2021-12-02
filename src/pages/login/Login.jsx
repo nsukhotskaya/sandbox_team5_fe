@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Typography, Card, Button, TextField, Stack, FormControl, Box } from '@mui/material';
 import { fetchUserToken } from '../../store/commands';
 import './Login.sass';
-import { Footer, ToasterAlert } from '../../components';
+import { Footer, Toaster } from '../../components';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
-import useToaster from '../../components/toasterAlert/useToaster'
+import useToaster from '../../components/toaster/useToaster'
 
 const Login = () => {
   const smallScreen = useMediaDown('sm');
@@ -82,7 +82,7 @@ const Login = () => {
   return (
     <Box className="loginContainer">
       {!!alertMessages.length && alertMessages.map((message)=>(
-        <ToasterAlert key = {message} isToasterOpen={isToasterOpen} handleCloseToaster={handleCloseToaster} message={message} alertTypeSeverity="error"/>
+        <Toaster key = {message} isToasterOpen={isToasterOpen} handleCloseToaster={handleCloseToaster} message={message} severity="error"/>
       ))
       }
       <Box className="loginCardWrapper">
