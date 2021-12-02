@@ -124,7 +124,6 @@ const AddProgram = (props) => {
           return userObject;
         },
       );
-      console.log(JSON.stringify(newInternship, null, 2))
       dispatch(createNewInternship(newInternship));
       dispatch(fetchInternships());
       closeModal();

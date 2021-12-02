@@ -8,7 +8,7 @@ const initialState = {
 export default function candidateList(state = initialState, action) {
   switch (action.type) {
     case GET_CANDIDATE_LIST.REQUEST:
-      return { ...state, isLoading: true };
+      return { candidates: [], isLoading: true };
     case GET_CANDIDATE_LIST.SUCCESS: {
       const { candidates } = action.payload;
       return {

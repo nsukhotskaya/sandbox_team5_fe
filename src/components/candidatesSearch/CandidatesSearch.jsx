@@ -13,7 +13,7 @@ const CandidatesSearch = ({ id }) => {
         skip: 0,
         take: 50,
         searchText: `${value}`,
-        sortBy: 'lastName',
+        sortBy: 'string',
         isDesc: true,
         internshipId: id,
       }),
