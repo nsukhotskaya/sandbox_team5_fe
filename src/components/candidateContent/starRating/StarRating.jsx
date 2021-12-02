@@ -6,9 +6,8 @@ const StarRating = ({ title, grade, editMode, callbackFunction }) => (
   <Box className="starRating flexboxRow">
     {title && (
       <Typography
-        className="ratingTitle"
         variant="h6"
-        color={editMode ? 'primary.main' : '#c0c0c0'}
+        className={editMode ? 'ratingTitle' : 'ratingTitle disabled'}
       >
         {title}
       </Typography>
@@ -17,7 +16,8 @@ const StarRating = ({ title, grade, editMode, callbackFunction }) => (
       max={4}
       defaultValue={grade}
       precision={1}
-      disabled={!editMode}
+      readOnly={!editMode}
+      className={editMode ? '' : 'disabled'}
       onChange={(event, newValue) => {
         callbackFunction(newValue);
       }}

@@ -83,48 +83,32 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
 
   return (
     <Box className="feedbackItem">
-      {!feedbacks.length ? (
-        <Box className="createTitleSection flexboxRow" p="10px">
-          <Box className="createTitles flexboxRow">
-            <Typography
-              overflow="hidden"
-              textOverflow="ellipsis"
-              whiteSpace="nowrap"
-              variant="h5"
-              pr="10px"
-            >
-              {userName}
-            </Typography>
-            <Typography variant="subtitle2" color="primary.main">
-              {roleType}
-            </Typography>
-          </Box>
+      <Box className="createTitleSection flexboxRow" p="10px">
+        <Box className="createTitles flexboxRow">
+          <Typography
+            overflow="hidden"
+            textOverflow="ellipsis"
+            whiteSpace="nowrap"
+            variant="h5"
+            pr="10px"
+          >
+            {!!userName && userName}
+          </Typography>
+          <Typography variant="subtitle2">{!!roleType && roleType}</Typography>
+        </Box>
+        {!feedbacks.length ? (
           <Button variant="outlined" onClick={handleClick}>
             {getFieldLabel('candidateFeedbacks.button.createFeedback')}
           </Button>
-        </Box>
-      ) : (
-        <Box className="titleSection">
-          <Box className="flexboxRow" width="400px">
-            <Typography className="feedbackTitle" variant="h5">
-              {!!userName && userName}
-            </Typography>
-            <Typography
-              className="feedbackTitle roleTitle"
-              variant="subtitle2"
-              color="primary.main"
-            >
-              {!!roleType && roleType}
-            </Typography>
-          </Box>
+        ) : (
           <Box className="flexboxRow">
-            <Rating value={finalEvaluation} max={4} readOnly />
+            <Rating value={finalEvaluation} max={4} readOnly pl="200px" />
+            <IconButton onClick={handleButton}>
+              {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
           </Box>
-          <IconButton onClick={handleButton}>
-            {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </IconButton>
-        </Box>
-      )}
+        )}
+      </Box>
       {!!feedbacks.length && (
         <Collapse in={isCriteriaShown}>
           <Box className="collapseContainer">
