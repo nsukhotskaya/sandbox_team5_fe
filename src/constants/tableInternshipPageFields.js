@@ -3,7 +3,7 @@ import { getFieldLabel } from '../utils';
 export const columnDefsEmployees = [
   {
     headerNames: getFieldLabel('internship.page.table.fullname'),
-    field: 'fullName',
+    field: 'userName',
   },
   { headerNames: getFieldLabel('internship.page.table.role'), field: 'role' },
   {

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import {
   Box,
   Stack,
@@ -11,19 +12,18 @@ import {
   FormControl,
   Select,
   Typography,
+  FormHelperText,
 } from '@mui/material';
 import { LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
+import { formValidation } from '../../constants';
 import {
   fetchLocations,
   fetchStacks,
   fetchLanguages,
   fetchAllUsers,
-  createNewInternship,
-  fetchInternships,
 } from '../../store/commands';
-import { initialValues } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
 
 const MenuProps = {
@@ -34,6 +34,8 @@ const MenuProps = {
     },
   },
 };
+
+const FormValidation = Yup.object().shape(formValidation);
 
 const stringToObject = (array) =>
   array.map((item, index) => ({
@@ -62,6 +64,11 @@ const linkСorrection = (oldValue, includedPart, firstPartOfLink='') => {
 
 const AddProgram = (props) => {
   const { closeModal } = props;
+  const { initialData } = props;
+  // const { dispatchFunction } = props;
+  const { title } = props;
+  const { button } = props;
+  const { updateFunction } = props;
   const dispatch = useDispatch();
 
   const locationsList = useSelector((state) => state.locations.locations);
@@ -91,7 +98,8 @@ const AddProgram = (props) => {
   const allUsersListFormated = formatAllUsers(allUsersList);
 
   const formik = useFormik({
-    initialValues,
+    initialValues: initialData,
+    validationSchema: FormValidation,
     onSubmit: (values) => {
       const newInternship = { ...values };
       newInternship.maxCandidateCount = +newInternship.maxCandidateCount;
@@ -124,9 +132,9 @@ const AddProgram = (props) => {
           return userObject;
         },
       );
-      dispatch(createNewInternship(newInternship));
-      dispatch(fetchInternships());
       closeModal();
+      dispatch(updateFunction);
+      // dispatch(dispatchFunction(newInternship));
     },
   });
 
@@ -207,17 +215,25 @@ const AddProgram = (props) => {
               gutterBottom
               color="#757575"
             >
-              {getFieldLabel('addprogram.title')}
+              {getFieldLabel(title)}
             </Typography>
             <Stack spacing={2} direction="column">
               {Object.values(dataForRenderTextField).map((field) => (
                 <TextField
-                  label={field.label}
+                  label={(field.label).concat('*')}
                   name={field.keyName}
                   value={formik.values[`${field.keyName}`]}
                   onChange={formik.handleChange}
                   variant="outlined"
                   key={field.keyName}
+                  error={
+                    formik.touched[`${field.keyName}`] &&
+                    Boolean(formik.errors[`${field.keyName}`])
+                  }
+                  helperText={
+                    formik.touched[`${field.keyName}`] &&
+                    formik.errors[`${field.keyName}`]
+                  }
                 />
               ))}
               {Object.values(dataForRenderDatePicker).map((date) => (
@@ -243,33 +259,46 @@ const AddProgram = (props) => {
                   />
                 </React.Fragment>
               ))}
-              {isDataReceived &&
-                Object.values(dataForRenderSelect).map((select) => (
-                  <FormControl key={select.keyName}>
-                    <InputLabel>{select.label}</InputLabel>
-                    <Select
-                      label={select.label}
-                      multiple
-                      value={formik.values[`${select.keyName}`]}
-                      onChange={(event) =>
-                        formik.setFieldValue(select.keyName, event.target.value)
-                      }
-                      MenuProps={MenuProps}
-                    >
-                      {select.array.map((item) => (
-                        <MenuItem key={item.id} value={item.name}>
-                          {item.name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                ))}
+              {isDataReceived && Object.values(dataForRenderSelect).map((select) => (
+                <FormControl
+                  key={select.keyName}
+                  error={
+                    formik.touched[`${select.keyName}`] &&
+                    Boolean(formik.errors[`${select.keyName}`])
+                  }
+                >
+                  <InputLabel>{(select.label).concat('*')}</InputLabel>
+                  <Select
+                    label={(select.label).concat('*')}
+                    multiple
+                    value={formik.values[`${select.keyName}`]}
+                    onChange={(event) =>
+                      formik.setFieldValue(select.keyName, event.target.value)
+                    }
+                    error={
+                      formik.touched[`${select.keyName}`] &&
+                      Boolean(formik.errors[`${select.keyName}`])
+                    }
+                    MenuProps={MenuProps}
+                  >
+                    {select.array.map((item) => (
+                      <MenuItem key={item.id} value={item.name}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText error>
+                    {formik.touched[`${select.keyName}`] &&
+                      formik.errors[`${select.keyName}`]}
+                  </FormHelperText>
+                </FormControl>
+              ))}
             </Stack>
           </LocalizationProvider>
         </Box>
         <Box className="buttonWrapper">
           <Button variant="contained" type="submit">
-            {getFieldLabel('common.create')}
+            {getFieldLabel(button)}
           </Button>
           <Button variant="outlined" onClick={closeModal}>
             {getFieldLabel('common.cancel')}
