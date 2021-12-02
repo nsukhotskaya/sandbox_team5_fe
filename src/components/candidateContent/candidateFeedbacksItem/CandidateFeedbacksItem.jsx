@@ -85,20 +85,17 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
     <Box className="feedbackItem">
       {!feedbacks.length ? (
         <Box className="createTitleSection flexboxRow" p="10px">
-          <Box className="createTitles flexboxRow" >
+          <Box className="createTitles flexboxRow">
             <Typography
-              overflow= 'hidden'
-              textOverflow= 'ellipsis'
-              whiteSpace= 'nowrap'
+              overflow="hidden"
+              textOverflow="ellipsis"
+              whiteSpace="nowrap"
               variant="h5"
               pr="10px"
             >
               {userName}
             </Typography>
-            <Typography
-              variant="subtitle2"
-              color="primary.main"
-            >
+            <Typography variant="subtitle2" color="primary.main">
               {roleType}
             </Typography>
           </Box>

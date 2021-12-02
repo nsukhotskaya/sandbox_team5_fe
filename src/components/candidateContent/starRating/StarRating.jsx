@@ -3,7 +3,7 @@ import { Box, Typography, Rating } from '@mui/material';
 import './StarRating.sass';
 
 const StarRating = ({ title, grade, editMode, callbackFunction }) => (
-  <Box className="starRating flexboxRow" >
+  <Box className="starRating flexboxRow">
     {title && (
       <Typography
         className="ratingTitle"

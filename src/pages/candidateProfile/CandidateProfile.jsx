@@ -30,7 +30,11 @@ const CandidateProfile = () => {
         <Box
           borderColor="primary.main"
           backgroundColor="background.paper"
-          className={smallScreen ? "candidateProfileWrapper gridColumn smallScreenScroll" : "candidateProfileWrapper"}
+          className={
+            smallScreen
+              ? 'candidateProfileWrapper gridColumn smallScreenScroll'
+              : 'candidateProfileWrapper'
+          }
         >
           <Box className="candidateInfoCardWrapper" boxShadow="5">
             <CandidateInfo candidateInfo={candidate} />
