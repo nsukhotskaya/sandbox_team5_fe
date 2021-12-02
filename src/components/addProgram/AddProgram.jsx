@@ -220,7 +220,6 @@ const AddProgram = (props) => {
                   key={field.keyName}
                 />
               ))}
-              {/* eslint-disable react/jsx-props-no-spreading */}
               {Object.values(dataForRenderDatePicker).map((date) => (
                 <React.Fragment key={date.keyName}>
                   <MobileDateTimePicker
@@ -232,11 +231,18 @@ const AddProgram = (props) => {
                       formik.setFieldValue(date.keyName, dateValue)
                     }
                     mask={getFieldLabel('addprogram.input.date.mask')}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={({
+                      label,
+                      inputProps,
+                    }) => (
+                      <TextField
+                        label={label}
+                        inputProps={inputProps}
+                      />
+                    )}
                   />
                 </React.Fragment>
               ))}
-              {/* eslint-enable react/jsx-props-no-spreading */}
               {isDataReceived &&
                 Object.values(dataForRenderSelect).map((select) => (
                   <FormControl key={select.keyName}>
