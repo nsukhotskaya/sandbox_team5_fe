@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Typography, Card, Button, TextField, Stack, Box, FormControl, Snackbar, Alert } from '@mui/material';
+import { Typography, Card, Button, TextField, Stack, FormControl, Box } from '@mui/material';
 import { fetchUserToken } from '../../store/commands';
 import './Login.sass';
-import { Footer } from '../../components';
+import { Footer, ToasterAlert } from '../../components';
 import { useMediaDown } from '../../components/utils';
 import { getFieldLabel } from '../../utils';
-import useToaster from './useToaster'
+import useToaster from '../../components/toasterAlert/useToaster'
 
 const Login = () => {
   const smallScreen = useMediaDown('sm');
@@ -82,21 +82,7 @@ const Login = () => {
   return (
     <Box className="loginContainer">
       {!!alertMessages.length && alertMessages.map((message)=>(
-        <Snackbar
-          key = {message}
-          open = {isToasterOpen}
-          autoHideDuration = {8000}
-          onClose = {handleCloseToaster}
-          anchorOrigin = {
-            smallScreen ? { vertical: 'top', horizontal: 'center'} : { vertical: 'top', horizontal: 'left' }
-          }
-        >
-          <Box m="10px">
-            <Alert onClose={handleCloseToaster} severity="error">
-              {message}
-            </Alert>
-          </Box>
-        </Snackbar>
+        <ToasterAlert key = {message} isToasterOpen={isToasterOpen} handleCloseToaster={handleCloseToaster} message={message}/>
       ))
       }
       <Box className="loginCardWrapper">
