@@ -50,6 +50,16 @@ const formatAllUsers = (array) =>
 const checkDataReceived = (...arrays) =>
   arrays.every((array) => array.length !== 0);
 
+const linkСorrection = (oldValue, includedPart, firstPartOfLink='') => {
+  let newLink;
+  const oldLink = oldValue;
+  if (oldLink.includes(includedPart)) {
+    const fieldId = oldLink.slice(oldLink.lastIndexOf('/d/') + 3).slice(0,oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'))
+    newLink = `${firstPartOfLink}${fieldId}`
+  }
+  return newLink || oldLink;
+}
+
 const AddProgram = (props) => {
   const { closeModal } = props;
   const dispatch = useDispatch();
@@ -101,32 +111,19 @@ const AddProgram = (props) => {
           return languageObject;
         },
       );
-      newInternship.imageLink = (() => {
-        let newLink;
-        const oldLink = newInternship.imageLink;
-        if (oldLink.includes('drive.google.com/file/d/')) {
-          const imageId = oldLink
-            .slice(oldLink.lastIndexOf('/d/') + 3)
-            .slice(
-              0,
-              oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'),
-            );
-          newLink = `https://drive.google.com/uc?export=view&id=${imageId}`;
-        }
-        return newLink || oldLink;
-      })();
-      // newInternship.users = newInternship.users.map(
-      //   (user) => {
-      //     const userObject = {...allUsersList.find((item) => {
-      //       if (user === item.userName){
-      //         return true
-      //       }
-      //       return false
-      //     })}
-      //     return userObject;
-      //   },
-      // );
-      newInternship.users = [];
+      newInternship.imageLink = linkСorrection(newInternship.imageLink, 'drive.google.com/file/d/', 'https://drive.google.com/uc?export=view&id=' );
+      newInternship.spreadSheetId = linkСorrection(newInternship.spreadSheetId, 'docs.google.com');
+      newInternship.users = newInternship.users.map(
+        (user) => {
+          const userObject = {...allUsersList.find((item) => {
+            if (user === item.userName){
+              return true
+            }
+            return false
+          })}
+          return userObject;
+        },
+      );
       dispatch(createNewInternship(newInternship));
       dispatch(fetchInternships());
       closeModal();
