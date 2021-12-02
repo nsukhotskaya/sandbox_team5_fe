@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -10,31 +10,42 @@ import { useDispatch } from 'react-redux';
 import { setBestContactTime } from '../../store/commands';
 import { getFieldLabel } from '../../utils';
 
+const advancedFormat = require('dayjs/plugin/advancedFormat');
+
+dayjs.extend(advancedFormat);
+
+function splitInterval(start, end, step) {
+  const result = [];
+  for (let ts = Number(dayjs(start).format('X')); ts < Number(dayjs(end).format('X')); ts+=step) {
+    result.push({
+      startTime: dayjs.unix(ts),
+      endTime: dayjs.unix(ts + step),
+    });
+  }
+  if (result.length === 1) {
+    result[result.length] = end;
+  }
+  return result;
+}
+
 const Calendar = (props) => {
   const [freeTime, setFreeTime] = useState();
   const [startTime, setStart] = useState();
   const [endTime, setEnd] = useState();
   const dispatch = useDispatch();
   const setTime = (time) => {
-    setStart(dayjs(time.startStr, 'X'));
-    setEnd(dayjs(time.endStr, 'X'));
-    const interval = 1800000;
-    function splitInterval(start, end, step) {
-      const result = [];
-      for (let ts = start; ts < end; ts += step) {
-        result[result.length] = {
-          startTime: dayjs(ts).toISOString(),
-          endTime: dayjs(ts + step).toISOString(),
-        };
-      }
-      if (result.length === 1) {
-        result[result.length] = end;
-      }
-      return result;
-    }
-    const result = splitInterval(startTime, endTime, interval);
-    setFreeTime(result);
+    setStart(time.startStr);
+    setEnd(time.endStr);
   };
+
+  useEffect(() => {
+    if(startTime && endTime){
+      const interval = 1800;
+      const result = splitInterval(startTime, endTime, interval);
+      setFreeTime(result);
+    }
+  }, [startTime,endTime]);
+
   const { email } = props;
   const { headerType } = props;
   return (
