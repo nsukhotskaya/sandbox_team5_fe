@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import {
   Box,
   Stack,
@@ -11,19 +12,18 @@ import {
   FormControl,
   Select,
   Typography,
+  FormHelperText,
 } from '@mui/material';
 import { LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
+import { formValidation } from '../../constants';
 import {
   fetchLocations,
   fetchStacks,
   fetchLanguages,
   fetchAllUsers,
-  createNewInternship,
-  fetchInternships,
 } from '../../store/commands';
-import { initialValues } from '../../mocks/createInternshipData.json';
 import './AddProgram.sass';
 
 const MenuProps = {
@@ -34,6 +34,8 @@ const MenuProps = {
     },
   },
 };
+
+const FormValidation = Yup.object().shape(formValidation);
 
 const stringToObject = (array) =>
   array.map((item, index) => ({
@@ -50,18 +52,25 @@ const formatAllUsers = (array) =>
 const checkDataReceived = (...arrays) =>
   arrays.every((array) => array.length !== 0);
 
-const linkСorrection = (oldValue, includedPart, firstPartOfLink='') => {
+const linkСorrection = (oldValue, includedPart, firstPartOfLink = '') => {
   let newLink;
   const oldLink = oldValue;
   if (oldLink.includes(includedPart)) {
-    const fieldId = oldLink.slice(oldLink.lastIndexOf('/d/') + 3).slice(0,oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'))
-    newLink = `${firstPartOfLink}${fieldId}`
+    const fieldId = oldLink
+      .slice(oldLink.lastIndexOf('/d/') + 3)
+      .slice(0, oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'));
+    newLink = `${firstPartOfLink}${fieldId}`;
   }
   return newLink || oldLink;
-}
+};
 
 const AddProgram = (props) => {
   const { closeModal } = props;
+  const { initialData } = props;
+  // const { dispatchFunction } = props;
+  const { title } = props;
+  const { button } = props;
+  const { updateFunction } = props;
   const dispatch = useDispatch();
 
   const locationsList = useSelector((state) => state.locations.locations);
@@ -91,7 +100,8 @@ const AddProgram = (props) => {
   const allUsersListFormated = formatAllUsers(allUsersList);
 
   const formik = useFormik({
-    initialValues,
+    initialValues: initialData,
+    validationSchema: FormValidation,
     onSubmit: (values) => {
       const newInternship = { ...values };
       newInternship.maxCandidateCount = +newInternship.maxCandidateCount;
@@ -111,22 +121,29 @@ const AddProgram = (props) => {
           return languageObject;
         },
       );
-      newInternship.imageLink = linkСorrection(newInternship.imageLink, 'drive.google.com/file/d/', 'https://drive.google.com/uc?export=view&id=' );
-      newInternship.spreadSheetId = linkСorrection(newInternship.spreadSheetId, 'docs.google.com');
-      newInternship.users = newInternship.users.map(
-        (user) => {
-          const userObject = {...allUsersList.find((item) => {
-            if (user === item.userName){
-              return true
-            }
-            return false
-          })}
-          return userObject;
-        },
+      newInternship.imageLink = linkСorrection(
+        newInternship.imageLink,
+        'drive.google.com/file/d/',
+        'https://drive.google.com/uc?export=view&id=',
       );
-      dispatch(createNewInternship(newInternship));
-      dispatch(fetchInternships());
+      newInternship.spreadSheetId = linkСorrection(
+        newInternship.spreadSheetId,
+        'docs.google.com',
+      );
+      newInternship.users = newInternship.users.map((user) => {
+        const userObject = {
+          ...allUsersList.find((item) => {
+            if (user === item.userName) {
+              return true;
+            }
+            return false;
+          }),
+        };
+        return userObject;
+      });
       closeModal();
+      dispatch(updateFunction);
+      // dispatch(dispatchFunction(newInternship));
     },
   });
 
@@ -207,20 +224,27 @@ const AddProgram = (props) => {
               gutterBottom
               color="#757575"
             >
-              {getFieldLabel('addprogram.title')}
+              {getFieldLabel(title)}
             </Typography>
             <Stack spacing={2} direction="column">
               {Object.values(dataForRenderTextField).map((field) => (
                 <TextField
-                  label={field.label}
+                  label={field.label.concat('*')}
                   name={field.keyName}
                   value={formik.values[`${field.keyName}`]}
                   onChange={formik.handleChange}
                   variant="outlined"
                   key={field.keyName}
+                  error={
+                    formik.touched[`${field.keyName}`] &&
+                    Boolean(formik.errors[`${field.keyName}`])
+                  }
+                  helperText={
+                    formik.touched[`${field.keyName}`] &&
+                    formik.errors[`${field.keyName}`]
+                  }
                 />
               ))}
-              {/* eslint-disable react/jsx-props-no-spreading */}
               {Object.values(dataForRenderDatePicker).map((date) => (
                 <React.Fragment key={date.keyName}>
                   <MobileDateTimePicker
@@ -232,21 +256,32 @@ const AddProgram = (props) => {
                       formik.setFieldValue(date.keyName, dateValue)
                     }
                     mask={getFieldLabel('addprogram.input.date.mask')}
-                    renderInput={(params) => <TextField {...params} />}
+                    renderInput={({ label, inputProps }) => (
+                      <TextField label={label} inputProps={inputProps} />
+                    )}
                   />
                 </React.Fragment>
               ))}
-              {/* eslint-enable react/jsx-props-no-spreading */}
               {isDataReceived &&
                 Object.values(dataForRenderSelect).map((select) => (
-                  <FormControl key={select.keyName}>
-                    <InputLabel>{select.label}</InputLabel>
+                  <FormControl
+                    key={select.keyName}
+                    error={
+                      formik.touched[`${select.keyName}`] &&
+                      Boolean(formik.errors[`${select.keyName}`])
+                    }
+                  >
+                    <InputLabel>{select.label.concat('*')}</InputLabel>
                     <Select
-                      label={select.label}
+                      label={select.label.concat('*')}
                       multiple
                       value={formik.values[`${select.keyName}`]}
                       onChange={(event) =>
                         formik.setFieldValue(select.keyName, event.target.value)
+                      }
+                      error={
+                        formik.touched[`${select.keyName}`] &&
+                        Boolean(formik.errors[`${select.keyName}`])
                       }
                       MenuProps={MenuProps}
                     >
@@ -256,6 +291,10 @@ const AddProgram = (props) => {
                         </MenuItem>
                       ))}
                     </Select>
+                    <FormHelperText error>
+                      {formik.touched[`${select.keyName}`] &&
+                        formik.errors[`${select.keyName}`]}
+                    </FormHelperText>
                   </FormControl>
                 ))}
             </Stack>
@@ -263,7 +302,7 @@ const AddProgram = (props) => {
         </Box>
         <Box className="buttonWrapper">
           <Button variant="contained" type="submit">
-            {getFieldLabel('common.create')}
+            {getFieldLabel(button)}
           </Button>
           <Button variant="outlined" onClick={closeModal}>
             {getFieldLabel('common.cancel')}
