@@ -17,7 +17,11 @@ dayjs.extend(advancedFormat);
 
 function splitInterval(start, end, step) {
   const result = [];
-  for (let ts = Number(dayjs(start).format('X')); ts < Number(dayjs(end).format('X')); ts+=step) {
+  for (
+    let ts = Number(dayjs(start).format('X'));
+    ts < Number(dayjs(end).format('X'));
+    ts += step
+  ) {
     result.push({
       startTime: dayjs.unix(ts),
       endTime: dayjs.unix(ts + step),
@@ -40,12 +44,12 @@ const Calendar = (props) => {
   };
 
   useEffect(() => {
-    if(startTime && endTime){
+    if (startTime && endTime) {
       const interval = 1800;
       const result = splitInterval(startTime, endTime, interval);
       setFreeTime(result);
     }
-  }, [startTime,endTime]);
+  }, [startTime, endTime]);
 
   const { email } = props;
   const { headerType } = props;
