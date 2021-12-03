@@ -13,7 +13,11 @@ import {
 import { ManageSearch } from '@mui/icons-material';
 import CachedIcon from '@mui/icons-material/Cached';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFieldsFirstPart, tableFieldsSecondTwo, reformatCandidates } from '../../constants';
+import {
+  tableFieldsFirstPart,
+  tableFieldsSecondTwo,
+  reformatCandidates,
+} from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
@@ -219,19 +223,14 @@ const Candidates = () => {
                 flex={1}
               />
             ))}
-          <AgGridColumn
+            <AgGridColumn
               field="hrReview"
               sortable
               resizable
               flex={1}
               cellRenderer="starFormatter"
             />
-            <AgGridColumn
-              field="interviewer"
-              sortable
-              resizable
-              flex={1}
-            />
+            <AgGridColumn field="interviewer" sortable resizable flex={1} />
             <AgGridColumn
               field="interviewerReview"
               sortable

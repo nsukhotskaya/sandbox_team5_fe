@@ -1,4 +1,8 @@
-export { tableFieldsFirstPart, tableFieldsSecondTwo, valueMenuItem } from './tableFields';
+export {
+  tableFieldsFirstPart,
+  tableFieldsSecondTwo,
+  valueMenuItem,
+} from './tableFields';
 export { columnDefsEmployees } from './tableInternshipPageFields';
 export { columnDefsInternships } from './tableFieldsProfile';
 export { tableCandidateInfoFields } from './tableCandidateInfoFields';
