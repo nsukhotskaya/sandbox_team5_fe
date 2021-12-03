@@ -73,8 +73,11 @@ const Calendar = (props) => {
         textButton: {
           text: freeTime
             ? getFieldLabel('profile.calendar.buttonText.full')
-                .replace(/%(\w*)%/, `${startTime}`)
-                .replace(/%(\w*)%/, `${endTime}`)
+                .replace(
+                  /%(\w*)%/,
+                  `${dayjs(startTime).format('DD/MM/YYYY h:mm a')}`,
+                )
+                .replace(/%(\w*)%/, `${dayjs(endTime).format('DD/MM h:mm a')}`)
             : getFieldLabel('profile.calendar.buttonText.empty'),
           click: () => {},
         },

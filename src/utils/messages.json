@@ -47,7 +47,7 @@
   "profile.tab.internships.fields.status": "Status",
   "profile.tab.internships.fields.name": "Internship name",
   "profile.calendar.button": "Approve time",
-  "profile.calendar.buttonText.full":"You chose interval between %startT% and %endT%",
+  "profile.calendar.buttonText.full":"Selected interval %startT% and %endT%",
   "profile.calendar.buttonText.empty":"You not choose time interval",
   "candidates.table.registrationDate": "Application Date",
   "candidates.table.location": "Location",
