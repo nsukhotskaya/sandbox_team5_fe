@@ -3,10 +3,10 @@ import { getFieldLabel } from '../utils';
 
 export const formValidation = {
   name: Yup.string().required(
-    getFieldLabel('addprogram.validation.message.title')
+    getFieldLabel('addprogram.validation.message.title'),
   ),
   requirements: Yup.string().required(
-    getFieldLabel('addprogram.validation.message.requirements')
+    getFieldLabel('addprogram.validation.message.requirements'),
   ),
   maxCandidateCount: Yup.number()
     .required(getFieldLabel('addprogram.validation.message.maxCandidateCount'))
