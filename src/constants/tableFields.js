@@ -1,4 +1,4 @@
-export const tableFields = [
+export const tableFieldsFirstPart = [
   'registrationDate',
   'location',
   'languageType',
@@ -6,11 +6,13 @@ export const tableFields = [
   'stackType',
   'englishLevelType',
   'hr',
-  'hrReview',
-  'interviewer',
-  'interviewerReview',
+];
+
+export const tableFieldsSecondTwo = [
   'testTaskEvaluation',
   'statusType',
 ];
+
+
 
 export const valueMenuItem = [20, 30, 50];

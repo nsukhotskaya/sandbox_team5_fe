@@ -7,16 +7,16 @@ export const reformatCandidates = (candidates) =>
     newObj.registrationDate = dayjs(`${candidate.registrationDate}`).format(
       'DD.MM.YYYY',
     );
-    const rolyType =
-      candidate.users && candidate.users.map((item) => item.roleType);
-    if (rolyType[0] === 'Hr') {
-      newObj.hr =
-        candidate.users && candidate.users.map((item) => item.userName);
-      newObj.hrReview =
-        candidate.users &&
-        candidate.users.map((item) =>
-          item.feedbacks.map((i) => i.finalEvaluation),
-        );
-    }
+    const users =
+    candidate.users && candidate.users.map((item) => item.userName);
+    const feedbacks =  candidate.feedbacks &&
+    candidate.feedbacks.map((item) => item.finalEvaluation);
+    const [hrName, interviewerName] = users
+    newObj.hr = hrName
+    newObj.interviewer = interviewerName
+    const [hrFeedback, interviewerFeedback] = feedbacks
+    newObj.hrReview  = hrFeedback
+    newObj.interviewerReview = interviewerFeedback
+
     return newObj;
   });

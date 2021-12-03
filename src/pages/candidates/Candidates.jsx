@@ -10,10 +10,10 @@ import {
   Button,
   Divider,
 } from '@mui/material';
-import { ManageSearch, Send } from '@mui/icons-material';
+import { ManageSearch } from '@mui/icons-material';
 import CachedIcon from '@mui/icons-material/Cached';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFields, reformatCandidates } from '../../constants';
+import { tableFieldsFirstPart, tableFieldsSecondTwo, reformatCandidates } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
@@ -30,6 +30,7 @@ import {
   PageSize,
   CandidatesSearch,
   FilterCandidates,
+  StarFormatter,
 } from '../../components';
 import './candidates.sass';
 import 'ag-grid-enterprise';
@@ -41,7 +42,6 @@ import { LoadingIndicator } from '../../components/loadingIndicator';
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
-  const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
   const [isAddToWorkButtonDisabled, setIsAddToWorkButtonDisabled] =
     useState(true);
   const open = !!anchorEl;
@@ -101,13 +101,10 @@ const Candidates = () => {
     const selectedNodes = gridApi.getSelectedNodes();
     const selectedData = selectedNodes.map((node) => node.data.statusType);
     if (selectedNodes.length === 0) {
-      setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
     } else if (selectedNodes !== 0 && selectedData.includes('HR_Review')) {
       setIsAddToWorkButtonDisabled(true);
-      setIsSendButtonDisabled(false);
     } else {
-      setIsSendButtonDisabled(false);
       setIsAddToWorkButtonDisabled(false);
     }
   };
@@ -155,14 +152,6 @@ const Candidates = () => {
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
             <Button
-              className="candidatesPageButton"
-              variant="outlined"
-              endIcon={<Send />}
-              disabled={isSendButtonDisabled}
-            >
-              {getFieldLabel('candidates.button.send')}
-            </Button>
-            <Button
               onClick={() => addToWork()}
               className="candidatesPageButton"
               variant="outlined"
@@ -186,6 +175,7 @@ const Candidates = () => {
             getRowNodeId={getRowNodeId}
             frameworkComponents={{
               linkFormatter: LinkFormatter,
+              starFormatter: StarFormatter,
             }}
             onRowSelected={onRowSelected}
             suppressRowClickSelection
@@ -219,7 +209,37 @@ const Candidates = () => {
               minWidth={200}
               cellRenderer="linkFormatter"
             />
-            {tableFields.map((field) => (
+            {tableFieldsFirstPart.map((field) => (
+              <AgGridColumn
+                field={field}
+                headerName={getFieldLabel(`candidates.table.${field}`)}
+                key={field}
+                sortable
+                resizable
+                flex={1}
+              />
+            ))}
+          <AgGridColumn
+              field="hrReview"
+              sortable
+              resizable
+              flex={1}
+              cellRenderer="starFormatter"
+            />
+            <AgGridColumn
+              field="interviewer"
+              sortable
+              resizable
+              flex={1}
+            />
+            <AgGridColumn
+              field="interviewerReview"
+              sortable
+              resizable
+              flex={1}
+              cellRenderer="starFormatter"
+            />
+            {tableFieldsSecondTwo.map((field) => (
               <AgGridColumn
                 field={field}
                 headerName={getFieldLabel(`candidates.table.${field}`)}
