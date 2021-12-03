@@ -92,9 +92,9 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
             variant="h5"
             pr="10px"
           >
-            {!!userName && userName}
+            {userName}
           </Typography>
-          <Typography variant="subtitle2">{!!roleType && roleType}</Typography>
+          <Typography variant="subtitle2">{roleType}</Typography>
         </Box>
         {!feedbacks.length ? (
           <Button variant="outlined" onClick={handleClick}>
@@ -112,12 +112,13 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
       {!!feedbacks.length && (
         <Collapse in={isCriteriaShown}>
           <Box className="collapseContainer">
+            {console.log(feedback.evaluations)}
             {!!feedback.evaluations &&
               feedback.evaluations.map((skill) => (
                 <StarRating
-                  key={skill.name}
-                  title={skill.name}
-                  grade={skill.grade}
+                  key={skill.skill.name}
+                  title={skill.skill.name}
+                  grade={skill.value}
                   editMode={editMode}
                 />
               ))}

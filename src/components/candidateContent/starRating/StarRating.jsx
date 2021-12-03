@@ -7,7 +7,7 @@ const StarRating = ({ title, grade, editMode, callbackFunction }) => (
     {title && (
       <Typography
         variant="h6"
-        className={editMode ? 'ratingTitle' : 'ratingTitle disabled'}
+        className={editMode ? 'ratingTitle' : 'ratingTitle ratingDisabled'}
       >
         {title}
       </Typography>
@@ -17,7 +17,7 @@ const StarRating = ({ title, grade, editMode, callbackFunction }) => (
       defaultValue={grade}
       precision={1}
       readOnly={!editMode}
-      className={editMode ? '' : 'disabled'}
+      className={editMode ? '' : 'ratingDisabled'}
       onChange={(event, newValue) => {
         callbackFunction(newValue);
       }}
