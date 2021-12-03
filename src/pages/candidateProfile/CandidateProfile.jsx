@@ -7,11 +7,13 @@ import { CandidateInfo, CandidateFeedbacks } from '../../components';
 import './CandidateProfile.sass';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
+import { useMediaDown } from '../../components/utils';
 
 const CandidateProfile = () => {
   const { id } = useParams();
   const candidate = useSelector((state) => state.candidate.candidate);
   const dispatch = useDispatch();
+  const smallScreen = useMediaDown('sm');
 
   const isLoading = useSelector(loadingSelector(['GET_CANDIDATE']));
   useEffect(() => {}, [isLoading]);
@@ -28,12 +30,16 @@ const CandidateProfile = () => {
         <Box
           borderColor="primary.main"
           backgroundColor="background.paper"
-          className="candidateProfileWrapper"
+          className={
+            smallScreen
+              ? 'candidateProfileWrapper gridColumn smallScreenScroll'
+              : 'candidateProfileWrapper'
+          }
         >
           <Box className="candidateInfoCardWrapper" boxShadow="5">
             <CandidateInfo candidateInfo={candidate} />
           </Box>
-          <Box className="candidateProfileCardWrapper">
+          <Box className="candidateFeedbacksCardWrapper">
             <CandidateFeedbacks candidateInfo={candidate} />
           </Box>
         </Box>
