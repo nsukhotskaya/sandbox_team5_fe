@@ -8,9 +8,9 @@ const SidePopUp = ({
   setActive,
   initialData,
   title,
+  internshipData,
   dispatchFunction,
   button,
-  updateFunction,
 }) => {
   const closeModal = () => {
     setActive(false);
@@ -23,7 +23,7 @@ const SidePopUp = ({
         backgroundColor="background.paper"
       >
         <AddProgram
-          updateFunction={updateFunction}
+          internshipData={internshipData}
           initialData={initialData}
           title={title}
           dispatchFunction={dispatchFunction}

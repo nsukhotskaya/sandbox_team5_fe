@@ -128,9 +128,11 @@ export const FilterCandidates = ({ onFilter }) => {
               renderValue={(selected) => selected.join(', ')}
             >
               {locationsList.map((location) => (
-                <MenuItem key={location} value={location}>
-                  <Checkbox checked={filterLocation.indexOf(location) > -1} />
-                  <ListItemText primary={location} />
+                <MenuItem key={location.name} value={location.name}>
+                  <Checkbox
+                    checked={filterLocation.indexOf(location.name) > -1}
+                  />
+                  <ListItemText primary={location.name} />
                 </MenuItem>
               ))}
             </Select>

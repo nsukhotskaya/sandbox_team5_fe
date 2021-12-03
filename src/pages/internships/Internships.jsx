@@ -100,7 +100,6 @@ export const Internships = () => {
         </Box>
       </Box>
       <SidePopUp
-        updateFunction={fetchInternships()}
         active={popUpActive}
         setActive={setPopUpActive}
         initialData={initialValues}
