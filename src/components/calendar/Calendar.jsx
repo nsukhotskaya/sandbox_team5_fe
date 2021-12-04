@@ -35,14 +35,20 @@ function splitInterval(start, end, step) {
 
 const Calendar = (props) => {
   const [freeTime, setFreeTime] = useState();
+  const [events, setEvents] = useState();
   const [startTime, setStart] = useState();
   const [endTime, setEnd] = useState();
+  const { email } = props;
+  const { headerType } = props;
   const dispatch = useDispatch();
+
   const setTime = (time) => {
     setStart(time.startStr);
     setEnd(time.endStr);
   };
-
+  useEffect(() => {
+    setEvents({ googleCalendarId: email });
+  }, []);
   useEffect(() => {
     if (startTime && endTime) {
       const interval = 1800;
@@ -51,8 +57,6 @@ const Calendar = (props) => {
     }
   }, [startTime, endTime]);
 
-  const { email } = props;
-  const { headerType } = props;
   return (
     <FullCalendar
       plugins={[
@@ -73,8 +77,11 @@ const Calendar = (props) => {
         textButton: {
           text: freeTime
             ? getFieldLabel('profile.calendar.buttonText.full')
-                .replace(/%(\w*)%/, `${startTime}`)
-                .replace(/%(\w*)%/, `${endTime}`)
+                .replace(
+                  /%(\w*)%/,
+                  `${dayjs(startTime).format('DD/MM/YYYY h:mm a')}`,
+                )
+                .replace(/%(\w*)%/, `${dayjs(endTime).format('DD/MM h:mm a')}`)
             : getFieldLabel('profile.calendar.buttonText.empty'),
           click: () => {},
         },
@@ -96,7 +103,7 @@ const Calendar = (props) => {
       slotMinTime="08:00:00"
       editable
       googleCalendarApiKey="AIzaSyCN8PD2jFBb_K6p7U7PpWQ6JuYb_CAptkU"
-      events={{ googleCalendarId: email }}
+      events={events}
     />
   );
 };

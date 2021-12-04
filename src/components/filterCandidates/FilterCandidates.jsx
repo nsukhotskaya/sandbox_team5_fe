@@ -128,9 +128,11 @@ export const FilterCandidates = ({ onFilter }) => {
               renderValue={(selected) => selected.join(', ')}
             >
               {locationsList.map((location) => (
-                <MenuItem key={location} value={location}>
-                  <Checkbox checked={filterLocation.indexOf(location) > -1} />
-                  <ListItemText primary={location} />
+                <MenuItem key={location.name} value={location.name}>
+                  <Checkbox
+                    checked={filterLocation.indexOf(location.name) > -1}
+                  />
+                  <ListItemText primary={<>{location.name}</>} />
                 </MenuItem>
               ))}
             </Select>
@@ -149,7 +151,7 @@ export const FilterCandidates = ({ onFilter }) => {
               {languagesList.map((language) => (
                 <MenuItem key={language} value={language}>
                   <Checkbox checked={filterLanguage.indexOf(language) > -1} />
-                  <ListItemText primary={language} />
+                  <ListItemText primary={<>{language}</>} />
                 </MenuItem>
               ))}
             </Select>
@@ -169,7 +171,7 @@ export const FilterCandidates = ({ onFilter }) => {
                 candidateStatusTypesList.map((statusType) => (
                   <MenuItem key={statusType} value={statusType}>
                     <Checkbox checked={filterStatus.indexOf(statusType) > -1} />
-                    <ListItemText primary={statusType} />
+                    <ListItemText primary={<>{statusType}</>} />
                   </MenuItem>
                 ))}
             </Select>
@@ -188,7 +190,7 @@ export const FilterCandidates = ({ onFilter }) => {
               {englishLevelList.map((level) => (
                 <MenuItem key={level} value={level}>
                   <Checkbox checked={filterEnglishLevel.indexOf(level) > -1} />
-                  <ListItemText primary={level} />
+                  <ListItemText primary={<>{level}</>} />
                 </MenuItem>
               ))}
             </Select>

@@ -10,10 +10,14 @@ import {
   Button,
   Divider,
 } from '@mui/material';
-import { ManageSearch, Send } from '@mui/icons-material';
+import { ManageSearch } from '@mui/icons-material';
 import CachedIcon from '@mui/icons-material/Cached';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFields, reformatCandidates } from '../../constants';
+import {
+  tableFieldsFirstPart,
+  tableFieldsSecondTwo,
+  reformatCandidates,
+} from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
@@ -30,9 +34,11 @@ import {
   PageSize,
   CandidatesSearch,
   FilterCandidates,
+  StarFormatter,
+  Toaster,
 } from '../../components';
+import useToaster from '../../components/toaster/useToaster';
 import './candidates.sass';
-import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { loadingSelector } from '../../store/selectors';
@@ -41,7 +47,6 @@ import { LoadingIndicator } from '../../components/loadingIndicator';
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
-  const [isSendButtonDisabled, setIsSendButtonDisabled] = useState(true);
   const [isAddToWorkButtonDisabled, setIsAddToWorkButtonDisabled] =
     useState(true);
   const open = !!anchorEl;
@@ -50,6 +55,9 @@ const Candidates = () => {
   const isLoading = useSelector(loadingSelector(['GET_CANDIDATE_LIST']));
   useEffect(() => {}, [isLoading]);
 
+  const { isToasterOpen, handleCloseToaster, alertMessages, addToast } =
+    useToaster();
+
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
@@ -57,6 +65,7 @@ const Candidates = () => {
   const dispatch = useDispatch();
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
+
   const candidateSearchResult = useSelector(
     (state) => state.searchResult.searchResult,
   );
@@ -101,13 +110,10 @@ const Candidates = () => {
     const selectedNodes = gridApi.getSelectedNodes();
     const selectedData = selectedNodes.map((node) => node.data.statusType);
     if (selectedNodes.length === 0) {
-      setIsSendButtonDisabled(true);
       setIsAddToWorkButtonDisabled(true);
     } else if (selectedNodes !== 0 && selectedData.includes('HR_Review')) {
       setIsAddToWorkButtonDisabled(true);
-      setIsSendButtonDisabled(false);
     } else {
-      setIsSendButtonDisabled(false);
       setIsAddToWorkButtonDisabled(false);
     }
   };
@@ -120,6 +126,11 @@ const Candidates = () => {
       rowNode.setSelected(false);
     };
     gridApi.forEachNode(rowNodes);
+    if (candidateId.length === 1) {
+      addToast(getFieldLabel('candidate.addToWork.success.message'));
+    } else {
+      addToast(getFieldLabel('candidates.addToWork.success.message'));
+    }
   };
 
   const googleSheet = () => {
@@ -128,6 +139,16 @@ const Candidates = () => {
 
   return (
     <Box padding="1%" width="100%" height="100%">
+      {alertMessages &&
+        alertMessages.map((message) => (
+          <Toaster
+            key={message}
+            isToasterOpen={isToasterOpen}
+            handleCloseToaster={handleCloseToaster}
+            message={message}
+            severity="success"
+          />
+        ))}
       <Box className="candidatesPageHeader">
         <Box display="flex" alignItems="center">
           <Typography variant="h4" component="div" color="#757575">
@@ -155,14 +176,6 @@ const Candidates = () => {
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
             <Button
-              className="candidatesPageButton"
-              variant="outlined"
-              endIcon={<Send />}
-              disabled={isSendButtonDisabled}
-            >
-              {getFieldLabel('candidates.button.send')}
-            </Button>
-            <Button
               onClick={() => addToWork()}
               className="candidatesPageButton"
               variant="outlined"
@@ -186,11 +199,11 @@ const Candidates = () => {
             getRowNodeId={getRowNodeId}
             frameworkComponents={{
               linkFormatter: LinkFormatter,
+              starFormatter: StarFormatter,
             }}
             onRowSelected={onRowSelected}
             suppressRowClickSelection
             rowData={newListOfCandidates}
-            debug
             animateRows
             onGridReady={onGridReady}
             rowSelection="multiple"
@@ -219,7 +232,32 @@ const Candidates = () => {
               minWidth={200}
               cellRenderer="linkFormatter"
             />
-            {tableFields.map((field) => (
+            {tableFieldsFirstPart.map((field) => (
+              <AgGridColumn
+                field={field}
+                headerName={getFieldLabel(`candidates.table.${field}`)}
+                key={field}
+                sortable
+                resizable
+                flex={1}
+              />
+            ))}
+            <AgGridColumn
+              field="hrReview"
+              sortable
+              resizable
+              flex={1}
+              cellRenderer="starFormatter"
+            />
+            <AgGridColumn field="interviewer" sortable resizable flex={1} />
+            <AgGridColumn
+              field="interviewerReview"
+              sortable
+              resizable
+              flex={1}
+              cellRenderer="starFormatter"
+            />
+            {tableFieldsSecondTwo.map((field) => (
               <AgGridColumn
                 field={field}
                 headerName={getFieldLabel(`candidates.table.${field}`)}

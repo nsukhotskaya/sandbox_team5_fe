@@ -67,9 +67,9 @@ const InternshipPage = () => {
               active={popUpActive}
               setActive={setPopUpActive}
               initialData={initialData}
+              internshipData={internship}
               button="common.edit"
               dispatchFunction={updateInternship}
-              updateFunction={fetchInternshipById(id)}
               title="internship.page.update"
             />
           )}

@@ -8,8 +8,8 @@ import { deleteUserToken } from '../../../store/commands';
 function HeaderNav() {
   const dispatch = useDispatch();
   const logOut = () => {
-    dispatch(deleteUserToken())
-  }
+    dispatch(deleteUserToken());
+  };
 
   return (
     <Box height="60px" width="60px">

@@ -17,7 +17,11 @@ import {
 import { LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
-import { formValidation } from '../../constants';
+import {
+  formValidation,
+  dataForRenderTextField,
+  dataForRenderDatePicker,
+} from '../../constants';
 import {
   fetchLocations,
   fetchStacks,
@@ -67,10 +71,10 @@ const linkСorrection = (oldValue, includedPart, firstPartOfLink = '') => {
 const AddProgram = (props) => {
   const { closeModal } = props;
   const { initialData } = props;
-  // const { dispatchFunction } = props;
+  const { dispatchFunction } = props;
   const { title } = props;
   const { button } = props;
-  const { updateFunction } = props;
+  const { internshipData } = props;
   const dispatch = useDispatch();
 
   const locationsList = useSelector((state) => state.locations.locations);
@@ -94,7 +98,6 @@ const AddProgram = (props) => {
     }
   }, [isDataReceived]);
 
-  const locationsListFormated = stringToObject(locationsList);
   const languagesListFormated = stringToObject(languagesList);
   const stacksListFormated = stringToObject(stacksList);
   const allUsersListFormated = formatAllUsers(allUsersList);
@@ -105,22 +108,85 @@ const AddProgram = (props) => {
     onSubmit: (values) => {
       const newInternship = { ...values };
       newInternship.maxCandidateCount = +newInternship.maxCandidateCount;
-      newInternship.locations = newInternship.locations.map((country) => {
-        const countryObject = { name: country };
-        return countryObject;
-      });
-      newInternship.internshipStacks = newInternship.internshipStacks.map(
-        (stack) => {
-          const stackObject = { technologyStackType: stack };
-          return stackObject;
-        },
-      );
-      newInternship.languageTypes = newInternship.languageTypes.map(
-        (language) => {
-          const languageObject = { language };
-          return languageObject;
-        },
-      );
+      if (title === 'addprogram.title') {
+        newInternship.locations = newInternship.locations.map((country) => {
+          const countryObject = {
+            ...locationsList.find((item) => country === item.name),
+          };
+          return countryObject;
+        });
+      } else {
+        newInternship.locations = newInternship.locations.map((country) => {
+          if (initialData.locations.includes(country)) {
+            const countryObject = {
+              ...locationsList.find((item) => country === item.name),
+            };
+            return countryObject;
+          }
+          {
+            const countryObject = {
+              id: locationsList
+                .filter((item) => item.name === country)
+                .map((item) => {
+                  const temp = item.id;
+                  return temp;
+                })
+                .join(),
+            };
+            return countryObject;
+          }
+        });
+      }
+      if (title === 'addprogram.title') {
+        newInternship.internshipStacks = newInternship.internshipStacks.map(
+          (stack) => {
+            const stackObject = { technologyStackType: stack };
+            return stackObject;
+          },
+        );
+      } else {
+        newInternship.internshipStacks = newInternship.internshipStacks.map(
+          (stack) => {
+            if (initialData.internshipStacks.includes(stack)) {
+              const stackObject = {
+                ...internshipData.internshipStacks.find(
+                  (item) => stack === item.technologyStackType,
+                ),
+              };
+              return stackObject;
+            }
+            {
+              const stackObject = { technologyStackType: stack };
+              return stackObject;
+            }
+          },
+        );
+      }
+      if (title === 'addprogram.title') {
+        newInternship.languageTypes = newInternship.languageTypes.map(
+          (language) => {
+            const languageObject = { language };
+            return languageObject;
+          },
+        );
+      } else {
+        newInternship.languageTypes = newInternship.languageTypes.map(
+          (language) => {
+            if (initialData.languageTypes.includes(language)) {
+              const languageObject = {
+                ...internshipData.languageTypes.find(
+                  (item) => language === item.language,
+                ),
+              };
+              return languageObject;
+            }
+            {
+              const languageObject = { language };
+              return languageObject;
+            }
+          },
+        );
+      }
       newInternship.imageLink = linkСorrection(
         newInternship.imageLink,
         'drive.google.com/file/d/',
@@ -132,62 +198,14 @@ const AddProgram = (props) => {
       );
       newInternship.users = newInternship.users.map((user) => {
         const userObject = {
-          ...allUsersList.find((item) => {
-            if (user === item.userName) {
-              return true;
-            }
-            return false;
-          }),
+          ...allUsersList.find((item) => user === item.userName),
         };
         return userObject;
       });
       closeModal();
-      dispatch(updateFunction);
-      // dispatch(dispatchFunction(newInternship));
+      dispatch(dispatchFunction(newInternship));
     },
   });
-
-  const dataForRenderDatePicker = {
-    startData: {
-      keyName: 'startDate',
-      label: getFieldLabel('addprogram.field.label.startDate'),
-    },
-    endData: {
-      keyName: 'endDate',
-      label: getFieldLabel('addprogram.field.label.endDate'),
-    },
-    registrationStartData: {
-      keyName: 'registrationStartDate',
-      label: getFieldLabel('addprogram.field.label.registrationStart'),
-    },
-    registrationFinishData: {
-      keyName: 'registrationFinishDate',
-      label: getFieldLabel('addprogram.field.label.registrationFinish'),
-    },
-  };
-
-  const dataForRenderTextField = {
-    titleData: {
-      keyName: 'name',
-      label: getFieldLabel('addprogram.field.label.title'),
-    },
-    requirementsData: {
-      keyName: 'requirements',
-      label: getFieldLabel('addprogram.field.label.requirements'),
-    },
-    maxCandidateCountData: {
-      keyName: 'maxCandidateCount',
-      label: getFieldLabel('addprogram.field.label.candidateCount'),
-    },
-    spreadSheetId: {
-      keyName: 'spreadSheetId',
-      label: getFieldLabel('addprogram.field.label.spreadSheetId'),
-    },
-    imageLink: {
-      keyName: 'imageLink',
-      label: getFieldLabel('addprogram.field.label.imageLink'),
-    },
-  };
 
   const dataForRenderSelect = {
     stackData: {
@@ -198,7 +216,7 @@ const AddProgram = (props) => {
     locationData: {
       keyName: 'locations',
       label: getFieldLabel('addprogram.field.label.locations'),
-      array: locationsListFormated,
+      array: locationsList,
     },
     languagesData: {
       keyName: 'languageTypes',

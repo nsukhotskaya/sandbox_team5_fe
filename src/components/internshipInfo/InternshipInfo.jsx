@@ -73,7 +73,7 @@ const InternshipInfo = (props) => {
               </Typography>
             </ListItem>
             {internshipHard.map((item) => (
-              <ListItem key={item} disablePadding>
+              <ListItem key={Object.keys(item)} disablePadding>
                 <ListItemText
                   primary={
                     <Typography fontWeight="bold" variant="body1">
@@ -107,7 +107,7 @@ const InternshipInfo = (props) => {
               {getFieldLabel('internship.page.candidates')}
             </Typography>
             {internshipCandidatesInfoWithLink.map((item) => (
-              <ListItem key={[Object.keys(item)]} disablePadding>
+              <ListItem key={Object.keys(item)} disablePadding>
                 <ListItemText
                   primary={
                     <Typography fontWeight="bold" variant="body1">

@@ -47,7 +47,7 @@
   "profile.tab.internships.fields.status": "Status",
   "profile.tab.internships.fields.name": "Internship name",
   "profile.calendar.button": "Approve time",
-  "profile.calendar.buttonText.full":"You chose interval between %startT% and %endT%",
+  "profile.calendar.buttonText.full":"Selected interval %startT% and %endT%",
   "profile.calendar.buttonText.empty":"You not choose time interval",
   "candidates.table.registrationDate": "Application Date",
   "candidates.table.location": "Location",
@@ -55,8 +55,6 @@
   "candidates.table.internshipName": "Internship",
   "candidates.table.stackType": "Stack",
   "candidates.table.hr": "HR",
-  "candidates.table.hrReview": "HR Review",
-  "candidates.table.interviewerReview": "Interviewer Review",
   "candidates.form.inputLabel": "Page Size",
   "internship.page.technology": "Stack type",
   "internship.page.language": "Languages",
@@ -76,7 +74,6 @@
   "internship.page.table.team": "Team",
   "candidates.table.englishLevelType": "English Level",
   "candidates.table.fullName": "Full Name",
-  "candidates.table.interviewer": "Interviewer",
   "candidates.table.testTaskEvaluation": "Test Task",
   "candidates.table.statusType": "Status",
   "candidates.filter.label.englishLevel": "English Level",
@@ -150,5 +147,7 @@
   "candidateFeedbacks.button.createFeedback": "Create feedback",
   "notFoundPage.label.oops": "Oops...",
   "notFoundPage.label.description": "The page you are looking for can't be found",
-  "notFoundPage.link.home": "Home"
+  "notFoundPage.link.home": "Home",
+  "candidates.addToWork.success.message": "The candidates were successfully added to the work. New status is HR_Review.",
+  "candidate.addToWork.success.message": "The candidate was successfully added to the work. New status is HR_Review."
 }
