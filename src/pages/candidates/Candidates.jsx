@@ -35,7 +35,9 @@ import {
   CandidatesSearch,
   FilterCandidates,
   StarFormatter,
+  Toaster,
 } from '../../components';
+import useToaster from '../../components/toaster/useToaster';
 import './candidates.sass';
 import 'ag-grid-enterprise';
 import 'ag-grid-community/dist/styles/ag-grid.css';
@@ -54,6 +56,9 @@ const Candidates = () => {
   const isLoading = useSelector(loadingSelector(['GET_CANDIDATE_LIST']));
   useEffect(() => {}, [isLoading]);
 
+  const { isToasterOpen, handleCloseToaster, alertMessages, addToast } =
+  useToaster();
+
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
@@ -61,6 +66,10 @@ const Candidates = () => {
   const dispatch = useDispatch();
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
+  const st = useSelector((state) => state.candidates)
+
+  console.log(st)
+
   const candidateSearchResult = useSelector(
     (state) => state.searchResult.searchResult,
   );
@@ -121,6 +130,11 @@ const Candidates = () => {
       rowNode.setSelected(false);
     };
     gridApi.forEachNode(rowNodes);
+    if(candidateId.length === 1) {
+      addToast(getFieldLabel("candidate.addToWork.success.message"));
+    } else {
+      addToast(getFieldLabel("candidates.addToWork.success.message"));
+    }
   };
 
   const googleSheet = () => {
@@ -129,6 +143,16 @@ const Candidates = () => {
 
   return (
     <Box padding="1%" width="100%" height="100%">
+       {alertMessages &&
+        alertMessages.map((message) => (
+          <Toaster
+            key={message}
+            isToasterOpen={isToasterOpen}
+            handleCloseToaster={handleCloseToaster}
+            message={message}
+            severity="success"
+          />
+        ))}
       <Box className="candidatesPageHeader">
         <Box display="flex" alignItems="center">
           <Typography variant="h4" component="div" color="#757575">
