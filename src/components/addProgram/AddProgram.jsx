@@ -13,10 +13,13 @@ import {
   Select,
   Typography,
   FormHelperText,
+  IconButton,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
+import { useMediaDown } from '../utils';
 import {
   formValidation,
   dataForRenderTextField,
@@ -49,6 +52,7 @@ const AddProgram = (props) => {
   const stacksList = useSelector((state) => state.stacks.stacks);
   const languagesList = useSelector((state) => state.languages.languages);
   const allUsersList = useSelector((state) => state.allUsers.allUsers);
+  const smallScreen = useMediaDown('sm');
 
   const isDataReceived = checkDataReceived(
     locationsList,
@@ -198,20 +202,40 @@ const AddProgram = (props) => {
     },
   };
 
+  const handleReset = () => {
+    formik.handleReset();
+  };
+
+  const handleClose = () => {
+    closeModal();
+    handleReset();
+  };
+
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
-        <Box className="container">
+      <form onSubmit={formik.handleSubmit} >
+        <Box className={ smallScreen ? "container smallPopUp" : "container"}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Typography
-              variant="h4"
-              width="100%"
-              component="div"
-              gutterBottom
-              color="#757575"
-            >
-              {getFieldLabel(title)}
-            </Typography>
+            <Box className="popUpHeader">
+              <Typography
+                variant={ smallScreen ? "h5" : "h4"}
+                color="#757575"
+              >
+                {getFieldLabel(title)}
+              </Typography>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Button onClick={handleReset} size="small">
+                  {getFieldLabel('common.reset')}
+                </Button>
+                <IconButton onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+              </Box>
+            </Box>
             <Stack spacing={2} direction="column">
               {Object.values(dataForRenderTextField).map((field) => (
                 <TextField
@@ -286,11 +310,17 @@ const AddProgram = (props) => {
             </Stack>
           </LocalizationProvider>
         </Box>
-        <Box className="buttonWrapper">
-          <Button variant="contained" type="submit">
+        <Box className={ smallScreen ? "buttonWrapper smallPopUp" : "buttonWrapper"}>
+          <Button
+            variant="contained"
+            type="submit"
+          >
             {getFieldLabel(button)}
           </Button>
-          <Button variant="outlined" onClick={closeModal}>
+          <Button
+            variant="outlined"
+            onClick={handleClose}
+          >
             {getFieldLabel('common.cancel')}
           </Button>
         </Box>
