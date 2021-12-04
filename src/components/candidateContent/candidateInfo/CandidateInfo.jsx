@@ -36,7 +36,7 @@ const CandidateInfo = (props) => {
         flexDirection="row"
         justifyContent="space-between"
       >
-        <Typography variant="h4">
+        <Typography fontSize = "24px" fontWeight = "bold">
           {`${formatedInfo.firstName} ${formatedInfo.lastName}`}
         </Typography>
         <CandidateInfoEdit candidateInfo={formatedInfo} />
@@ -47,10 +47,10 @@ const CandidateInfo = (props) => {
       <Grid container spacing={2} margin="0 0 0 2%" width="100%">
         {tableCandidateInfoFields.map((item) => (
           <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key = {item}>
-            <Typography variant="h6">
+            <Typography fontSize = "16px" fontWeight = "bold">
               {getFieldLabel(`candidate.info.${item}`)}
             </Typography>
-            <Typography variant="body1" maxWidth="100%">
+            <Typography fontSize = "14px" maxWidth="100%">
               {formatedInfo[item]}
             </Typography>
           </Grid>
