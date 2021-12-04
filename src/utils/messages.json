@@ -144,5 +144,7 @@
   "addprogram.validation.message.positive":"Please enter a positive number",
   "candidateFeedbacks.label.feedback": "Feedback",
   "candidateFeedbacks.title.generalImpression": "General Impression",
-  "candidateFeedbacks.button.createFeedback": "Create feedback"
+  "candidateFeedbacks.button.createFeedback": "Create feedback",
+  "candidates.addToWork.success.message": "The candidates were successfully added to the work. New status is HR_Review.",
+  "candidate.addToWork.success.message": "The candidate was successfully added to the work. New status is HR_Review."
 }
