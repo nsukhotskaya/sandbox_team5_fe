@@ -39,7 +39,7 @@ const CandidateProfile = () => {
           <Box className="candidateInfoCardWrapper" boxShadow="5">
             <CandidateInfo candidateInfo={candidate} />
           </Box>
-          <Box className="candidateFeedbacksCardWrapper">
+          <Box className="candidateFeedbacksCardWrapper" boxShadow="5">
             <CandidateFeedbacks candidateInfo={candidate} />
           </Box>
         </Box>

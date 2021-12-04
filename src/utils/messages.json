@@ -5,6 +5,7 @@
   "common.cancel": "Cancel",
   "common.close": "Close",
   "common.filter": "Apply filter",
+  "common.assign": "Assign",
   "common.filter.title": "Filter",
   "common.reset.filter": "Reset",
   "common.edit": "Edit",
@@ -22,7 +23,6 @@
   "login.error.emailIncorrect": "Incorrect email",
   "login.error.passwordIncorrect": "Incorrect password (Password can only contain numbers and letters)",
   "login.error.noSuchUser": "There is no such user in this system. Please check the correctness of the entered data and try again...",
-  "internships.button.add.program": "Add program",
   "internships.button.add.program": "Create program",
   "internships.button.program.info": "Program info",
   "internships.button.candidates.list": "List of candidates",
@@ -144,5 +144,7 @@
   "addprogram.validation.message.positive":"Please enter a positive number",
   "candidateFeedbacks.label.feedback": "Feedback",
   "candidateFeedbacks.title.generalImpression": "General Impression",
-  "candidateFeedbacks.button.createFeedback": "Create feedback"
+  "candidateFeedbacks.button.createFeedback": "Create feedback",
+  "candidate.interview.select": "Set interview",
+  "candidate.interview.set.button": "Set"
 }
