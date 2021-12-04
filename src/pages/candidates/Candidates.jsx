@@ -65,9 +65,6 @@ const Candidates = () => {
   const dispatch = useDispatch();
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
-  const st = useSelector((state) => state.candidates)
-
-  console.log(st)
 
   const candidateSearchResult = useSelector(
     (state) => state.searchResult.searchResult,
@@ -207,7 +204,6 @@ const Candidates = () => {
             onRowSelected={onRowSelected}
             suppressRowClickSelection
             rowData={newListOfCandidates}
-            debug
             animateRows
             onGridReady={onGridReady}
             rowSelection="multiple"
