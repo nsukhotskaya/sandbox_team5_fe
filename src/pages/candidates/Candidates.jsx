@@ -56,7 +56,7 @@ const Candidates = () => {
   useEffect(() => {}, [isLoading]);
 
   const { isToasterOpen, handleCloseToaster, alertMessages, addToast } =
-  useToaster();
+    useToaster();
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -126,10 +126,10 @@ const Candidates = () => {
       rowNode.setSelected(false);
     };
     gridApi.forEachNode(rowNodes);
-    if(candidateId.length === 1) {
-      addToast(getFieldLabel("candidate.addToWork.success.message"));
+    if (candidateId.length === 1) {
+      addToast(getFieldLabel('candidate.addToWork.success.message'));
     } else {
-      addToast(getFieldLabel("candidates.addToWork.success.message"));
+      addToast(getFieldLabel('candidates.addToWork.success.message'));
     }
   };
 
@@ -139,7 +139,7 @@ const Candidates = () => {
 
   return (
     <Box padding="1%" width="100%" height="100%">
-       {alertMessages &&
+      {alertMessages &&
         alertMessages.map((message) => (
           <Toaster
             key={message}

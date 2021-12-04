@@ -21,6 +21,11 @@ import {
   formValidation,
   dataForRenderTextField,
   dataForRenderDatePicker,
+  menuProps,
+  stringToObject,
+  formatAllUsers,
+  checkDataReceived,
+  linkСorrection,
 } from '../../constants';
 import {
   fetchLocations,
@@ -30,43 +35,7 @@ import {
 } from '../../store/commands';
 import './AddProgram.sass';
 
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: 224,
-      width: 250,
-    },
-  },
-};
-
 const FormValidation = Yup.object().shape(formValidation);
-
-const stringToObject = (array) =>
-  array.map((item, index) => ({
-    id: index,
-    name: item,
-  }));
-
-const formatAllUsers = (array) =>
-  array.map((item) => ({
-    id: item.id,
-    name: item.userName,
-  }));
-
-const checkDataReceived = (...arrays) =>
-  arrays.every((array) => array.length !== 0);
-
-const linkСorrection = (oldValue, includedPart, firstPartOfLink = '') => {
-  let newLink;
-  const oldLink = oldValue;
-  if (oldLink.includes(includedPart)) {
-    const fieldId = oldLink
-      .slice(oldLink.lastIndexOf('/d/') + 3)
-      .slice(0, oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'));
-    newLink = `${firstPartOfLink}${fieldId}`;
-  }
-  return newLink || oldLink;
-};
 
 const AddProgram = (props) => {
   const { closeModal } = props;
@@ -76,7 +45,6 @@ const AddProgram = (props) => {
   const { button } = props;
   const { internshipData } = props;
   const dispatch = useDispatch();
-
   const locationsList = useSelector((state) => state.locations.locations);
   const stacksList = useSelector((state) => state.stacks.stacks);
   const languagesList = useSelector((state) => state.languages.languages);
@@ -301,7 +269,7 @@ const AddProgram = (props) => {
                         formik.touched[`${select.keyName}`] &&
                         Boolean(formik.errors[`${select.keyName}`])
                       }
-                      MenuProps={MenuProps}
+                      MenuProps={menuProps}
                     >
                       {select.array.map((item) => (
                         <MenuItem key={item.id} value={item.name}>
