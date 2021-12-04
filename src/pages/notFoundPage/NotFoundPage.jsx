@@ -1,13 +1,20 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { getFieldLabel } from '../../utils';
+import './NotFoundPage.sass'
 
 const NotFoundPage = () => (
-  <Box p="40px">
-    <Typography variant="h2">Oops... </Typography>
-    <Typography variant="h5">404: Page not found</Typography>
-    <Typography variant="subtitle1">
-      There is no such page in this application
-    </Typography>
+  <Box className="notFoundPageWrapper">
+    <Box textAlign="center">
+      <Typography variant="h1" >{getFieldLabel('notFoundPage.label.oops')}</Typography>
+      <Typography variant="h5">{getFieldLabel('notFoundPage.label.description')}</Typography>
+      <Box margin="40px">
+        <Link to="/profile" className="homeLink">
+          {getFieldLabel('notFoundPage.link.home')}
+        </Link>
+      </Box>
+    </Box>
   </Box>
 );
 
