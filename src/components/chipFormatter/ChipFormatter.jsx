@@ -8,7 +8,7 @@ const ChipFormatter = ({ value }) => {
         return 'secondary';
       case 'HR_Review':
       case 'InterviewerReview':
-        case 'TestTask':
+      case 'TestTask':
         return 'primary';
       case 'Pending':
         return 'default';
