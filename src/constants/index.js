@@ -1,6 +1,5 @@
 export {
   tableFieldsFirstPart,
-  tableFieldsSecondTwo,
   valueMenuItem,
 } from './tableFields';
 export { columnDefsEmployees } from './tableInternshipPageFields';
@@ -12,3 +11,4 @@ export {
   dataForRenderDatePicker,
   dataForRenderTextField,
 } from './addProgramConstants';
+
