@@ -1,42 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Chip } from '@mui/material';
 
 const ChipFormatter = ({ value }) => {
-  const [color, setColor] = useState();
 
-  useEffect(() => {
-    switch (value) {
-      case 'New':
-        setColor('secondary');
-        break;
-      case 'HR_Review':
-        setColor('primary');
-        break;
-      case 'InterviewerReview':
-        setColor('primary');
-        break;
-      case 'TestTask':
-        setColor('primary');
-        break;
-      case 'Pending':
-        setColor('default');
-        break;
-      case 'Accepted':
-        setColor('success');
-        break;
-      case 'Questionable':
-        setColor('warning');
-        break;
-      case 'Graduated':
-        setColor('success');
-        break;
-      default:
-        setColor('error');
-        break;
-    }
-  }, []);
-
-  return <Chip label={value} color={color} variant="outlined" size="small" />;
+ const  getChipColor = () => {
+  switch (value) {
+    case 'New':
+   return'secondary';
+    case 'HR_Review':
+     return 'primary';
+    case 'InterviewerReview':
+      return 'primary';
+    case 'TestTask':
+    return 'primary';
+    case 'Pending':
+      return'default';
+    case 'Accepted':
+      return 'success';
+    case 'Questionable':
+      return 'warning';
+    case 'Graduated':
+      return 'success';
+    default:
+     return 'error';
+  }
+ }
+    
+  return <Chip label={value} color={getChipColor()} variant="outlined" size="small" />;
 };
 
 export default ChipFormatter;
