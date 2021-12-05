@@ -22,7 +22,6 @@ export {
   userLogInFailure,
   USER_LOGIN,
 } from './userLogIn';
-export { userLogOutSuccess, USER_LOGOUT } from './userLogOut';
 export {
   getInternshipByIdRequest,
   getInternshipByIdSuccess,
