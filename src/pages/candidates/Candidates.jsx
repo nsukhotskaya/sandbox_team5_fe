@@ -111,7 +111,7 @@ const Candidates = () => {
     const selectedData = selectedNodes.map((node) => node.data.statusType);
     if (selectedNodes.length === 0) {
       setIsAddToWorkButtonDisabled(true);
-    } else if (selectedNodes !== 0 && selectedData.includes('HR_Review')) {
+    } else if (selectedNodes !== 0 && selectedData.includes('HR_Review') || selectedData.includes('InterviewerReview')) {
       setIsAddToWorkButtonDisabled(true);
     } else {
       setIsAddToWorkButtonDisabled(false);
