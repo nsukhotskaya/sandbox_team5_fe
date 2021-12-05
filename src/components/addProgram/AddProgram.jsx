@@ -213,14 +213,11 @@ const AddProgram = (props) => {
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit} >
-        <Box className={ smallScreen ? "container smallPopUp" : "container"}>
+      <form onSubmit={formik.handleSubmit}>
+        <Box className={smallScreen ? 'container smallPopUp' : 'container'}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Box className="popUpHeader">
-              <Typography
-                variant={ smallScreen ? "h5" : "h4"}
-                color="#757575"
-              >
+              <Typography variant={smallScreen ? 'h5' : 'h4'} color="#757575">
                 {getFieldLabel(title)}
               </Typography>
               <Box
@@ -310,17 +307,13 @@ const AddProgram = (props) => {
             </Stack>
           </LocalizationProvider>
         </Box>
-        <Box className={ smallScreen ? "buttonWrapper smallPopUp" : "buttonWrapper"}>
-          <Button
-            variant="contained"
-            type="submit"
-          >
+        <Box
+          className={smallScreen ? 'buttonWrapper smallPopUp' : 'buttonWrapper'}
+        >
+          <Button variant="contained" type="submit">
             {getFieldLabel(button)}
           </Button>
-          <Button
-            variant="outlined"
-            onClick={handleClose}
-          >
+          <Button variant="outlined" onClick={handleClose}>
             {getFieldLabel('common.cancel')}
           </Button>
         </Box>

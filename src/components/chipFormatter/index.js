@@ -1,1 +1,1 @@
-export { default as ChipFormatter  } from './ChipFormatter';
+export { default as ChipFormatter } from './ChipFormatter';

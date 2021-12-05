@@ -1,7 +1,4 @@
-export {
-  tableFieldsFirstPart,
-  valueMenuItem,
-} from './tableFields';
+export { tableFieldsFirstPart, valueMenuItem } from './tableFields';
 export { columnDefsEmployees } from './tableInternshipPageFields';
 export { columnDefsInternships } from './tableFieldsProfile';
 export { tableCandidateInfoFields } from './tableCandidateInfoFields';
@@ -16,4 +13,3 @@ export {
   checkDataReceived,
   linkСorrection,
 } from './addProgramConstants';
-

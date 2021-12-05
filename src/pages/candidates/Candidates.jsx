@@ -13,10 +13,7 @@ import {
 import { ManageSearch } from '@mui/icons-material';
 import CachedIcon from '@mui/icons-material/Cached';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import {
-  tableFieldsFirstPart,
-  reformatCandidates,
-} from '../../constants';
+import { tableFieldsFirstPart, reformatCandidates } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
@@ -111,7 +108,10 @@ const Candidates = () => {
     const selectedData = selectedNodes.map((node) => node.data.statusType);
     if (selectedNodes.length === 0) {
       setIsAddToWorkButtonDisabled(true);
-    } else if (selectedNodes !== 0 && selectedData.includes('HR_Review') || selectedData.includes('InterviewerReview')) {
+    } else if (
+      (selectedNodes !== 0 && selectedData.includes('HR_Review')) ||
+      selectedData.includes('InterviewerReview')
+    ) {
       setIsAddToWorkButtonDisabled(true);
     } else {
       setIsAddToWorkButtonDisabled(false);
@@ -258,16 +258,16 @@ const Candidates = () => {
               flex={1}
               cellRenderer="starFormatter"
             />
-             <AgGridColumn
+            <AgGridColumn
               field="testTaskEvaluation"
-              headerName={getFieldLabel("candidates.table.testTaskEvaluation")}
+              headerName={getFieldLabel('candidates.table.testTaskEvaluation')}
               sortable
               resizable
               flex={1}
             />
             <AgGridColumn
               field="statusType"
-              headerName={getFieldLabel("candidates.table.statusType")}
+              headerName={getFieldLabel('candidates.table.statusType')}
               sortable
               resizable
               flex={1}

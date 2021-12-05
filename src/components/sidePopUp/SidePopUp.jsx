@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { AddProgram } from '..';
+import { AddProgram } from '../addProgram';
 import './SidePopUp.sass';
 
 const SidePopUp = ({
@@ -16,7 +16,7 @@ const SidePopUp = ({
     setActive(false);
   };
   return (
-    <Box className={active ? 'modal active' : 'modal'} >
+    <Box className={active ? 'modal active' : 'modal'}>
       <Box
         className={active ? 'modalContent active' : 'modalContent'}
         onClick={(event) => event.stopPropagation()}
