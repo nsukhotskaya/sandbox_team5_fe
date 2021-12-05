@@ -8,6 +8,4 @@ export const tableFieldsFirstPart = [
   'hr',
 ];
 
-export const tableFieldsSecondTwo = ['testTaskEvaluation', 'statusType'];
-
 export const valueMenuItem = [20, 30, 50];
