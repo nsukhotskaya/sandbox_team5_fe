@@ -1,26 +1,30 @@
 .headerNav
-  width: 10%
+  width: 40px
   height: 100%
   display: flex
   justify-content: space-between
   align-items: center
-  margin-right: 30px
 
-.collapseContainer
+.headerNav:hover
+  cursor: pointer
+
+.dropDownContainer
   display: flex
   flex-direction: column
-  justify-content: center
-  padding: 5%
   position: absolute
   z-index: 1000
   background-color: #fff
-  width: 200px
-  height: 100px
+  width: 160px
   left: -100px
   border-bottom-right-radius: 6px
   border-bottom-left-radius: 6px
   box-shadow: 0px 6px 6px #686868
+  margin: 0
 
-.logoutButton
-  height: 60px
-  width: 60px
+.dropDownTitle
+  text-align: center
+  cursor: default
+
+.dropDownLink
+  text-decoration: none
+  color: #000000DE

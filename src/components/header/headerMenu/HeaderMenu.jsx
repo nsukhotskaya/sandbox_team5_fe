@@ -16,8 +16,8 @@ function HeaderMenu() {
           to="/internships"
           className={
             path === '/internships'
-              ? 'headerMenuLinkInternships activeLink'
-              : 'headerMenuLinkInternships'
+              ? 'headerMenuLink activeLink'
+              : 'headerMenuLink'
           }
         >
           {getFieldLabel('header.menu.link.internships')}
@@ -27,8 +27,8 @@ function HeaderMenu() {
         to="/profile"
         className={
           path === '/profile'
-            ? 'headerMenuLinkProfile activeLink'
-            : 'headerMenuLinkProfile'
+            ? 'headerMenuLink activeLink'
+            : 'headerMenuLink'
         }
       >
         {getFieldLabel('header.menu.link.profile')}
