@@ -1,7 +1,7 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Box, Typography, Divider, Grid } from '@mui/material';
+import { Box, Typography, Divider, Grid, Chip } from '@mui/material';
 import { getFieldLabel } from '../../../utils';
 
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
@@ -26,6 +26,26 @@ const CandidateInfo = (props) => {
     return newInfo;
   };
 
+  const getChipColor = (statusType) => {
+    switch (statusType) {
+      case 'New':
+        return 'secondary';
+      case 'HR_Review':
+      case 'InterviewerReview':
+      case 'TestTask':
+        return 'primary';
+      case 'Pending':
+        return 'default';
+      case 'Accepted':
+      case 'Graduated':
+        return 'success';
+      case 'Questionable':
+        return 'warning';
+      default:
+        return 'error';
+    }
+  };
+
   const formatedInfo = formatInfo(candidateInfo);
 
   return (
@@ -36,21 +56,31 @@ const CandidateInfo = (props) => {
         flexDirection="row"
         justifyContent="space-between"
       >
-        <Typography fontSize = "24px" fontWeight = "bold">
-          {`${formatedInfo.firstName} ${formatedInfo.lastName}`}
-        </Typography>
-        <CandidateInfoEdit candidateInfo={formatedInfo} />
+        <Box display="flex" flexDirection="row">
+          <Typography fontSize="24px" fontWeight="bold" marginRight="10px">
+            {`${formatedInfo.firstName} ${formatedInfo.lastName}`}
+          </Typography>
+          <CandidateInfoEdit candidateInfo={formatedInfo} />
+        </Box>
+        <Chip
+          label={formatedInfo.statusType}
+          color={getChipColor(formatedInfo.statusType)}
+          size="medium"
+          variant="outlined"
+          width="100px"
+          padding="3%"
+        />
       </Box>
 
       <Divider />
 
       <Grid container spacing={2} margin="0 0 0 2%" width="100%">
         {tableCandidateInfoFields.map((item) => (
-          <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key = {item}>
-            <Typography fontSize = "16px" fontWeight = "bold">
+          <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key={item}>
+            <Typography fontSize="16px" fontWeight="bold">
               {getFieldLabel(`candidate.info.${item}`)}
             </Typography>
-            <Typography fontSize = "14px" maxWidth="100%">
+            <Typography fontSize="14px" maxWidth="100%">
               {formatedInfo[item]}
             </Typography>
           </Grid>
