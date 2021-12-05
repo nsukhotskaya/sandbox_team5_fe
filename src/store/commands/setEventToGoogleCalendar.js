@@ -1,8 +1,8 @@
 import API from './api';
 import {
-    setEventToCalendarRequest,
-    setEventToCalendarSuccess,
-    setEventToCalendarFailure,
+  setEventToCalendarRequest,
+  setEventToCalendarSuccess,
+  setEventToCalendarFailure,
 } from '../actions';
 
 const setEventToCalendar = (data) => async (dispatch) => {
@@ -11,7 +11,6 @@ const setEventToCalendar = (data) => async (dispatch) => {
     await API.post(`/api/GoogleCalendar/setEventToGoogleCalendar`, data);
 
     dispatch(setEventToCalendarSuccess());
-
   } catch (error) {
     dispatch(setEventToCalendarFailure());
   }

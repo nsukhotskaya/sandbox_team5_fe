@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import { useDispatch } from 'react-redux';
 import { setBestContactTime } from '../../store/commands';
 import { getFieldLabel } from '../../utils';
-import './Calendar.sass';
+import './calendar.sass';
 
 const advancedFormat = require('dayjs/plugin/advancedFormat');
 
@@ -35,14 +35,20 @@ function splitInterval(start, end, step) {
 
 const Calendar = (props) => {
   const [freeTime, setFreeTime] = useState();
+  const [events, setEvents] = useState();
   const [startTime, setStart] = useState();
   const [endTime, setEnd] = useState();
+  const { email } = props;
+  const { headerType } = props;
   const dispatch = useDispatch();
+
   const setTime = (time) => {
     setStart(time.startStr);
     setEnd(time.endStr);
   };
-
+  useEffect(() => {
+    setEvents({ googleCalendarId: email });
+  }, []);
   useEffect(() => {
     if (startTime && endTime) {
       const interval = 1800;
@@ -51,8 +57,6 @@ const Calendar = (props) => {
     }
   }, [startTime, endTime]);
 
-  const { email } = props;
-  const { headerType } = props;
   return (
     <FullCalendar
       plugins={[
@@ -99,7 +103,7 @@ const Calendar = (props) => {
       slotMinTime="08:00:00"
       editable
       googleCalendarApiKey="AIzaSyCN8PD2jFBb_K6p7U7PpWQ6JuYb_CAptkU"
-      events={{ googleCalendarId: email }}
+      events={events}
     />
   );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { AddProgram } from '..';
+import { AddProgram } from '../addProgram';
 import './SidePopUp.sass';
 
 const SidePopUp = ({

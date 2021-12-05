@@ -12,10 +12,10 @@ const Toaster = ({ isToasterOpen, handleCloseToaster, message, severity }) => {
       anchorOrigin={
         smallScreen
           ? { vertical: 'top', horizontal: 'center' }
-          : { vertical: 'top', horizontal: 'left' }
+          : { vertical: 'top', horizontal: 'right' }
       }
     >
-      <Box m="10px">
+      <Box>
         <Alert onClose={handleCloseToaster} severity={severity}>
           {message}
         </Alert>

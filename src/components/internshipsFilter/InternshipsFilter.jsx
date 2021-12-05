@@ -149,7 +149,9 @@ export const InternshipsFilter = ({ onFilter }) => {
             >
               {locationsList.map((location) => (
                 <MenuItem key={location} value={location.name}>
-                  <Checkbox checked={filterLocation.indexOf(location.name) > -1} />
+                  <Checkbox
+                    checked={filterLocation.indexOf(location.name) > -1}
+                  />
                   <ListItemText primary={location.name} />
                 </MenuItem>
               ))}
@@ -169,7 +171,7 @@ export const InternshipsFilter = ({ onFilter }) => {
               {languagesList.map((language) => (
                 <MenuItem key={language} value={language}>
                   <Checkbox checked={filterLanguage.indexOf(language) > -1} />
-                  <ListItemText primary={language} />
+                  <ListItemText primary={<>{language}</>} />
                 </MenuItem>
               ))}
             </Select>
@@ -188,7 +190,7 @@ export const InternshipsFilter = ({ onFilter }) => {
               {stacksList.map((stack) => (
                 <MenuItem key={stack} value={stack}>
                   <Checkbox checked={filterStack.indexOf(stack) > -1} />
-                  <ListItemText primary={stack} />
+                  <ListItemText primary={<>{stack}</>} />
                 </MenuItem>
               ))}
             </Select>
@@ -207,7 +209,7 @@ export const InternshipsFilter = ({ onFilter }) => {
               {hrs.map((user) => (
                 <MenuItem key={user.id} value={user.userName}>
                   <Checkbox checked={filterHRs.indexOf(user.userName) > -1} />
-                  <ListItemText primary={user.userName} />
+                  <ListItemText primary={<>{user.userName}</>} />
                 </MenuItem>
               ))}
             </Select>
@@ -228,7 +230,7 @@ export const InternshipsFilter = ({ onFilter }) => {
                   <Checkbox
                     checked={filterInterviewers.indexOf(user.userName) > -1}
                   />
-                  <ListItemText primary={user.userName} />
+                  <ListItemText primary={<>{user.userName}</>} />
                 </MenuItem>
               ))}
             </Select>
@@ -249,7 +251,7 @@ export const InternshipsFilter = ({ onFilter }) => {
                   <Checkbox
                     checked={filterMentors.indexOf(user.userName) > -1}
                   />
-                  <ListItemText primary={user.userName} />
+                  <ListItemText primary={<>{user.userName}</>} />
                 </MenuItem>
               ))}
             </Select>
