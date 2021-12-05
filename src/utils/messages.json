@@ -154,5 +154,6 @@
   "candidate.assign.mentor.select":"Select Mentor",
   "notFoundPage.label.oops": "Oops...",
   "notFoundPage.label.description": "The page you are looking for can't be found",
-  "notFoundPage.link.home": "Home"
+  "notFoundPage.link.home": "Home",
+  "candidate.page.users.title": "Users and Feedbacks"
 }

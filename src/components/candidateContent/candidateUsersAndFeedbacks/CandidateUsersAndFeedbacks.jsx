@@ -2,6 +2,7 @@ import React from 'react';
 import { Box, Typography, Divider } from '@mui/material';
 import './candidateUsersAndFeedbacks.sass';
 import { CandidateHr, CandidateInterviewer, CandidateMentor } from '../index';
+import { getFieldLabel } from '../../../utils';
 
 export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const assignedHr = candidateInfo.users?.find(
@@ -20,7 +21,7 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
         justifyContent="flex-end"
       >
         <Typography variant="h4" fontWeight="300">
-          Users and Feedbacks
+        {getFieldLabel('candidate.page.users.title')}
         </Typography>
       </Box>
       <Divider />
