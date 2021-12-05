@@ -7,19 +7,16 @@ const ChipFormatter = ({ value }) => {
       case 'New':
         return 'secondary';
       case 'HR_Review':
-        return 'primary';
       case 'InterviewerReview':
-        return 'primary';
-      case 'TestTask':
+        case 'TestTask':
         return 'primary';
       case 'Pending':
         return 'default';
       case 'Accepted':
+      case 'Graduated':
         return 'success';
       case 'Questionable':
         return 'warning';
-      case 'Graduated':
-        return 'success';
       default:
         return 'error';
     }
