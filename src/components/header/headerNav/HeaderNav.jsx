@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
@@ -17,23 +17,41 @@ import './HeaderNav.sass';
 import { deleteUserToken } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { useMediaDown } from '../../utils';
+import { Confirm } from '../../confirm';
 
 function HeaderNav() {
+  const [openConfirm, setOpenConfirm] = useState(false);
   const smallScreen = useMediaDown('sm');
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo.userInfo);
-  const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
+  const [isDropDownShown, setIsDropDownShown] = React.useState(false);
 
   const handleShowButton = () => {
-    setIsCriteriaShown(!isCriteriaShown);
+    setIsDropDownShown(!isDropDownShown);
   };
 
   const logOut = () => {
-    dispatch(deleteUserToken());
+    setOpenConfirm(true);
+  };
+
+  const confirmLogOut = (value) => {
+    if (value) {
+      dispatch(deleteUserToken());
+    }
+    setOpenConfirm(false);
+    setIsDropDownShown(false);
   };
 
   return (
     <Box position="relative">
+      {openConfirm && (
+        <Confirm
+          confirmTitle={getFieldLabel('logout.confirm.message')}
+          rejectButtonLabel={getFieldLabel('common.no')}
+          acceptButtonLabel={getFieldLabel('common.yes')}
+          callback={confirmLogOut}
+        />
+      )}
       <Box
         className="headerNav"
         mr={smallScreen ? '10px' : '60px'}
@@ -42,7 +60,7 @@ function HeaderNav() {
         <Avatar alt="Ivan Ivanov" className="headerNavAvatar" />
         {!smallScreen && (
           <>
-            {isCriteriaShown ? (
+            {isDropDownShown ? (
               <ExpandLessIcon color="action" />
             ) : (
               <ExpandMoreIcon color="action" />
@@ -50,7 +68,7 @@ function HeaderNav() {
           </>
         )}
       </Box>
-      <Collapse in={isCriteriaShown}>
+      <Collapse in={isDropDownShown}>
         <Box className="dropDownContainer">
           <Paper>
             <MenuList>
