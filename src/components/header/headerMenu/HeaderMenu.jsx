@@ -11,6 +11,14 @@ function HeaderMenu() {
 
   return (
     <Box>
+      <Link
+        to="/profile"
+        className={
+          path === '/profile' ? 'headerMenuLink profileHeaderLink activeLink' : 'headerMenuLink profileHeaderLink'
+        }
+      >
+        {getFieldLabel('header.menu.link.profile')}
+      </Link>
       {userInfo.roleType !== 'Interviewer' && (
         <Link
           to="/internships"
@@ -23,14 +31,6 @@ function HeaderMenu() {
           {getFieldLabel('header.menu.link.internships')}
         </Link>
       )}
-      <Link
-        to="/profile"
-        className={
-          path === '/profile' ? 'headerMenuLink activeLink' : 'headerMenuLink'
-        }
-      >
-        {getFieldLabel('header.menu.link.profile')}
-      </Link>
     </Box>
   );
 }
