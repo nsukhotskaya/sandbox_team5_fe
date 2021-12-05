@@ -127,10 +127,10 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
   );
 
   return (
-    <Box className="assignUserContainer" p="10px">
+    <Box className="assignInterviewerContainer" p="10px">
       {(!assignedInterviewer || editAssignedInterviewer) && (
-        <Box className="assignUserBox">
-          <Box className="assignUserSelect">
+        <Box className="assignInterviewerBox">
+          <Box className="assignInterviewerSelect">
             <FormControl size="small" fullWidth>
               <InputLabel>
                 {getFieldLabel('candidate.assign.interviewer.select')}

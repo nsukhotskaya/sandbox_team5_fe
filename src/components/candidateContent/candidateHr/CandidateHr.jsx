@@ -54,10 +54,10 @@ export const CandidateHr = ({ candidateInfo }) => {
   };
 
   return (
-    <Box className="assignUserContainer" p="10px">
+    <Box className="assignHrContainer" p="10px">
       {(!assignedHr || editAssignedHr) && (
-        <Box className="assignUserBox">
-          <Box className="assignUserSelect">
+        <Box className="assignHrBox">
+          <Box className="assignHrSelect">
             <FormControl size="small" fullWidth>
               <InputLabel>
                 {getFieldLabel('candidate.assign.hr.select')}

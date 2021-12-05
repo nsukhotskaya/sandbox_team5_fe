@@ -54,10 +54,10 @@ export const CandidateMentor = ({ candidateInfo }) => {
   };
 
   return (
-    <Box className="assignUserContainer" p="10px">
+    <Box className="assignMentorContainer" p="10px">
       {(!assignedMentor || editAssignedMentor) && (
-        <Box className="assignUserBox">
-          <Box className="assignUserSelect">
+        <Box className="assignMentorBox">
+          <Box className="assignMentorSelect">
             <FormControl size="small" fullWidth>
               <InputLabel>
                 {getFieldLabel('candidate.assign.mentor.select')}
