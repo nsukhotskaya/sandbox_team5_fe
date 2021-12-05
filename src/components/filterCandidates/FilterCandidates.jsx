@@ -109,7 +109,7 @@ export const FilterCandidates = ({ onFilter }) => {
               alignItems="center"
             >
               <Button onClick={reset} size="small">
-                {getFieldLabel('common.reset.filter')}
+                {getFieldLabel('common.reset')}
               </Button>
               <IconButton onClick={handleClose}>
                 <CloseIcon />
