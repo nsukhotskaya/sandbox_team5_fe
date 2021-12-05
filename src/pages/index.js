@@ -5,3 +5,4 @@ export { Candidates } from './candidates';
 export { CandidateProfile } from './candidateProfile';
 export { InternshipPage } from './internshipPage';
 export { Internships } from './internships';
+export { NotFoundPage } from './notFoundPage';
