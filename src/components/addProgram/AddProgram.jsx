@@ -13,14 +13,22 @@ import {
   Select,
   Typography,
   FormHelperText,
+  IconButton,
 } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
+import { useMediaDown } from '../utils';
 import {
   formValidation,
   dataForRenderTextField,
   dataForRenderDatePicker,
+  menuProps,
+  stringToObject,
+  formatAllUsers,
+  checkDataReceived,
+  linkСorrection,
 } from '../../constants';
 import {
   fetchLocations,
@@ -30,43 +38,7 @@ import {
 } from '../../store/commands';
 import './AddProgram.sass';
 
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: 224,
-      width: 250,
-    },
-  },
-};
-
 const FormValidation = Yup.object().shape(formValidation);
-
-const stringToObject = (array) =>
-  array.map((item, index) => ({
-    id: index,
-    name: item,
-  }));
-
-const formatAllUsers = (array) =>
-  array.map((item) => ({
-    id: item.id,
-    name: item.userName,
-  }));
-
-const checkDataReceived = (...arrays) =>
-  arrays.every((array) => array.length !== 0);
-
-const linkСorrection = (oldValue, includedPart, firstPartOfLink = '') => {
-  let newLink;
-  const oldLink = oldValue;
-  if (oldLink.includes(includedPart)) {
-    const fieldId = oldLink
-      .slice(oldLink.lastIndexOf('/d/') + 3)
-      .slice(0, oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'));
-    newLink = `${firstPartOfLink}${fieldId}`;
-  }
-  return newLink || oldLink;
-};
 
 const AddProgram = (props) => {
   const { closeModal } = props;
@@ -76,11 +48,11 @@ const AddProgram = (props) => {
   const { button } = props;
   const { internshipData } = props;
   const dispatch = useDispatch();
-
   const locationsList = useSelector((state) => state.locations.locations);
   const stacksList = useSelector((state) => state.stacks.stacks);
   const languagesList = useSelector((state) => state.languages.languages);
   const allUsersList = useSelector((state) => state.allUsers.allUsers);
+  const smallScreen = useMediaDown('sm');
 
   const isDataReceived = checkDataReceived(
     locationsList,
@@ -230,20 +202,37 @@ const AddProgram = (props) => {
     },
   };
 
+  const handleReset = () => {
+    formik.handleReset();
+  };
+
+  const handleClose = () => {
+    closeModal();
+    handleReset();
+  };
+
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <Box className="container">
+        <Box className={smallScreen ? 'container smallPopUp' : 'container'}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Typography
-              variant="h4"
-              width="100%"
-              component="div"
-              gutterBottom
-              color="#757575"
-            >
-              {getFieldLabel(title)}
-            </Typography>
+            <Box className="popUpHeader">
+              <Typography variant={smallScreen ? 'h5' : 'h4'} color="#757575">
+                {getFieldLabel(title)}
+              </Typography>
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+              >
+                <Button onClick={handleReset} size="small">
+                  {getFieldLabel('common.reset')}
+                </Button>
+                <IconButton onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+              </Box>
+            </Box>
             <Stack spacing={2} direction="column">
               {Object.values(dataForRenderTextField).map((field) => (
                 <TextField
@@ -301,7 +290,7 @@ const AddProgram = (props) => {
                         formik.touched[`${select.keyName}`] &&
                         Boolean(formik.errors[`${select.keyName}`])
                       }
-                      MenuProps={MenuProps}
+                      MenuProps={menuProps}
                     >
                       {select.array.map((item) => (
                         <MenuItem key={item.id} value={item.name}>
@@ -318,11 +307,13 @@ const AddProgram = (props) => {
             </Stack>
           </LocalizationProvider>
         </Box>
-        <Box className="buttonWrapper">
+        <Box
+          className={smallScreen ? 'buttonWrapper smallPopUp' : 'buttonWrapper'}
+        >
           <Button variant="contained" type="submit">
             {getFieldLabel(button)}
           </Button>
-          <Button variant="outlined" onClick={closeModal}>
+          <Button variant="outlined" onClick={handleClose}>
             {getFieldLabel('common.cancel')}
           </Button>
         </Box>

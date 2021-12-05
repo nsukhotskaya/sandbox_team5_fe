@@ -70,3 +70,43 @@ export const dataForRenderTextField = {
     label: getFieldLabel('addprogram.field.label.imageLink'),
   },
 };
+
+export const menuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: 224,
+      width: 250,
+    },
+  },
+};
+
+export const stringToObject = (array) =>
+  array.map((item, index) => ({
+    id: index,
+    name: item,
+  }));
+
+export const formatAllUsers = (array) =>
+  array.map((item) => ({
+    id: item.id,
+    name: item.userName,
+  }));
+
+export const checkDataReceived = (...arrays) =>
+  arrays.every((array) => array.length !== 0);
+
+export const linkСorrection = (
+  oldValue,
+  includedPart,
+  firstPartOfLink = '',
+) => {
+  let newLink;
+  const oldLink = oldValue;
+  if (oldLink.includes(includedPart)) {
+    const fieldId = oldLink
+      .slice(oldLink.lastIndexOf('/d/') + 3)
+      .slice(0, oldLink.slice(oldLink.lastIndexOf('/d/') + 3).indexOf('/'));
+    newLink = `${firstPartOfLink}${fieldId}`;
+  }
+  return newLink || oldLink;
+};

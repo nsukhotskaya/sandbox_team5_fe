@@ -26,9 +26,7 @@ function HeaderMenu() {
       <Link
         to="/profile"
         className={
-          path === '/profile'
-            ? 'headerMenuLink activeLink'
-            : 'headerMenuLink'
+          path === '/profile' ? 'headerMenuLink activeLink' : 'headerMenuLink'
         }
       >
         {getFieldLabel('header.menu.link.profile')}

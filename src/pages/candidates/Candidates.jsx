@@ -13,11 +13,7 @@ import {
 import { ManageSearch } from '@mui/icons-material';
 import CachedIcon from '@mui/icons-material/Cached';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import {
-  tableFieldsFirstPart,
-  tableFieldsSecondTwo,
-  reformatCandidates,
-} from '../../constants';
+import { tableFieldsFirstPart, reformatCandidates } from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
@@ -36,6 +32,7 @@ import {
   FilterCandidates,
   StarFormatter,
   Toaster,
+  ChipFormatter,
 } from '../../components';
 import useToaster from '../../components/toaster/useToaster';
 import './candidates.sass';
@@ -111,7 +108,10 @@ const Candidates = () => {
     const selectedData = selectedNodes.map((node) => node.data.statusType);
     if (selectedNodes.length === 0) {
       setIsAddToWorkButtonDisabled(true);
-    } else if (selectedNodes !== 0 && selectedData.includes('HR_Review')) {
+    } else if (
+      (selectedNodes !== 0 && selectedData.includes('HR_Review')) ||
+      selectedData.includes('InterviewerReview')
+    ) {
       setIsAddToWorkButtonDisabled(true);
     } else {
       setIsAddToWorkButtonDisabled(false);
@@ -200,6 +200,7 @@ const Candidates = () => {
             frameworkComponents={{
               linkFormatter: LinkFormatter,
               starFormatter: StarFormatter,
+              chipFormatter: ChipFormatter,
             }}
             onRowSelected={onRowSelected}
             suppressRowClickSelection
@@ -257,16 +258,21 @@ const Candidates = () => {
               flex={1}
               cellRenderer="starFormatter"
             />
-            {tableFieldsSecondTwo.map((field) => (
-              <AgGridColumn
-                field={field}
-                headerName={getFieldLabel(`candidates.table.${field}`)}
-                key={field}
-                sortable
-                resizable
-                flex={1}
-              />
-            ))}
+            <AgGridColumn
+              field="testTaskEvaluation"
+              headerName={getFieldLabel('candidates.table.testTaskEvaluation')}
+              sortable
+              resizable
+              flex={1}
+            />
+            <AgGridColumn
+              field="statusType"
+              headerName={getFieldLabel('candidates.table.statusType')}
+              sortable
+              resizable
+              flex={1}
+              cellRenderer="chipFormatter"
+            />
           </AgGridReact>
         )}
       </Box>

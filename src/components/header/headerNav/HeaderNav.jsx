@@ -7,13 +7,16 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Box,
   Collapse,
-  Avatar, Paper, MenuItem, MenuList, Typography
+  Avatar,
+  Paper,
+  MenuItem,
+  MenuList,
+  Typography,
 } from '@mui/material';
 import './HeaderNav.sass';
 import { deleteUserToken } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { useMediaDown } from '../../utils';
-
 
 function HeaderNav() {
   const smallScreen = useMediaDown('sm');
@@ -31,19 +34,38 @@ function HeaderNav() {
 
   return (
     <Box position="relative">
-      <Box className="headerNav" mr={smallScreen ?"10px":"60px"} onClick={handleShowButton}>
-        <Avatar alt="Ivan Ivanov" className="headerNavAvatar"/>
-        {!smallScreen && <>{isCriteriaShown ? <ExpandLessIcon color="action" /> : <ExpandMoreIcon color="action" />}</>}
+      <Box
+        className="headerNav"
+        mr={smallScreen ? '10px' : '60px'}
+        onClick={handleShowButton}
+      >
+        <Avatar alt="Ivan Ivanov" className="headerNavAvatar" />
+        {!smallScreen && (
+          <>
+            {isCriteriaShown ? (
+              <ExpandLessIcon color="action" />
+            ) : (
+              <ExpandMoreIcon color="action" />
+            )}
+          </>
+        )}
       </Box>
       <Collapse in={isCriteriaShown}>
-        <Box className="dropDownContainer" >
+        <Box className="dropDownContainer">
           <Paper>
             <MenuList>
-              <Typography variant="h6" className="dropDownTitle">{userInfo.userName}</Typography>
+              <Typography variant="h6" className="dropDownTitle">
+                {userInfo.userName}
+              </Typography>
               <Link to="/profile" className="dropDownLink">
-                <MenuItem>{getFieldLabel('header.dropdown.label.myprofile')}</MenuItem>
+                <MenuItem>
+                  {getFieldLabel('header.dropdown.label.myprofile')}
+                </MenuItem>
               </Link>
-              <MenuItem onClick={logOut}>{getFieldLabel('header.dropdown.label.logout')}<LoginIcon color="action" /></MenuItem>
+              <MenuItem onClick={logOut}>
+                {getFieldLabel('header.dropdown.label.logout')}
+                <LoginIcon color="action" />
+              </MenuItem>
             </MenuList>
           </Paper>
         </Box>
