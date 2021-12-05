@@ -13,3 +13,4 @@ export * from './candidatesSearch';
 export * from './filterCandidates';
 export * from './toaster';
 export * from './starFormatter';
+export * from './chipFormatter';

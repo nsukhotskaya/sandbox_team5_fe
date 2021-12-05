@@ -7,7 +7,7 @@
   "common.filter": "Apply filter",
   "common.assign": "Assign",
   "common.filter.title": "Filter",
-  "common.reset.filter": "Reset",
+  "common.reset": "Reset",
   "common.edit": "Edit",
   "common.create": "Create",
   "header.menu.link.internships": "INTERNSHIP PROGRAMS",
@@ -121,7 +121,7 @@
   "addprogram.field.label.endDate": "End date",
   "addprogram.field.label.registrationStart": "Registration start",
   "addprogram.field.label.registrationFinish": "Registration finish",
-  "addprogram.field.label.title": "Title",
+  "addprogram.field.label.title": "Program title",
   "addprogram.field.label.requirements": "Requirements",
   "addprogram.field.label.candidateCount": "Candidate Count",
   "addprogram.field.label.spreadSheetId": "Spread Sheet Id",
@@ -151,5 +151,8 @@
   "candidate.addToWork.success.message": "The candidate was successfully added to the work. New status is HR_Review.",
   "candidate.assign.hr.select":"Select HR",
   "candidate.assign.interviewer.select":"Select Interviewer",
-  "candidate.assign.mentor.select":"Select Mentor"
+  "candidate.assign.mentor.select":"Select Mentor",
+  "notFoundPage.label.oops": "Oops...",
+  "notFoundPage.label.description": "The page you are looking for can't be found",
+  "notFoundPage.link.home": "Home"
 }
