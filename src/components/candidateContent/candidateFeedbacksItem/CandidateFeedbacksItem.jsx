@@ -112,7 +112,6 @@ const CandidateFeedbacksItem = ({ user, candidateInfo }) => {
       {!!feedbacks.length && (
         <Collapse in={isCriteriaShown}>
           <Box className="collapseContainer">
-            {console.log(feedback.evaluations)}
             {!!feedback.evaluations &&
               feedback.evaluations.map((skill) => (
                 <StarRating

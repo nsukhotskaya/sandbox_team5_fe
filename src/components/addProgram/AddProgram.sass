@@ -1,14 +1,23 @@
+$popUpWidth: 400px
+
+.popUpHeader
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+  margin-bottom: 20px
+
 .container
   display: flex
   flex-direction: column
-  width: 40vw
-  height: 1100px
+  width: $popUpWidth
+  height: 1120px
   padding: 20px
 
 .buttonWrapper
   background-color: white
   height: auto
-  width: 40vw
+  width: $popUpWidth
   display: flex
   flex-direction: row
   justify-content: space-between
@@ -17,5 +26,7 @@
   position: fixed
   bottom: -20px
   z-index: 1200
-  box-shadow: 0px -4px 10px 0px #c9c9c9;
+  box-shadow: 0px -4px 10px 0px #c9c9c9
 
+.smallPopUp
+  width: 100vw
