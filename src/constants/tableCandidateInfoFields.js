@@ -11,11 +11,8 @@ export const tableCandidateInfoFields = [
   'englishLevelType',
   'professionalCertificates',
   'currentJob',
-
   'otherInfo',
-
   'education',
   'isPlanningToJoin',
-
   'links',
 ];
