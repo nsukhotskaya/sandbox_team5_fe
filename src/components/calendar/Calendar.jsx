@@ -33,22 +33,21 @@ function splitInterval(start, end, step) {
   return result;
 }
 
-
 const Calendar = (props) => {
   const [freeTime, setFreeTime] = useState();
-  const [events,setEvents] = useState();
+  const [events, setEvents] = useState();
   const [startTime, setStart] = useState();
   const [endTime, setEnd] = useState();
   const { email } = props;
   const { headerType } = props;
   const dispatch = useDispatch();
-  
+
   const setTime = (time) => {
     setStart(time.startStr);
     setEnd(time.endStr);
   };
   useEffect(() => {
-    setEvents({googleCalendarId: email});
+    setEvents({ googleCalendarId: email });
   }, []);
   useEffect(() => {
     if (startTime && endTime) {
