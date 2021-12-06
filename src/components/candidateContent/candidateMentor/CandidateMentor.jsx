@@ -37,7 +37,7 @@ export const CandidateMentor = ({ candidateInfo }) => {
   const handleSubmit = () => {
     const assignedUsers = allUsers
       .filter((user) => userIds.includes(user.id))
-      .map((u) => ({ id: u.id }));
+      .map((mentor) => ({ id: mentor.id }));
     dispatch(
       updateCandidateInfo({
         ...newCandidate,

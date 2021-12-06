@@ -85,7 +85,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
   };
   
   useEffect(() => {
-    if (assignedInterviewer) dispatch(fetchContactTime(assignedInterviewer.id));
+    if (assignedInterviewer) {dispatch(fetchContactTime(assignedInterviewer.id))};
   }, [assignedInterviewer]);
 
   const isInterviewsSet = localStorage.getItem('interviewsSet')
