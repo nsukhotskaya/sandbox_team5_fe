@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   Card,
@@ -10,60 +11,39 @@ import {
   List,
   ListItem,
 } from '@mui/material';
-import './UserProfile.sass';
-import { TableTemplate } from '../../components/tableTemplate';
+import './EmployeesProfile.sass';
 import {
-  fetchCandidatesByUser,
   fetchInternships,
-  fetchAllUsers,
+  fetchUserInfoById,
 } from '../../store/commands';
 import {
   getFieldLabel,
-  tableFillerCandidates,
   tableFiller,
-  tableFillerAllUsers,
 } from '../../utils';
 import { userProfileListFields } from '../../constants/userProfileListFields';
 import { useMediaDown } from '../../components/utils';
-import { header, headerMobile } from '../../constants/calendarHeader';
-import { Calendar } from '../../components/calendar';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
-import { TableTemplateCandidates } from '../../components/tableTemplateCandidates';
 import { TableTemplateInternship } from '../../components/tableTemplateInternship';
 
-const UserProfile = () => {
-  const userInfo = useSelector((state) => state.userInfo.userInfo);
+const EmployeesProfile = () => {
+  const userInfo = useSelector((state) => state.user.user);
   const internships = useSelector((state) => state.internships.internships);
-  const allUsers = useSelector((state) => state.allUsers.allUsers);
-  const assignCandidates = useSelector(
-    (state) => state.assignUserCandidates.assignUserCandidates,
-  );
+  const { id } = useParams();
   const dispatch = useDispatch();
   const isLoading = useSelector(
     loadingSelector(
-      ['GET_USER_INFO'],
+      ['GET_USER_INFO_BY_ID'],
       ['GET_INTERNSHIPS'],
-      ['POST_CANDIDATES_BY_USER'],
     ),
   );
   useEffect(() => {}, [isLoading]);
 
   useEffect(() => {
-    if (userInfo.length !== 0) {
-      if (userInfo.roleType === 'Admin' || userInfo.roleType === 'Manager') {
-        dispatch(fetchInternships());
-        dispatch(fetchAllUsers());
-      } else {
-        dispatch(fetchCandidatesByUser(userInfo.id));
-        if (userInfo.roleType === 'Hr') {
-          dispatch(fetchInternships());
-        }
-      }
-    }
+    dispatch(fetchUserInfoById(id));
+    dispatch(fetchInternships());
   }, []);
   const mobile = useMediaDown('md');
-  const large = useMediaDown('lg');
   return (
     <>
       {isLoading ? (
@@ -122,30 +102,9 @@ const UserProfile = () => {
             className={mobile ? 'activityMobile' : 'activity'}
           >
             <Card className="activityTab">
-              {userInfo.roleType === 'Admin' ||
-              userInfo.roleType === 'Manager' ? (
-                <TableTemplate
-                  rowData={tableFillerAllUsers(allUsers)}
-                />
-              ) : (
-                <TableTemplateCandidates
-                  rowData={tableFillerCandidates(assignCandidates)}
-                />
-              )}
-            </Card>
-          </Box>
-          <Box className={large ? 'calendarMobile' : 'calendar'}>
-            <Card className={mobile ? 'calendarCardMobile' : 'calendarCard'}>
-              {userInfo.roleType === 'Interviewer' ? (
-                <Calendar
-                  headerType={mobile ? headerMobile : header}
-                  email={userInfo.email}
-                />
-              ) : (
-                <TableTemplateInternship
-                  rowData={ userInfo.roleType === 'Admin' || userInfo.roleType === 'Manager' ? internships : tableFiller(userInfo, internships)}
-                />
-              )}
+              <TableTemplateInternship
+                  rowData={tableFiller(userInfo, internships)}
+              />
             </Card>
           </Box>
         </Box>
@@ -154,4 +113,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default EmployeesProfile;

@@ -33,7 +33,7 @@ export default class TableTemplateInternship extends React.Component {
             minWidth={200}
             cellRenderer="linkFormatter"
           />
-          <AgGridColumn field="status" resizable minWidth={200} />
+          <AgGridColumn field="internshipStatusType" resizable minWidth={200} />
         </AgGridReact>
       </Box>
     );

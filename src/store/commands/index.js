@@ -26,3 +26,4 @@ export { default as updateInternship } from './updateInternship';
 export { default as fetchCandidatesByUser } from './fetchCandidatesByUser';
 export { default as fetchContactTime } from './fetchContactTime';
 export { default as setEventToCalendar } from './setEventToGoogleCalendar';
+export { default as fetchUserInfoById } from './fetchUserInfoById';
