@@ -27,7 +27,6 @@ export default class TableTemplate extends React.Component {
           defaultColDef={{ flex: 1, minWidth: 100 }}
           rowData={rowData}
         >
-          {console.log(rowData)}
           <AgGridColumn
             field="userName"
             sortable

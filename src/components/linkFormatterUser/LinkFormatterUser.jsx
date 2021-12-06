@@ -5,7 +5,6 @@ import './LinkFormatter.sass';
 
 const LinkFormatterUser = ({ value, data }) => {
   const { id } = data;
-  console.log(data);
   const history = useHistory();
   const handleClick = () => {
     history.push(`/profile/${id}`);
