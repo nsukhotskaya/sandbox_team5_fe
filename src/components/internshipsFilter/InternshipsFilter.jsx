@@ -54,17 +54,33 @@ export const InternshipsFilter = ({ onFilter }) => {
   const [filterInterviewers, setFilterInterviewers] = useState([]);
   const [filterMentors, setFilterMentors] = useState([]);
   const [filterYears, setFilterYears] = useState(null);
-  
+
   const handleSubmit = () => {
     const filters = {};
-    if (filterLocation.length) {filters.locations = filterLocation};
-    if (filterLanguage.length) {filters.languageTypes = filterLanguage};
-    if (filterStatus.length) {filters.internshipStatusType = filterStatus};
-    if (filterStack.length) {filters.internshipStacks = filterStack};
-    if (filterHRs.length) {filters.attachedUsers = filterHRs};
-    if (filterInterviewers.length) {filters.attachedUsers = filterInterviewers};
-    if (filterMentors.length) {filters.attachedUsers = filterMentors};
-    if (filterYears) {filters.internshipYear = dayjs(filterYears).format('YYYY')};
+    if (filterLocation.length) {
+      filters.locations = filterLocation;
+    }
+    if (filterLanguage.length) {
+      filters.languageTypes = filterLanguage;
+    }
+    if (filterStatus.length) {
+      filters.internshipStatusType = filterStatus;
+    }
+    if (filterStack.length) {
+      filters.internshipStacks = filterStack;
+    }
+    if (filterHRs.length) {
+      filters.attachedUsers = filterHRs;
+    }
+    if (filterInterviewers.length) {
+      filters.attachedUsers = filterInterviewers;
+    }
+    if (filterMentors.length) {
+      filters.attachedUsers = filterMentors;
+    }
+    if (filterYears) {
+      filters.internshipYear = dayjs(filterYears).format('YYYY');
+    }
     onFilter(filters);
   };
 
@@ -157,7 +173,9 @@ export const InternshipsFilter = ({ onFilter }) => {
             >
               {locationsList.map((location) => (
                 <MenuItem key={location} value={location.name}>
-                  <Checkbox checked={filterLocation.indexOf(location.name) > -1} />
+                  <Checkbox
+                    checked={filterLocation.indexOf(location.name) > -1}
+                  />
                   <ListItemText primary={<>{location.name}</>} />
                 </MenuItem>
               ))}
@@ -264,15 +282,17 @@ export const InternshipsFilter = ({ onFilter }) => {
           </FormControl>
           <FormControl size="small" fullWidth>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              views={['year']}
-              label="Year"
-              value={filterYears || new Date()}
-              onChange={(newValue) => {
-                setFilterYears(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} helperText={null} />}
-            />
+              <DatePicker
+                views={['year']}
+                label="Year"
+                value={filterYears || new Date()}
+                onChange={(newValue) => {
+                  setFilterYears(newValue);
+                }}
+                renderInput={(params) => (
+                  <TextField {...params} helperText={null} />
+                )}
+              />
             </LocalizationProvider>
           </FormControl>
           <Button onClick={handleSubmit} size="small" variant="contained">

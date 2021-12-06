@@ -167,4 +167,3 @@ export {
   setEventToCalendarFailure,
   GET_EVENT_TO_CALENDAR,
 } from './setEventToGoogleCalendar';
-

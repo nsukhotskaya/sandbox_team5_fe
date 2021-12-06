@@ -21,7 +21,7 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
         justifyContent="flex-end"
       >
         <Typography variant="h4" fontWeight="300">
-        {getFieldLabel('candidate.page.users.title')}
+          {getFieldLabel('candidate.page.users.title')}
         </Typography>
       </Box>
       <Divider />
