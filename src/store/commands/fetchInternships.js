@@ -15,7 +15,7 @@ const fetchInternships = (filters) => async (dispatch) => {
   try {
     const response = await API.post('/api/Internship/getInternships', {
       ...requestBody,
-      intershipsFilterBy: filters || {},
+      internshipsFilterBy: filters || {},
     });
     dispatch(getInternshipsSuccess(response.data));
   } catch (error) {

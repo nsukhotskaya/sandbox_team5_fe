@@ -23,3 +23,5 @@ export { default as createNewInternship } from './createNewInternship';
 export { default as fetchGoogleSheet } from './fetchGoogleSheet';
 export { default as updateFeedback } from './updateFeedback';
 export { default as updateInternship } from './updateInternship';
+export { default as fetchContactTime } from './fetchContactTime';
+export { default as setEventToCalendar } from './setEventToGoogleCalendar';
