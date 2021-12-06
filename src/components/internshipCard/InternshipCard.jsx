@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import dayjs from 'dayjs';
-import './internshipCard.sass';
+import './InternshipCard.sass';
 import { getFieldLabel } from '../../utils';
 
 export const InternshipCard = ({
