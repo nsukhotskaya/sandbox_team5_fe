@@ -1,6 +1,6 @@
 import { getFieldLabel } from '../utils';
 
-export const columnDefsEmployees = [
+export const columnDefsUsers = [
   {
     headerNames: getFieldLabel('internship.page.table.fullname'),
     field: 'userName',
@@ -10,5 +10,4 @@ export const columnDefsEmployees = [
     headerNames: getFieldLabel('internship.page.table.position'),
     field: 'position',
   },
-  { headerNames: getFieldLabel('internship.page.table.team'), field: 'team' },
 ];

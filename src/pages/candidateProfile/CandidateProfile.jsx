@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { fetchCandidate } from '../../store/commands';
-import { CandidateInfo, CandidateFeedbacks } from '../../components';
+import { CandidateInfo, CandidateUsersAndFeedbacks } from '../../components';
 import './CandidateProfile.sass';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
@@ -39,8 +39,8 @@ const CandidateProfile = () => {
           <Box className="candidateInfoCardWrapper" boxShadow="5">
             <CandidateInfo candidateInfo={candidate} />
           </Box>
-          <Box className="candidateFeedbacksCardWrapper">
-            <CandidateFeedbacks candidateInfo={candidate} />
+          <Box className="candidateFeedbacksCardWrapper" boxShadow="5">
+            <CandidateUsersAndFeedbacks candidateInfo={candidate} />
           </Box>
         </Box>
       )}

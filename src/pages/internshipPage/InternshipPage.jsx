@@ -7,7 +7,7 @@ import { fetchInternshipById, updateInternship } from '../../store/commands';
 import { InternshipInfo } from '../../components/internshipInfo';
 import { SidePopUp } from '../../components';
 import { useMediaDown } from '../../components/utils';
-import { columnDefsEmployees } from '../../constants';
+import { columnDefsUsers } from '../../constants';
 import { TableTemplate } from '../../components/tableTemplate';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
@@ -56,10 +56,7 @@ const InternshipPage = () => {
                     position: item.position,
                   }),
                 )}
-              <TableTemplate
-                rowData={rawData}
-                columnDefs={columnDefsEmployees}
-              />
+              <TableTemplate rowData={rawData} columnDefs={columnDefsUsers} />
             </Card>
           </Box>
           {initialData && (
