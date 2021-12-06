@@ -21,6 +21,7 @@ import {
   allUsers,
   bestContactTime,
   setEventToCalendar,
+  userInfoById,
 } from './reducers';
 
 const rootReducer = (history) =>
@@ -45,6 +46,7 @@ const rootReducer = (history) =>
     candidate: candidateById,
     userInfo: getUserInfo,
     assignUserCandidates: assignCandidates,
+    user: userInfoById,
     router: connectRouter(history),
   });
 

@@ -10,6 +10,7 @@ import {
   InternshipPage,
   CandidateProfile,
   NotFoundPage,
+  EmployeesProfile,
 } from '../index';
 import './Home.sass';
 import { fetchUserInfo } from '../../store/commands';
@@ -37,6 +38,9 @@ const Home = () => {
                   </Route>
                   <Route exact path="/profile">
                     <UserProfile />
+                  </Route>
+                  <Route exact path="/profile/:id">
+                    <EmployeesProfile />
                   </Route>
                   <Route exact path="/internships">
                     {userInfo.roleType === 'Interviewer' ? (
