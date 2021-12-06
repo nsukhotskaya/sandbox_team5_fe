@@ -33,7 +33,6 @@ import {
   fetchInternships,
   fetchStacksByInternshipId,
 } from '../../../store/commands';
-import './candidateInfoEdit.sass'
 
 const utc = require('dayjs/plugin/utc');
 
@@ -181,7 +180,7 @@ export const CandidateInfoEdit = (props) => {
               </IconButton>
             </Box>
             <form onSubmit={formik.handleSubmit}>
-              <Box className = "editSidebarBox">
+              <Box padding= '20px' width = {{lg: '35vw',md: '50vw', sm:'70vw', xs:'100vw' }} >
                 <Stack spacing={2} direction="column">
                   {dataForRenderTextField.map((fieldName) => (
                     <TextField
