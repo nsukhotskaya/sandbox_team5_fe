@@ -46,7 +46,7 @@ export const Internships = () => {
   };
 
   return (
-    <Container fixed maxWidth="1600px">
+    <>
       <Box display="flex" flexDirection="column" padding="10px">
         <Box className="internshipsMenu">
           <Box className="menuItemsBox">
@@ -64,10 +64,14 @@ export const Internships = () => {
               onFilter={(filters) => dispatch(fetchInternships(filters))}
             />
           </Box>
-          <Button variant="outlined" onClick={openPopUpWindow}>
-            {getFieldLabel('internships.button.add.program')}
-          </Button>
+          <Box className="createButton">
+            <Button variant="outlined" onClick={openPopUpWindow}>
+              {getFieldLabel('internships.button.add.program')}
+            </Button>
+          </Box>
         </Box>
+      </Box>
+      <Container fixed maxWidth="1600px">
         <Box>
           {isLoading ? (
             <LoadingIndicator />
@@ -98,16 +102,16 @@ export const Internships = () => {
             </Grid>
           )}
         </Box>
-      </Box>
-      <SidePopUp
-        active={popUpActive}
-        setActive={setPopUpActive}
-        initialData={initialValues}
-        button="common.create"
-        dispatchFunction={createNewInternship}
-        title="addprogram.title"
-      />
-    </Container>
+        <SidePopUp
+          active={popUpActive}
+          setActive={setPopUpActive}
+          initialData={initialValues}
+          button="common.create"
+          dispatchFunction={createNewInternship}
+          title="addprogram.title"
+        />
+      </Container>
+    </>
   );
 };
 
