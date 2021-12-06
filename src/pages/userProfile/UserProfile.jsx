@@ -123,7 +123,8 @@ const UserProfile = () => {
             className={mobile ? 'activityMobile' : 'activity'}
           >
             <Card className="activityTab">
-              {(userInfo.roleType === 'Admin' || userInfo.roleType === 'Manager') ? (
+              {userInfo.roleType === 'Admin' ||
+              userInfo.roleType === 'Manager' ? (
                 <TableTemplate
                   rowData={tableFillerAllUsers(allUsers)}
                   columnDefs={columnDefsUsers}
