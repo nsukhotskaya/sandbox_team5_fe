@@ -84,7 +84,7 @@ function HeaderNav() {
               <Typography paddingRight="8px">
                 {getFieldLabel('header.dropdown.label.logout')}
               </Typography>
-              <LoginIcon color="action" />
+              <LoginIcon color="action" fontSize="small" />
             </MenuItem>
           </Box>
         </Menu>
