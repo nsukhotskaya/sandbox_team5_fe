@@ -159,17 +159,11 @@ const Candidates = () => {
         display="flex"
         flexDirection={{
           xs: 'column',
-          sm: 'column',
-          md: 'column',
           lg: 'row',
-          xl: 'row',
         }}
         alignItems={{
           xs: 'flex-end',
-          sm: 'flex-end',
-          md: 'flex-end',
           lg: 'center',
-          xl: 'center',
         }}
         paddingTop="5px"
         paddingBottom="5px"
@@ -187,17 +181,11 @@ const Candidates = () => {
           display="flex"
           flexDirection={{
             xs: 'column',
-            sm: 'column',
             md: 'row',
-            lg: 'row',
-            xl: 'row',
           }}
           alignItems={{
             xs: 'flex-end',
-            sm: 'flex-end',
             md: 'center',
-            lg: 'center',
-            xl: 'center',
           }}
         >
           <Box display="flex" flexDirection="row">
@@ -207,8 +195,8 @@ const Candidates = () => {
               </IconButton>
             </Box>
             <Box
-              mr={{ xs: '0px', sm: '0px', md: '15px', lg: '15px', xl: '15px' }}
-              mb={{ xs: '5px', sm: '5px', md: '0px', lg: '0px', xl: '0px' }}
+              mr={{ xs: '0px', md: '15px'}}
+              mb={{ xs: '5px', md: '0px' }}
             >
               <FilterCandidates onFilter={onFilter} />
             </Box>
@@ -218,22 +206,16 @@ const Candidates = () => {
             flexDirection={{
               xs: 'column',
               sm: 'row',
-              md: 'row',
-              lg: 'row',
-              xl: 'row',
             }}
             alignItems={{
               xs: 'flex-end',
               sm: 'center',
-              md: 'center',
-              lg: 'center',
-              xl: 'center',
             }}
           >
             <Stack
               direction="row"
-              mr={{ xs: '0px', sm: '15px', md: '15px', lg: '15px', xl: '15px' }}
-              mb={{ xs: '10px', sm: '0px', md: '0px', lg: '0px', xl: '0px' }}
+              mr={{ xs: '0px', sm: '15px' }}
+              mb={{ xs: '10px', sm: '0px' }}
             >
               <Button onClick={() => onButtonExport()} variant="outlined">
                 {getFieldLabel('candidates.button.exportToExcel')}
@@ -245,9 +227,6 @@ const Candidates = () => {
                 mr={{
                   xs: '0px',
                   sm: '15px',
-                  md: '15px',
-                  lg: '15px',
-                  xl: '15px',
                 }}
               >
                 <Button
@@ -262,7 +241,7 @@ const Candidates = () => {
             ) : null}
             <Divider orientation="vertical" variant="middle" flexItem />
             <Stack
-              ml={{ xs: '0px', sm: '15px', md: '15px', lg: '15px', xl: '15px' }}
+              ml={{ xs: '0px', sm: '15px' }}
             >
               <PageSize gridApi={gridApi} />
             </Stack>
