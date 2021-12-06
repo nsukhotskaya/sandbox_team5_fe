@@ -57,14 +57,14 @@ export const InternshipsFilter = ({ onFilter }) => {
   
   const handleSubmit = () => {
     const filters = {};
-    if (filterLocation.length) filters.locations = filterLocation;
-    if (filterLanguage.length) filters.languageTypes = filterLanguage;
-    if (filterStatus.length) filters.internshipStatusType = filterStatus;
-    if (filterStack.length) filters.internshipStacks = filterStack;
-    if (filterHRs.length) filters.attachedUsers = filterHRs;
-    if (filterInterviewers.length) filters.attachedUsers = filterInterviewers;
-    if (filterMentors.length) filters.attachedUsers = filterMentors;
-    if (filterYears) filters.internshipYear = dayjs(filterYears).format('YYYY');
+    if (filterLocation.length) {filters.locations = filterLocation};
+    if (filterLanguage.length) {filters.languageTypes = filterLanguage};
+    if (filterStatus.length) {filters.internshipStatusType = filterStatus};
+    if (filterStack.length) {filters.internshipStacks = filterStack};
+    if (filterHRs.length) {filters.attachedUsers = filterHRs};
+    if (filterInterviewers.length) {filters.attachedUsers = filterInterviewers};
+    if (filterMentors.length) {filters.attachedUsers = filterMentors};
+    if (filterYears) {filters.internshipYear = dayjs(filterYears).format('YYYY')};
     onFilter(filters);
   };
 
@@ -271,7 +271,6 @@ export const InternshipsFilter = ({ onFilter }) => {
               onChange={(newValue) => {
                 setFilterYears(newValue);
               }}
-              // eslint-disable-next-line react/jsx-props-no-spreading
               renderInput={(params) => <TextField {...params} helperText={null} />}
             />
             </LocalizationProvider>
