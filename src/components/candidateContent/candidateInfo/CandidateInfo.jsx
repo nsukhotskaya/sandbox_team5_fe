@@ -55,7 +55,7 @@ const CandidateInfo = (props) => {
       <Grid
         container
         spacing={2}
-        marginLeft="2%"
+        margin="0 0 0 2%"
         width="100%"
         paddingBottom="5%"
       >
