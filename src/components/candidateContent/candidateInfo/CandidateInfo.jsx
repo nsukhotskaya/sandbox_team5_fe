@@ -2,7 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Box, Typography, Divider, Grid, Chip } from '@mui/material';
-import { getFieldLabel, getChipColorByStatus } from '../../../utils';
+import { getFieldLabel } from '../../../utils';
 
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
 
@@ -26,6 +26,26 @@ const CandidateInfo = (props) => {
     return newInfo;
   };
 
+  const getChipColor = (statusType) => {
+    switch (statusType) {
+      case 'New':
+        return 'secondary';
+      case 'HR_Review':
+      case 'InterviewerReview':
+      case 'TestTask':
+        return 'primary';
+      case 'Pending':
+        return 'default';
+      case 'Accepted':
+      case 'Graduated':
+        return 'success';
+      case 'Questionable':
+        return 'warning';
+      default:
+        return 'error';
+    }
+  };
+
   const formatedInfo = formatInfo(candidateInfo);
 
   return (
@@ -44,9 +64,11 @@ const CandidateInfo = (props) => {
         </Box>
         <Chip
           label={formatedInfo.statusType}
-          color={getChipColorByStatus(formatedInfo.statusType)}
+          color={getChipColor(formatedInfo.statusType)}
           size="medium"
           variant="outlined"
+          width="100px"
+          padding="3%"
         />
       </Box>
 
