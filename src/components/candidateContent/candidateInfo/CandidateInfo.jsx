@@ -57,7 +57,7 @@ const CandidateInfo = (props) => {
         justifyContent="space-between"
       >
         <Box display="flex" flexDirection="row">
-          <Typography fontSize="24px" fontWeight="bold" marginRight="10px">
+          <Typography variant="h4" fontWeight="300" marginRight="10px">
             {`${formatedInfo.firstName} ${formatedInfo.lastName}`}
           </Typography>
           <CandidateInfoEdit candidateInfo={formatedInfo} />
@@ -67,8 +67,6 @@ const CandidateInfo = (props) => {
           color={getChipColor(formatedInfo.statusType)}
           size="medium"
           variant="outlined"
-          width="100px"
-          padding="3%"
         />
       </Box>
 
@@ -77,10 +75,10 @@ const CandidateInfo = (props) => {
       <Grid container spacing={2} margin="0 0 0 2%" width="100%">
         {tableCandidateInfoFields.map((item) => (
           <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key={item}>
-            <Typography fontSize="16px" fontWeight="bold">
+            <Typography variant = "body1" fontWeight="bold">
               {getFieldLabel(`candidate.info.${item}`)}
             </Typography>
-            <Typography fontSize="14px" maxWidth="100%">
+            <Typography variant = "body2" maxWidth="100%">
               {formatedInfo[item]}
             </Typography>
           </Grid>
