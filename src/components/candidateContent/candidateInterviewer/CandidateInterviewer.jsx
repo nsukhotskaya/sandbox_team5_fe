@@ -59,7 +59,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
     dispatch(
       updateCandidateInfo({
         ...newCandidate,
-        statusType: assignInterviewers && 'InterviewerReview',
+        statusType: assignInterviewers && 'Interview_Review',
         users: [
           ...newCandidate.users.filter(
             (userType) => userType.roleType !== 'Interviewer',

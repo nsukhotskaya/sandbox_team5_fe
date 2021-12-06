@@ -172,7 +172,7 @@ export const InternshipsFilter = ({ onFilter }) => {
               renderValue={(selected) => selected.join(', ')}
             >
               {locationsList.map((location) => (
-                <MenuItem key={location} value={location.name}>
+                <MenuItem key={location.name} value={location.name}>
                   <Checkbox
                     checked={filterLocation.indexOf(location.name) > -1}
                   />
