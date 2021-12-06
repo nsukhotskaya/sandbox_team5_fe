@@ -1,0 +1,18 @@
+{
+  "initialValues": {
+    "name": "",
+    "startDate": "2000-01-01T00:00:00.000Z",
+    "endDate": "2000-01-01T00:00:00.000Z",
+    "requirements": "",
+    "maxCandidateCount": 0,
+    "registrationStartDate": "2000-01-01T00:00:00.000Z",
+    "registrationFinishDate": "2000-01-01T00:00:00.000Z",
+    "languageTypes": [],
+    "internshipStatusType": "Open",
+    "imageLink": "",
+    "internshipStacks": [],
+    "locations": [],
+    "spreadSheetId": "",
+    "users": []
+  }
+}
