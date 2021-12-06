@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import dayjs from 'dayjs';
 import {
   Popover,
   IconButton,
@@ -12,8 +13,12 @@ import {
   Checkbox,
   ListItemText,
   Typography,
+  TextField,
 } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import CloseIcon from '@mui/icons-material/Close';
 import { fetchAllUsers } from '../../store/commands';
 import { getFieldLabel } from '../../utils';
@@ -48,7 +53,8 @@ export const InternshipsFilter = ({ onFilter }) => {
   const [filterHRs, setFilterHRs] = useState([]);
   const [filterInterviewers, setFilterInterviewers] = useState([]);
   const [filterMentors, setFilterMentors] = useState([]);
-
+  const [filterYears, setFilterYears] = useState(null);
+  
   const handleSubmit = () => {
     const filters = {};
     if (filterLocation.length) filters.locations = filterLocation;
@@ -58,6 +64,7 @@ export const InternshipsFilter = ({ onFilter }) => {
     if (filterHRs.length) filters.attachedUsers = filterHRs;
     if (filterInterviewers.length) filters.attachedUsers = filterInterviewers;
     if (filterMentors.length) filters.attachedUsers = filterMentors;
+    if (filterYears) filters.internshipYear = dayjs(filterYears).format('YYYY');
     onFilter(filters);
   };
 
@@ -69,6 +76,7 @@ export const InternshipsFilter = ({ onFilter }) => {
     setFilterHRs([]);
     setFilterInterviewers([]);
     setFilterMentors([]);
+    setFilterYears(null);
     onFilter({});
   };
 
@@ -95,7 +103,7 @@ export const InternshipsFilter = ({ onFilter }) => {
       >
         <Box
           width="350px"
-          height="480px"
+          height="540px"
           padding="20px"
           display="flex"
           flexDirection="column"
@@ -116,7 +124,7 @@ export const InternshipsFilter = ({ onFilter }) => {
               alignItems="center"
             >
               <Button onClick={cleanFilter} size="small">
-                {getFieldLabel('common.reset.filter')}
+                {getFieldLabel('common.reset')}
               </Button>
               <IconButton onClick={handleClose}>
                 <CloseIcon />
@@ -253,6 +261,20 @@ export const InternshipsFilter = ({ onFilter }) => {
                 </MenuItem>
               ))}
             </Select>
+          </FormControl>
+          <FormControl size="small" fullWidth>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              views={['year']}
+              label="Year"
+              value={filterYears || new Date()}
+              onChange={(newValue) => {
+                setFilterYears(newValue);
+              }}
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              renderInput={(params) => <TextField {...params} helperText={null} />}
+            />
+            </LocalizationProvider>
           </FormControl>
           <Button onClick={handleSubmit} size="small" variant="contained">
             {getFieldLabel('common.filter')}
