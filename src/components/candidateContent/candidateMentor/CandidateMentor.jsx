@@ -48,7 +48,7 @@ export const CandidateMentor = ({ candidateInfo }) => {
       }),
     );
   };
-  
+
   const handleEditMentorClick = () => {
     setEditAssignedMentor(!editAssignedMentor);
   };

@@ -149,7 +149,9 @@ export const InternshipsFilter = ({ onFilter }) => {
             >
               {locationsList.map((location) => (
                 <MenuItem key={location} value={location.name}>
-                  <Checkbox checked={filterLocation.indexOf(location.name) > -1} />
+                  <Checkbox
+                    checked={filterLocation.indexOf(location.name) > -1}
+                  />
                   <ListItemText primary={<>{location.name}</>} />
                 </MenuItem>
               ))}
