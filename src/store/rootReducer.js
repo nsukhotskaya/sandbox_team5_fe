@@ -16,6 +16,7 @@ import {
   candidateFeedbacks,
   englishLevels,
   candidateStatusTypes,
+  assignCandidates,
   stacksByInternshipIdList,
   allUsers,
   bestContactTime,
@@ -43,6 +44,7 @@ const rootReducer = (history) =>
     internship: internshipById,
     candidate: candidateById,
     userInfo: getUserInfo,
+    assignUserCandidates: assignCandidates,
     router: connectRouter(history),
   });
 
