@@ -16,8 +16,11 @@ import {
   candidateFeedbacks,
   englishLevels,
   candidateStatusTypes,
+  assignCandidates,
   stacksByInternshipIdList,
   allUsers,
+  bestContactTime,
+  setEventToCalendar,
 } from './reducers';
 
 const rootReducer = (history) =>
@@ -31,6 +34,8 @@ const rootReducer = (history) =>
     candidateStatusTypes,
     stacksByInternshipId: stacksByInternshipIdList,
     allUsers,
+    contactTime: bestContactTime,
+    calendarEvents: setEventToCalendar,
     searchResult: candidateSearch,
     loading: loadingReducer,
     authorization: isAuthorized,
@@ -39,6 +44,7 @@ const rootReducer = (history) =>
     internship: internshipById,
     candidate: candidateById,
     userInfo: getUserInfo,
+    assignUserCandidates: assignCandidates,
     router: connectRouter(history),
   });
 

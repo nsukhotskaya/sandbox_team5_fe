@@ -5,7 +5,13 @@ const StarFormatter = ({ value }) =>
   !value ? (
     <Box>{value}</Box>
   ) : (
-    <Rating name="read-only" defaultValue={value} max={4} readOnly />
+    <Rating
+      className="starFormatterWrapper"
+      name="read-only"
+      defaultValue={value}
+      max={4}
+      readOnly
+    />
   );
 
 export default StarFormatter;

@@ -1,8 +1,8 @@
 import React from 'react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Box, Typography, Divider, Grid } from '@mui/material';
-import { getFieldLabel } from '../../../utils';
+import { Box, Typography, Divider, Grid, Chip } from '@mui/material';
+import { getFieldLabel, getChipColorByStatus } from '../../../utils';
 
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
 
@@ -36,21 +36,29 @@ const CandidateInfo = (props) => {
         flexDirection="row"
         justifyContent="space-between"
       >
-        <Typography variant="h4">
-          {`${formatedInfo.firstName} ${formatedInfo.lastName}`}
-        </Typography>
-        <CandidateInfoEdit candidateInfo={formatedInfo} />
+        <Box display="flex" flexDirection="row">
+          <Typography variant="h4" fontWeight="300" marginRight="10px">
+            {`${formatedInfo.firstName} ${formatedInfo.lastName}`}
+          </Typography>
+          <CandidateInfoEdit candidateInfo={formatedInfo} />
+        </Box>
+        <Chip
+          label={formatedInfo.statusType}
+          color={getChipColorByStatus(formatedInfo.statusType)}
+          size="medium"
+          variant="outlined"
+        />
       </Box>
 
       <Divider />
 
       <Grid container spacing={2} margin="0 0 0 2%" width="100%">
         {tableCandidateInfoFields.map((item) => (
-          <Grid key={item} item xs={12} sm={12} md={12} lg={6} xl={6}>
-            <Typography variant="h6">
+          <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key={item}>
+            <Typography variant="body1" fontWeight="bold">
               {getFieldLabel(`candidate.info.${item}`)}
             </Typography>
-            <Typography variant="body1" maxWidth="100%">
+            <Typography variant="body2" maxWidth="100%">
               {formatedInfo[item]}
             </Typography>
           </Grid>
