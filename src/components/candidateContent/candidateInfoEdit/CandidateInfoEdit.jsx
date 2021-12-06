@@ -250,9 +250,7 @@ export const CandidateInfoEdit = (props) => {
                       formik.setFieldValue('bestContactTime', dateValue)
                     }
                     ampm={false}
-                    renderInput={({ label, inputProps }) => (
-                      <TextField label={label} inputProps={inputProps} />
-                    )}
+                    renderInput={(params) => <TextField {...params} />}
                   />
                   <FormControl fullWidth>
                     <FormControlLabel
