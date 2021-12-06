@@ -5,6 +5,7 @@ const TableFillerAllUsers = (allUsers) => {
       userName: item.userName,
       role: item.roleType,
       position: item.position,
+      id: item.id,
     }),
   );
   return rowData;

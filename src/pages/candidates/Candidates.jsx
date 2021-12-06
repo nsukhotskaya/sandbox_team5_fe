@@ -23,7 +23,6 @@ import {
   fetchEnglishLevel,
   fetchCandidateStatusTypes,
   fetchGoogleSheet,
-  fetchUserInfo,
 } from '../../store/commands';
 import {
   LinkFormatter,
@@ -62,6 +61,8 @@ const Candidates = () => {
   const dispatch = useDispatch();
 
   const listOfCandidates = useSelector((state) => state.candidates.candidates);
+  const authorizedUser = useSelector((state) => state.userInfo.userInfo);
+  const authorizedUserRoleType = authorizedUser.roleType;
 
   const candidateSearchResult = useSelector(
     (state) => state.searchResult.searchResult,
@@ -83,7 +84,6 @@ const Candidates = () => {
     dispatch(fetchLanguages());
     dispatch(fetchEnglishLevel());
     dispatch(fetchCandidateStatusTypes());
-    dispatch(fetchUserInfo());
   }, []);
 
   const onFilter = (filters) =>
@@ -110,7 +110,13 @@ const Candidates = () => {
       setIsAddToWorkButtonDisabled(true);
     } else if (
       (selectedNodes !== 0 && selectedData.includes('HR_Review')) ||
-      selectedData.includes('InterviewerReview')
+      selectedData.includes('Interview_Review') ||
+      selectedData.includes('Pending') ||
+      selectedData.includes('Accepted') ||
+      selectedData.includes('Questionable') ||
+      selectedData.includes('Declined') ||
+      selectedData.includes('Graduated') ||
+      selectedData.includes('Refused')
     ) {
       setIsAddToWorkButtonDisabled(true);
     } else {
@@ -175,14 +181,16 @@ const Candidates = () => {
             >
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
-            <Button
-              onClick={() => addToWork()}
-              className="candidatesPageButton"
-              variant="outlined"
-              disabled={isAddToWorkButtonDisabled}
-            >
-              {getFieldLabel('candidates.button.addToWork')}
-            </Button>
+            {authorizedUserRoleType === 'Hr' ? (
+              <Button
+                onClick={() => addToWork()}
+                className="candidatesPageButton"
+                variant="outlined"
+                disabled={isAddToWorkButtonDisabled}
+              >
+                {getFieldLabel('candidates.button.addToWork')}
+              </Button>
+            ) : null}
             <Divider orientation="vertical" variant="middle" flexItem />
             <PageSize gridApi={gridApi} />
           </Stack>

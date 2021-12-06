@@ -22,7 +22,6 @@ export {
   userLogInFailure,
   USER_LOGIN,
 } from './userLogIn';
-export { userLogOutSuccess, USER_LOGOUT } from './userLogOut';
 export {
   getInternshipByIdRequest,
   getInternshipByIdSuccess,
@@ -167,4 +166,9 @@ export {
   setEventToCalendarFailure,
   GET_EVENT_TO_CALENDAR,
 } from './setEventToGoogleCalendar';
-
+export {
+  getUserInfoByIdRequest,
+  getUserInfoByIdSuccess,
+  getUserInfoByIdFailure,
+  GET_USER_INFO_BY_ID,
+} from './getUserInfoById';

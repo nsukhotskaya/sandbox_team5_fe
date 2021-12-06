@@ -5,7 +5,7 @@ const tableFiller = (userInfo, internships) => {
       if (userInfo.id === secondItem.id) {
         rawData.push({
           name: item.name,
-          status: item.internshipStatusType,
+          internshipStatusType: item.internshipStatusType,
           id: item.id,
         });
       }

@@ -1,4 +1,4 @@
-import { USER_LOGIN, USER_LOGOUT } from '../actions';
+import { USER_LOGIN } from '../actions';
 
 const initialState = localStorage.accessToken
   ? { isAuthorized: true }
@@ -12,8 +12,6 @@ export default function isAuthorized(state = initialState, action) {
       return { ...state, isAuthorized: true };
     case USER_LOGIN.FAILURE:
       return { ...state, error: action.payload };
-    case USER_LOGOUT.SUCCESS:
-      return { ...state, isAuthorized: false };
     default:
       return state;
   }
