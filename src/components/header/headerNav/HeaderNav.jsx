@@ -1,37 +1,45 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import LoginIcon from '@mui/icons-material/Login';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
   Box,
-  Collapse,
   Avatar,
   Paper,
   MenuItem,
-  MenuList,
+  Menu,
   Typography,
+  Divider,
 } from '@mui/material';
 import './HeaderNav.sass';
 import { deleteUserToken } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { useMediaDown } from '../../utils';
 import { Confirm } from '../../confirm';
+import { history } from '../../../store/store';
 
 function HeaderNav() {
   const [openConfirm, setOpenConfirm] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const smallScreen = useMediaDown('sm');
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.userInfo.userInfo);
-  const [isDropDownShown, setIsDropDownShown] = React.useState(false);
 
-  const handleShowButton = () => {
-    setIsDropDownShown(!isDropDownShown);
+  const handleShowMenu = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  const logOut = () => {
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogoutItemClick = () => {
     setOpenConfirm(true);
+    handleCloseMenu();
+  };
+
+  const handleProfileItemClick = () => {
+    history.push('/profile');
+    handleCloseMenu();
   };
 
   const confirmLogOut = (value) => {
@@ -39,7 +47,6 @@ function HeaderNav() {
       dispatch(deleteUserToken());
     }
     setOpenConfirm(false);
-    setIsDropDownShown(false);
   };
 
   return (
@@ -55,39 +62,33 @@ function HeaderNav() {
       <Box
         className="headerNav"
         mr={smallScreen ? '10px' : '60px'}
-        onClick={handleShowButton}
+        onClick={handleShowMenu}
       >
-        <Avatar alt="Ivan Ivanov" className="headerNavAvatar" />
-        {!smallScreen && (
-          <>
-            {isDropDownShown ? (
-              <ExpandLessIcon color="action" />
-            ) : (
-              <ExpandMoreIcon color="action" />
-            )}
-          </>
-        )}
+        <Avatar alt={userInfo.userName} className="headerNavAvatar" />
       </Box>
-      <Collapse in={isDropDownShown}>
-        <Box className="dropDownContainer">
-          <Paper>
-            <MenuList>
-              <Typography variant="h6" className="dropDownTitle">
-                {userInfo.userName}
+      <Paper>
+        <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={handleCloseMenu}>
+          <Typography variant="h6" className="dropDownTitle">
+            {userInfo.userName}
+          </Typography>
+          <Divider component="li" />
+          <Box className="menuItem">
+            <MenuItem onClick={handleProfileItemClick}>
+              <Typography>
+                {getFieldLabel('header.dropdown.label.profile')}
               </Typography>
-              <Link to="/profile" className="dropDownLink">
-                <MenuItem>
-                  {getFieldLabel('header.dropdown.label.myprofile')}
-                </MenuItem>
-              </Link>
-              <MenuItem onClick={logOut}>
+            </MenuItem>
+          </Box>
+          <Box className="menuItem">
+            <MenuItem onClick={handleLogoutItemClick}>
+              <Typography paddingRight="8px">
                 {getFieldLabel('header.dropdown.label.logout')}
-                <LoginIcon color="action" />
-              </MenuItem>
-            </MenuList>
-          </Paper>
-        </Box>
-      </Collapse>
+              </Typography>
+              <LoginIcon color="action" />
+            </MenuItem>
+          </Box>
+        </Menu>
+      </Paper>
     </Box>
   );
 }
