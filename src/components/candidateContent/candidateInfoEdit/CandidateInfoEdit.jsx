@@ -170,7 +170,6 @@ export const CandidateInfoEdit = (props) => {
               boxShadow="0px -4px 10px 0px #c9c9c9"
               display="flex"
               justifyContent="space-between"
-
             >
               <Typography variant="h4" color="gray">
                 {getFieldLabel('candidate.edit.editCandidateTitle')}
@@ -180,7 +179,10 @@ export const CandidateInfoEdit = (props) => {
               </IconButton>
             </Box>
             <form onSubmit={formik.handleSubmit}>
-              <Box padding= '20px' width = {{lg: '35vw',md: '50vw', sm:'70vw', xs:'100vw' }} >
+              <Box
+                padding="20px"
+                width={{ lg: '35vw', md: '50vw', sm: '70vw', xs: '100vw' }}
+              >
                 <Stack spacing={2} direction="column">
                   {dataForRenderTextField.map((fieldName) => (
                     <TextField
