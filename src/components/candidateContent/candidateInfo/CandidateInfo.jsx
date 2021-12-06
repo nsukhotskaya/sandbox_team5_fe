@@ -31,7 +31,7 @@ const CandidateInfo = (props) => {
       case 'New':
         return 'secondary';
       case 'HR_Review':
-      case 'InterviewerReview':
+      case 'Interview_Review':
       case 'TestTask':
         return 'primary';
       case 'Pending':
