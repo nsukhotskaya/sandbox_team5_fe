@@ -9,7 +9,7 @@ import dayjs from 'dayjs';
 import { useDispatch } from 'react-redux';
 import { setBestContactTime } from '../../store/commands';
 import { getFieldLabel } from '../../utils';
-import './calendar.sass';
+import './Сalendar.sass';
 
 const advancedFormat = require('dayjs/plugin/advancedFormat');
 
