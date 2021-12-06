@@ -35,7 +35,7 @@ export const CandidateHr = ({ candidateInfo }) => {
   const handleSubmit = () => {
     const assignedUsers = allUsers
       .filter((user) => userIds.includes(user.id))
-      .map((u) => ({ id: u.id }));
+      .map((hr) => ({ id: hr.id }));
     dispatch(
       updateCandidateInfo({
         ...newCandidate,

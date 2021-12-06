@@ -55,7 +55,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
   const handleSubmit = () => {
     const assignedUsers = allUsers
       .filter((userType) => userIds.includes(userType.id))
-      .map((u) => ({ id: u.id }));
+      .map((interviewer) => ({ id: interviewer.id }));
     dispatch(
       updateCandidateInfo({
         ...newCandidate,
@@ -95,6 +95,8 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
         candidateInfo.id,
       )
     : false;
+    
+  const name = `${candidateInfo.firstName} ${candidateInfo.lastName}`;
 
   const handleTimeSubmit = () => {
     const interviewsSet = localStorage.getItem('interviewsSet');
@@ -112,6 +114,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
         endTime: interviewTime.endTime,
         interviewerEmail: assignedInterviewer.email,
         id: interviewTime.id,
+        candidateName: name,
       }),
     );
     setOpen(false);
@@ -140,7 +143,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
               <Select
                 value={assignInterviewers}
                 onChange={(event) => setAssignInterviewers(event.target.value)}
-                label="Select Interviewer"
+                label="Assign Interviewer"
               >
                 {interviewers.map((userType) => (
                   <MenuItem key={userType.id} value={userType.id}>
