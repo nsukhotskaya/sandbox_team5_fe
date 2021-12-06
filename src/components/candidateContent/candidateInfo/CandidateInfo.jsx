@@ -36,7 +36,7 @@ const CandidateInfo = (props) => {
         flexDirection="row"
         justifyContent="space-between"
       >
-        <Typography variant="h4">
+        <Typography variant="h4" fontWeight="300">
           {`${formatedInfo.firstName} ${formatedInfo.lastName}`}
         </Typography>
         <CandidateInfoEdit candidateInfo={formatedInfo} />

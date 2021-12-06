@@ -1,6 +1,5 @@
 export { tableFieldsFirstPart, valueMenuItem } from './tableFields';
-export { columnDefsEmployees } from './tableInternshipPageFields';
-export { columnDefsInternships } from './tableFieldsProfile';
+export { columnDefsUsers } from './tableUserFields';
 export { tableCandidateInfoFields } from './tableCandidateInfoFields';
 export { reformatCandidates } from './reformatCandidates';
 export {

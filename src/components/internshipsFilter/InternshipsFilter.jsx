@@ -50,17 +50,15 @@ export const InternshipsFilter = ({ onFilter }) => {
   const [filterMentors, setFilterMentors] = useState([]);
 
   const handleSubmit = () => {
-    onFilter({
-      locations: filterLocation.length ? filterLocation : null,
-      languageTypes: filterLanguage.length ? filterLanguage : null,
-      internshipStatusType: filterStatus.length ? filterStatus : null,
-      internshipStacks: filterStack.length ? filterStack : null,
-      attachedUsers: [
-        ...filterHRs,
-        ...filterInterviewers,
-        ...filterMentors,
-      ].map((user) => user.userName),
-    });
+    const filters = {};
+    if (filterLocation.length) filters.locations = filterLocation;
+    if (filterLanguage.length) filters.languageTypes = filterLanguage;
+    if (filterStatus.length) filters.internshipStatusType = filterStatus;
+    if (filterStack.length) filters.internshipStacks = filterStack;
+    if (filterHRs.length) filters.attachedUsers = filterHRs;
+    if (filterInterviewers.length) filters.attachedUsers = filterInterviewers;
+    if (filterMentors.length) filters.attachedUsers = filterMentors;
+    onFilter(filters);
   };
 
   const cleanFilter = () => {
@@ -150,9 +148,9 @@ export const InternshipsFilter = ({ onFilter }) => {
               renderValue={(selected) => selected.join(', ')}
             >
               {locationsList.map((location) => (
-                <MenuItem key={location} value={location}>
-                  <Checkbox checked={filterLocation.indexOf(location) > -1} />
-                  <ListItemText primary={<>{location}</>} />
+                <MenuItem key={location} value={location.name}>
+                  <Checkbox checked={filterLocation.indexOf(location.name) > -1} />
+                  <ListItemText primary={<>{location.name}</>} />
                 </MenuItem>
               ))}
             </Select>
