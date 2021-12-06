@@ -65,7 +65,7 @@ export const CandidateMentor = ({ candidateInfo }) => {
               <Select
                 value={assignMentors}
                 onChange={(event) => setAssignMentors(event.target.value)}
-                label="Select Mentor"
+                label="Assign Mentor"
               >
                 {mentors.map((user) => (
                   <MenuItem key={user.id} value={user.id}>

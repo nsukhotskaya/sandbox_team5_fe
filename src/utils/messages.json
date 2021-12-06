@@ -155,11 +155,11 @@
   "candidate.interview.set.button": "Set",
   "candidates.addToWork.success.message": "The candidates were successfully added to the work. New status is HR_Review.",
   "candidate.addToWork.success.message": "The candidate was successfully added to the work. New status is HR_Review.",
-  "candidate.assign.hr.select":"Select HR",
-  "candidate.assign.interviewer.select":"Select Interviewer",
-  "candidate.assign.mentor.select":"Select Mentor",
+  "candidate.assign.hr.select":"Assign HR",
+  "candidate.assign.interviewer.select":"Assign Interviewer",
+  "candidate.assign.mentor.select":"Assign Mentor",
   "notFoundPage.label.oops": "Oops...",
   "notFoundPage.label.description": "The page you are looking for can't be found",
   "notFoundPage.link.home": "Home",
-  "candidate.page.users.title": "Users and Feedbacks"
+  "candidate.page.users.title": "Marks and Feedbacks"
 }
