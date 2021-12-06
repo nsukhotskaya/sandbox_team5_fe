@@ -40,6 +40,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
 
+
 const Candidates = () => {
   const [gridApi, setGridApi] = useState();
   const [anchorEl, setAnchorEl] = useState();
@@ -155,7 +156,13 @@ const Candidates = () => {
             severity="success"
           />
         ))}
-      <Box className="candidatesPageHeader">
+      <Box display="flex"
+           flexDirection={{ xs: "column", sm:"column", md: "column", lg: "row", xl: "row"}}
+           alignItems={{ xs: "flex-end", sm:"flex-end", md: "flex-end", lg: "center", xl: "center" }}
+           paddingTop="5px"
+           paddingBottom="5px"
+           justifyContent="space-between"
+           >
         <Box display="flex" alignItems="center">
           <Typography variant="h4" component="div" color="#757575">
             {internshipName[0]}
@@ -164,24 +171,45 @@ const Candidates = () => {
             <CachedIcon fontSize="large" />
           </IconButton>
         </Box>
-        <Box className="candidatesButtons">
-          <Box>
+        <Box display="flex"
+             flexDirection= {{ xs: "column", sm:"column", md: "row", lg: "row", xl: "row"}}
+             alignItems= {{ xs: "flex-end", sm:"flex-end", md: "center", lg: "center", xl: "center" }}
+             >
+               <Box display="flex" 
+               flexDirection="row">
+                <Box>
             <IconButton onClick={handleClick}>
               <ManageSearch fontSize="large" />
             </IconButton>
           </Box>
-          <Box className="filterBox">
+          <Box
+           mr={{ xs: "0px", sm:"0px", md: "15px", lg: "15px", xl: "15px"}}
+           mb={{ xs: "5px", sm:"5px", md: "0px", lg: "0px", xl: "0px"}}
+          >
             <FilterCandidates onFilter={onFilter} />
           </Box>
-          <Stack direction="row" spacing={2}>
+          </Box>
+          <Box
+           display ="flex"
+           flexDirection={{ xs: "column", sm:"row", md: "row", lg: "row", xl: "row"}}
+           alignItems= {{ xs: "flex-end", sm:"center", md: "center", lg: "center", xl: "center" }}
+       
+          >
+          <Stack direction="row"
+           mr={{ xs: "0px", sm:"15px", md: "15px", lg: "15px", xl: "15px"}}
+          mb={{ xs: "10px", sm:"0px", md: "0px", lg: "0px", xl: "0px"}}
+          >
             <Button
-              className="candidatesPageButton"
               onClick={() => onButtonExport()}
               variant="outlined"
             >
               {getFieldLabel('candidates.button.exportToExcel')}
             </Button>
+            </Stack>
             {authorizedUserRoleType === 'Hr' ? (
+              <Stack direction="row"
+               mr={{ xs: "0px", sm:"15px", md: "15px", lg: "15px", xl: "15px"}}
+               >
               <Button
                 onClick={() => addToWork()}
                 className="candidatesPageButton"
@@ -190,10 +218,14 @@ const Candidates = () => {
               >
                 {getFieldLabel('candidates.button.addToWork')}
               </Button>
+              </Stack>
             ) : null}
             <Divider orientation="vertical" variant="middle" flexItem />
+            <Stack ml={{ xs: "0px", sm:"15px", md: "15px", lg: "15px", xl: "15px"}}
+            >           
             <PageSize gridApi={gridApi} />
-          </Stack>
+            </Stack>
+            </Box>
           <Popper open={open} anchorEl={anchorEl} placement="left">
             <CandidatesSearch id={id} />
           </Popper>
