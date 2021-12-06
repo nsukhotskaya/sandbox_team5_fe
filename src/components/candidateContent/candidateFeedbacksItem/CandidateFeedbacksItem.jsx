@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch } from 'react-redux';
-import './CandidateFeedbacksItem.sass';
+import './СandidateFeedbacksItem.sass';
 import { StarRating } from '../index';
 import { getFieldLabel } from '../../../utils';
 import { updateFeedback, createFeedback } from '../../../store/commands';
