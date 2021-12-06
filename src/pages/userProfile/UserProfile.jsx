@@ -12,29 +12,56 @@ import {
 } from '@mui/material';
 import './UserProfile.sass';
 import { TableTemplate } from '../../components/tableTemplate';
-import { columnDefsInternships } from '../../constants';
-import { fetchUserInfo, fetchInternships } from '../../store/commands';
-import { getFieldLabel, tableFiller } from '../../utils';
+import {
+  fetchCandidatesByUser,
+  fetchInternships,
+  fetchAllUsers,
+} from '../../store/commands';
+import {
+  getFieldLabel,
+  tableFillerCandidates,
+  tableFiller,
+  tableFillerAllUsers,
+} from '../../utils';
 import { userProfileListFields } from '../../constants/userProfileListFields';
 import { useMediaDown } from '../../components/utils';
+import { columnDefsUsers } from '../../constants';
 import { header, headerMobile } from '../../constants/calendarHeader';
 import { Calendar } from '../../components/calendar';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
+import { TableTemplateCandidates } from '../../components/tableTemplateCandidates';
+import { TableTemplateInternship } from '../../components/tableTemplateInternship';
 
 const UserProfile = () => {
   const userInfo = useSelector((state) => state.userInfo.userInfo);
   const internships = useSelector((state) => state.internships.internships);
+  const allUsers = useSelector((state) => state.allUsers.allUsers);
+  const assignCandidates = useSelector(
+    (state) => state.assignUserCandidates.assignUserCandidates,
+  );
   const dispatch = useDispatch();
-
   const isLoading = useSelector(
-    loadingSelector(['GET_USER_INFO'], ['GET_INTERNSHIPS']),
+    loadingSelector(
+      ['GET_USER_INFO'],
+      ['GET_INTERNSHIPS'],
+      ['POST_CANDIDATES_BY_USER'],
+    ),
   );
   useEffect(() => {}, [isLoading]);
 
   useEffect(() => {
-    dispatch(fetchUserInfo());
-    dispatch(fetchInternships());
+    if (userInfo.length !== 0) {
+      if (userInfo.roleType === 'Admin' || userInfo.roleType === 'Manager') {
+        dispatch(fetchInternships());
+        dispatch(fetchAllUsers());
+      } else {
+        dispatch(fetchCandidatesByUser(userInfo.id));
+        if (userInfo.roleType === 'Hr') {
+          dispatch(fetchInternships());
+        }
+      }
+    }
   }, []);
   const mobile = useMediaDown('md');
   const large = useMediaDown('lg');
@@ -96,18 +123,28 @@ const UserProfile = () => {
             className={mobile ? 'activityMobile' : 'activity'}
           >
             <Card className="activityTab">
-              <TableTemplate
-                rowData={tableFiller(userInfo, internships)}
-                columnDefs={columnDefsInternships}
-              />
+              {(userInfo.roleType === 'Admin' || userInfo.roleType === 'Manager') ? (
+                <TableTemplate
+                  rowData={tableFillerAllUsers(allUsers)}
+                  columnDefs={columnDefsUsers}
+                />
+              ) : (
+                <TableTemplateCandidates
+                  rowData={tableFillerCandidates(assignCandidates)}
+                />
+              )}
             </Card>
           </Box>
           <Box className={large ? 'calendarMobile' : 'calendar'}>
             <Card className={mobile ? 'calendarCardMobile' : 'calendarCard'}>
-              {userInfo.email && (
+              {userInfo.roleType === 'Interviewer' ? (
                 <Calendar
                   headerType={mobile ? headerMobile : header}
                   email={userInfo.email}
+                />
+              ) : (
+                <TableTemplateInternship
+                  rowData={tableFiller(userInfo, internships)}
                 />
               )}
             </Card>
