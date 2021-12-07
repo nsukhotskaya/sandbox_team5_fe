@@ -4,7 +4,6 @@ import {
   postEvaluationSuccess,
   postEvaluationFailure,
 } from '../actions';
-// import fetchCandidate from './fetchCandidate';
 
 const createEvaluation = (newEvaluation) => async (dispatch) => {
   dispatch(postEvaluationRequest());
@@ -14,7 +13,6 @@ const createEvaluation = (newEvaluation) => async (dispatch) => {
       newEvaluation,
     );
     dispatch(postEvaluationSuccess(response.data));
-    // dispatch(fetchCandidate(feedbackBody.candidateId));
   } catch (error) {
     dispatch(postEvaluationFailure());
   }

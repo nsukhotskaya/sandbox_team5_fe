@@ -28,3 +28,4 @@ export { default as fetchContactTime } from './fetchContactTime';
 export { default as setEventToCalendar } from './setEventToGoogleCalendar';
 export { default as fetchUserInfoById } from './fetchUserInfoById';
 export { default as createEvaluation } from './createEvaluation';
+export { default as fetchEvaluationsByFeedbackId } from './fetchEvaluationsByFeedbackId';
