@@ -56,31 +56,32 @@ export const CandidateMentor = ({ candidateInfo }) => {
 
   return (
     <Box className="assignMentorContainer" p="10px">
-      {(!assignedMentor || editAssignedMentor) && (userInfo.roleType !== 'Interviewer') && (
-        <Box className="assignMentorBox">
-          <Box className="assignMentorSelect">
-            <FormControl size="small" fullWidth>
-              <InputLabel>
-                {getFieldLabel('candidate.assign.mentor.select')}
-              </InputLabel>
-              <Select
-                value={assignMentors}
-                onChange={(event) => setAssignMentors(event.target.value)}
-                label="Assign Mentor"
-              >
-                {mentors.map((user) => (
-                  <MenuItem key={user.id} value={user.id}>
-                    <ListItemText primary={user.userName} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+      {(!assignedMentor || editAssignedMentor) &&
+        userInfo.roleType !== 'Interviewer' && (
+          <Box className="assignMentorBox">
+            <Box className="assignMentorSelect">
+              <FormControl size="small" fullWidth>
+                <InputLabel>
+                  {getFieldLabel('candidate.assign.mentor.select')}
+                </InputLabel>
+                <Select
+                  value={assignMentors}
+                  onChange={(event) => setAssignMentors(event.target.value)}
+                  label="Assign Mentor"
+                >
+                  {mentors.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      <ListItemText primary={user.userName} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Button onClick={handleSubmit} size="small" variant="outlined">
+              {getFieldLabel('common.assign')}
+            </Button>
           </Box>
-          <Button onClick={handleSubmit} size="small" variant="outlined">
-            {getFieldLabel('common.assign')}
-          </Button>
-        </Box>
-      )}
+        )}
       {!!assignedMentor && !editAssignedMentor && (
         <Box>
           <CandidateFeedbacksItem

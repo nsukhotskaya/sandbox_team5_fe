@@ -98,9 +98,11 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
           <Typography variant="h6" fontWeight="300" pr="10px">
             {roleType}
           </Typography>
-          {(userInfo.roleType === 'Admin' || userInfo.roleType ==='Manager') &&(  <IconButton variant="outlined" onClick={handleEditClick}>
-            <EditIcon fontSize="small" />
-          </IconButton>
+          {(userInfo.roleType === 'Admin' ||
+            userInfo.roleType === 'Manager') && (
+            <IconButton variant="outlined" onClick={handleEditClick}>
+              <EditIcon fontSize="small" />
+            </IconButton>
           )}
         </Box>
         {!feedbacks.length ? (
@@ -114,12 +116,10 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
           <Box className="flexBoxRow">
             <Rating value={finalEvaluation} max={4} readOnly pl="200px" />
 
-          <IconButton onClick={handleButton}>
+            <IconButton onClick={handleButton}>
               {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </IconButton>
-
           </Box>
-
         )}
       </Box>
       {!!feedbacks.length && (
