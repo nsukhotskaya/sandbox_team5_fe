@@ -37,7 +37,6 @@ import {
 const utc = require('dayjs/plugin/utc');
 
 dayjs.extend(utc);
-
 export const CandidateInfoEdit = (props) => {
   const { candidateInfo } = props;
   const [open, setOpen] = React.useState(false);
@@ -168,7 +167,6 @@ export const CandidateInfoEdit = (props) => {
               backgroundColor="background.paper"
               zIndex="2"
               boxShadow="0px -4px 10px 0px #c9c9c9"
-              width="100%"
               display="flex"
               justifyContent="space-between"
             >
@@ -180,7 +178,10 @@ export const CandidateInfoEdit = (props) => {
               </IconButton>
             </Box>
             <form onSubmit={formik.handleSubmit}>
-              <Box width="35vw" padding="20px">
+              <Box
+                padding="20px"
+                width={{ lg: '35vw', md: '50vw', sm: '70vw', xs: '100vw' }}
+              >
                 <Stack spacing={2} direction="column">
                   {dataForRenderTextField.map((fieldName) => (
                     <TextField
@@ -248,7 +249,6 @@ export const CandidateInfoEdit = (props) => {
                       formik.setFieldValue('bestContactTime', dateValue)
                     }
                     ampm={false}
-                    // eslint-disable-next-line react/jsx-props-no-spreading
                     renderInput={(params) => <TextField {...params} />}
                   />
                   <FormControl fullWidth>

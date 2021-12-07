@@ -1,10 +1,8 @@
 import React from 'react';
-import { Rating, Box } from '@mui/material';
+import { Rating } from '@mui/material';
 
 const StarFormatter = ({ value }) =>
-  !value ? (
-    <Box>{value}</Box>
-  ) : (
+  !!value && (
     <Rating
       className="starFormatterWrapper"
       name="read-only"

@@ -99,17 +99,23 @@ const UserProfile = () => {
                   <Divider />
                   <List>
                     {userProfileListFields.map((item) => (
-                      <ListItem key={item}>
+                      <ListItem disablePadding key={item}>
                         <ListItemText
-                          primary={getFieldLabel(`profile.${item}`)}
+                          primary={
+                            <Typography fontWeight="bold" variant="body1">
+                              {getFieldLabel(`profile.${item}`)}
+                            </Typography>
+                          }
+                          secondary={
+                            <Typography
+                              padding="0px 0px 0px 0px"
+                              variant="body1"
+                              className="text"
+                            >
+                              {userInfo && userInfo[item]}
+                            </Typography>
+                          }
                         />
-                        <Typography
-                          padding="0px 0px 0px 10px"
-                          variant="body1"
-                          className="text"
-                        >
-                          {userInfo && userInfo[item]}
-                        </Typography>
                       </ListItem>
                     ))}
                   </List>
@@ -124,9 +130,7 @@ const UserProfile = () => {
             <Card className="activityTab">
               {userInfo.roleType === 'Admin' ||
               userInfo.roleType === 'Manager' ? (
-                <TableTemplate
-                  rowData={tableFillerAllUsers(allUsers)}
-                />
+                <TableTemplate rowData={tableFillerAllUsers(allUsers)} />
               ) : (
                 <TableTemplateCandidates
                   rowData={tableFillerCandidates(assignCandidates)}
@@ -143,7 +147,12 @@ const UserProfile = () => {
                 />
               ) : (
                 <TableTemplateInternship
-                  rowData={ userInfo.roleType === 'Admin' || userInfo.roleType === 'Manager' ? internships : tableFiller(userInfo, internships)}
+                  rowData={
+                    userInfo.roleType === 'Admin' ||
+                    userInfo.roleType === 'Manager'
+                      ? internships
+                      : tableFiller(userInfo, internships)
+                  }
                 />
               )}
             </Card>

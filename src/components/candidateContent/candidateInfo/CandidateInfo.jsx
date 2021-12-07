@@ -1,5 +1,6 @@
 import React from 'react';
 import dayjs from 'dayjs';
+import { useSelector } from 'react-redux';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { Box, Typography, Divider, Grid, Chip } from '@mui/material';
 import { getFieldLabel, getChipColorByStatus } from '../../../utils';
@@ -12,6 +13,9 @@ const utc = require('dayjs/plugin/utc');
 
 const CandidateInfo = (props) => {
   const { candidateInfo } = props;
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
 
   dayjs.extend(customParseFormat);
   dayjs.extend(utc);
@@ -40,7 +44,10 @@ const CandidateInfo = (props) => {
           <Typography variant="h4" fontWeight="300" marginRight="10px">
             {`${formatedInfo.firstName} ${formatedInfo.lastName}`}
           </Typography>
-          <CandidateInfoEdit candidateInfo={formatedInfo} />
+          {authorizedUserRole !== 'Interviewer' &&
+            authorizedUserRole !== 'Mentor' && (
+              <CandidateInfoEdit candidateInfo={formatedInfo} />
+            )}
         </Box>
         <Chip
           label={formatedInfo.statusType}
@@ -52,7 +59,13 @@ const CandidateInfo = (props) => {
 
       <Divider />
 
-      <Grid container spacing={2} margin="0 0 0 2%" width="100%">
+      <Grid
+        container
+        spacing={2}
+        margin="0 0 0 2%"
+        width="100%"
+        paddingBottom="5%"
+      >
         {tableCandidateInfoFields.map((item) => (
           <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key={item}>
             <Typography variant="body1" fontWeight="bold">

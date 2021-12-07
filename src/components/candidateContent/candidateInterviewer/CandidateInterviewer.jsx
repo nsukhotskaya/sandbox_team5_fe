@@ -14,7 +14,9 @@ import {
   OutlinedInput,
   DialogActions,
   Typography,
+  IconButton,
 } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import dayjs from 'dayjs';
 import {
   fetchAllUsers,
@@ -26,16 +28,25 @@ import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
 import './candidateInterviewer.sass';
 
+const utc = require('dayjs/plugin/utc');
+
+dayjs.extend(utc);
+
 export const CandidateInterviewer = ({ candidateInfo }) => {
   const allUsers = useSelector((state) => state.allUsers.allUsers);
   const contactTime = useSelector((state) => state.contactTime.contactTime);
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
   const dispatch = useDispatch();
+
+  dayjs.extend(utc);
 
   useEffect(() => {
     dispatch(fetchAllUsers());
   }, []);
 
-  const [assignInterviewers, setAssignInterviewers] = useState(null);
+  const [assignInterviewers, setAssignInterviewers] = useState('');
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
   const [interviewDate, setInterviewDate] = useState(null);
   const [interviewTime, setInterviewTime] = useState(null);
@@ -95,7 +106,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
         candidateInfo.id,
       )
     : false;
-    
+
   const name = `${candidateInfo.firstName} ${candidateInfo.lastName}`;
 
   const handleTimeSubmit = () => {
@@ -110,8 +121,8 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
     }
     dispatch(
       setEventToCalendar({
-        startTime: interviewTime.startTime,
-        endTime: interviewTime.endTime,
+        startTime: dayjs.utc(interviewTime.startTime).format(),
+        endTime: dayjs.utc(interviewTime.endTime).format(),
         interviewerEmail: assignedInterviewer.email,
         id: interviewTime.id,
         candidateName: name,
@@ -133,31 +144,36 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
 
   return (
     <Box className="assignInterviewerContainer" p="10px">
-      {(!assignedInterviewer || editAssignedInterviewer) && (
-        <Box className="assignInterviewerBox">
-          <Box className="assignInterviewerSelect">
-            <FormControl size="small" fullWidth>
-              <InputLabel>
-                {getFieldLabel('candidate.assign.interviewer.select')}
-              </InputLabel>
-              <Select
-                value={assignInterviewers}
-                onChange={(event) => setAssignInterviewers(event.target.value)}
-                label="Assign Interviewer"
-              >
-                {interviewers.map((userType) => (
-                  <MenuItem key={userType.id} value={userType.id}>
-                    <ListItemText primary={userType.userName} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+      {(authorizedUserRole === 'Hr' ||
+        authorizedUserRole === 'Manager' ||
+        authorizedUserRole === 'Admin') &&
+        (!assignedInterviewer || editAssignedInterviewer) && (
+          <Box className="assignInterviewerBox">
+            <Box className="assignInterviewerSelect">
+              <FormControl size="small" fullWidth>
+                <InputLabel>
+                  {getFieldLabel('candidate.assign.interviewer.select')}
+                </InputLabel>
+                <Select
+                  value={assignInterviewers}
+                  onChange={(event) =>
+                    setAssignInterviewers(event.target.value)
+                  }
+                  label="Assign Interviewer"
+                >
+                  {interviewers.map((userType) => (
+                    <MenuItem key={userType.id} value={userType.id}>
+                      <ListItemText primary={userType.userName} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Button onClick={handleSubmit} size="small" variant="outlined">
+              {getFieldLabel('common.assign')}
+            </Button>
           </Box>
-          <Button onClick={handleSubmit} size="small" variant="outlined">
-            {getFieldLabel('common.assign')}
-          </Button>
-        </Box>
-      )}
+        )}
       {!isInterviewsSet && assignedInterviewer && (
         <Box
           display="flex"
@@ -178,10 +194,25 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
             <Typography variant="h6" fontWeight="300" pr="10px">
               {assignedInterviewer.roleType}
             </Typography>
+
+            {(authorizedUserRole === 'Admin' ||
+              authorizedUserRole === 'Manager' ||
+              authorizedUserRole === 'Hr') && (
+              <IconButton
+                variant="outlined"
+                onClick={handleEditInterviewerClick}
+              >
+                <EditIcon fontSize="small" />
+              </IconButton>
+            )}
           </Box>
-          <Button variant="outlined" onClick={handleClickOpen}>
-            Set Interview Time
-          </Button>
+          {(authorizedUserRole === 'Admin' ||
+            authorizedUserRole === 'Manager' ||
+            authorizedUserRole === 'Hr') && (
+            <Button variant="outlined" onClick={handleClickOpen}>
+              {getFieldLabel('candidate.set.interview')}
+            </Button>
+          )}
           <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
             <DialogTitle>Set Date and Time</DialogTitle>
             <DialogContent>

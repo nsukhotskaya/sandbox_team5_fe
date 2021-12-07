@@ -4,6 +4,7 @@ import { AgGridReact, AgGridColumn } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { LinkFormatterInternships } from '../linkFormatterInternships';
+import { getFieldLabel } from '../../utils';
 
 export default class TableTemplateInternship extends React.Component {
   constructor(props) {
@@ -28,12 +29,20 @@ export default class TableTemplateInternship extends React.Component {
           <AgGridColumn
             field="name"
             sortable
+            suppressMovable
+            headerName={getFieldLabel('internship.table.name')}
             key="name"
             resizable
             minWidth={200}
             cellRenderer="linkFormatter"
           />
-          <AgGridColumn field="internshipStatusType" resizable minWidth={200} />
+          <AgGridColumn
+            field="internshipStatusType"
+            headerName={getFieldLabel('internship.table.status')}
+            resizable
+            suppressMovable
+            minWidth={200}
+          />
         </AgGridReact>
       </Box>
     );

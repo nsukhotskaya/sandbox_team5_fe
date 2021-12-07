@@ -16,13 +16,17 @@ import './candidateMentor.sass';
 
 export const CandidateMentor = ({ candidateInfo }) => {
   const allUsers = useSelector((state) => state.allUsers.allUsers);
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAllUsers());
   }, []);
 
-  const [assignMentors, setAssignMentors] = useState(null);
+  const [assignMentors, setAssignMentors] = useState('');
   const [editAssignedMentor, setEditAssignedMentor] = useState(false);
 
   const mentors = allUsers.filter((user) => user.roleType === 'Mentor');
@@ -55,31 +59,34 @@ export const CandidateMentor = ({ candidateInfo }) => {
 
   return (
     <Box className="assignMentorContainer" p="10px">
-      {(!assignedMentor || editAssignedMentor) && (
-        <Box className="assignMentorBox">
-          <Box className="assignMentorSelect">
-            <FormControl size="small" fullWidth>
-              <InputLabel>
-                {getFieldLabel('candidate.assign.mentor.select')}
-              </InputLabel>
-              <Select
-                value={assignMentors}
-                onChange={(event) => setAssignMentors(event.target.value)}
-                label="Assign Mentor"
-              >
-                {mentors.map((user) => (
-                  <MenuItem key={user.id} value={user.id}>
-                    <ListItemText primary={user.userName} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+      {(!assignedMentor || editAssignedMentor) &&
+        (authorizedUserRole === 'Hr' ||
+          authorizedUserRole === 'Manager' ||
+          authorizedUserRole === 'Admin') && (
+          <Box className="assignMentorBox">
+            <Box className="assignMentorSelect">
+              <FormControl size="small" fullWidth>
+                <InputLabel>
+                  {getFieldLabel('candidate.assign.mentor.select')}
+                </InputLabel>
+                <Select
+                  value={assignMentors}
+                  onChange={(event) => setAssignMentors(event.target.value)}
+                  label="Assign Mentor"
+                >
+                  {mentors.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      <ListItemText primary={user.userName} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Button onClick={handleSubmit} size="small" variant="outlined">
+              {getFieldLabel('common.assign')}
+            </Button>
           </Box>
-          <Button onClick={handleSubmit} size="small" variant="outlined">
-            {getFieldLabel('common.assign')}
-          </Button>
-        </Box>
-      )}
+        )}
       {!!assignedMentor && !editAssignedMentor && (
         <Box>
           <CandidateFeedbacksItem

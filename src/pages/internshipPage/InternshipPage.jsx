@@ -7,18 +7,18 @@ import { fetchInternshipById, updateInternship } from '../../store/commands';
 import { InternshipInfo } from '../../components/internshipInfo';
 import { SidePopUp } from '../../components';
 import { useMediaDown } from '../../components/utils';
-import { columnDefsUsers } from '../../constants';
 import { TableTemplate } from '../../components/tableTemplate';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
-import { InternshipData } from '../../utils';
+import { InternshipData, tableFillerAllUsers } from '../../utils';
 
 const InternshipPage = () => {
   const { id } = useParams();
+  const rawData = [];
   const [popUpActive, setPopUpActive] = useState(false);
   const internship = useSelector((state) => state.internship.internship);
   const dispatch = useDispatch();
-  const rawData = [];
+
   const isLoading = useSelector(loadingSelector(['GET_INTERNSHIP_BY_ID']));
   const mobile = useMediaDown('md');
   const openPopUpWindow = () => {
@@ -52,11 +52,11 @@ const InternshipPage = () => {
                 internship.users.forEach((item) =>
                   rawData.push({
                     userName: item.userName,
-                    role: item.roleType,
+                    roleType: item.roleType,
                     position: item.position,
                   }),
                 )}
-              <TableTemplate rowData={rawData} columnDefs={columnDefsUsers} />
+              <TableTemplate rowData={tableFillerAllUsers(rawData)} />
             </Card>
           </Box>
           {initialData && (
