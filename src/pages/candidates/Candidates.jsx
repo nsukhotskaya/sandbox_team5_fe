@@ -319,13 +319,6 @@ const Candidates = () => {
               cellRenderer="starFormatter"
             />
             <AgGridColumn
-              field="testTaskEvaluation"
-              headerName={getFieldLabel('candidates.table.testTaskEvaluation')}
-              sortable
-              resizable
-              flex={1}
-            />
-            <AgGridColumn
               field="statusType"
               headerName={getFieldLabel('candidates.table.statusType')}
               sortable
