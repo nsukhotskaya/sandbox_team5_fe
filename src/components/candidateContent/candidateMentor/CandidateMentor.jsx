@@ -24,6 +24,7 @@ export const CandidateMentor = ({ candidateInfo }) => {
 
   const [assignMentors, setAssignMentors] = useState(null);
   const [editAssignedMentor, setEditAssignedMentor] = useState(false);
+  const userInfo = useSelector((state) => state.userInfo.userInfo);
 
   const mentors = allUsers.filter((user) => user.roleType === 'Mentor');
 
@@ -55,7 +56,7 @@ export const CandidateMentor = ({ candidateInfo }) => {
 
   return (
     <Box className="assignMentorContainer" p="10px">
-      {(!assignedMentor || editAssignedMentor) && (
+      {(!assignedMentor || editAssignedMentor) && (userInfo.roleType !== 'Interviewer') && (
         <Box className="assignMentorBox">
           <Box className="assignMentorSelect">
             <FormControl size="small" fullWidth>
