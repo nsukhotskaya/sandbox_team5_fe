@@ -14,7 +14,7 @@ import { InternshipData, tableFillerAllUsers } from '../../utils';
 
 const InternshipPage = () => {
   const { id } = useParams();
-  const rawData=[];
+  const rawData = [];
   const [popUpActive, setPopUpActive] = useState(false);
   const internship = useSelector((state) => state.internship.internship);
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const InternshipPage = () => {
                   : 'internshipDataEmployees'
               }
             >
-               {internship.users &&
+              {internship.users &&
                 internship.users.forEach((item) =>
                   rawData.push({
                     userName: item.userName,
@@ -55,7 +55,7 @@ const InternshipPage = () => {
                     position: item.position,
                   }),
                 )}
-              <TableTemplate rowData={tableFillerAllUsers(rawData)}/>
+              <TableTemplate rowData={tableFillerAllUsers(rawData)} />
             </Card>
           </Box>
           {initialData && (

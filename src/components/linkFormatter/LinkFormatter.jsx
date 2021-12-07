@@ -12,11 +12,12 @@ const LinkFormatter = ({ value, data }) => {
   };
 
   return (
-    <Tooltip title={getFieldLabel('table.candidates.tooltip')
-    .replace(
-      /%(\w*)%/,
-      `${value}`,
-    )}>
+    <Tooltip
+      title={getFieldLabel('table.candidates.tooltip').replace(
+        /%(\w*)%/,
+        `${value}`,
+      )}
+    >
       <Box className="linkFormatterWrapper" onClick={handleClick}>
         {value}
       </Box>

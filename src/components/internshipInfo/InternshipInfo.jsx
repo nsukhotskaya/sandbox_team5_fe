@@ -69,20 +69,39 @@ const InternshipInfo = (props) => {
           </Box>
           <List>
             <ListItem disablePadding>
-                <Typography width="120px" paddingBottom="10px" fontWeight="bold" variant="body1">
-                    {getFieldLabel('internship.page.date')}
-                </Typography>
-                <Typography paddingBottom="10px" variant="body2" paddingLeft="10px">
-                  {dayjs(internshipInfo.startDate).format('D.MM.YYYY')} -{' '}
-                  {dayjs(internshipInfo.endDate).format('D.MM.YYYY')}
-                </Typography>
+              <Typography
+                width="120px"
+                paddingBottom="10px"
+                fontWeight="bold"
+                variant="body1"
+              >
+                {getFieldLabel('internship.page.date')}
+              </Typography>
+              <Typography
+                paddingBottom="10px"
+                variant="body2"
+                paddingLeft="10px"
+              >
+                {dayjs(internshipInfo.startDate).format('D.MM.YYYY')} -{' '}
+                {dayjs(internshipInfo.endDate).format('D.MM.YYYY')}
+              </Typography>
             </ListItem>
             {internshipHard.map((item) => (
               <ListItem key={Object.keys(item)} disablePadding>
-                <Typography width="120px" paddingBottom="10px" fontWeight="bold" variant="body1">
+                <Typography
+                  width="120px"
+                  paddingBottom="10px"
+                  fontWeight="bold"
+                  variant="body1"
+                >
                   {getFieldLabel(`internship.page.${Object.keys(item)}`)}
                 </Typography>
-                <Typography paddingBottom="10px" paddingLeft="10px" className="internshipInfoValue" variant="body2">
+                <Typography
+                  paddingBottom="10px"
+                  paddingLeft="10px"
+                  className="internshipInfoValue"
+                  variant="body2"
+                >
                   {internshipInfo[Object.keys(item)] &&
                     internshipInfo[Object.keys(item)].map((secondItem) =>
                       secondItem[Object.values(item)].concat(' '),
@@ -92,11 +111,21 @@ const InternshipInfo = (props) => {
             ))}
             {internshipMainInfo.map((item) => (
               <ListItem key={item} disablePadding>
-                    <Typography width="120px" paddingBottom="10px" fontWeight="bold" variant="body1">
-                      {getFieldLabel(`internship.page.${item}`)}
-                    </Typography>
+                <Typography
+                  width="120px"
+                  paddingBottom="10px"
+                  fontWeight="bold"
+                  variant="body1"
+                >
+                  {getFieldLabel(`internship.page.${item}`)}
+                </Typography>
 
-                <Typography paddingBottom="10px" paddingLeft="10px" className="internshipInfoValue" variant="body2">
+                <Typography
+                  paddingBottom="10px"
+                  paddingLeft="10px"
+                  className="internshipInfoValue"
+                  variant="body2"
+                >
                   {internshipInfo[item]}
                 </Typography>
               </ListItem>
@@ -116,13 +145,13 @@ const InternshipInfo = (props) => {
                 <Typography className="internshipInfoValue" variant="body2">
                   {internshipInfo[Object.keys(item)] !== 0 ? (
                     <Tooltip title={getFieldLabel('download.tooltip')}>
-                    <Link
-                      href={`http://petrov2021-001-site1.btempurl.com/api/Report/getCandidatesReportByInternshipId?InternshipId=${
-                        internshipInfo.id
-                      }&ReportType=${[Object.values(item)]}`}
-                    >
-                      {internshipInfo[Object.keys(item)]}
-                    </Link>
+                      <Link
+                        href={`http://petrov2021-001-site1.btempurl.com/api/Report/getCandidatesReportByInternshipId?InternshipId=${
+                          internshipInfo.id
+                        }&ReportType=${[Object.values(item)]}`}
+                      >
+                        {internshipInfo[Object.keys(item)]}
+                      </Link>
                     </Tooltip>
                   ) : (
                     internshipInfo[Object.keys(item)]
