@@ -195,19 +195,21 @@ export const FilterCandidates = ({ onFilter }) => {
               ))}
             </Select>
           </FormControl>
-          <FormControl size="small" fullWidth>
-            <FormControlLabel
-              className="filterFormControlLabel"
-              control={
-                <Checkbox
-                  checked={checked}
-                  onChange={handleChange}
-                  inputProps={{ 'aria-label': 'controlled' }}
-                />
-              }
-              label="My candidates"
-            />
-          </FormControl>
+          {authorizedUser.roleType === 'Hr' && (
+            <FormControl size="small" fullWidth>
+              <FormControlLabel
+                className="filterFormControlLabel"
+                control={
+                  <Checkbox
+                    checked={checked}
+                    onChange={handleChange}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                  />
+                }
+                label="My candidates"
+              />
+            </FormControl>
+          )}
           <Button onClick={handleSubmit} size="small" variant="contained">
             {getFieldLabel('common.filter')}
           </Button>
