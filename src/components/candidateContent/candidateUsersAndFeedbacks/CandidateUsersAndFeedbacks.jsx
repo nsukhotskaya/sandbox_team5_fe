@@ -1,10 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Box, Typography, Divider } from '@mui/material';
 import './candidateUsersAndFeedbacks.sass';
 import { CandidateHr, CandidateInterviewer, CandidateMentor } from '../index';
 import { getFieldLabel } from '../../../utils';
 
 export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
+  const userInfo = useSelector((state) => state.userInfo.userInfo);
   const assignedHr = candidateInfo.users?.find(
     (userType) => userType.roleType === 'Hr',
   );
@@ -28,7 +30,7 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
       <Box marginTop="2%">
         <CandidateHr candidateInfo={candidateInfo} />
         {!!assignedHr && <CandidateInterviewer candidateInfo={candidateInfo} />}
-        {!!assignedInterviewer && (
+        {!!assignedInterviewer && (userInfo.roleType !== "Interviewer") && (
           <CandidateMentor candidateInfo={candidateInfo} />
         )}
       </Box>

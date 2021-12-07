@@ -11,7 +11,7 @@ import {
   Button,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './СandidateFeedbacksItem.sass';
 import { StarRating } from '../index';
 import { getFieldLabel } from '../../../utils';
@@ -30,7 +30,7 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
     feedbacks.length ? feedback.finalEvaluation : 0,
   );
   const [editMode, setEditMode] = React.useState(false);
-
+  const userInfo = useSelector((state) => state.userInfo.userInfo);
   const updateToNewFeedback = () => {
     const newFeedback = {
       id: feedback.id,
@@ -102,7 +102,7 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
             <EditIcon fontSize="small" />
           </IconButton>
         </Box>
-        {!feedbacks.length ? (
+        {!feedbacks.length ? (user.roleType === userInfo.roleType || userInfo.roleType === "Admin" ) && (
           <Button variant="outlined" onClick={handleClick}>
             {getFieldLabel('candidateFeedbacks.button.createFeedback')}
           </Button>
