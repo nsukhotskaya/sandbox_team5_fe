@@ -34,7 +34,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
   useEffect(() => {
     dispatch(fetchAllUsers());
   }, []);
-
+  const loggedInUserInfo = useSelector((state) => state.userInfo.userInfo);
   const [assignInterviewers, setAssignInterviewers] = useState(null);
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
   const [interviewDate, setInterviewDate] = useState(null);
@@ -133,31 +133,35 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
 
   return (
     <Box className="assignInterviewerContainer" p="10px">
-      {(!assignedInterviewer || editAssignedInterviewer) && (
-        <Box className="assignInterviewerBox">
-          <Box className="assignInterviewerSelect">
-            <FormControl size="small" fullWidth>
-              <InputLabel>
-                {getFieldLabel('candidate.assign.interviewer.select')}
-              </InputLabel>
-              <Select
-                value={assignInterviewers}
-                onChange={(event) => setAssignInterviewers(event.target.value)}
-                label="Assign Interviewer"
-              >
-                {interviewers.map((userType) => (
-                  <MenuItem key={userType.id} value={userType.id}>
-                    <ListItemText primary={userType.userName} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+      {(loggedInUserInfo.roleType === 'Hr' ||
+        loggedInUserInfo.roleType === 'Manager') &&
+        (!assignedInterviewer || editAssignedInterviewer) && (
+          <Box className="assignInterviewerBox">
+            <Box className="assignInterviewerSelect">
+              <FormControl size="small" fullWidth>
+                <InputLabel>
+                  {getFieldLabel('candidate.assign.interviewer.select')}
+                </InputLabel>
+                <Select
+                  value={assignInterviewers}
+                  onChange={(event) =>
+                    setAssignInterviewers(event.target.value)
+                  }
+                  label="Assign Interviewer"
+                >
+                  {interviewers.map((userType) => (
+                    <MenuItem key={userType.id} value={userType.id}>
+                      <ListItemText primary={userType.userName} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Button onClick={handleSubmit} size="small" variant="outlined">
+              {getFieldLabel('common.assign')}
+            </Button>
           </Box>
-          <Button onClick={handleSubmit} size="small" variant="outlined">
-            {getFieldLabel('common.assign')}
-          </Button>
-        </Box>
-      )}
+        )}
       {!isInterviewsSet && assignedInterviewer && (
         <Box
           display="flex"
