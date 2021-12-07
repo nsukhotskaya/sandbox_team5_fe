@@ -51,7 +51,7 @@ const formatStackType = (stackType) => {
   }
 };
 
-export const CandidateInterviewer = ({ candidateInfo, allUsers }) => {
+export const CandidateInterviewer = ({ candidateInfo, allUsers, stack }) => {
   const contactTime = useSelector((state) => state.contactTime.contactTime);
   const skills = useSelector((state) => state.skills.skills);
   const dispatch = useDispatch();
@@ -61,7 +61,7 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers }) => {
   );
 
   useEffect(() => {
-    dispatch(fetchSkillsByStackType(formatStackType(candidateInfo.stackType)));
+    dispatch(fetchSkillsByStackType(formatStackType(stack)));
   }, []);
 
   const [assignInterviewers, setAssignInterviewers] = useState([]);

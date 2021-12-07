@@ -4,15 +4,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import './candidateUsersAndFeedbacks.sass';
 import { CandidateHr, CandidateInterviewer, CandidateMentor } from '../index';
 import { getFieldLabel } from '../../../utils';
-import { fetchAllUsers } from '../../../store/commands';
+import { fetchAllUsers, fetchStacksByInternshipId } from '../../../store/commands';
 
 export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers.allUsers);
+  const stacksByInternshipId = useSelector((state) => state.stacksByInternshipId.stacksByInternshipId);
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
   );
+
   useEffect(() => {
+    if(candidateInfo.internshipId){dispatch(fetchStacksByInternshipId(candidateInfo.internshipId))}
     if (authorizedUserRole !== 'Interviewer') {
       dispatch(fetchAllUsers());
     }
@@ -40,10 +43,11 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
       <Divider />
       <Box marginTop="2%">
         <CandidateHr candidateInfo={candidateInfo} allUsers={allUsers} />
-        {!!assignedHr && (
+        {(!!assignedHr && !!stacksByInternshipId.length) && (
           <CandidateInterviewer
             candidateInfo={candidateInfo}
             allUsers={allUsers}
+            stack={stacksByInternshipId[0].technologyStackType}
           />
         )}
         {!!assignedInterviewer && (
