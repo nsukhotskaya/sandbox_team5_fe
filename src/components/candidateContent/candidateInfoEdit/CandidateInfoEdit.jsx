@@ -37,7 +37,6 @@ import {
 const utc = require('dayjs/plugin/utc');
 
 dayjs.extend(utc);
-
 export const CandidateInfoEdit = (props) => {
   const { candidateInfo } = props;
   const [open, setOpen] = React.useState(false);
@@ -144,6 +143,8 @@ export const CandidateInfoEdit = (props) => {
       array: stacksListAdapted,
     },
   ];
+
+  console.log('privet')
 
   const formik = useFormik({
     initialValues: formatedInitInfo,
