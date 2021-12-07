@@ -34,10 +34,15 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
       </Box>
       <Divider />
       <Box marginTop="2%">
-        <CandidateHr candidateInfo={candidateInfo} allUsers={allUsers}/>
-        {!!assignedHr && <CandidateInterviewer candidateInfo={candidateInfo} allUsers={allUsers}/>}
+        <CandidateHr candidateInfo={candidateInfo} allUsers={allUsers} />
+        {!!assignedHr && (
+          <CandidateInterviewer
+            candidateInfo={candidateInfo}
+            allUsers={allUsers}
+          />
+        )}
         {!!assignedInterviewer && (
-          <CandidateMentor candidateInfo={candidateInfo} allUsers={allUsers}/>
+          <CandidateMentor candidateInfo={candidateInfo} allUsers={allUsers} />
         )}
       </Box>
     </Box>

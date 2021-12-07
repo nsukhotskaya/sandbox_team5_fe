@@ -1,7 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Box } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
 import './LinkFormatter.sass';
+import { getFieldLabel } from '../../utils';
 
 const LinkFormatter = ({ value, data }) => {
   const { id } = data;
@@ -11,9 +12,16 @@ const LinkFormatter = ({ value, data }) => {
   };
 
   return (
-    <Box className="linkFormatterWrapper" onClick={handleClick}>
-      {value}
-    </Box>
+    <Tooltip
+      title={getFieldLabel('table.candidates.tooltip').replace(
+        /%(\w*)%/,
+        `${value}`,
+      )}
+    >
+      <Box className="linkFormatterWrapper" onClick={handleClick}>
+        {value}
+      </Box>
+    </Tooltip>
   );
 };
 

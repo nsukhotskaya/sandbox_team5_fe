@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
   Button,
@@ -18,7 +18,9 @@ export const CandidateHr = ({ candidateInfo, allUsers }) => {
   const dispatch = useDispatch();
   const [assignHRs, setAssignHRs] = useState([]);
   const hrs = allUsers.filter((user) => user.roleType === 'Hr');
-
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
   const userIds = [assignHRs];
   const { skip, take, searchText, sortBy, isDesc, ...newCandidate } =
     candidateInfo;
@@ -49,31 +51,34 @@ export const CandidateHr = ({ candidateInfo, allUsers }) => {
 
   return (
     <Box className="assignHrContainer" p="10px">
-      {(!assignedHr || editAssignedHr) && (
-        <Box className="assignHrBox">
-          <Box className="assignHrSelect">
-            <FormControl size="small" fullWidth>
-              <InputLabel>
-                {getFieldLabel('candidate.assign.hr.select')}
-              </InputLabel>
-              <Select
-                value={assignHRs}
-                onChange={(event) => setAssignHRs(event.target.value)}
-                label="Assign HR"
-              >
-                {hrs.map((user) => (
-                  <MenuItem key={user.id} value={user.id}>
-                    <ListItemText primary={user.userName} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+      {(authorizedUserRole === 'Hr' ||
+        authorizedUserRole === 'Manager' ||
+        authorizedUserRole === 'Admin') &&
+        (!assignedHr || editAssignedHr) && (
+          <Box className="assignHrBox">
+            <Box className="assignHrSelect">
+              <FormControl size="small" fullWidth>
+                <InputLabel>
+                  {getFieldLabel('candidate.assign.hr.select')}
+                </InputLabel>
+                <Select
+                  value={assignHRs}
+                  onChange={(event) => setAssignHRs(event.target.value)}
+                  label="Assign HR"
+                >
+                  {hrs.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      <ListItemText primary={user.userName} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Button onClick={handleSubmit} size="small" variant="outlined">
+              {getFieldLabel('common.assign')}
+            </Button>
           </Box>
-          <Button onClick={handleSubmit} size="small" variant="outlined">
-            {getFieldLabel('common.assign')}
-          </Button>
-        </Box>
-      )}
+        )}
       {!!assignedHr && !editAssignedHr && (
         <Box>
           <CandidateFeedbacksItem

@@ -37,7 +37,6 @@ import {
 const utc = require('dayjs/plugin/utc');
 
 dayjs.extend(utc);
-
 export const CandidateInfoEdit = (props) => {
   const { candidateInfo } = props;
   const [open, setOpen] = React.useState(false);

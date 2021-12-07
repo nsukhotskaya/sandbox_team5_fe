@@ -1,6 +1,4 @@
-import React, {
-  useEffect
-} from 'react';
+import React, { useEffect } from 'react';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -13,15 +11,22 @@ import {
   Button,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './СandidateFeedbacksItem.sass';
 import { StarRating } from '../index';
 import { getFieldLabel } from '../../../utils';
-import { updateFeedback, createFeedback, 
+import {
+  updateFeedback,
+  createFeedback,
   // createEvaluation
- } from '../../../store/commands';
+} from '../../../store/commands';
 
-const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }) => {
+const CandidateFeedbacksItem = ({
+  user,
+  candidateInfo,
+  handleEditClick,
+  skills,
+}) => {
   const dispatch = useDispatch();
   const [isCriteriaShown, setIsCriteriaShown] = React.useState(true);
   const now = new Date(Date.now());
@@ -35,28 +40,30 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
   );
   const [editMode, setEditMode] = React.useState(false);
   const [skillsEvaluations, setSkillsEvaluations] = React.useState([]);
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
 
   useEffect(() => {
     if (skills) {
       setSkillsEvaluations(
-        skills.map((skill)=>(
-        {
-          feedbackId: feedback.id, 
+        skills.map((skill) => ({
+          feedbackId: feedback.id,
           skillId: skill.id,
           value: 0,
           skill,
-        }
-      )))
-    //   skillsEvaluations=skills.map((skill)=>(
-    //   {
-    //     feedbackId: feedback.id, 
-    //     skillId: skill.id,
-    //     value: 0,
-    //     skill,
-    //   }
-    // ))
-    // skillsEvaluations.map((newEvaluation) => (dispatch(createEvaluation(newEvaluation))));
-  }
+        })),
+      );
+      //   skillsEvaluations=skills.map((skill)=>(
+      //   {
+      //     feedbackId: feedback.id,
+      //     skillId: skill.id,
+      //     value: 0,
+      //     skill,
+      //   }
+      // ))
+      // skillsEvaluations.map((newEvaluation) => (dispatch(createEvaluation(newEvaluation))));
+    }
   }, [skills]);
 
   const updateToNewFeedback = () => {
@@ -113,11 +120,11 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
   const handleAddEvaluations = (value, evaluationName) => {
     const newSkillsEvaluation = skillsEvaluations.map((skill) => {
       if (skill.skill.name === evaluationName) {
-        const newSkill = {...skill}
-        newSkill.value = value
-        return newSkill
+        const newSkill = { ...skill };
+        newSkill.value = value;
+        return newSkill;
       }
-      return skill
+      return skill;
     });
     setSkillsEvaluations(newSkillsEvaluation);
   };
@@ -128,9 +135,9 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
 
   const handleSaveButton = () => {
     handleEditMode();
-    console.log(feedback.evaluations)
-    console.log(skillsEvaluations)
-    console.log(updateToNewFeedback())
+    console.log(feedback.evaluations);
+    console.log(skillsEvaluations);
+    console.log(updateToNewFeedback());
     dispatch(updateFeedback(updateToNewFeedback()));
   };
 
@@ -154,17 +161,27 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
           <Typography variant="h6" fontWeight="300" pr="10px">
             {roleType}
           </Typography>
-          <IconButton variant="outlined" onClick={handleEditClick}>
-            <EditIcon fontSize="small" />
-          </IconButton>
+          {(authorizedUserRole === 'Admin' ||
+            authorizedUserRole === 'Manager' ||
+            authorizedUserRole === 'Hr') && (
+            <IconButton variant="outlined" onClick={handleEditClick}>
+              <EditIcon fontSize="small" />
+            </IconButton>
+          )}
         </Box>
         {!feedbacks.length ? (
-          <Button variant="outlined" onClick={handleClick}>
-            {getFieldLabel('candidateFeedbacks.button.createFeedback')}
-          </Button>
+          (user.roleType === authorizedUserRole ||
+            authorizedUserRole === 'Admin' ||
+            authorizedUserRole === 'Manager') && (
+            <Button variant="outlined" onClick={handleClick}>
+              {getFieldLabel('candidateFeedbacks.button.createFeedback')}
+            </Button>
+          )
         ) : (
           <Box className="flexBoxRow">
-            {!isCriteriaShown && <Rating value={finalEvaluation} max={4} readOnly pl="200px" />}
+            {!isCriteriaShown && (
+              <Rating value={finalEvaluation} max={4} readOnly pl="200px" />
+            )}
             <IconButton onClick={handleButton}>
               {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </IconButton>
@@ -174,27 +191,27 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
       {!!feedbacks.length && (
         <Collapse in={isCriteriaShown}>
           <Box className="collapseContainer">
-            {(user.roleType==="Interviewer" && skillsEvaluations.length!==0) &&
-              (!feedback.evaluations.length ? 
-                skillsEvaluations.map((skill) => (
-                <StarRating
-                  key={skill.skillId}
-                  title={skill.skill.name}
-                  grade={skill.value}
-                  editMode={editMode}
-                  callbackFunction={handleAddEvaluations}
-                />))
-                :
-                feedback.evaluations.map((skill) => (
-                <StarRating
-                  key={skill.skillId}
-                  title={skill.skill.name}
-                  grade={skill.value}
-                  editMode={editMode}
-                  callbackFunction={handleAddEvaluations}
-                />
-              )))
-            }
+            {user.roleType === 'Interviewer' &&
+              skillsEvaluations.length !== 0 &&
+              (!feedback.evaluations.length
+                ? skillsEvaluations.map((skill) => (
+                    <StarRating
+                      key={skill.skillId}
+                      title={skill.skill.name}
+                      grade={skill.value}
+                      editMode={editMode}
+                      callbackFunction={handleAddEvaluations}
+                    />
+                  ))
+                : feedback.evaluations.map((skill) => (
+                    <StarRating
+                      key={skill.skillId}
+                      title={skill.skill.name}
+                      grade={skill.value}
+                      editMode={editMode}
+                      callbackFunction={handleAddEvaluations}
+                    />
+                  )))}
             <TextField
               value={description}
               multiline
@@ -211,15 +228,18 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
               editMode={editMode}
               callbackFunction={handleChangeFinalEvaluation}
             />
-            {editMode ? (
-              <Button variant="outlined" onClick={handleSaveButton}>
-                {getFieldLabel('common.save')}
-              </Button>
-            ) : (
-              <Button variant="outlined" onClick={handleEditMode}>
-                {getFieldLabel('common.edit')}
-              </Button>
-            )}
+            {(authorizedUserRole === user.roleType ||
+              authorizedUserRole === 'Admin' ||
+              authorizedUserRole === 'Manager') &&
+              (editMode ? (
+                <Button variant="outlined" onClick={handleSaveButton}>
+                  {getFieldLabel('common.save')}
+                </Button>
+              ) : (
+                <Button variant="outlined" onClick={handleEditMode}>
+                  {getFieldLabel('common.edit')}
+                </Button>
+              ))}
           </Box>
         </Collapse>
       )}

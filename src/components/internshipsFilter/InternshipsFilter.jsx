@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import {
   Popover,
@@ -20,7 +20,6 @@ import DatePicker from '@mui/lab/DatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import CloseIcon from '@mui/icons-material/Close';
-import { fetchAllUsers } from '../../store/commands';
 import { getFieldLabel } from '../../utils';
 
 export const InternshipsFilter = ({ onFilter }) => {
@@ -29,11 +28,6 @@ export const InternshipsFilter = ({ onFilter }) => {
   const stacksList = useSelector((state) => state.stacks.stacks);
   const languagesList = useSelector((state) => state.languages.languages);
   const allUsers = useSelector((state) => state.allUsers.allUsers);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllUsers());
-  }, []);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
