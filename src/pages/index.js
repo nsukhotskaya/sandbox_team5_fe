@@ -6,4 +6,4 @@ export { CandidateProfile } from './candidateProfile';
 export { InternshipPage } from './internshipPage';
 export { Internships } from './internships';
 export { NotFoundPage } from './notFoundPage';
-export { EmployeesProfile} from './employeesProfile';
+export { EmployeesProfile } from './employeesProfile';
