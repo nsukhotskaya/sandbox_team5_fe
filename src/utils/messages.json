@@ -163,5 +163,6 @@
   "table.users.tooltip":"Go to %value% profile",
   "table.candidates.tooltip":"Go to candidate %value%",
   "table.internships.tooltip":"Go to %value% internship",
-  "download.tooltip":"Download report"
+  "download.tooltip":"Download report",
+  "candidate.set.interview": "Set Interview Time"
 }

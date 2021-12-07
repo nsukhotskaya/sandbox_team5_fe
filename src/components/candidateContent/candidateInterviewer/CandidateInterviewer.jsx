@@ -210,7 +210,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
             authorizedUserRole === 'Manager' ||
             authorizedUserRole === 'Hr') && (
             <Button variant="outlined" onClick={handleClickOpen}>
-              Set Interview Time
+              {getFieldLabel('candidate.set.interview')}
             </Button>
           )}
           <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
