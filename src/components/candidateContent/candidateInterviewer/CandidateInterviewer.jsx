@@ -194,9 +194,17 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
             <Typography variant="h6" fontWeight="300" pr="10px">
               {assignedInterviewer.roleType}
             </Typography>
-            <IconButton variant="outlined" onClick={handleEditInterviewerClick}>
-              <EditIcon fontSize="small" />
-            </IconButton>
+
+            {(authorizedUserRole === 'Admin' ||
+              authorizedUserRole === 'Manager' ||
+              authorizedUserRole === 'Hr') && (
+              <IconButton
+                variant="outlined"
+                onClick={handleEditInterviewerClick}
+              >
+                <EditIcon fontSize="small" />
+              </IconButton>
+            )}
           </Box>
           <Button variant="outlined" onClick={handleClickOpen}>
             Set Interview Time
