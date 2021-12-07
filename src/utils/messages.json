@@ -45,6 +45,7 @@
   "internships.filter.label.years": "Years",
   "internships.filter.language.english": "English",
   "internships.filter.language.russian": "Russian",
+  "internships.filter.message": "No Internship Programs were found",
   "profile.email": "E-mail:",
   "profile.phoneNumber": "Phone:",
   "profile.roleType": "Role:",

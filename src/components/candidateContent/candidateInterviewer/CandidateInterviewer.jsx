@@ -46,7 +46,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
     dispatch(fetchAllUsers());
   }, []);
 
-  const [assignInterviewers, setAssignInterviewers] = useState(null);
+  const [assignInterviewers, setAssignInterviewers] = useState('');
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
   const [interviewDate, setInterviewDate] = useState(null);
   const [interviewTime, setInterviewTime] = useState(null);

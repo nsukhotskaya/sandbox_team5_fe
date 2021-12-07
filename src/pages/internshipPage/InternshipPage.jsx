@@ -18,6 +18,7 @@ const InternshipPage = () => {
   const [popUpActive, setPopUpActive] = useState(false);
   const internship = useSelector((state) => state.internship.internship);
   const dispatch = useDispatch();
+
   const isLoading = useSelector(loadingSelector(['GET_INTERNSHIP_BY_ID']));
   const mobile = useMediaDown('md');
   const openPopUpWindow = () => {

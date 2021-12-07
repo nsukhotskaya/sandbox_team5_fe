@@ -237,7 +237,7 @@ const Candidates = () => {
               </Stack>
             )}
             <Divider orientation="vertical" variant="middle" flexItem />
-            <Stack ml={{ xs: '0px', sm: '15px' }}>
+            <Stack ml={{ sm: '15px' }}>
               <PageSize gridApi={gridApi} />
             </Stack>
           </Box>

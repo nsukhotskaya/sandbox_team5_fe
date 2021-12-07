@@ -38,6 +38,7 @@ export default class TableTemplate extends React.Component {
           />
           <AgGridColumn
             field="position"
+
             suppressMovable
             headerName={getFieldLabel('user.table.position')}
             resizable

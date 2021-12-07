@@ -8,6 +8,7 @@ import {
   Button,
   Popper,
   Input,
+  Typography,
 } from '@mui/material';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import './Internships.sass';
@@ -48,6 +49,17 @@ export const Internships = () => {
     setSearchText(event.target.value);
   };
 
+  const internshipsToRender = internships.filter((internship) => {
+    if (!searchText) {
+      return true;
+    }
+    return (
+      `${internship.name}`
+        .toLowerCase()
+        .indexOf(`${searchText}`.toLowerCase()) !== -1
+    );
+  });
+
   return (
     <>
       <Box display="flex" flexDirection="column" padding="10px">
@@ -83,16 +95,8 @@ export const Internships = () => {
             <LoadingIndicator />
           ) : (
             <Grid container spacing={3}>
-              {internships
-                .filter((internship) => {
-                  if (!searchText) return true;
-                  return (
-                    `${internship.name}`
-                      .toLowerCase()
-                      .indexOf(`${searchText}`.toLowerCase()) !== -1
-                  );
-                })
-                .map((internshipItem) => (
+              {internshipsToRender.length ? (
+                internshipsToRender.map((internshipItem) => (
                   <Grid
                     item
                     xs={12}
@@ -104,7 +108,19 @@ export const Internships = () => {
                   >
                     <InternshipCard data={internshipItem} />
                   </Grid>
-                ))}
+                ))
+              ) : (
+                <Box
+                  width="100%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Typography variant="h6">
+                    {getFieldLabel('internships.filter.message')}
+                  </Typography>
+                </Box>
+              )}
             </Grid>
           )}
         </Box>
