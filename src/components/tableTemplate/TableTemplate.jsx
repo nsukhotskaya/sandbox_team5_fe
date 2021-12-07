@@ -12,9 +12,7 @@ export default class TableTemplate extends React.Component {
   }
 
   render() {
-    const {
-      rowData,
-    } = this.props;
+    const { rowData } = this.props;
     return (
       <Box width="100%" height="100%" className="ag-theme-alpine">
         <AgGridReact
