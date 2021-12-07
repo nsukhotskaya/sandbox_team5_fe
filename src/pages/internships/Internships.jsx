@@ -23,6 +23,7 @@ export const Internships = () => {
   const [anchorEl, setAnchorEl] = useState();
   const [searchText, setSearchText] = useState();
   const open = !!anchorEl;
+  const userInfo = useSelector((state) => state.userInfo.userInfo);
   const internships = useSelector((state) => state.internships.internships);
   const dispatch = useDispatch();
 
@@ -65,9 +66,11 @@ export const Internships = () => {
             />
           </Box>
           <Box className="createButton">
-            <Button variant="outlined" onClick={openPopUpWindow}>
-              {getFieldLabel('internships.button.add.program')}
-            </Button>
+            {userInfo.roleType !== 'Hr' && (
+              <Button variant="outlined" onClick={openPopUpWindow}>
+                {getFieldLabel('internships.button.add.program')}
+              </Button>
+            )}
           </Box>
         </Box>
       </Box>

@@ -42,7 +42,10 @@ const CandidateInfo = (props) => {
           <Typography variant="h4" fontWeight="300" marginRight="10px">
             {`${formatedInfo.firstName} ${formatedInfo.lastName}`}
           </Typography>
-          {(userInfo.roleType !== 'Interviewer' && userInfo.roleType !== 'Mentor'  ) && (<CandidateInfoEdit candidateInfo={formatedInfo} />)}
+          {userInfo.roleType !== 'Interviewer' &&
+            userInfo.roleType !== 'Mentor' && (
+              <CandidateInfoEdit candidateInfo={formatedInfo} />
+            )}
         </Box>
         <Chip
           label={formatedInfo.statusType}
