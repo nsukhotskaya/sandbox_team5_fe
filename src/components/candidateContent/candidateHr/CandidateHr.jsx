@@ -16,6 +16,7 @@ import './candidateHr.sass';
 
 export const CandidateHr = ({ candidateInfo }) => {
   const allUsers = useSelector((state) => state.allUsers.allUsers);
+  const userInfo = useSelector((state) => state.userInfo.userInfo);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export const CandidateHr = ({ candidateInfo }) => {
 
   return (
     <Box className="assignHrContainer" p="10px">
-      {(!assignedHr || editAssignedHr) && (
+      {(userInfo.roleType === "Admin" || userInfo.roleType === "Manager")&&(!assignedHr || editAssignedHr) && (
         <Box className="assignHrBox">
           <Box className="assignHrSelect">
             <FormControl size="small" fullWidth>
