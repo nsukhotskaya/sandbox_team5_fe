@@ -30,7 +30,7 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
     feedbacks.length ? feedback.finalEvaluation : 0,
   );
   const [editMode, setEditMode] = React.useState(false);
-  const userInfo = useSelector((state) => state.userInfo.userInfo);
+  const loggedInUserInfo = useSelector((state) => state.userInfo.userInfo);
   const updateToNewFeedback = () => {
     const newFeedback = {
       id: feedback.id,
@@ -98,16 +98,16 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
           <Typography variant="h6" fontWeight="300" pr="10px">
             {roleType}
           </Typography>
-          {(userInfo.roleType === 'Admin' ||
-            userInfo.roleType === 'Manager') && (
+          {(loggedInUserInfo.roleType === 'Admin' ||
+            loggedInUserInfo.roleType === 'Manager') && (
             <IconButton variant="outlined" onClick={handleEditClick}>
               <EditIcon fontSize="small" />
             </IconButton>
           )}
         </Box>
         {!feedbacks.length ? (
-          (user.roleType === userInfo.roleType ||
-            userInfo.roleType === 'Admin') && (
+          (user.roleType === loggedInUserInfo.roleType ||
+            loggedInUserInfo.roleType === 'Admin') && (
             <Button variant="outlined" onClick={handleClick}>
               {getFieldLabel('candidateFeedbacks.button.createFeedback')}
             </Button>

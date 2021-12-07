@@ -13,7 +13,7 @@ const utc = require('dayjs/plugin/utc');
 
 const CandidateInfo = (props) => {
   const { candidateInfo } = props;
-  const userInfo = useSelector((state) => state.userInfo.userInfo);
+  const loggedInUserInfo = useSelector((state) => state.userInfo.userInfo);
 
   dayjs.extend(customParseFormat);
   dayjs.extend(utc);
@@ -42,8 +42,8 @@ const CandidateInfo = (props) => {
           <Typography variant="h4" fontWeight="300" marginRight="10px">
             {`${formatedInfo.firstName} ${formatedInfo.lastName}`}
           </Typography>
-          {userInfo.roleType !== 'Interviewer' &&
-            userInfo.roleType !== 'Mentor' && (
+          {loggedInUserInfo.roleType !== 'Interviewer' &&
+            loggedInUserInfo.roleType !== 'Mentor' && (
               <CandidateInfoEdit candidateInfo={formatedInfo} />
             )}
         </Box>
