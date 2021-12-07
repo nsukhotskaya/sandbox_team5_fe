@@ -206,9 +206,13 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
               </IconButton>
             )}
           </Box>
-          <Button variant="outlined" onClick={handleClickOpen}>
-            Set Interview Time
-          </Button>
+          {(authorizedUserRole === 'Admin' ||
+            authorizedUserRole === 'Manager' ||
+            authorizedUserRole === 'Hr') && (
+            <Button variant="outlined" onClick={handleClickOpen}>
+              Set Interview Time
+            </Button>
+          )}
           <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
             <DialogTitle>Set Date and Time</DialogTitle>
             <DialogContent>
