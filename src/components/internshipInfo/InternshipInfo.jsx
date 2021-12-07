@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   Box,
   Card,
@@ -19,6 +20,9 @@ import { useMediaDown } from '../utils';
 
 const InternshipInfo = (props) => {
   const mobile = useMediaDown('md');
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
   const internshipMainInfo = ['requirements'];
   const internshipHard = [
     { locations: 'name' },
@@ -54,9 +58,13 @@ const InternshipInfo = (props) => {
             <Typography variant="h5" color="primary" mt="5px">
               {internshipInfo.name}
             </Typography>
-            <IconButton variant="outlined" onClick={onChange}>
-              <EditIcon fontSize="medium" />
-            </IconButton>
+
+            {(authorizedUserRole === 'Admin' ||
+              authorizedUserRole === 'Manager') && (
+              <IconButton variant="outlined" onClick={onChange}>
+                <EditIcon fontSize="medium" />
+              </IconButton>
+            )}
           </Box>
           <List>
             <ListItem disablePadding>
