@@ -11,6 +11,7 @@ import {
   ListItem,
   ListItemText,
   IconButton,
+  Tooltip,
 } from '@mui/material';
 import './InternshipInfo.sass';
 import dayjs from 'dayjs';
@@ -33,12 +34,12 @@ const InternshipInfo = (props) => {
   const { onChange } = props;
   const internshipCandidatesInfoWithLink = [
     { candidatesCount: 0 },
-    { declinedCandidatesCount: 1 },
     { acceptedCandidatesCount: 2 },
+    { declinedCandidatesCount: 1 },
   ];
   const internshipCandidatesInfo = [
-    'abandonedCandidatesCount',
-    'successfullyFinishedCandidatesCount',
+    'refusedCandidatesCount',
+    'graduatedCandidatesCount',
     'teamsCount',
   ];
 
@@ -68,28 +69,39 @@ const InternshipInfo = (props) => {
           </Box>
           <List>
             <ListItem disablePadding>
-              <ListItemText
-                primary={
-                  <Typography fontWeight="bold" variant="body1">
-                    {getFieldLabel('internship.page.date')}
-                  </Typography>
-                }
-              />
-              <Typography variant="body2">
+              <Typography
+                width="120px"
+                paddingBottom="10px"
+                fontWeight="bold"
+                variant="body1"
+              >
+                {getFieldLabel('internship.page.date')}
+              </Typography>
+              <Typography
+                paddingBottom="10px"
+                variant="body2"
+                paddingLeft="10px"
+              >
                 {dayjs(internshipInfo.startDate).format('D.MM.YYYY')} -{' '}
                 {dayjs(internshipInfo.endDate).format('D.MM.YYYY')}
               </Typography>
             </ListItem>
             {internshipHard.map((item) => (
               <ListItem key={Object.keys(item)} disablePadding>
-                <ListItemText
-                  primary={
-                    <Typography fontWeight="bold" variant="body1">
-                      {getFieldLabel(`internship.page.${Object.keys(item)}`)}
-                    </Typography>
-                  }
-                />
-                <Typography className="internshipInfoValue" variant="body2">
+                <Typography
+                  width="120px"
+                  paddingBottom="10px"
+                  fontWeight="bold"
+                  variant="body1"
+                >
+                  {getFieldLabel(`internship.page.${Object.keys(item)}`)}
+                </Typography>
+                <Typography
+                  paddingBottom="10px"
+                  paddingLeft="10px"
+                  className="internshipInfoValue"
+                  variant="body2"
+                >
                   {internshipInfo[Object.keys(item)] &&
                     internshipInfo[Object.keys(item)].map((secondItem) =>
                       secondItem[Object.values(item)].concat(' '),
@@ -99,19 +111,26 @@ const InternshipInfo = (props) => {
             ))}
             {internshipMainInfo.map((item) => (
               <ListItem key={item} disablePadding>
-                <ListItemText
-                  primary={
-                    <Typography fontWeight="bold" variant="body1">
-                      {getFieldLabel(`internship.page.${item}`)}
-                    </Typography>
-                  }
-                />
-                <Typography className="internshipInfoValue" variant="body2">
+                <Typography
+                  width="120px"
+                  paddingBottom="10px"
+                  fontWeight="bold"
+                  variant="body1"
+                >
+                  {getFieldLabel(`internship.page.${item}`)}
+                </Typography>
+
+                <Typography
+                  paddingBottom="10px"
+                  paddingLeft="10px"
+                  className="internshipInfoValue"
+                  variant="body2"
+                >
                   {internshipInfo[item]}
                 </Typography>
               </ListItem>
             ))}
-            <Typography fontWeight="bold" variant="body1">
+            <Typography fontWeight="bold" variant="h6">
               {getFieldLabel('internship.page.candidates')}
             </Typography>
             {internshipCandidatesInfoWithLink.map((item) => (
@@ -125,13 +144,15 @@ const InternshipInfo = (props) => {
                 />
                 <Typography className="internshipInfoValue" variant="body2">
                   {internshipInfo[Object.keys(item)] !== 0 ? (
-                    <Link
-                      href={`http://petrov2021-001-site1.btempurl.com/api/Report/getCandidatesReportByInternshipId?InternshipId=${
-                        internshipInfo.id
-                      }&ReportType=${[Object.values(item)]}`}
-                    >
-                      {internshipInfo[Object.keys(item)]}
-                    </Link>
+                    <Tooltip title={getFieldLabel('download.tooltip')}>
+                      <Link
+                        href={`http://petrov2021-001-site1.btempurl.com/api/Report/getCandidatesReportByInternshipId?InternshipId=${
+                          internshipInfo.id
+                        }&ReportType=${[Object.values(item)]}`}
+                      >
+                        {internshipInfo[Object.keys(item)]}
+                      </Link>
+                    </Tooltip>
                   ) : (
                     internshipInfo[Object.keys(item)]
                   )}
