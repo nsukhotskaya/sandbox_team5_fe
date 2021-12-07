@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import {
@@ -48,6 +48,15 @@ export const InternshipsFilter = ({ onFilter }) => {
   const [filterInterviewers, setFilterInterviewers] = useState([]);
   const [filterMentors, setFilterMentors] = useState([]);
   const [filterYears, setFilterYears] = useState(null);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(() => {
+    if (filterLocation.length || filterLanguage.length || filterStatus.length || filterStack.length || filterHRs.length || filterInterviewers.length || filterMentors.length || filterYears) {
+      setIsDisabled(false)
+  } else {
+    setIsDisabled(true)
+  }
+  }, [filterLocation, filterLanguage, filterStatus, filterStack, filterHRs, filterInterviewers, filterMentors, filterYears ]);
 
   const handleSubmit = () => {
     const filters = {};
@@ -133,7 +142,7 @@ export const InternshipsFilter = ({ onFilter }) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Button onClick={cleanFilter} size="small">
+              <Button disabled={isDisabled} onClick={cleanFilter} size="small">
                 {getFieldLabel('common.reset')}
               </Button>
               <IconButton onClick={handleClose}>
@@ -279,7 +288,7 @@ export const InternshipsFilter = ({ onFilter }) => {
               <DatePicker
                 views={['year']}
                 label="Year"
-                value={filterYears || new Date()}
+                value={filterYears}
                 onChange={(newValue) => {
                   setFilterYears(newValue);
                 }}
@@ -289,7 +298,7 @@ export const InternshipsFilter = ({ onFilter }) => {
               />
             </LocalizationProvider>
           </FormControl>
-          <Button onClick={handleSubmit} size="small" variant="contained">
+          <Button disabled={isDisabled} onClick={handleSubmit} size="small" variant="contained">
             {getFieldLabel('common.filter')}
           </Button>
         </Box>
