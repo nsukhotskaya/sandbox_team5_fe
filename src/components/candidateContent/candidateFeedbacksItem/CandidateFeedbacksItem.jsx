@@ -150,15 +150,18 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
               editMode={editMode}
               callbackFunction={handleChangeFinalEvaluation}
             />
-            {editMode ? (
-              <Button variant="outlined" onClick={handleSaveButton}>
-                {getFieldLabel('common.save')}
-              </Button>
-            ) : (
-              <Button variant="outlined" onClick={handleEditMode}>
-                {getFieldLabel('common.edit')}
-              </Button>
-            )}
+            {(loggedInUserInfo.roleType === user.roleType ||
+              loggedInUserInfo.roleType === 'Admin' ||
+              loggedInUserInfo.roleType === 'Manager') &&
+              (editMode ? (
+                <Button variant="outlined" onClick={handleSaveButton}>
+                  {getFieldLabel('common.save')}
+                </Button>
+              ) : (
+                <Button variant="outlined" onClick={handleEditMode}>
+                  {getFieldLabel('common.edit')}
+                </Button>
+              ))}
           </Box>
         </Collapse>
       )}
