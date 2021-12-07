@@ -57,7 +57,8 @@ export const CandidateHr = ({ candidateInfo }) => {
   return (
     <Box className="assignHrContainer" p="10px">
       {(loggedInUserInfo.roleType === 'Hr' ||
-        loggedInUserInfo.roleType === 'Manager') &&
+        loggedInUserInfo.roleType === 'Manager' ||
+        loggedInUserInfo.roleType === 'Admin') &&
         (!assignedHr || editAssignedHr) && (
           <Box className="assignHrBox">
             <Box className="assignHrSelect">

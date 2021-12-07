@@ -99,7 +99,8 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
             {roleType}
           </Typography>
           {(loggedInUserInfo.roleType === 'Admin' ||
-            loggedInUserInfo.roleType === 'Manager') && (
+            loggedInUserInfo.roleType === 'Manager' ||
+            loggedInUserInfo.roleType === 'Hr') && (
             <IconButton variant="outlined" onClick={handleEditClick}>
               <EditIcon fontSize="small" />
             </IconButton>
@@ -107,7 +108,8 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
         </Box>
         {!feedbacks.length ? (
           (user.roleType === loggedInUserInfo.roleType ||
-            loggedInUserInfo.roleType === 'Admin') && (
+            loggedInUserInfo.roleType === 'Admin' ||
+            loggedInUserInfo.roleType === 'Manager') && (
             <Button variant="outlined" onClick={handleClick}>
               {getFieldLabel('candidateFeedbacks.button.createFeedback')}
             </Button>

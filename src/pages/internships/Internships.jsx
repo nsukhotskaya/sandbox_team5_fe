@@ -66,7 +66,8 @@ export const Internships = () => {
             />
           </Box>
           <Box className="createButton">
-            {userInfo.roleType !== 'Hr' && (
+            {(userInfo.roleType === 'Admin' ||
+              userInfo.roleType === 'Manager') && (
               <Button variant="outlined" onClick={openPopUpWindow}>
                 {getFieldLabel('internships.button.add.program')}
               </Button>

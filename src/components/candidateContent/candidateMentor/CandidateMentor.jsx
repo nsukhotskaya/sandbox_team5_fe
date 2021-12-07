@@ -58,7 +58,8 @@ export const CandidateMentor = ({ candidateInfo }) => {
     <Box className="assignMentorContainer" p="10px">
       {(!assignedMentor || editAssignedMentor) &&
         (loggedInUserInfo.roleType === 'Hr' ||
-          loggedInUserInfo.roleType === 'Manager') && (
+          loggedInUserInfo.roleType === 'Manager' ||
+          loggedInUserInfo.roleType === 'Admin') && (
           <Box className="assignMentorBox">
             <Box className="assignMentorSelect">
               <FormControl size="small" fullWidth>

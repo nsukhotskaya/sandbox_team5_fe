@@ -134,7 +134,8 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
   return (
     <Box className="assignInterviewerContainer" p="10px">
       {(loggedInUserInfo.roleType === 'Hr' ||
-        loggedInUserInfo.roleType === 'Manager') &&
+        loggedInUserInfo.roleType === 'Manager' ||
+        loggedInUserInfo.roleType === 'Admin') &&
         (!assignedInterviewer || editAssignedInterviewer) && (
           <Box className="assignInterviewerBox">
             <Box className="assignInterviewerSelect">
