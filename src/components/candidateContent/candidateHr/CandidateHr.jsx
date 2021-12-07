@@ -56,31 +56,32 @@ export const CandidateHr = ({ candidateInfo }) => {
 
   return (
     <Box className="assignHrContainer" p="10px">
-      {(userInfo.roleType === "Admin" || userInfo.roleType === "Manager")&&(!assignedHr || editAssignedHr) && (
-        <Box className="assignHrBox">
-          <Box className="assignHrSelect">
-            <FormControl size="small" fullWidth>
-              <InputLabel>
-                {getFieldLabel('candidate.assign.hr.select')}
-              </InputLabel>
-              <Select
-                value={assignHRs}
-                onChange={(event) => setAssignHRs(event.target.value)}
-                label="Assign HR"
-              >
-                {hrs.map((user) => (
-                  <MenuItem key={user.id} value={user.id}>
-                    <ListItemText primary={user.userName} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+      {(userInfo.roleType === 'Admin' || userInfo.roleType === 'Manager') &&
+        (!assignedHr || editAssignedHr) && (
+          <Box className="assignHrBox">
+            <Box className="assignHrSelect">
+              <FormControl size="small" fullWidth>
+                <InputLabel>
+                  {getFieldLabel('candidate.assign.hr.select')}
+                </InputLabel>
+                <Select
+                  value={assignHRs}
+                  onChange={(event) => setAssignHRs(event.target.value)}
+                  label="Assign HR"
+                >
+                  {hrs.map((user) => (
+                    <MenuItem key={user.id} value={user.id}>
+                      <ListItemText primary={user.userName} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Button onClick={handleSubmit} size="small" variant="outlined">
+              {getFieldLabel('common.assign')}
+            </Button>
           </Box>
-          <Button onClick={handleSubmit} size="small" variant="outlined">
-            {getFieldLabel('common.assign')}
-          </Button>
-        </Box>
-      )}
+        )}
       {!!assignedHr && !editAssignedHr && (
         <Box>
           <CandidateFeedbacksItem

@@ -102,10 +102,13 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
             <EditIcon fontSize="small" />
           </IconButton>
         </Box>
-        {!feedbacks.length ? (user.roleType === userInfo.roleType || userInfo.roleType === "Admin" ) && (
-          <Button variant="outlined" onClick={handleClick}>
-            {getFieldLabel('candidateFeedbacks.button.createFeedback')}
-          </Button>
+        {!feedbacks.length ? (
+          (user.roleType === userInfo.roleType ||
+            userInfo.roleType === 'Admin') && (
+            <Button variant="outlined" onClick={handleClick}>
+              {getFieldLabel('candidateFeedbacks.button.createFeedback')}
+            </Button>
+          )
         ) : (
           <Box className="flexBoxRow">
             <Rating value={finalEvaluation} max={4} readOnly pl="200px" />

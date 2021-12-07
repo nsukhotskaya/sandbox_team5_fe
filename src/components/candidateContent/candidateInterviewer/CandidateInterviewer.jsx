@@ -95,7 +95,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
         candidateInfo.id,
       )
     : false;
-    
+
   const name = `${candidateInfo.firstName} ${candidateInfo.lastName}`;
 
   const handleTimeSubmit = () => {

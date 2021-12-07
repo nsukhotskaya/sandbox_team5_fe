@@ -28,10 +28,9 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
       </Box>
       <Divider />
       <Box marginTop="2%">
-        
         <CandidateHr candidateInfo={candidateInfo} />
         {!!assignedHr && <CandidateInterviewer candidateInfo={candidateInfo} />}
-        {!!assignedInterviewer && (userInfo.roleType !== "Interviewer") && (
+        {!!assignedInterviewer && userInfo.roleType !== 'Interviewer' && (
           <CandidateMentor candidateInfo={candidateInfo} />
         )}
       </Box>
