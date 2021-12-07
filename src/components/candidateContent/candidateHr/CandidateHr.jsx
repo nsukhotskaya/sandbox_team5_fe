@@ -22,7 +22,7 @@ export const CandidateHr = ({ candidateInfo }) => {
     dispatch(fetchAllUsers());
   }, []);
 
-  const [assignHRs, setAssignHRs] = useState(null);
+  const [assignHRs, setAssignHRs] = useState('');
   const hrs = allUsers.filter((user) => user.roleType === 'Hr');
 
   const userIds = [assignHRs];

@@ -22,7 +22,7 @@ export const CandidateMentor = ({ candidateInfo }) => {
     dispatch(fetchAllUsers());
   }, []);
 
-  const [assignMentors, setAssignMentors] = useState(null);
+  const [assignMentors, setAssignMentors] = useState('');
   const [editAssignedMentor, setEditAssignedMentor] = useState(false);
 
   const mentors = allUsers.filter((user) => user.roleType === 'Mentor');
