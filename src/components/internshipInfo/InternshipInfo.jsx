@@ -20,7 +20,7 @@ import { useMediaDown } from '../utils';
 
 const InternshipInfo = (props) => {
   const mobile = useMediaDown('md');
-  const loggedInUserRole = useSelector(
+  const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
   );
   const internshipMainInfo = ['requirements'];
@@ -59,8 +59,8 @@ const InternshipInfo = (props) => {
               {internshipInfo.name}
             </Typography>
 
-            {(loggedInUserRole === 'Admin' ||
-              loggedInUserRole === 'Manager') && (
+            {(authorizedUserRole === 'Admin' ||
+              authorizedUserRole === 'Manager') && (
               <IconButton variant="outlined" onClick={onChange}>
                 <EditIcon fontSize="medium" />
               </IconButton>

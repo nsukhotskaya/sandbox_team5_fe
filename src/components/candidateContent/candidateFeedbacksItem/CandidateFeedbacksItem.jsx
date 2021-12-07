@@ -30,7 +30,9 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
     feedbacks.length ? feedback.finalEvaluation : 0,
   );
   const [editMode, setEditMode] = React.useState(false);
-  const loggedInUserInfo = useSelector((state) => state.userInfo.userInfo);
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
   const updateToNewFeedback = () => {
     const newFeedback = {
       id: feedback.id,
@@ -98,18 +100,18 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
           <Typography variant="h6" fontWeight="300" pr="10px">
             {roleType}
           </Typography>
-          {(loggedInUserInfo.roleType === 'Admin' ||
-            loggedInUserInfo.roleType === 'Manager' ||
-            loggedInUserInfo.roleType === 'Hr') && (
+          {(authorizedUserRole === 'Admin' ||
+            authorizedUserRole === 'Manager' ||
+            authorizedUserRole === 'Hr') && (
             <IconButton variant="outlined" onClick={handleEditClick}>
               <EditIcon fontSize="small" />
             </IconButton>
           )}
         </Box>
         {!feedbacks.length ? (
-          (user.roleType === loggedInUserInfo.roleType ||
-            loggedInUserInfo.roleType === 'Admin' ||
-            loggedInUserInfo.roleType === 'Manager') && (
+          (user.roleType === authorizedUserRole ||
+            authorizedUserRole === 'Admin' ||
+            authorizedUserRole === 'Manager') && (
             <Button variant="outlined" onClick={handleClick}>
               {getFieldLabel('candidateFeedbacks.button.createFeedback')}
             </Button>
@@ -152,9 +154,9 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
               editMode={editMode}
               callbackFunction={handleChangeFinalEvaluation}
             />
-            {(loggedInUserInfo.roleType === user.roleType ||
-              loggedInUserInfo.roleType === 'Admin' ||
-              loggedInUserInfo.roleType === 'Manager') &&
+            {(authorizedUserRole === user.roleType ||
+              authorizedUserRole === 'Admin' ||
+              authorizedUserRole === 'Manager') &&
               (editMode ? (
                 <Button variant="outlined" onClick={handleSaveButton}>
                   {getFieldLabel('common.save')}

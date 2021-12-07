@@ -35,6 +35,9 @@ dayjs.extend(utc);
 export const CandidateInterviewer = ({ candidateInfo }) => {
   const allUsers = useSelector((state) => state.allUsers.allUsers);
   const contactTime = useSelector((state) => state.contactTime.contactTime);
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
   const dispatch = useDispatch();
 
   dayjs.extend(utc);
@@ -42,7 +45,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
   useEffect(() => {
     dispatch(fetchAllUsers());
   }, []);
-  const loggedInUserInfo = useSelector((state) => state.userInfo.userInfo);
+
   const [assignInterviewers, setAssignInterviewers] = useState(null);
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
   const [interviewDate, setInterviewDate] = useState(null);
@@ -141,9 +144,9 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
 
   return (
     <Box className="assignInterviewerContainer" p="10px">
-      {(loggedInUserInfo.roleType === 'Hr' ||
-        loggedInUserInfo.roleType === 'Manager' ||
-        loggedInUserInfo.roleType === 'Admin') &&
+      {(authorizedUserRole === 'Hr' ||
+        authorizedUserRole === 'Manager' ||
+        authorizedUserRole === 'Admin') &&
         (!assignedInterviewer || editAssignedInterviewer) && (
           <Box className="assignInterviewerBox">
             <Box className="assignInterviewerSelect">

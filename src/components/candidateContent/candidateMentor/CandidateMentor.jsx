@@ -16,6 +16,10 @@ import './candidateMentor.sass';
 
 export const CandidateMentor = ({ candidateInfo }) => {
   const allUsers = useSelector((state) => state.allUsers.allUsers);
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,7 +28,6 @@ export const CandidateMentor = ({ candidateInfo }) => {
 
   const [assignMentors, setAssignMentors] = useState(null);
   const [editAssignedMentor, setEditAssignedMentor] = useState(false);
-  const loggedInUserInfo = useSelector((state) => state.userInfo.userInfo);
 
   const mentors = allUsers.filter((user) => user.roleType === 'Mentor');
 
@@ -57,9 +60,9 @@ export const CandidateMentor = ({ candidateInfo }) => {
   return (
     <Box className="assignMentorContainer" p="10px">
       {(!assignedMentor || editAssignedMentor) &&
-        (loggedInUserInfo.roleType === 'Hr' ||
-          loggedInUserInfo.roleType === 'Manager' ||
-          loggedInUserInfo.roleType === 'Admin') && (
+        (authorizedUserRole === 'Hr' ||
+          authorizedUserRole === 'Manager' ||
+          authorizedUserRole === 'Admin') && (
           <Box className="assignMentorBox">
             <Box className="assignMentorSelect">
               <FormControl size="small" fullWidth>

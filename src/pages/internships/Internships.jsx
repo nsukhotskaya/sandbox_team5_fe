@@ -23,7 +23,9 @@ export const Internships = () => {
   const [anchorEl, setAnchorEl] = useState();
   const [searchText, setSearchText] = useState();
   const open = !!anchorEl;
-  const userInfo = useSelector((state) => state.userInfo.userInfo);
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
   const internships = useSelector((state) => state.internships.internships);
   const dispatch = useDispatch();
 
@@ -66,8 +68,8 @@ export const Internships = () => {
             />
           </Box>
           <Box className="createButton">
-            {(userInfo.roleType === 'Admin' ||
-              userInfo.roleType === 'Manager') && (
+            {(authorizedUserRole === 'Admin' ||
+              authorizedUserRole === 'Manager') && (
               <Button variant="outlined" onClick={openPopUpWindow}>
                 {getFieldLabel('internships.button.add.program')}
               </Button>

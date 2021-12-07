@@ -144,8 +144,6 @@ export const CandidateInfoEdit = (props) => {
     },
   ];
 
-  console.log('privet');
-
   const formik = useFormik({
     initialValues: formatedInitInfo,
     onSubmit: (values) => {
