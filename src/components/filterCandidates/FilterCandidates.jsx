@@ -195,7 +195,9 @@ export const FilterCandidates = ({ onFilter }) => {
               ))}
             </Select>
           </FormControl>
-          {authorizedUser.roleType === 'Hr' && (
+          {(authorizedUser.roleType === 'Hr' ||
+            authorizedUser.roleType === 'Interviewer' ||
+            authorizedUser.roleType === 'Mentor') && (
             <FormControl size="small" fullWidth>
               <FormControlLabel
                 className="filterFormControlLabel"
