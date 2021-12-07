@@ -97,18 +97,18 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
     setFinalEvaluation(value);
   };
 
-  const handleChangeEvaluations = (value, evaluationName) => {
-    const newSkillsEvaluation = feedback.evaluations.map((skill) => {
-      if (skill.skill.name === evaluationName) {
-        const newSkill = {...skill}
-        newSkill.value = value
-        return newSkill
-      }
-      return skill
-    });
-    console.log(newSkillsEvaluation)
-    setSkillsEvaluations(newSkillsEvaluation);
-  };
+  // const handleChangeEvaluations = (value, evaluationName) => {
+  //   const newSkillsEvaluation = feedback.evaluations.map((skill) => {
+  //     if (skill.skill.name === evaluationName) {
+  //       const newSkill = {...skill}
+  //       newSkill.value = value
+  //       return newSkill
+  //     }
+  //     return skill
+  //   });
+  //   console.log(newSkillsEvaluation)
+  //   setSkillsEvaluations(newSkillsEvaluation);
+  // };
 
   const handleAddEvaluations = (value, evaluationName) => {
     const newSkillsEvaluation = skillsEvaluations.map((skill) => {
@@ -119,7 +119,6 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
       }
       return skill
     });
-    console.log(newSkillsEvaluation)
     setSkillsEvaluations(newSkillsEvaluation);
   };
 
@@ -129,6 +128,9 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
 
   const handleSaveButton = () => {
     handleEditMode();
+    console.log(feedback.evaluations)
+    console.log(skillsEvaluations)
+    console.log(updateToNewFeedback())
     dispatch(updateFeedback(updateToNewFeedback()));
   };
 
@@ -189,7 +191,7 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
                   title={skill.skill.name}
                   grade={skill.value}
                   editMode={editMode}
-                  callbackFunction={handleChangeEvaluations}
+                  callbackFunction={handleAddEvaluations}
                 />
               )))
             }
