@@ -221,7 +221,7 @@ const Candidates = () => {
                 {getFieldLabel('candidates.button.exportToExcel')}
               </Button>
             </Stack>
-            {authorizedUserRoleType === 'Hr' ? (
+            {authorizedUserRoleType === 'Hr' && (
               <Stack
                 direction="row"
                 mr={{
@@ -238,7 +238,7 @@ const Candidates = () => {
                   {getFieldLabel('candidates.button.addToWork')}
                 </Button>
               </Stack>
-            ) : null}
+            )}
             <Divider orientation="vertical" variant="middle" flexItem />
             <Stack
               ml={{ xs: '0px', sm: '15px' }}
