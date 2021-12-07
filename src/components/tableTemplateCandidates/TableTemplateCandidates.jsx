@@ -32,6 +32,7 @@ export default class TableTemplateCandidates extends React.Component {
             key="userName"
             headerName={getFieldLabel('candidate.table.name')}
             resizable
+            suppressMovable
             minWidth={200}
             cellRenderer="linkFormatter"
           />
@@ -39,6 +40,7 @@ export default class TableTemplateCandidates extends React.Component {
             field="status"
             headerName={getFieldLabel('candidate.table.status')}
             resizable
+            suppressMovable
             minWidth={200}
           />
         </AgGridReact>

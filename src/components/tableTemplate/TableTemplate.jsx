@@ -29,6 +29,7 @@ export default class TableTemplate extends React.Component {
           <AgGridColumn
             field="userName"
             sortable
+            suppressMovable
             headerName={getFieldLabel('user.table.name')}
             key="userName"
             resizable
@@ -37,6 +38,7 @@ export default class TableTemplate extends React.Component {
           />
           <AgGridColumn
             field="position"
+            suppressMovable
             headerName={getFieldLabel('user.table.position')}
             resizable
             minWidth={200}
@@ -45,6 +47,7 @@ export default class TableTemplate extends React.Component {
             field="role"
             headerName={getFieldLabel('user.table.role')}
             resizable
+            suppressMovable
             minWidth={200}
           />
         </AgGridReact>
