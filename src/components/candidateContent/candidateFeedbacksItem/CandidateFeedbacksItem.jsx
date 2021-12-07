@@ -41,7 +41,7 @@ const CandidateFeedbacksItem = ({
     (state) => state.userInfo.userInfo.roleType,
   );
   useEffect(() => {
-    if ( user.roleType==="Interviewer" && candidateEvaluations.length===0) {
+    if ( user.roleType==="Interviewer" && candidateEvaluations.length===0 && !!feedbacks.length) {
       dispatch(fetchEvaluationsByFeedbackId(feedback.id));
     }
     else if(candidateEvaluations.length!==0){
@@ -87,6 +87,7 @@ const CandidateFeedbacksItem = ({
     candidateId: candidateInfo.id,
     englishLevelType: candidateInfo.englishLevelType,
     date: now.toISOString(),
+    evaluations: skillsEvaluations,
     description: '.',
     finalEvaluation: 0,
   });
