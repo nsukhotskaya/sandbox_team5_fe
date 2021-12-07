@@ -155,7 +155,20 @@ const Candidates = () => {
             severity="success"
           />
         ))}
-      <Box className="candidatesPageHeader">
+      <Box
+        display="flex"
+        flexDirection={{
+          xs: 'column',
+          lg: 'row',
+        }}
+        alignItems={{
+          xs: 'flex-end',
+          lg: 'center',
+        }}
+        paddingTop="5px"
+        paddingBottom="5px"
+        justifyContent="space-between"
+      >
         <Box display="flex" alignItems="center">
           <Typography variant="h4" component="div" color="#757575">
             {internshipName[0]}
@@ -164,36 +177,75 @@ const Candidates = () => {
             <CachedIcon fontSize="large" />
           </IconButton>
         </Box>
-        <Box className="candidatesButtons">
-          <Box>
-            <IconButton onClick={handleClick}>
-              <ManageSearch fontSize="large" />
-            </IconButton>
-          </Box>
-          <Box className="filterBox">
-            <FilterCandidates onFilter={onFilter} />
-          </Box>
-          <Stack direction="row" spacing={2}>
-            <Button
-              className="candidatesPageButton"
-              onClick={() => onButtonExport()}
-              variant="outlined"
+        <Box
+          display="flex"
+          flexDirection={{
+            xs: 'column',
+            md: 'row',
+          }}
+          alignItems={{
+            xs: 'flex-end',
+            md: 'center',
+          }}
+        >
+          <Box display="flex" flexDirection="row">
+            <Box>
+              <IconButton onClick={handleClick}>
+                <ManageSearch fontSize="large" />
+              </IconButton>
+            </Box>
+            <Box
+              mr={{ xs: '0px', md: '15px'}}
+              mb={{ xs: '5px', md: '0px' }}
             >
-              {getFieldLabel('candidates.button.exportToExcel')}
-            </Button>
-            {authorizedUserRoleType === 'Hr' ? (
-              <Button
-                onClick={() => addToWork()}
-                className="candidatesPageButton"
-                variant="outlined"
-                disabled={isAddToWorkButtonDisabled}
-              >
-                {getFieldLabel('candidates.button.addToWork')}
+              <FilterCandidates onFilter={onFilter} />
+            </Box>
+          </Box>
+          <Box
+            display="flex"
+            flexDirection={{
+              xs: 'column',
+              sm: 'row',
+            }}
+            alignItems={{
+              xs: 'flex-end',
+              sm: 'center',
+            }}
+          >
+            <Stack
+              direction="row"
+              mr={{ xs: '0px', sm: '15px' }}
+              mb={{ xs: '10px', sm: '0px' }}
+            >
+              <Button onClick={() => onButtonExport()} variant="outlined">
+                {getFieldLabel('candidates.button.exportToExcel')}
               </Button>
-            ) : null}
+            </Stack>
+            {authorizedUserRoleType === 'Hr' && (
+              <Stack
+                direction="row"
+                mr={{
+                  xs: '0px',
+                  sm: '15px',
+                }}
+              >
+                <Button
+                  onClick={() => addToWork()}
+                  className="candidatesPageButton"
+                  variant="outlined"
+                  disabled={isAddToWorkButtonDisabled}
+                >
+                  {getFieldLabel('candidates.button.addToWork')}
+                </Button>
+              </Stack>
+            )}
             <Divider orientation="vertical" variant="middle" flexItem />
-            <PageSize gridApi={gridApi} />
-          </Stack>
+            <Stack
+              ml={{ xs: '0px', sm: '15px' }}
+            >
+              <PageSize gridApi={gridApi} />
+            </Stack>
+          </Box>
           <Popper open={open} anchorEl={anchorEl} placement="left">
             <CandidatesSearch id={id} />
           </Popper>
@@ -265,13 +317,6 @@ const Candidates = () => {
               resizable
               flex={1}
               cellRenderer="starFormatter"
-            />
-            <AgGridColumn
-              field="testTaskEvaluation"
-              headerName={getFieldLabel('candidates.table.testTaskEvaluation')}
-              sortable
-              resizable
-              flex={1}
             />
             <AgGridColumn
               field="statusType"

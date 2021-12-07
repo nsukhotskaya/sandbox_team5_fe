@@ -14,7 +14,9 @@ import {
   OutlinedInput,
   DialogActions,
   Typography,
+  IconButton,
 } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import dayjs from 'dayjs';
 import {
   fetchAllUsers,
@@ -26,10 +28,16 @@ import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
 import './candidateInterviewer.sass';
 
+const utc = require('dayjs/plugin/utc');
+
+dayjs.extend(utc);
+
 export const CandidateInterviewer = ({ candidateInfo }) => {
   const allUsers = useSelector((state) => state.allUsers.allUsers);
   const contactTime = useSelector((state) => state.contactTime.contactTime);
   const dispatch = useDispatch();
+
+  dayjs.extend(utc);
 
   useEffect(() => {
     dispatch(fetchAllUsers());
@@ -110,8 +118,8 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
     }
     dispatch(
       setEventToCalendar({
-        startTime: interviewTime.startTime,
-        endTime: interviewTime.endTime,
+        startTime: dayjs.utc(interviewTime.startTime).format(),
+        endTime: dayjs.utc(interviewTime.endTime).format(),
         interviewerEmail: assignedInterviewer.email,
         id: interviewTime.id,
         candidateName: name,
@@ -183,6 +191,9 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
             <Typography variant="h6" fontWeight="300" pr="10px">
               {assignedInterviewer.roleType}
             </Typography>
+            <IconButton variant="outlined" onClick={handleEditInterviewerClick}>
+              <EditIcon fontSize="small" />
+            </IconButton>
           </Box>
           <Button variant="outlined" onClick={handleClickOpen}>
             Set Interview Time

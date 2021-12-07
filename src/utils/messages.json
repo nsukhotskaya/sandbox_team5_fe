@@ -20,7 +20,7 @@
   "header.dropdown.label.profile": "Profile",
   "logout.confirm.message": "Are you sure you want to log out?",
   "login.button.login": "Login",
-  "login.title": "E-Wonderwork",
+  "login.title": "BIT",
   "login.email": "E-mail",
   "login.password": "Password",
   "login.error.emailEmpty": "Please enter an Email",
@@ -80,7 +80,6 @@
   "internship.page.table.team": "Team",
   "candidates.table.englishLevelType": "English Level",
   "candidates.table.fullName": "Full Name",
-  "candidates.table.testTaskEvaluation": "Test Task",
   "candidates.table.statusType": "Status",
   "candidates.filter.label.englishLevel": "English Level",
   "candidates.popper.inputPlaceholder": "Search...",
@@ -161,5 +160,12 @@
   "notFoundPage.label.oops": "Oops...",
   "notFoundPage.label.description": "The page you are looking for can't be found",
   "notFoundPage.link.home": "Home",
-  "candidate.page.users.title": "Marks and Feedbacks"
+  "candidate.page.users.title": "Marks and Feedbacks",
+  "candidate.table.name": "Candidate Name",
+  "candidate.table.status": "Status",
+  "internship.table.status":"Status",
+  "internship.table.name":"Name",
+  "user.table.name": "User Name",
+  "user.table.role": "Role",
+  "user.table.position": "Position"
 }

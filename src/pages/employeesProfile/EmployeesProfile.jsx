@@ -12,14 +12,8 @@ import {
   ListItem,
 } from '@mui/material';
 import './EmployeesProfile.sass';
-import {
-  fetchInternships,
-  fetchUserInfoById,
-} from '../../store/commands';
-import {
-  getFieldLabel,
-  tableFiller,
-} from '../../utils';
+import { fetchInternships, fetchUserInfoById } from '../../store/commands';
+import { getFieldLabel, tableFiller } from '../../utils';
 import { userProfileListFields } from '../../constants/userProfileListFields';
 import { useMediaDown } from '../../components/utils';
 import { loadingSelector } from '../../store/selectors';
@@ -32,10 +26,7 @@ const EmployeesProfile = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const isLoading = useSelector(
-    loadingSelector(
-      ['GET_USER_INFO_BY_ID'],
-      ['GET_INTERNSHIPS'],
-    ),
+    loadingSelector(['GET_USER_INFO_BY_ID'], ['GET_INTERNSHIPS']),
   );
   useEffect(() => {}, [isLoading]);
 
@@ -103,7 +94,7 @@ const EmployeesProfile = () => {
           >
             <Card className="activityTab">
               <TableTemplateInternship
-                  rowData={tableFiller(userInfo, internships)}
+                rowData={tableFiller(userInfo, internships)}
               />
             </Card>
           </Box>

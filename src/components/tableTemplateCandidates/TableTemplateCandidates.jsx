@@ -4,6 +4,7 @@ import { AgGridReact, AgGridColumn } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import { LinkFormatter } from '../linkFormatter';
+import { getFieldLabel } from '../../utils';
 
 export default class TableTemplateCandidates extends React.Component {
   constructor(props) {
@@ -29,11 +30,12 @@ export default class TableTemplateCandidates extends React.Component {
             field="userName"
             sortable
             key="userName"
+            headerName={getFieldLabel('candidate.table.name')}
             resizable
             minWidth={200}
             cellRenderer="linkFormatter"
           />
-          <AgGridColumn field="status" resizable minWidth={200} />
+          <AgGridColumn field="status" headerName={getFieldLabel('candidate.table.status')} resizable minWidth={200} />
         </AgGridReact>
       </Box>
     );
