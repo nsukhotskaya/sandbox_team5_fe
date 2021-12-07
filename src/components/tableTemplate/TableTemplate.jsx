@@ -35,8 +35,18 @@ export default class TableTemplate extends React.Component {
             minWidth={200}
             cellRenderer="linkFormatter"
           />
-          <AgGridColumn field="position" headerName={getFieldLabel('user.table.position')} resizable minWidth={200} />
-          <AgGridColumn field="role" headerName={getFieldLabel('user.table.role')} resizable minWidth={200} />
+          <AgGridColumn
+            field="position"
+            headerName={getFieldLabel('user.table.position')}
+            resizable
+            minWidth={200}
+          />
+          <AgGridColumn
+            field="role"
+            headerName={getFieldLabel('user.table.role')}
+            resizable
+            minWidth={200}
+          />
         </AgGridReact>
       </Box>
     );

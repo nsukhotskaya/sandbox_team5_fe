@@ -46,15 +46,14 @@ export const Internships = () => {
     setSearchText(event.target.value);
   };
 
-  const internshipsToRender = internships
-  .filter((internship) => {
+  const internshipsToRender = internships.filter((internship) => {
     if (!searchText) return true;
     return (
       `${internship.name}`
         .toLowerCase()
         .indexOf(`${searchText}`.toLowerCase()) !== -1
     );
-  })
+  });
 
   return (
     <>
@@ -88,7 +87,8 @@ export const Internships = () => {
             <LoadingIndicator />
           ) : (
             <Grid container spacing={3}>
-              {internshipsToRender.length ? internshipsToRender.map((internshipItem) => (
+              {internshipsToRender.length ? (
+                internshipsToRender.map((internshipItem) => (
                   <Grid
                     item
                     xs={12}
@@ -100,11 +100,19 @@ export const Internships = () => {
                   >
                     <InternshipCard data={internshipItem} />
                   </Grid>
-                )) : <Box width="100%" display="flex" alignItems="center" justifyContent="center">
-                      <Typography variant="h6">
-                        {getFieldLabel('internships.filter.message')}
-                      </Typography>
-                      </Box>}
+                ))
+              ) : (
+                <Box
+                  width="100%"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Typography variant="h6">
+                    {getFieldLabel('internships.filter.message')}
+                  </Typography>
+                </Box>
+              )}
             </Grid>
           )}
         </Box>

@@ -35,7 +35,12 @@ export default class TableTemplateCandidates extends React.Component {
             minWidth={200}
             cellRenderer="linkFormatter"
           />
-          <AgGridColumn field="status" headerName={getFieldLabel('candidate.table.status')} resizable minWidth={200} />
+          <AgGridColumn
+            field="status"
+            headerName={getFieldLabel('candidate.table.status')}
+            resizable
+            minWidth={200}
+          />
         </AgGridReact>
       </Box>
     );

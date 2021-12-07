@@ -96,9 +96,6 @@ export const InternshipsFilter = ({ onFilter }) => {
   );
   const mentors = allUsers.filter((user) => user.roleType === 'Mentor');
 
-
-
-
   return (
     <Box>
       <IconButton aria-describedby={id} onClick={handleClick}>
