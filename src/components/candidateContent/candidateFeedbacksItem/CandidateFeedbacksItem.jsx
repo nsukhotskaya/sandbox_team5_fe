@@ -11,7 +11,7 @@ import {
   Button,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './СandidateFeedbacksItem.sass';
 import { StarRating } from '../index';
 import { getFieldLabel } from '../../../utils';
@@ -30,7 +30,9 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
     feedbacks.length ? feedback.finalEvaluation : 0,
   );
   const [editMode, setEditMode] = React.useState(false);
-
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
   const updateToNewFeedback = () => {
     const newFeedback = {
       id: feedback.id,
@@ -98,17 +100,26 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
           <Typography variant="h6" fontWeight="300" pr="10px">
             {roleType}
           </Typography>
-          <IconButton variant="outlined" onClick={handleEditClick}>
-            <EditIcon fontSize="small" />
-          </IconButton>
+          {(authorizedUserRole === 'Admin' ||
+            authorizedUserRole === 'Manager' ||
+            authorizedUserRole === 'Hr') && (
+            <IconButton variant="outlined" onClick={handleEditClick}>
+              <EditIcon fontSize="small" />
+            </IconButton>
+          )}
         </Box>
         {!feedbacks.length ? (
-          <Button variant="outlined" onClick={handleClick}>
-            {getFieldLabel('candidateFeedbacks.button.createFeedback')}
-          </Button>
+          (user.roleType === authorizedUserRole ||
+            authorizedUserRole === 'Admin' ||
+            authorizedUserRole === 'Manager') && (
+            <Button variant="outlined" onClick={handleClick}>
+              {getFieldLabel('candidateFeedbacks.button.createFeedback')}
+            </Button>
+          )
         ) : (
           <Box className="flexBoxRow">
             <Rating value={finalEvaluation} max={4} readOnly pl="200px" />
+
             <IconButton onClick={handleButton}>
               {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </IconButton>
@@ -143,15 +154,18 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
               editMode={editMode}
               callbackFunction={handleChangeFinalEvaluation}
             />
-            {editMode ? (
-              <Button variant="outlined" onClick={handleSaveButton}>
-                {getFieldLabel('common.save')}
-              </Button>
-            ) : (
-              <Button variant="outlined" onClick={handleEditMode}>
-                {getFieldLabel('common.edit')}
-              </Button>
-            )}
+            {(authorizedUserRole === user.roleType ||
+              authorizedUserRole === 'Admin' ||
+              authorizedUserRole === 'Manager') &&
+              (editMode ? (
+                <Button variant="outlined" onClick={handleSaveButton}>
+                  {getFieldLabel('common.save')}
+                </Button>
+              ) : (
+                <Button variant="outlined" onClick={handleEditMode}>
+                  {getFieldLabel('common.edit')}
+                </Button>
+              ))}
           </Box>
         </Collapse>
       )}

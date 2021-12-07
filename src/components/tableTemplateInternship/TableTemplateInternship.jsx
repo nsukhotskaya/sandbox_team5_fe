@@ -29,6 +29,7 @@ export default class TableTemplateInternship extends React.Component {
           <AgGridColumn
             field="name"
             sortable
+            suppressMovable
             headerName={getFieldLabel('internship.table.name')}
             key="name"
             resizable
@@ -39,6 +40,7 @@ export default class TableTemplateInternship extends React.Component {
             field="internshipStatusType"
             headerName={getFieldLabel('internship.table.status')}
             resizable
+            suppressMovable
             minWidth={200}
           />
         </AgGridReact>

@@ -14,10 +14,11 @@ import { InternshipData, tableFillerAllUsers } from '../../utils';
 
 const InternshipPage = () => {
   const { id } = useParams();
+  const rawData = [];
   const [popUpActive, setPopUpActive] = useState(false);
   const internship = useSelector((state) => state.internship.internship);
   const dispatch = useDispatch();
-  const allUsers = useSelector((state) => state.allUsers.allUsers);
+
   const isLoading = useSelector(loadingSelector(['GET_INTERNSHIP_BY_ID']));
   const mobile = useMediaDown('md');
   const openPopUpWindow = () => {
@@ -47,7 +48,15 @@ const InternshipPage = () => {
                   : 'internshipDataEmployees'
               }
             >
-              <TableTemplate rowData={tableFillerAllUsers(allUsers)} />
+              {internship.users &&
+                internship.users.forEach((item) =>
+                  rawData.push({
+                    userName: item.userName,
+                    roleType: item.roleType,
+                    position: item.position,
+                  }),
+                )}
+              <TableTemplate rowData={tableFillerAllUsers(rawData)} />
             </Card>
           </Box>
           {initialData && (

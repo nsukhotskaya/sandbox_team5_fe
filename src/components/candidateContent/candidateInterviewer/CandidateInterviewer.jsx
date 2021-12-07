@@ -35,6 +35,9 @@ dayjs.extend(utc);
 export const CandidateInterviewer = ({ candidateInfo }) => {
   const allUsers = useSelector((state) => state.allUsers.allUsers);
   const contactTime = useSelector((state) => state.contactTime.contactTime);
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
   const dispatch = useDispatch();
 
   dayjs.extend(utc);
@@ -141,31 +144,36 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
 
   return (
     <Box className="assignInterviewerContainer" p="10px">
-      {(!assignedInterviewer || editAssignedInterviewer) && (
-        <Box className="assignInterviewerBox">
-          <Box className="assignInterviewerSelect">
-            <FormControl size="small" fullWidth>
-              <InputLabel>
-                {getFieldLabel('candidate.assign.interviewer.select')}
-              </InputLabel>
-              <Select
-                value={assignInterviewers}
-                onChange={(event) => setAssignInterviewers(event.target.value)}
-                label="Assign Interviewer"
-              >
-                {interviewers.map((userType) => (
-                  <MenuItem key={userType.id} value={userType.id}>
-                    <ListItemText primary={userType.userName} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+      {(authorizedUserRole === 'Hr' ||
+        authorizedUserRole === 'Manager' ||
+        authorizedUserRole === 'Admin') &&
+        (!assignedInterviewer || editAssignedInterviewer) && (
+          <Box className="assignInterviewerBox">
+            <Box className="assignInterviewerSelect">
+              <FormControl size="small" fullWidth>
+                <InputLabel>
+                  {getFieldLabel('candidate.assign.interviewer.select')}
+                </InputLabel>
+                <Select
+                  value={assignInterviewers}
+                  onChange={(event) =>
+                    setAssignInterviewers(event.target.value)
+                  }
+                  label="Assign Interviewer"
+                >
+                  {interviewers.map((userType) => (
+                    <MenuItem key={userType.id} value={userType.id}>
+                      <ListItemText primary={userType.userName} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Button onClick={handleSubmit} size="small" variant="outlined">
+              {getFieldLabel('common.assign')}
+            </Button>
           </Box>
-          <Button onClick={handleSubmit} size="small" variant="outlined">
-            {getFieldLabel('common.assign')}
-          </Button>
-        </Box>
-      )}
+        )}
       {!isInterviewsSet && assignedInterviewer && (
         <Box
           display="flex"
@@ -186,13 +194,25 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
             <Typography variant="h6" fontWeight="300" pr="10px">
               {assignedInterviewer.roleType}
             </Typography>
-            <IconButton variant="outlined" onClick={handleEditInterviewerClick}>
-              <EditIcon fontSize="small" />
-            </IconButton>
+
+            {(authorizedUserRole === 'Admin' ||
+              authorizedUserRole === 'Manager' ||
+              authorizedUserRole === 'Hr') && (
+              <IconButton
+                variant="outlined"
+                onClick={handleEditInterviewerClick}
+              >
+                <EditIcon fontSize="small" />
+              </IconButton>
+            )}
           </Box>
-          <Button variant="outlined" onClick={handleClickOpen}>
-            Set Interview Time
-          </Button>
+          {(authorizedUserRole === 'Admin' ||
+            authorizedUserRole === 'Manager' ||
+            authorizedUserRole === 'Hr') && (
+            <Button variant="outlined" onClick={handleClickOpen}>
+              Set Interview Time
+            </Button>
+          )}
           <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
             <DialogTitle>Set Date and Time</DialogTitle>
             <DialogContent>
