@@ -318,6 +318,14 @@ const Candidates = () => {
               flex={1}
               cellRenderer="starFormatter"
             />
+            <AgGridColumn field="mentor" sortable resizable flex={1} />
+            <AgGridColumn
+              field="mentorReview"
+              sortable
+              resizable
+              flex={1}
+              cellRenderer="starFormatter"
+            />
             <AgGridColumn
               field="statusType"
               headerName={getFieldLabel('candidates.table.statusType')}
