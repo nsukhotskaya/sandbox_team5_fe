@@ -21,18 +21,42 @@ import {
   updateCandidateInfo,
   fetchContactTime,
   setEventToCalendar,
+  fetchSkillsByStackType,
 } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
 import './candidateInterviewer.sass';
 
+const formatStackType = (stackType) => {
+  switch (stackType) {
+    case "FrontEnd":
+      return '0'
+    case "BackEnd":
+      return '1'
+    case "FullStack":
+      return '2'
+    case "BusinessAnalysis":
+      return '3'
+    case "DevOps":
+      return '4'
+    case "Testing":
+      return '5'
+    default:
+      return stackType
+  }
+}
+
+
+
 export const CandidateInterviewer = ({ candidateInfo }) => {
   const allUsers = useSelector((state) => state.allUsers.allUsers);
   const contactTime = useSelector((state) => state.contactTime.contactTime);
+  const skills = useSelector((state) => state.skills.skills);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchAllUsers());
+    dispatch(fetchSkillsByStackType(formatStackType(candidateInfo.stackType)));
   }, []);
 
   const [assignInterviewers, setAssignInterviewers] = useState(null);
@@ -236,6 +260,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
             key={assignedInterviewer.id}
             user={assignedInterviewer}
             candidateInfo={candidateInfo}
+            skills={skills}
           />
         </Box>
       )}

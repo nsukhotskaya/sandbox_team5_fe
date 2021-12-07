@@ -19,7 +19,7 @@ const StarRating = ({ title, grade, editMode, callbackFunction }) => (
       readOnly={!editMode}
       className={editMode ? '' : 'ratingDisabled'}
       onChange={(event, newValue) => {
-        callbackFunction(newValue);
+        callbackFunction(newValue, title);
       }}
     />
   </Box>
