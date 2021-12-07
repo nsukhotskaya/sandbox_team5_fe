@@ -47,7 +47,9 @@ export const Internships = () => {
   };
 
   const internshipsToRender = internships.filter((internship) => {
-    if (!searchText) return true;
+    if (!searchText) {
+      return true;
+    }
     return (
       `${internship.name}`
         .toLowerCase()
