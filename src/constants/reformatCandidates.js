@@ -6,13 +6,17 @@ export const reformatCandidates = (candidates) =>
       'DD.MM.YYYY',
     );
 
-      const hrName = candidate.users.filter((user) => user.roleType === 'Hr').map((item) => item.userName);
+    const hrName = candidate.users
+      .filter((user) => user.roleType === 'Hr')
+      .map((item) => item.userName);
 
-      const interviewerName = candidate.users.filter(
-        (user) => user.roleType === 'Interviewer',
-      ).map((item) => item.userName);
+    const interviewerName = candidate.users
+      .filter((user) => user.roleType === 'Interviewer')
+      .map((item) => item.userName);
 
-      const mentorName = candidate.users.filter((user) => user.roleType === 'Mentor').map((item) => item.userName);
+    const mentorName = candidate.users
+      .filter((user) => user.roleType === 'Mentor')
+      .map((item) => item.userName);
 
     const feedbacks =
       candidate.feedbacks &&
