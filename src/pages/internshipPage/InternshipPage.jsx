@@ -17,7 +17,7 @@ const InternshipPage = () => {
   const [popUpActive, setPopUpActive] = useState(false);
   const internship = useSelector((state) => state.internship.internship);
   const dispatch = useDispatch();
-  const allUsers = useSelector((state)=> state.allUsers.allUsers);
+  const allUsers = useSelector((state) => state.allUsers.allUsers);
   const isLoading = useSelector(loadingSelector(['GET_INTERNSHIP_BY_ID']));
   const mobile = useMediaDown('md');
   const openPopUpWindow = () => {
@@ -47,7 +47,7 @@ const InternshipPage = () => {
                   : 'internshipDataEmployees'
               }
             >
-              <TableTemplate rowData={tableFillerAllUsers(allUsers)}/>
+              <TableTemplate rowData={tableFillerAllUsers(allUsers)} />
             </Card>
           </Box>
           {initialData && (

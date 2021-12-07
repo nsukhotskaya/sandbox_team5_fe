@@ -194,10 +194,7 @@ const Candidates = () => {
                 <ManageSearch fontSize="large" />
               </IconButton>
             </Box>
-            <Box
-              mr={{ xs: '0px', md: '15px'}}
-              mb={{ xs: '5px', md: '0px' }}
-            >
+            <Box mr={{ xs: '0px', md: '15px' }} mb={{ xs: '5px', md: '0px' }}>
               <FilterCandidates onFilter={onFilter} />
             </Box>
           </Box>
@@ -240,9 +237,7 @@ const Candidates = () => {
               </Stack>
             )}
             <Divider orientation="vertical" variant="middle" flexItem />
-            <Stack
-              ml={{ xs: '0px', sm: '15px' }}
-            >
+            <Stack ml={{ xs: '0px', sm: '15px' }}>
               <PageSize gridApi={gridApi} />
             </Stack>
           </Box>
@@ -313,6 +308,14 @@ const Candidates = () => {
             <AgGridColumn field="interviewer" sortable resizable flex={1} />
             <AgGridColumn
               field="interviewerReview"
+              sortable
+              resizable
+              flex={1}
+              cellRenderer="starFormatter"
+            />
+            <AgGridColumn field="mentor" sortable resizable flex={1} />
+            <AgGridColumn
+              field="mentorReview"
               sortable
               resizable
               flex={1}
