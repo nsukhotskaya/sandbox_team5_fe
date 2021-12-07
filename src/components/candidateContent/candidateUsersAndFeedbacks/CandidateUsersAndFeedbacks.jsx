@@ -9,8 +9,13 @@ import { fetchAllUsers } from '../../../store/commands';
 export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const dispatch = useDispatch();
   const allUsers = useSelector((state) => state.allUsers.allUsers);
+  const authorizedUserRole = useSelector(
+    (state) => state.userInfo.userInfo.roleType,
+  );
   useEffect(() => {
-    dispatch(fetchAllUsers());
+    if (authorizedUserRole !== 'Interviewer') {
+      dispatch(fetchAllUsers());
+    }
   }, []);
 
   const assignedHr = candidateInfo.users?.find(

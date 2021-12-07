@@ -15,11 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './СandidateFeedbacksItem.sass';
 import { StarRating } from '../index';
 import { getFieldLabel } from '../../../utils';
-import {
-  updateFeedback,
-  createFeedback,
-  // createEvaluation
-} from '../../../store/commands';
+import { updateFeedback, createFeedback } from '../../../store/commands';
 
 const CandidateFeedbacksItem = ({
   user,
@@ -54,15 +50,6 @@ const CandidateFeedbacksItem = ({
           skill,
         })),
       );
-      //   skillsEvaluations=skills.map((skill)=>(
-      //   {
-      //     feedbackId: feedback.id,
-      //     skillId: skill.id,
-      //     value: 0,
-      //     skill,
-      //   }
-      // ))
-      // skillsEvaluations.map((newEvaluation) => (dispatch(createEvaluation(newEvaluation))));
     }
   }, [skills]);
 
@@ -104,19 +91,6 @@ const CandidateFeedbacksItem = ({
     setFinalEvaluation(value);
   };
 
-  // const handleChangeEvaluations = (value, evaluationName) => {
-  //   const newSkillsEvaluation = feedback.evaluations.map((skill) => {
-  //     if (skill.skill.name === evaluationName) {
-  //       const newSkill = {...skill}
-  //       newSkill.value = value
-  //       return newSkill
-  //     }
-  //     return skill
-  //   });
-  //   console.log(newSkillsEvaluation)
-  //   setSkillsEvaluations(newSkillsEvaluation);
-  // };
-
   const handleAddEvaluations = (value, evaluationName) => {
     const newSkillsEvaluation = skillsEvaluations.map((skill) => {
       if (skill.skill.name === evaluationName) {
@@ -135,9 +109,6 @@ const CandidateFeedbacksItem = ({
 
   const handleSaveButton = () => {
     handleEditMode();
-    console.log(feedback.evaluations);
-    console.log(skillsEvaluations);
-    console.log(updateToNewFeedback());
     dispatch(updateFeedback(updateToNewFeedback()));
   };
 
