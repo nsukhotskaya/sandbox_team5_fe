@@ -151,143 +151,150 @@ export const CandidateInfoEdit = (props) => {
     },
   });
 
+  const handleReset = () => {
+    formik.handleReset();
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayJs}>
-      <form>
-        <Box>
-          <IconButton variant="outlined" onClick={handleClickOpen}>
-            <EditIcon fontSize="medium" />
-          </IconButton>
-          <Drawer anchor="left" open={open}>
-            <Box
-              position="sticky"
-              top="0px"
-              height="auto"
-              padding="20px"
-              backgroundColor="background.paper"
-              zIndex="2"
-              boxShadow="0px -4px 10px 0px #c9c9c9"
-              display="flex"
-              justifyContent="space-between"
-            >
-              <Typography variant="h4" color="gray">
-                {getFieldLabel('candidate.edit.editCandidateTitle')}
-              </Typography>
+      <Box>
+        <IconButton variant="outlined" onClick={handleClickOpen}>
+          <EditIcon fontSize="medium" />
+        </IconButton>
+        <Drawer anchor="left" open={open}>
+          <Box
+            position="sticky"
+            top="0px"
+            height="auto"
+            padding="20px"
+            backgroundColor="background.paper"
+            zIndex="2"
+            boxShadow="0px -4px 10px 0px #c9c9c9"
+            display="flex"
+            justifyContent="space-between"
+          >
+            <Typography variant="h4" color="gray">
+              {getFieldLabel('candidate.edit.editCandidateTitle')}
+            </Typography>
+            <Box>
+              <Button onClick={handleReset} size="small">
+                {getFieldLabel('common.reset')}
+              </Button>
               <IconButton onClick={handleClose}>
                 <ClearIcon fontSize="small" />
               </IconButton>
             </Box>
-            <form onSubmit={formik.handleSubmit}>
-              <Box
-                padding="20px"
-                width={{ lg: '35vw', md: '50vw', sm: '70vw', xs: '100vw' }}
-              >
-                <Stack spacing={2} direction="column">
-                  {dataForRenderTextField.map((fieldName) => (
-                    <TextField
-                      fullWidth
-                      value={formik.values[fieldName]}
-                      onChange={formik.handleChange}
-                      name={fieldName}
-                      label={getFieldLabel(`candidate.info.${fieldName}`)}
-                      key={fieldName}
-                    />
-                  ))}
-                  {dataForRenderSelect.map(({ keyName, array }) => (
-                    <FormControl key={keyName}>
-                      <InputLabel>
-                        {getFieldLabel(`candidate.info.${keyName}`)}
-                      </InputLabel>
-                      <Select
-                        key={keyName}
-                        fullWidth
-                        value={formik.values[keyName]}
-                        name={keyName}
-                        label={getFieldLabel(`candidate.info.${keyName}`)}
-                        onChange={(event) =>
-                          formik.setFieldValue(keyName, event.target.value)
-                        }
-                      >
-                        {array.map(({ id, name }) => (
-                          <MenuItem key={id} value={name}>
-                            {name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  ))}
-                  <FormControl>
+          </Box>
+          <form onSubmit={formik.handleSubmit}>
+            <Box
+              padding="20px"
+              width={{ lg: '35vw', md: '50vw', sm: '70vw', xs: '100vw' }}
+            >
+              <Stack spacing={2} direction="column">
+                {dataForRenderTextField.map((fieldName) => (
+                  <TextField
+                    fullWidth
+                    value={formik.values[fieldName]}
+                    onChange={formik.handleChange}
+                    name={fieldName}
+                    label={getFieldLabel(`candidate.info.${fieldName}`)}
+                    key={fieldName}
+                  />
+                ))}
+                {dataForRenderSelect.map(({ keyName, array }) => (
+                  <FormControl key={keyName}>
                     <InputLabel>
-                      {getFieldLabel('candidate.info.internshipName')}
+                      {getFieldLabel(`candidate.info.${keyName}`)}
                     </InputLabel>
                     <Select
+                      key={keyName}
                       fullWidth
-                      value={formik.values.internshipName}
-                      onChange={(event, child) => {
-                        formik.setFieldValue(
-                          'internshipName',
-                          event.target.value,
-                        );
-                        formik.setFieldValue('internshipId', child.props.id);
-                      }}
-                      name="internshipName"
-                      label={getFieldLabel('candidate.info.internshipName')}
+                      value={formik.values[keyName]}
+                      name={keyName}
+                      label={getFieldLabel(`candidate.info.${keyName}`)}
+                      onChange={(event) =>
+                        formik.setFieldValue(keyName, event.target.value)
+                      }
                     >
-                      {Object.values(internshipsList).map((item) => (
-                        <MenuItem id={item.id} value={item.name} key={item.id}>
-                          {item.name}
+                      {array.map(({ id, name }) => (
+                        <MenuItem key={id} value={name}>
+                          {name}
                         </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
+                ))}
+                <FormControl>
+                  <InputLabel>
+                    {getFieldLabel('candidate.info.internshipName')}
+                  </InputLabel>
+                  <Select
+                    fullWidth
+                    value={formik.values.internshipName}
+                    onChange={(event, child) => {
+                      formik.setFieldValue(
+                        'internshipName',
+                        event.target.value,
+                      );
+                      formik.setFieldValue('internshipId', child.props.id);
+                    }}
+                    name="internshipName"
+                    label={getFieldLabel('candidate.info.internshipName')}
+                  >
+                    {Object.values(internshipsList).map((item) => (
+                      <MenuItem id={item.id} value={item.name} key={item.id}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
 
-                  <TimePicker
-                    label={getFieldLabel('candidate.info.bestContactTime')}
-                    name="bestContactTime"
-                    value={formik.values.bestContactTime}
-                    onChange={(dateValue) =>
-                      formik.setFieldValue('bestContactTime', dateValue)
-                    }
-                    ampm={false}
-                    renderInput={(params) => <TextField {...params} />}
+                <TimePicker
+                  label={getFieldLabel('candidate.info.bestContactTime')}
+                  name="bestContactTime"
+                  value={formik.values.bestContactTime}
+                  onChange={(dateValue) =>
+                    formik.setFieldValue('bestContactTime', dateValue)
+                  }
+                  ampm={false}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                <FormControl fullWidth>
+                  <FormControlLabel
+                    label={getFieldLabel('candidate.info.isPlanningToJoin')}
+                    control={<Checkbox />}
+                    name="isPlanningToJoin"
+                    onChange={formik.handleChange}
+                    checked={formik.values.isPlanningToJoin}
+                    value={formik.values.isPlanningToJoin}
                   />
-                  <FormControl fullWidth>
-                    <FormControlLabel
-                      label={getFieldLabel('candidate.info.isPlanningToJoin')}
-                      control={<Checkbox />}
-                      name="isPlanningToJoin"
-                      onChange={formik.handleChange}
-                      checked={formik.values.isPlanningToJoin}
-                      value={formik.values.isPlanningToJoin}
-                    />
-                  </FormControl>
-                </Stack>
-              </Box>
-              <Box
-                position="sticky"
-                bottom="0px"
-                height="auto"
-                padding="20px"
-                backgroundColor="background.paper"
-                zIndex="1"
-                boxShadow="0px -4px 10px 0px #c9c9c9"
-                width="100%"
-                display="flex"
-                justifyContent="space-between"
+                </FormControl>
+              </Stack>
+            </Box>
+            <Box
+              position="sticky"
+              bottom="0px"
+              height="auto"
+              padding="20px"
+              backgroundColor="background.paper"
+              zIndex="1"
+              boxShadow="0px -4px 10px 0px #c9c9c9"
+              width="100%"
+              display="flex"
+              justifyContent="space-between"
+            >
+              <Button
+                variant="contained"
+                type="submit"
+                onClick={handleClose}
+                fullWidth
               >
-                <Button
-                  variant="contained"
-                  type="submit"
-                  onClick={handleClose}
-                  fullWidth
-                >
-                  {getFieldLabel('common.save')}
-                </Button>
-              </Box>
-            </form>
-          </Drawer>
-        </Box>
-      </form>
+                {getFieldLabel('common.save')}
+              </Button>
+            </Box>
+          </form>
+        </Drawer>
+      </Box>
     </LocalizationProvider>
   );
 };
