@@ -161,5 +161,12 @@
   "notFoundPage.label.oops": "Oops...",
   "notFoundPage.label.description": "The page you are looking for can't be found",
   "notFoundPage.link.home": "Home",
-  "candidate.page.users.title": "Marks and Feedbacks"
+  "candidate.page.users.title": "Marks and Feedbacks",
+  "candidate.table.name": "Candidate Name",
+  "candidate.table.status": "Status",
+  "internship.table.status":"Status",
+  "internship.table.name":"Name",
+  "user.table.name": "User Name",
+  "user.table.role": "Role",
+  "user.table.position": "Position"
 }
