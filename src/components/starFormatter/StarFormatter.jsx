@@ -1,10 +1,8 @@
 import React from 'react';
-import { Rating, Box } from '@mui/material';
+import { Rating } from '@mui/material';
 
-const StarFormatter = ({ value }) =>
-  !value || value === 0 ? (
-    <Box/>
-  ) : (
+const StarFormatter = ({ value }) => (
+  !!value && 
     <Rating
       className="starFormatterWrapper"
       name="read-only"
@@ -12,6 +10,6 @@ const StarFormatter = ({ value }) =>
       max={4}
       readOnly
     />
-  );
+  )
 
 export default StarFormatter;
