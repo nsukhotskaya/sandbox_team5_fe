@@ -17,7 +17,6 @@ import {
 } from '@mui/material';
 import dayjs from 'dayjs';
 import {
-  fetchAllUsers,
   updateCandidateInfo,
   fetchContactTime,
   setEventToCalendar,
@@ -46,20 +45,16 @@ const formatStackType = (stackType) => {
   }
 }
 
-
-
-export const CandidateInterviewer = ({ candidateInfo }) => {
-  const allUsers = useSelector((state) => state.allUsers.allUsers);
+export const CandidateInterviewer = ({ candidateInfo, allUsers }) => {
   const contactTime = useSelector((state) => state.contactTime.contactTime);
   const skills = useSelector((state) => state.skills.skills);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchAllUsers());
     dispatch(fetchSkillsByStackType(formatStackType(candidateInfo.stackType)));
   }, []);
 
-  const [assignInterviewers, setAssignInterviewers] = useState(null);
+  const [assignInterviewers, setAssignInterviewers] = useState([]);
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
   const [interviewDate, setInterviewDate] = useState(null);
   const [interviewTime, setInterviewTime] = useState(null);

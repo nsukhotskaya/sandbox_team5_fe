@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   Box,
   Button,
@@ -9,20 +9,14 @@ import {
   MenuItem,
   ListItemText,
 } from '@mui/material';
-import { fetchAllUsers, updateCandidateInfo } from '../../../store/commands';
+import { updateCandidateInfo } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
 import './candidateHr.sass';
 
-export const CandidateHr = ({ candidateInfo }) => {
-  const allUsers = useSelector((state) => state.allUsers.allUsers);
+export const CandidateHr = ({ candidateInfo, allUsers }) => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllUsers());
-  }, []);
-
-  const [assignHRs, setAssignHRs] = useState(null);
+  const [assignHRs, setAssignHRs] = useState([]);
   const hrs = allUsers.filter((user) => user.roleType === 'Hr');
 
   const userIds = [assignHRs];

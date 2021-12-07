@@ -175,25 +175,22 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick, skills }
             {(user.roleType==="Interviewer" && skillsEvaluations.length!==0) &&
               (!feedback.evaluations.length ? 
                 skillsEvaluations.map((skill) => (
-                <>{console.log(feedback.evaluations)}
                 <StarRating
-                  key={skill.skill.name}
+                  key={skill.skillId}
                   title={skill.skill.name}
                   grade={skill.value}
                   editMode={editMode}
                   callbackFunction={handleAddEvaluations}
-                /></>))
+                />))
                 :
                 feedback.evaluations.map((skill) => (
-                  <>{console.log("Feedbacks MANY MANY")}
-                  {console.log(feedback.evaluations)}
                 <StarRating
-                  key={skill.skill.name}
+                  key={skill.skillId}
                   title={skill.skill.name}
                   grade={skill.value}
                   editMode={editMode}
                   callbackFunction={handleChangeEvaluations}
-                /></>
+                />
               )))
             }
             <TextField
