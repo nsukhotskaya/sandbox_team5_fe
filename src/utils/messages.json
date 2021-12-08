@@ -61,6 +61,7 @@
   "candidates.table.languageType": "Language",
   "candidates.table.stackType": "Stack",
   "candidates.table.hr": "HR",
+  "candidates.table.hrReview": "HR Review",
   "candidates.form.inputLabel": "Page Size",
   "internship.page.mentors": "Mentors",
   "internship.page.employees": "Employees",

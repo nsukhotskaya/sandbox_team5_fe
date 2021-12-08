@@ -116,6 +116,7 @@ const UserProfile = () => {
                             color="#000000DE"
                           >
                             <Typography
+                              component="span"
                               padding="0px 0px 0px 0px"
                               variant="body1"
                               className="text"
@@ -145,6 +146,7 @@ const UserProfile = () => {
                             <Typography
                               padding="0px 0px 0px 0px"
                               variant="body1"
+                              component="span"
                               className="text"
                             >
                               {userInfo && userInfo.phoneNumber}
