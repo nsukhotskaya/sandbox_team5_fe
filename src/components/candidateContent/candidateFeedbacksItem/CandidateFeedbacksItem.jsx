@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -20,6 +20,7 @@ import {
   createFeedback,
   fetchEvaluationsByFeedbackId,
 } from '../../../store/commands';
+import { Confirm } from '../../confirm';
 
 const CandidateFeedbacksItem = ({
   user,
@@ -27,6 +28,7 @@ const CandidateFeedbacksItem = ({
   handleEditClick,
   stacksSkills,
 }) => {
+  const [openConfirm, setOpenConfirm] = useState(false);
   const dispatch = useDispatch();
   const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
   const now = new Date(Date.now());
@@ -137,8 +139,15 @@ const CandidateFeedbacksItem = ({
     dispatch(updateFeedback(newFeedback));
   };
 
-  const handleClick = () => {
-    dispatch(createFeedback(createFeedbackRequestBody()));
+  const handleCreateFeedback = (value) => {
+    if (value) {
+      dispatch(createFeedback(createFeedbackRequestBody()));
+    }
+    setOpenConfirm(false);
+  };
+
+  const handleClickCreateFeedback = () => {
+    setOpenConfirm(true);
   };
 
   return (
@@ -167,11 +176,19 @@ const CandidateFeedbacksItem = ({
               </IconButton>
             )}
         </Box>
+        {openConfirm && (
+          <Confirm
+            confirmTitle={getFieldLabel('createFeedback.confirm.message')}
+            rejectButtonLabel={getFieldLabel('common.no')}
+            acceptButtonLabel={getFieldLabel('common.yes')}
+            callback={handleCreateFeedback}
+          />
+        )}
         {!feedbacks.length ? (
           (user.roleType === authorizedUserRole ||
             authorizedUserRole === 'Admin' ||
             authorizedUserRole === 'Manager') && (
-            <Button variant="outlined" onClick={handleClick}>
+            <Button variant="outlined" onClick={handleClickCreateFeedback}>
               {getFieldLabel('candidateFeedbacks.button.createFeedback')}
             </Button>
           )

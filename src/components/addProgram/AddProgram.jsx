@@ -16,7 +16,7 @@ import {
   IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
+import { LocalizationProvider, MobileDatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
 import { useMediaDown } from '../utils';
@@ -45,7 +45,14 @@ const AddProgram = (props) => {
   const [openCreateConfirm, setOpenCreateConfirm] = useState(false);
   const [openResetConfirm, setOpenResetConfirm] = useState(false);
   const [openCloseConfirm, setOpenCloseConfirm] = useState(false);
-  const { closeModal, initialData, dispatchFunction, title, button, internshipData } = props;
+  const {
+    closeModal,
+    initialData,
+    dispatchFunction,
+    title,
+    button,
+    internshipData,
+  } = props;
   const dispatch = useDispatch();
   const locationsList = useSelector((state) => state.locations.locations);
   const stacksList = useSelector((state) => state.stacks.stacks);
@@ -202,21 +209,21 @@ const AddProgram = (props) => {
   };
 
   const handleSubmit = (value) => {
-    if(value){
+    if (value) {
       formik.handleSubmit();
     }
     setOpenCreateConfirm(false);
   };
 
   const handleReset = (value) => {
-    if(value){
+    if (value) {
       formik.handleReset();
     }
     setOpenResetConfirm(false);
   };
 
   const handleClose = (value) => {
-    if(value){
+    if (value) {
       closeModal();
       formik.handleReset();
     }
@@ -224,43 +231,47 @@ const AddProgram = (props) => {
   };
 
   const handleClickClose = () => {
-    setOpenCloseConfirm(true)
-  }
+    setOpenCloseConfirm(true);
+  };
   const handleClickCreate = (event) => {
     event.preventDefault();
-    setOpenCreateConfirm(true)
-  }
+    setOpenCreateConfirm(true);
+  };
   const handleClickReset = () => {
-    setOpenResetConfirm(true)
-  }
-  
+    setOpenResetConfirm(true);
+  };
+
   return (
     <>
-      <form onSubmit={(event)=>{handleClickCreate(event)}}>
-      {openCreateConfirm && (
-        <Confirm
-          confirmTitle={getFieldLabel('submitForm.confirm.message')}
-          rejectButtonLabel={getFieldLabel('common.no')}
-          acceptButtonLabel={getFieldLabel('common.yes')}
-          callback={handleSubmit}
-        />
-      )}
-      {openResetConfirm && (
-        <Confirm
-          confirmTitle={getFieldLabel('resetForm.confirm.message')}
-          rejectButtonLabel={getFieldLabel('common.no')}
-          acceptButtonLabel={getFieldLabel('common.yes')}
-          callback={handleReset}
-        />
-      )}
-      {openCloseConfirm && (
-        <Confirm
-          confirmTitle={getFieldLabel('closeForm.confirm.message')}
-          rejectButtonLabel={getFieldLabel('common.no')}
-          acceptButtonLabel={getFieldLabel('common.yes')}
-          callback={handleClose}
-        />
-      )}
+      <form
+        onSubmit={(event) => {
+          handleClickCreate(event);
+        }}
+      >
+        {openCreateConfirm && (
+          <Confirm
+            confirmTitle={getFieldLabel('submitForm.confirm.message')}
+            rejectButtonLabel={getFieldLabel('common.no')}
+            acceptButtonLabel={getFieldLabel('common.yes')}
+            callback={handleSubmit}
+          />
+        )}
+        {openResetConfirm && (
+          <Confirm
+            confirmTitle={getFieldLabel('resetForm.confirm.message')}
+            rejectButtonLabel={getFieldLabel('common.no')}
+            acceptButtonLabel={getFieldLabel('common.yes')}
+            callback={handleReset}
+          />
+        )}
+        {openCloseConfirm && (
+          <Confirm
+            confirmTitle={getFieldLabel('closeForm.confirm.message')}
+            rejectButtonLabel={getFieldLabel('common.no')}
+            acceptButtonLabel={getFieldLabel('common.yes')}
+            callback={handleClose}
+          />
+        )}
         <Box className={smallScreen ? 'container smallPopUp' : 'container'}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Box className="popUpHeader">
@@ -301,7 +312,7 @@ const AddProgram = (props) => {
               ))}
               {Object.values(dataForRenderDatePicker).map((date) => (
                 <React.Fragment key={date.keyName}>
-                  <MobileDateTimePicker
+                  <MobileDatePicker
                     label={date.label}
                     name={date.keyName}
                     value={formik.values[`${date.keyName}`]}
@@ -313,6 +324,7 @@ const AddProgram = (props) => {
                     renderInput={({ label, inputProps }) => (
                       <TextField label={label} inputProps={inputProps} />
                     )}
+                    minDate={new Date()}
                   />
                 </React.Fragment>
               ))}

@@ -154,21 +154,21 @@ export const CandidateInfoEdit = (props) => {
   });
 
   const handleSubmit = (value) => {
-    if(value){
+    if (value) {
       formik.handleSubmit();
     }
     setOpenSaveConfirm(false);
   };
 
   const handleReset = (value) => {
-    if(value){
+    if (value) {
       formik.handleReset();
     }
     setOpenResetConfirm(false);
   };
 
   const handleClose = (value) => {
-    if(value){
+    if (value) {
       setOpen(false);
       formik.handleReset();
     }
@@ -176,15 +176,15 @@ export const CandidateInfoEdit = (props) => {
   };
 
   const handleClickClose = () => {
-    setOpenCloseConfirm(true)
-  }
+    setOpenCloseConfirm(true);
+  };
   const handleClickSave = (event) => {
     event.preventDefault();
-    setOpenSaveConfirm(true)
-  }
+    setOpenSaveConfirm(true);
+  };
   const handleClickReset = () => {
-    setOpenResetConfirm(true)
-  }
+    setOpenResetConfirm(true);
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayJs}>
@@ -223,31 +223,35 @@ export const CandidateInfoEdit = (props) => {
               </IconButton>
             </Box>
           </Box>
-          <form onSubmit={(event)=>{handleClickSave(event)}}>
-          {openSaveConfirm && (
-        <Confirm
-          confirmTitle={getFieldLabel('submitForm.confirm.message')}
-          rejectButtonLabel={getFieldLabel('common.no')}
-          acceptButtonLabel={getFieldLabel('common.yes')}
-          callback={handleSubmit}
-        />
-      )}
-      {openResetConfirm && (
-        <Confirm
-          confirmTitle={getFieldLabel('resetForm.confirm.message')}
-          rejectButtonLabel={getFieldLabel('common.no')}
-          acceptButtonLabel={getFieldLabel('common.yes')}
-          callback={handleReset}
-        />
-      )}
-      {openCloseConfirm && (
-        <Confirm
-          confirmTitle={getFieldLabel('closeForm.confirm.message')}
-          rejectButtonLabel={getFieldLabel('common.no')}
-          acceptButtonLabel={getFieldLabel('common.yes')}
-          callback={handleClose}
-        />
-      )}
+          <form
+            onSubmit={(event) => {
+              handleClickSave(event);
+            }}
+          >
+            {openSaveConfirm && (
+              <Confirm
+                confirmTitle={getFieldLabel('submitForm.confirm.message')}
+                rejectButtonLabel={getFieldLabel('common.no')}
+                acceptButtonLabel={getFieldLabel('common.yes')}
+                callback={handleSubmit}
+              />
+            )}
+            {openResetConfirm && (
+              <Confirm
+                confirmTitle={getFieldLabel('resetForm.confirm.message')}
+                rejectButtonLabel={getFieldLabel('common.no')}
+                acceptButtonLabel={getFieldLabel('common.yes')}
+                callback={handleReset}
+              />
+            )}
+            {openCloseConfirm && (
+              <Confirm
+                confirmTitle={getFieldLabel('closeForm.confirm.message')}
+                rejectButtonLabel={getFieldLabel('common.no')}
+                acceptButtonLabel={getFieldLabel('common.yes')}
+                callback={handleClose}
+              />
+            )}
             <Box
               padding="20px"
               width={{ lg: '35vw', md: '50vw', sm: '70vw', xs: '100vw' }}
