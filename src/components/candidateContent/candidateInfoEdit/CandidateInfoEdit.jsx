@@ -291,11 +291,7 @@ export const CandidateInfoEdit = (props) => {
               display="flex"
               justifyContent="space-between"
             >
-              <Button
-                variant="contained"
-                type="submit"
-                fullWidth
-              >
+              <Button variant="contained" type="submit" fullWidth>
                 {getFieldLabel('common.save')}
               </Button>
             </Box>
