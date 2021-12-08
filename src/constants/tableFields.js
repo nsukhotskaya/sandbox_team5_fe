@@ -2,7 +2,6 @@ export const tableFieldsFirstPart = [
   'registrationDate',
   'location',
   'languageType',
-  'internshipName',
   'stackType',
   'englishLevelType',
   'hr',
