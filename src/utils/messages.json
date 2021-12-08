@@ -23,6 +23,8 @@
   "createFeedback.confirm.message": "Are you sure you want to create feedback?",
   "closeForm.confirm.message": "Are you sure you want to close form?",
   "resetForm.confirm.message": "Are you sure you want to reset form?",
+  "assign.confirm.message": "Are you sure you want to assign this employee?",
+  "editAssign.confirm.message": "Are you sure you want to assign a different employee?",
   "login.button.login": "Login",
   "login.title": "BIT",
   "login.email": "E-mail",

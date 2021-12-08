@@ -29,6 +29,7 @@ const CandidateFeedbacksItem = ({
   stacksSkills,
 }) => {
   const [openConfirm, setOpenConfirm] = useState(false);
+  const [openEditAssignConfirm, setOpenEditAssignConfirm] = useState(false);
   const dispatch = useDispatch();
   const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
   const now = new Date(Date.now());
@@ -150,6 +151,17 @@ const CandidateFeedbacksItem = ({
     setOpenConfirm(true);
   };
 
+  const handleEditAssign = (value) => {
+    if (value) {
+      handleEditClick();
+    }
+    setOpenEditAssignConfirm(false);
+  };
+
+  const handleClickEditAssign = () => {
+    setOpenEditAssignConfirm(true);
+  };
+
   return (
     <Box className="feedbackItem">
       <Box className="createTitleSection flexBoxRow">
@@ -171,11 +183,19 @@ const CandidateFeedbacksItem = ({
             (authorizedUserRole === 'Admin' ||
               authorizedUserRole === 'Manager' ||
               authorizedUserRole === 'Hr') && (
-              <IconButton variant="outlined" onClick={handleEditClick}>
+              <IconButton variant="outlined" onClick={handleClickEditAssign}>
                 <EditIcon fontSize="small" />
               </IconButton>
             )}
         </Box>
+        {openEditAssignConfirm && (
+          <Confirm
+            confirmTitle={getFieldLabel('editAssign.confirm.message')}
+            rejectButtonLabel={getFieldLabel('common.no')}
+            acceptButtonLabel={getFieldLabel('common.yes')}
+            callback={handleEditAssign}
+          />
+        )}
         {openConfirm && (
           <Confirm
             confirmTitle={getFieldLabel('createFeedback.confirm.message')}
