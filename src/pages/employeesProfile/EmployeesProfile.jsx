@@ -9,6 +9,7 @@ import {
   Divider,
   ListItemText,
   List,
+  Link,
   ListItem,
 } from '@mui/material';
 import './EmployeesProfile.sass';
@@ -69,18 +70,78 @@ const EmployeesProfile = () => {
                   </Typography>
                   <Divider />
                   <List>
+                    <ListItem disablePadding key="email">
+                      <ListItemText
+                        primary={
+                          <Typography fontWeight="bold" variant="body1">
+                            {getFieldLabel(`profile.email`)}
+                          </Typography>
+                        }
+                        secondary={
+                          <Link
+                            href={getFieldLabel('email.link').replace(
+                              /%(\w*)%/,
+                              `${userInfo.email}`,
+                            )}
+                            underline="none"
+                            color="#000000DE"
+                          >
+                            <Typography
+                              padding="0px 0px 0px 0px"
+                              variant="body1"
+                              className="text"
+                            >
+                              {userInfo && userInfo.email}
+                            </Typography>
+                          </Link>
+                        }
+                      />
+                    </ListItem>
+                    <ListItem disablePadding key="phoneNumber">
+                      <ListItemText
+                        primary={
+                          <Typography fontWeight="bold" variant="body1">
+                            {getFieldLabel(`profile.phoneNumber`)}
+                          </Typography>
+                        }
+                        secondary={
+                          <Link
+                            href={getFieldLabel('telephone.link').replace(
+                              /%(\w*)%/,
+                              `${userInfo.phoneNumber}`,
+                            )}
+                            underline="none"
+                            color="#000000DE"
+                          >
+                            <Typography
+                              padding="0px 0px 0px 0px"
+                              variant="body1"
+                              className="text"
+                            >
+                              {userInfo && userInfo.phoneNumber}
+                            </Typography>
+                          </Link>
+                        }
+                      />
+                    </ListItem>
                     {userProfileListFields.map((item) => (
-                      <ListItem key={item}>
+                      <ListItem disablePadding key={item}>
                         <ListItemText
-                          primary={getFieldLabel(`profile.${item}`)}
+                          primary={
+                            <Typography fontWeight="bold" variant="body1">
+                              {getFieldLabel(`profile.${item}`)}
+                            </Typography>
+                          }
+                          secondary={
+                            <Typography
+                              padding="0px 0px 0px 0px"
+                              variant="body1"
+                              className="text"
+                            >
+                              {userInfo && userInfo[item]}
+                            </Typography>
+                          }
                         />
-                        <Typography
-                          padding="0px 0px 0px 10px"
-                          variant="body1"
-                          className="text"
-                        >
-                          {userInfo && userInfo[item]}
-                        </Typography>
                       </ListItem>
                     ))}
                   </List>
