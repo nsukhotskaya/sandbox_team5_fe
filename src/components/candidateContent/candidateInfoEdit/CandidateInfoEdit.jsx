@@ -44,7 +44,6 @@ export const CandidateInfoEdit = (props) => {
 
   dayjs.extend(customParseFormat);
   dayjs.extend(utc);
-
   const candidateStatusTypeList = useSelector(
     (state) => state.candidateStatusTypes.candidateStatusTypes,
   );
@@ -177,7 +176,14 @@ export const CandidateInfoEdit = (props) => {
               {getFieldLabel('candidate.edit.editCandidateTitle')}
             </Typography>
             <Box>
-              <Button onClick={handleReset} size="small">
+              <Button
+                onClick={handleReset}
+                size="small"
+                disabled={
+                  JSON.stringify(formatedInitInfo) ===
+                  JSON.stringify(formik.values)
+                }
+              >
                 {getFieldLabel('common.reset')}
               </Button>
               <IconButton onClick={handleClose}>
