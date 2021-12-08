@@ -291,7 +291,7 @@ const Candidates = () => {
             />
             {tableFieldsFirstPart.map((field) => (
               <AgGridColumn
-              suppressMovable
+                suppressMovable
                 field={field}
                 headerName={getFieldLabel(`candidates.table.${field}`)}
                 key={field}
@@ -301,23 +301,35 @@ const Candidates = () => {
               />
             ))}
             <AgGridColumn
-            suppressMovable
+              suppressMovable
               field="hrReview"
               sortable
               resizable
               flex={1}
               cellRenderer="starFormatter"
             />
-            <AgGridColumn field="interviewer" sortable resizable flex={1} suppressMovable />
             <AgGridColumn
-            suppressMovable
+              field="interviewer"
+              sortable
+              resizable
+              flex={1}
+              suppressMovable
+            />
+            <AgGridColumn
+              suppressMovable
               field="interviewerReview"
               sortable
               resizable
               flex={1}
               cellRenderer="starFormatter"
             />
-            <AgGridColumn field="mentor" sortable resizable flex={1} suppressMovable />
+            <AgGridColumn
+              field="mentor"
+              sortable
+              resizable
+              flex={1}
+              suppressMovable
+            />
             <AgGridColumn
               field="mentorReview"
               sortable
