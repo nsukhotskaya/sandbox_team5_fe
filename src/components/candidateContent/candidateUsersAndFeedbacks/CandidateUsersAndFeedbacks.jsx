@@ -54,7 +54,9 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
           <CandidateInterviewer
             candidateInfo={candidateInfo}
             allUsers={allUsers}
-            stacks={stacksByInternshipId.map((stack)=>(stack.technologyStackType))}
+            stacks={stacksByInternshipId.map(
+              (stack) => stack.technologyStackType,
+            )}
           />
         )}
         {!!assignedInterviewer && (

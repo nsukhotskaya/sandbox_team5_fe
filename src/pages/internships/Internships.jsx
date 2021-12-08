@@ -89,7 +89,7 @@ export const Internships = () => {
           </Box>
         </Box>
       </Box>
-      <Container fixed maxWidth="1600px">
+      <Container className="internshipsContainer" fixed maxWidth="1600px">
         <Box>
           {isLoading ? (
             <LoadingIndicator />

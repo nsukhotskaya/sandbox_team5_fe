@@ -8,8 +8,10 @@ import {
 const fetchSkillsByStackTypes = (stackTypes) => async (dispatch) => {
   dispatch(getStacksSkillsRequest());
   try {
-    const stackTypesParams = stackTypes.map((stackType) => `stackTypes=${stackType}`)
-    const responseParamsString = stackTypesParams.join("&")
+    const stackTypesParams = stackTypes.map(
+      (stackType) => `stackTypes=${stackType}`,
+    );
+    const responseParamsString = stackTypesParams.join('&');
     const response = await API.get(
       `api/Skill/getSkillsByStackTypes?${responseParamsString}`,
     );

@@ -59,7 +59,6 @@
   "candidates.table.registrationDate": "Application Date",
   "candidates.table.location": "Location",
   "candidates.table.languageType": "Language",
-  "candidates.table.internshipName": "Internship",
   "candidates.table.stackType": "Stack",
   "candidates.table.hr": "HR",
   "candidates.form.inputLabel": "Page Size",
@@ -121,7 +120,7 @@
   "addprogram.field.label.title": "Program title",
   "addprogram.field.label.requirements": "Requirements",
   "addprogram.field.label.candidateCount": "Candidate Count",
-  "addprogram.field.label.spreadSheetId": "Spread Sheet Id",
+  "addprogram.field.label.spreadSheetId": "Spread Sheet Link",
   "addprogram.field.label.imageLink": "Image Link",
   "addprogram.field.label.stacks": "Stacks",
   "addprogram.field.label.locations": "Locations",
@@ -164,5 +163,8 @@
   "table.candidates.tooltip":"Go to candidate %value%",
   "table.internships.tooltip":"Go to %value% internship",
   "download.tooltip":"Download report",
-  "candidate.set.interview": "Set Interview Time"
+  "candidate.set.interview": "Set Interview Time",
+  "telephone.link":"tel:%value%",
+  "email.link":"mailto:%value%",
+  "skype.link":"skype:%echo123%?call"
 }

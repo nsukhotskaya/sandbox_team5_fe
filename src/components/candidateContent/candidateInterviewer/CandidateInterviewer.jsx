@@ -61,7 +61,11 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
   );
 
   useEffect(() => {
-    dispatch(fetchSkillsByStackTypes(stacks.map((stackType)=>(formatStackType(stackType)))));
+    dispatch(
+      fetchSkillsByStackTypes(
+        stacks.map((stackType) => formatStackType(stackType)),
+      ),
+    );
   }, []);
   const [assignInterviewers, setAssignInterviewers] = useState([]);
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
