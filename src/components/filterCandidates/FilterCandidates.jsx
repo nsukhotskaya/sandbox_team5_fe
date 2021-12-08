@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Box,
@@ -24,6 +24,7 @@ export const FilterCandidates = ({ onFilter }) => {
   const [filterStatus, setFilterStatus] = useState([]);
   const [filterEnglishLevel, setFilterEnglishLevel] = useState([]);
   const [checked, setChecked] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
   const locationsList = useSelector((state) => state.locations.locations);
   const languagesList = useSelector((state) => state.languages.languages);
   const englishLevelList = useSelector(
@@ -35,6 +36,26 @@ export const FilterCandidates = ({ onFilter }) => {
   const authorizedUser = useSelector((state) => state.userInfo.userInfo);
   const authorizedUserId = authorizedUser.id;
   const [anchorEl, setAnchorEl] = useState();
+
+  useEffect(() => {
+    if (
+      filterLocation.length ||
+      filterLanguage.length ||
+      filterStatus.length ||
+      filterEnglishLevel.length ||
+      checked
+    ) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [
+    filterLocation,
+    filterLanguage,
+    filterStatus,
+    filterEnglishLevel,
+    checked,
+  ]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -108,7 +129,7 @@ export const FilterCandidates = ({ onFilter }) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Button onClick={reset} size="small">
+              <Button disabled={isDisabled} onClick={reset} size="small">
                 {getFieldLabel('common.reset')}
               </Button>
               <IconButton onClick={handleClose}>
@@ -212,7 +233,12 @@ export const FilterCandidates = ({ onFilter }) => {
               />
             </FormControl>
           )}
-          <Button onClick={handleSubmit} size="small" variant="contained">
+          <Button
+            disabled={isDisabled}
+            onClick={handleSubmit}
+            size="small"
+            variant="contained"
+          >
             {getFieldLabel('common.filter')}
           </Button>
         </Box>

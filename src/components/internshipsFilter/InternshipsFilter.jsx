@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import dayjs from 'dayjs';
 import {
@@ -48,6 +48,33 @@ export const InternshipsFilter = ({ onFilter }) => {
   const [filterInterviewers, setFilterInterviewers] = useState([]);
   const [filterMentors, setFilterMentors] = useState([]);
   const [filterYears, setFilterYears] = useState(null);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(() => {
+    if (
+      filterLocation.length ||
+      filterLanguage.length ||
+      filterStatus.length ||
+      filterStack.length ||
+      filterHRs.length ||
+      filterInterviewers.length ||
+      filterMentors.length ||
+      filterYears
+    ) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [
+    filterLocation,
+    filterLanguage,
+    filterStatus,
+    filterStack,
+    filterHRs,
+    filterInterviewers,
+    filterMentors,
+    filterYears,
+  ]);
 
   const handleSubmit = () => {
     const filters = {};
@@ -133,7 +160,7 @@ export const InternshipsFilter = ({ onFilter }) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Button onClick={cleanFilter} size="small">
+              <Button disabled={isDisabled} onClick={cleanFilter} size="small">
                 {getFieldLabel('common.reset')}
               </Button>
               <IconButton onClick={handleClose}>
@@ -146,12 +173,28 @@ export const InternshipsFilter = ({ onFilter }) => {
               {getFieldLabel('internships.filter.label.status')}
             </InputLabel>
             <Select
+              multiple
               value={filterStatus}
               label="Status"
               onChange={(event) => setFilterStatus(event.target.value)}
+              renderValue={(selected) => selected.join(', ')}
             >
-              <MenuItem value="Open">{getFieldLabel('common.open')}</MenuItem>
-              <MenuItem value="Close">{getFieldLabel('common.close')}</MenuItem>
+              <MenuItem value="Open">
+                <Checkbox
+                  checked={
+                    filterStatus.indexOf(getFieldLabel('common.open')) > -1
+                  }
+                />
+                <ListItemText primary={<>{getFieldLabel('common.open')}</>} />
+              </MenuItem>
+              <MenuItem value="Close">
+                <Checkbox
+                  checked={
+                    filterStatus.indexOf(getFieldLabel('common.close')) > -1
+                  }
+                />
+                <ListItemText primary={<>{getFieldLabel('common.close')}</>} />
+              </MenuItem>
             </Select>
           </FormControl>
           <FormControl size="small" fullWidth>
@@ -279,7 +322,7 @@ export const InternshipsFilter = ({ onFilter }) => {
               <DatePicker
                 views={['year']}
                 label="Year"
-                value={filterYears || new Date()}
+                value={filterYears}
                 onChange={(newValue) => {
                   setFilterYears(newValue);
                 }}
@@ -289,7 +332,12 @@ export const InternshipsFilter = ({ onFilter }) => {
               />
             </LocalizationProvider>
           </FormControl>
-          <Button onClick={handleSubmit} size="small" variant="contained">
+          <Button
+            disabled={isDisabled}
+            onClick={handleSubmit}
+            size="small"
+            variant="contained"
+          >
             {getFieldLabel('common.filter')}
           </Button>
         </Box>
