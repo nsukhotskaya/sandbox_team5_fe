@@ -28,7 +28,7 @@ const CandidateFeedbacksItem = ({
   skills,
 }) => {
   const dispatch = useDispatch();
-  const [isCriteriaShown, setIsCriteriaShown] = React.useState(true);
+  const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
   const now = new Date(Date.now());
   const { feedbacks, userName, roleType } = user;
   const feedback = feedbacks.length ? feedbacks[0] : {};
@@ -149,21 +149,23 @@ const CandidateFeedbacksItem = ({
             overflow="hidden"
             textOverflow="ellipsis"
             whiteSpace="nowrap"
-            variant="h6"
-            pr="10px"
+            variant="body1"
+            fontWeight="bold"
+            pr="20px"
           >
             {userName}
           </Typography>
-          <Typography variant="h6" fontWeight="300" pr="10px">
+          <Typography variant="body2" pr="20px">
             {roleType}
           </Typography>
-          {(authorizedUserRole === 'Admin' ||
-            authorizedUserRole === 'Manager' ||
-            authorizedUserRole === 'Hr') && (
-            <IconButton variant="outlined" onClick={handleEditClick}>
-              <EditIcon fontSize="small" />
-            </IconButton>
-          )}
+          {!feedbacks.length &&
+            (authorizedUserRole === 'Admin' ||
+              authorizedUserRole === 'Manager' ||
+              authorizedUserRole === 'Hr') && (
+              <IconButton variant="outlined" onClick={handleEditClick}>
+                <EditIcon fontSize="small" />
+              </IconButton>
+            )}
         </Box>
         {!feedbacks.length ? (
           (user.roleType === authorizedUserRole ||
@@ -176,7 +178,13 @@ const CandidateFeedbacksItem = ({
         ) : (
           <Box className="flexBoxRow">
             {!isCriteriaShown && (
-              <Rating value={finalEvaluation} max={4} readOnly pl="200px" />
+              <Rating
+                size="small"
+                value={finalEvaluation}
+                max={4}
+                readOnly
+                pl="200px"
+              />
             )}
             <IconButton onClick={handleButton}>
               {isCriteriaShown ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -198,6 +206,8 @@ const CandidateFeedbacksItem = ({
                 />
               ))}
             <TextField
+              className="feedbackForm"
+              sx={{ marginTop: '10px' }}
               value={description}
               multiline
               minRows="3"
@@ -217,11 +227,19 @@ const CandidateFeedbacksItem = ({
               authorizedUserRole === 'Admin' ||
               authorizedUserRole === 'Manager') &&
               (editMode ? (
-                <Button variant="outlined" onClick={handleSaveButton}>
+                <Button
+                  variant="outlined"
+                  onClick={handleSaveButton}
+                  className="editFeedbackButton"
+                >
                   {getFieldLabel('common.save')}
                 </Button>
               ) : (
-                <Button variant="outlined" onClick={handleEditMode}>
+                <Button
+                  variant="outlined"
+                  onClick={handleEditMode}
+                  className="editFeedbackButton"
+                >
                   {getFieldLabel('common.edit')}
                 </Button>
               ))}
