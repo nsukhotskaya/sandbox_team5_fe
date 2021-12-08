@@ -243,7 +243,9 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stack }) => {
                     input={<OutlinedInput label="Date" />}
                   >
                     {availableDates.map((time) => (
-                      <MenuItem value={time}>{time}</MenuItem>
+                      <MenuItem key={time} value={time}>
+                        {time}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -256,7 +258,7 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stack }) => {
                     disabled={!interviewDate}
                   >
                     {availableTimes.map((time) => (
-                      <MenuItem value={time}>
+                      <MenuItem key={time.id} value={time}>
                         {dayjs(time.startTime)
                           .format('HH:mm')
                           .concat(' - ')

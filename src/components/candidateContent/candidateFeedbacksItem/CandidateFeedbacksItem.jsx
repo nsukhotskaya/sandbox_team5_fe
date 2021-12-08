@@ -15,7 +15,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import './СandidateFeedbacksItem.sass';
 import { StarRating } from '../index';
 import { getFieldLabel } from '../../../utils';
-import { updateFeedback, createFeedback, fetchEvaluationsByFeedbackId } from '../../../store/commands';
+import {
+  updateFeedback,
+  createFeedback,
+  fetchEvaluationsByFeedbackId,
+} from '../../../store/commands';
 
 const CandidateFeedbacksItem = ({
   user,
@@ -35,22 +39,27 @@ const CandidateFeedbacksItem = ({
     feedbacks.length ? feedback.finalEvaluation : 0,
   );
   const [editMode, setEditMode] = React.useState(false);
-  const candidateEvaluations = useSelector((state) => state.candidateEvaluations.candidateEvaluations);
+  const candidateEvaluations = useSelector(
+    (state) => state.candidateEvaluations.candidateEvaluations,
+  );
   const [skillsEvaluations, setSkillsEvaluations] = React.useState([]);
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
   );
   useEffect(() => {
-    if ( user.roleType==="Interviewer" && candidateEvaluations.length===0 && !!feedbacks.length) {
+    if (
+      user.roleType === 'Interviewer' &&
+      candidateEvaluations.length === 0 &&
+      !!feedbacks.length
+    ) {
       dispatch(fetchEvaluationsByFeedbackId(feedback.id));
-    }
-    else if(candidateEvaluations.length!==0){
-      setSkillsEvaluations(candidateEvaluations )
+    } else if (candidateEvaluations.length !== 0) {
+      setSkillsEvaluations(candidateEvaluations);
     }
   }, []);
 
   useEffect(() => {
-    if (candidateEvaluations.length===0 && skills) {
+    if (candidateEvaluations.length === 0 && skills) {
       setSkillsEvaluations(
         skills.map((skill) => ({
           feedbackId: feedback.id,
@@ -59,10 +68,7 @@ const CandidateFeedbacksItem = ({
           skill,
         })),
       );
-    }
-    else (
-      setSkillsEvaluations(candidateEvaluations)
-    )
+    } else setSkillsEvaluations(candidateEvaluations);
   }, [skills]);
 
   const updateToNewFeedback = () => {
@@ -107,7 +113,6 @@ const CandidateFeedbacksItem = ({
   const handleAddEvaluations = (value, evaluationName) => {
     const newSkillsEvaluation = skillsEvaluations.map((skill) => {
       if (skill.skill.name === evaluationName) {
-
         const newSkill = { ...skill };
         newSkill.value = value;
         return newSkill;
@@ -124,11 +129,11 @@ const CandidateFeedbacksItem = ({
   const handleSaveButton = () => {
     handleEditMode();
     const newFeedback = updateToNewFeedback();
-    newFeedback.evaluations=newFeedback.evaluations.map((evaluation) => {
-      const newEvaluation = {...evaluation}
-      delete newEvaluation.id
-      return newEvaluation
-    })
+    newFeedback.evaluations = newFeedback.evaluations.map((evaluation) => {
+      const newEvaluation = { ...evaluation };
+      delete newEvaluation.id;
+      return newEvaluation;
+    });
     dispatch(updateFeedback(newFeedback));
   };
 
@@ -184,15 +189,14 @@ const CandidateFeedbacksItem = ({
           <Box className="collapseContainer">
             {user.roleType === 'Interviewer' &&
               candidateEvaluations.map((skill) => (
-                    <StarRating
-                      key={skill.skillId}
-                      title={skill.skill.name}
-                      grade={skill.value}
-                      editMode={editMode}
-                      callbackFunction={handleAddEvaluations}
-                    />
-                  ))
-            }
+                <StarRating
+                  key={skill.skillId}
+                  title={skill.skill.name}
+                  grade={skill.value}
+                  editMode={editMode}
+                  callbackFunction={handleAddEvaluations}
+                />
+              ))}
             <TextField
               value={description}
               multiline
