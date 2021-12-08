@@ -19,10 +19,10 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import dayjs from 'dayjs';
 import {
-  fetchAllUsers,
   updateCandidateInfo,
   fetchContactTime,
   setEventToCalendar,
+  fetchSkillsByStackType,
 } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
@@ -32,21 +32,39 @@ const utc = require('dayjs/plugin/utc');
 
 dayjs.extend(utc);
 
-export const CandidateInterviewer = ({ candidateInfo }) => {
-  const allUsers = useSelector((state) => state.allUsers.allUsers);
+const formatStackType = (stackType) => {
+  switch (stackType) {
+    case 'FrontEnd':
+      return '0';
+    case 'BackEnd':
+      return '1';
+    case 'FullStack':
+      return '2';
+    case 'BusinessAnalysis':
+      return '3';
+    case 'DevOps':
+      return '4';
+    case 'Testing':
+      return '5';
+    default:
+      return stackType;
+  }
+};
+
+export const CandidateInterviewer = ({ candidateInfo, allUsers, stack }) => {
   const contactTime = useSelector((state) => state.contactTime.contactTime);
+  const skills = useSelector((state) => state.skills.skills);
+  const dispatch = useDispatch();
+
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
   );
-  const dispatch = useDispatch();
-
-  dayjs.extend(utc);
 
   useEffect(() => {
-    dispatch(fetchAllUsers());
+    dispatch(fetchSkillsByStackType(formatStackType(stack)));
   }, []);
 
-  const [assignInterviewers, setAssignInterviewers] = useState(null);
+  const [assignInterviewers, setAssignInterviewers] = useState([]);
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
   const [interviewDate, setInterviewDate] = useState(null);
   const [interviewTime, setInterviewTime] = useState(null);
@@ -210,7 +228,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
             authorizedUserRole === 'Manager' ||
             authorizedUserRole === 'Hr') && (
             <Button variant="outlined" onClick={handleClickOpen}>
-              Set Interview Time
+              {getFieldLabel('candidate.set.interview')}
             </Button>
           )}
           <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
@@ -225,7 +243,9 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
                     input={<OutlinedInput label="Date" />}
                   >
                     {availableDates.map((time) => (
-                      <MenuItem value={time}>{time}</MenuItem>
+                      <MenuItem key={time} value={time}>
+                        {time}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>
@@ -238,7 +258,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
                     disabled={!interviewDate}
                   >
                     {availableTimes.map((time) => (
-                      <MenuItem value={time}>
+                      <MenuItem key={time.id} value={time}>
                         {dayjs(time.startTime)
                           .format('HH:mm')
                           .concat(' - ')
@@ -267,6 +287,7 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
             key={assignedInterviewer.id}
             user={assignedInterviewer}
             candidateInfo={candidateInfo}
+            skills={skills}
           />
         </Box>
       )}

@@ -194,10 +194,7 @@ const Candidates = () => {
                 <ManageSearch fontSize="large" />
               </IconButton>
             </Box>
-            <Box
-              mr={{ xs: '0px', md: '15px'}}
-              mb={{ xs: '5px', md: '0px' }}
-            >
+            <Box mr={{ xs: '0px', md: '15px' }} mb={{ xs: '5px', md: '0px' }}>
               <FilterCandidates onFilter={onFilter} />
             </Box>
           </Box>
@@ -240,9 +237,7 @@ const Candidates = () => {
               </Stack>
             )}
             <Divider orientation="vertical" variant="middle" flexItem />
-            <Stack
-              ml={{ xs: '0px', sm: '15px' }}
-            >
+            <Stack ml={{ sm: '15px' }}>
               <PageSize gridApi={gridApi} />
             </Stack>
           </Box>
@@ -284,6 +279,7 @@ const Candidates = () => {
             }}
           >
             <AgGridColumn
+              suppressMovable
               field="fullName"
               sortable
               checkboxSelection
@@ -295,6 +291,7 @@ const Candidates = () => {
             />
             {tableFieldsFirstPart.map((field) => (
               <AgGridColumn
+                suppressMovable
                 field={field}
                 headerName={getFieldLabel(`candidates.table.${field}`)}
                 key={field}
@@ -304,14 +301,22 @@ const Candidates = () => {
               />
             ))}
             <AgGridColumn
+              suppressMovable
               field="hrReview"
               sortable
               resizable
               flex={1}
               cellRenderer="starFormatter"
             />
-            <AgGridColumn field="interviewer" sortable resizable flex={1} />
             <AgGridColumn
+              field="interviewer"
+              sortable
+              resizable
+              flex={1}
+              suppressMovable
+            />
+            <AgGridColumn
+              suppressMovable
               field="interviewerReview"
               sortable
               resizable
@@ -319,12 +324,30 @@ const Candidates = () => {
               cellRenderer="starFormatter"
             />
             <AgGridColumn
+              field="mentor"
+              sortable
+              resizable
+              flex={1}
+              suppressMovable
+            />
+            <AgGridColumn
+              field="mentorReview"
+              sortable
+              resizable
+              flex={1}
+              cellRenderer="starFormatter"
+              suppressMovable
+            />
+            <AgGridColumn
               field="statusType"
               headerName={getFieldLabel('candidates.table.statusType')}
               sortable
               resizable
-              flex={1}
+              suppressSizeToFit
+              minWidth={100}
+              maxWidth={150}
               cellRenderer="chipFormatter"
+              suppressMovable
             />
           </AgGridReact>
         )}

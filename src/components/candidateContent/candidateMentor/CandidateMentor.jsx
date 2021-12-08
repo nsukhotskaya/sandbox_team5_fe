@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
@@ -9,26 +9,18 @@ import {
   MenuItem,
   ListItemText,
 } from '@mui/material';
-import { fetchAllUsers, updateCandidateInfo } from '../../../store/commands';
+import { updateCandidateInfo } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
 import './candidateMentor.sass';
 
-export const CandidateMentor = ({ candidateInfo }) => {
-  const allUsers = useSelector((state) => state.allUsers.allUsers);
+export const CandidateMentor = ({ candidateInfo, allUsers }) => {
+  const dispatch = useDispatch();
+  const [assignMentors, setAssignMentors] = useState([]);
+  const [editAssignedMentor, setEditAssignedMentor] = useState(false);
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
   );
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllUsers());
-  }, []);
-
-  const [assignMentors, setAssignMentors] = useState(null);
-  const [editAssignedMentor, setEditAssignedMentor] = useState(false);
-
   const mentors = allUsers.filter((user) => user.roleType === 'Mentor');
 
   const userIds = [assignMentors];
