@@ -1,8 +1,5 @@
 export const tableCandidateInfoFields = [
-  'phone',
-  'email',
   'internshipName',
-  'skype',
   'stackType',
   'location',
   'registrationDate',

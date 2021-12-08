@@ -2,7 +2,7 @@ import React from 'react';
 import dayjs from 'dayjs';
 import { useSelector } from 'react-redux';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { Box, Typography, Divider, Grid, Chip } from '@mui/material';
+import { Box, Typography, Divider, Grid, Chip, Link } from '@mui/material';
 import { getFieldLabel, getChipColorByStatus } from '../../../utils';
 
 import { tableCandidateInfoFields } from '../../../constants/tableCandidateInfoFields';
@@ -66,6 +66,57 @@ const CandidateInfo = (props) => {
         width="100%"
         paddingBottom="5%"
       >
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key="phone">
+          <Typography variant="body1" fontWeight="bold">
+            {getFieldLabel('candidate.info.phone')}
+          </Typography>
+          <Link
+            href={getFieldLabel('telephone.link').replace(
+              /%(\w*)%/,
+              `${formatedInfo.phone}`,
+            )}
+            underline="none"
+            color="#000000DE"
+          >
+            <Typography variant="body2" maxWidth="100%">
+              {formatedInfo.phone}
+            </Typography>
+          </Link>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key="email">
+          <Typography variant="body1" fontWeight="bold">
+            {getFieldLabel('candidate.info.email')}
+          </Typography>
+          <Link
+            href={getFieldLabel('email.link').replace(
+              /%(\w*)%/,
+              `${formatedInfo.email}`,
+            )}
+            underline="none"
+            color="#000000DE"
+          >
+            <Typography variant="body2" maxWidth="100%">
+              {formatedInfo.email}
+            </Typography>
+          </Link>
+        </Grid>
+        <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key="skype">
+          <Typography variant="body1" fontWeight="bold">
+            {getFieldLabel('candidate.info.skype')}
+          </Typography>
+          <Link
+            href={getFieldLabel('skype.link').replace(
+              /%(\w*)%/,
+              `${formatedInfo.skype}`,
+            )}
+            underline="none"
+            color="#000000DE"
+          >
+            <Typography variant="body2" maxWidth="100%">
+              {formatedInfo.skype}
+            </Typography>
+          </Link>
+        </Grid>
         {tableCandidateInfoFields.map((item) => (
           <Grid item xs={12} sm={12} md={12} lg={6} xl={6} key={item}>
             <Typography variant="body1" fontWeight="bold">
