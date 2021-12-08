@@ -61,7 +61,7 @@ function HeaderNav() {
       )}
       <Box
         className="headerNav"
-        mr={smallScreen ? '10px' : '60px'}
+        mr={smallScreen ? '10px' : '24px'}
         onClick={handleShowMenu}
       >
         <Avatar alt={userInfo.userName} className="headerNavAvatar" />
