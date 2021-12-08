@@ -59,7 +59,6 @@
   "candidates.table.registrationDate": "Application Date",
   "candidates.table.location": "Location",
   "candidates.table.languageType": "Language",
-  "candidates.table.internshipName": "Internship",
   "candidates.table.stackType": "Stack",
   "candidates.table.hr": "HR",
   "candidates.form.inputLabel": "Page Size",
