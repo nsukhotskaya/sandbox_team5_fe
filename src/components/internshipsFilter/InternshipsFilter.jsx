@@ -51,12 +51,30 @@ export const InternshipsFilter = ({ onFilter }) => {
   const [isDisabled, setIsDisabled] = useState(true);
 
   useEffect(() => {
-    if (filterLocation.length || filterLanguage.length || filterStatus.length || filterStack.length || filterHRs.length || filterInterviewers.length || filterMentors.length || filterYears) {
-      setIsDisabled(false)
-  } else {
-    setIsDisabled(true)
-  }
-  }, [filterLocation, filterLanguage, filterStatus, filterStack, filterHRs, filterInterviewers, filterMentors, filterYears ]);
+    if (
+      filterLocation.length ||
+      filterLanguage.length ||
+      filterStatus.length ||
+      filterStack.length ||
+      filterHRs.length ||
+      filterInterviewers.length ||
+      filterMentors.length ||
+      filterYears
+    ) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [
+    filterLocation,
+    filterLanguage,
+    filterStatus,
+    filterStack,
+    filterHRs,
+    filterInterviewers,
+    filterMentors,
+    filterYears,
+  ]);
 
   const handleSubmit = () => {
     const filters = {};
@@ -162,16 +180,20 @@ export const InternshipsFilter = ({ onFilter }) => {
               renderValue={(selected) => selected.join(', ')}
             >
               <MenuItem value="Open">
-              <Checkbox
-                    checked={filterStatus.indexOf(getFieldLabel('common.open')) > -1}
-                  />
-                  <ListItemText primary={<>{getFieldLabel('common.open')}</>} />
+                <Checkbox
+                  checked={
+                    filterStatus.indexOf(getFieldLabel('common.open')) > -1
+                  }
+                />
+                <ListItemText primary={<>{getFieldLabel('common.open')}</>} />
               </MenuItem>
               <MenuItem value="Close">
-              <Checkbox
-                    checked={filterStatus.indexOf(getFieldLabel('common.close')) > -1}
-                  />
-                  <ListItemText primary={<>{getFieldLabel('common.close')}</>} />
+                <Checkbox
+                  checked={
+                    filterStatus.indexOf(getFieldLabel('common.close')) > -1
+                  }
+                />
+                <ListItemText primary={<>{getFieldLabel('common.close')}</>} />
               </MenuItem>
             </Select>
           </FormControl>
@@ -310,7 +332,12 @@ export const InternshipsFilter = ({ onFilter }) => {
               />
             </LocalizationProvider>
           </FormControl>
-          <Button disabled={isDisabled} onClick={handleSubmit} size="small" variant="contained">
+          <Button
+            disabled={isDisabled}
+            onClick={handleSubmit}
+            size="small"
+            variant="contained"
+          >
             {getFieldLabel('common.filter')}
           </Button>
         </Box>

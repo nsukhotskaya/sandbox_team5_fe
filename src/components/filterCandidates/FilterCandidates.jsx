@@ -37,14 +37,25 @@ export const FilterCandidates = ({ onFilter }) => {
   const authorizedUserId = authorizedUser.id;
   const [anchorEl, setAnchorEl] = useState();
 
-
   useEffect(() => {
-    if (filterLocation.length || filterLanguage.length || filterStatus.length || filterEnglishLevel.length || checked) {
-      setIsDisabled(false)
-  } else {
-    setIsDisabled(true)
-  }
-  }, [filterLocation, filterLanguage, filterStatus,filterEnglishLevel,checked ]);
+    if (
+      filterLocation.length ||
+      filterLanguage.length ||
+      filterStatus.length ||
+      filterEnglishLevel.length ||
+      checked
+    ) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [
+    filterLocation,
+    filterLanguage,
+    filterStatus,
+    filterEnglishLevel,
+    checked,
+  ]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -79,7 +90,6 @@ export const FilterCandidates = ({ onFilter }) => {
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
-
 
   return (
     <Box>
@@ -119,7 +129,7 @@ export const FilterCandidates = ({ onFilter }) => {
               justifyContent="space-between"
               alignItems="center"
             >
-              <Button disabled={isDisabled}  onClick={reset} size="small">
+              <Button disabled={isDisabled} onClick={reset} size="small">
                 {getFieldLabel('common.reset')}
               </Button>
               <IconButton onClick={handleClose}>
@@ -223,7 +233,12 @@ export const FilterCandidates = ({ onFilter }) => {
               />
             </FormControl>
           )}
-          <Button disabled={isDisabled} onClick={handleSubmit} size="small" variant="contained">
+          <Button
+            disabled={isDisabled}
+            onClick={handleSubmit}
+            size="small"
+            variant="contained"
+          >
             {getFieldLabel('common.filter')}
           </Button>
         </Box>
