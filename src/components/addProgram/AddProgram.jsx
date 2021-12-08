@@ -16,7 +16,7 @@ import {
   IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { LocalizationProvider, MobileDateTimePicker } from '@mui/lab';
+import { LocalizationProvider, MobileDatePicker } from '@mui/lab';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import { getFieldLabel } from '../../utils';
 import { useMediaDown } from '../utils';
@@ -254,7 +254,7 @@ const AddProgram = (props) => {
               ))}
               {Object.values(dataForRenderDatePicker).map((date) => (
                 <React.Fragment key={date.keyName}>
-                  <MobileDateTimePicker
+                  <MobileDatePicker
                     label={date.label}
                     name={date.keyName}
                     value={formik.values[`${date.keyName}`]}
@@ -266,6 +266,7 @@ const AddProgram = (props) => {
                     renderInput={({ label, inputProps }) => (
                       <TextField label={label} inputProps={inputProps} />
                     )}
+                    minDate={new Date()}
                   />
                 </React.Fragment>
               ))}

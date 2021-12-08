@@ -70,8 +70,10 @@ const Calendar = (props) => {
         approveButton: {
           text: getFieldLabel('profile.calendar.button'),
           click: () => {
-            dispatch(setBestContactTime(freeTime));
-            setFreeTime();
+            if (freeTime) {
+              dispatch(setBestContactTime(freeTime));
+              setFreeTime();
+            }
           },
         },
         textButton: {
