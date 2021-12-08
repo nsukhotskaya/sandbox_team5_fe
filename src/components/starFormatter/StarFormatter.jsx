@@ -6,6 +6,7 @@ const StarFormatter = ({ value }) =>
     <Rating
       className="starFormatterWrapper"
       name="read-only"
+      size="small"
       defaultValue={value}
       max={4}
       readOnly
