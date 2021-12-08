@@ -23,6 +23,7 @@ import {
   setEventToCalendar,
   userInfoById,
   candidateEvaluations,
+  stacksSkills,
 } from './reducers';
 
 const rootReducer = (history) =>
@@ -33,6 +34,7 @@ const rootReducer = (history) =>
     locations,
     languages,
     skills,
+    stacksSkills,
     englishLevels,
     candidateStatusTypes,
     stacksByInternshipId: stacksByInternshipIdList,

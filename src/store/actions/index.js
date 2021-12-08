@@ -184,3 +184,9 @@ export {
   getEvaluationsByFeedbackIdFailure,
   GET_EVALUATIONS_BY_FEEDBACK_ID,
 } from './getEvaluationsByFeedbackId';
+export {
+  getStacksSkillsRequest,
+  getStacksSkillsSuccess,
+  getStacksSkillsFailure,
+  GET_STACKS_SKILLS,
+} from './getStacksSkills';
