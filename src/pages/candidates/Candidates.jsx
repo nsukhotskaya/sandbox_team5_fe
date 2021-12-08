@@ -13,7 +13,11 @@ import {
 import { ManageSearch } from '@mui/icons-material';
 import CachedIcon from '@mui/icons-material/Cached';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFieldsFirstPart, reformatCandidates, reformatCsvCandidates } from '../../constants';
+import {
+  tableFieldsFirstPart,
+  reformatCandidates,
+  reformatCsvCandidates,
+} from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
@@ -98,7 +102,7 @@ const Candidates = () => {
     setGridApi(params.api);
   };
 
-  const exportCandidates = reformatCsvCandidates(newListOfCandidates)
+  const exportCandidates = reformatCsvCandidates(newListOfCandidates);
 
   const getRowNodeId = (data) => data.id;
 
@@ -213,7 +217,10 @@ const Candidates = () => {
               mr={{ xs: '0px', sm: '15px' }}
               mb={{ xs: '10px', sm: '0px' }}
             >
-              <ExportCSV csvData={exportCandidates} fileName={internshipName[0]} />
+              <ExportCSV
+                csvData={exportCandidates}
+                fileName={internshipName[0]}
+              />
             </Stack>
             {authorizedUserRoleType === 'Hr' && (
               <Stack
@@ -300,7 +307,7 @@ const Candidates = () => {
             <AgGridColumn
               suppressMovable
               field="hrReview"
-              headerName={getFieldLabel("candidates.table.hrReview")}
+              headerName={getFieldLabel('candidates.table.hrReview')}
               sortable
               resizable
               flex={1}

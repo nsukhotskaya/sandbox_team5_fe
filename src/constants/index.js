@@ -12,4 +12,4 @@ export {
   checkDataReceived,
   linkСorrection,
 } from './addProgramConstants';
-export {reformatCsvCandidates} from './reformatCsvCandidates'
+export { reformatCsvCandidates } from './reformatCsvCandidates';
