@@ -279,6 +279,7 @@ const Candidates = () => {
             }}
           >
             <AgGridColumn
+              suppressMovable
               field="fullName"
               sortable
               checkboxSelection
@@ -290,6 +291,7 @@ const Candidates = () => {
             />
             {tableFieldsFirstPart.map((field) => (
               <AgGridColumn
+              suppressMovable
                 field={field}
                 headerName={getFieldLabel(`candidates.table.${field}`)}
                 key={field}
@@ -299,35 +301,41 @@ const Candidates = () => {
               />
             ))}
             <AgGridColumn
+            suppressMovable
               field="hrReview"
               sortable
               resizable
               flex={1}
               cellRenderer="starFormatter"
             />
-            <AgGridColumn field="interviewer" sortable resizable flex={1} />
+            <AgGridColumn field="interviewer" sortable resizable flex={1} suppressMovable />
             <AgGridColumn
+            suppressMovable
               field="interviewerReview"
               sortable
               resizable
               flex={1}
               cellRenderer="starFormatter"
             />
-            <AgGridColumn field="mentor" sortable resizable flex={1} />
+            <AgGridColumn field="mentor" sortable resizable flex={1} suppressMovable />
             <AgGridColumn
               field="mentorReview"
               sortable
               resizable
               flex={1}
               cellRenderer="starFormatter"
+              suppressMovable
             />
             <AgGridColumn
               field="statusType"
               headerName={getFieldLabel('candidates.table.statusType')}
               sortable
               resizable
-              flex={1}
+              suppressSizeToFit
+              minWidth={100}
+              maxWidth={150}
               cellRenderer="chipFormatter"
+              suppressMovable
             />
           </AgGridReact>
         )}
