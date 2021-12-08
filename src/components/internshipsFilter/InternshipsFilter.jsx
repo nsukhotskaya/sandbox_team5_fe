@@ -155,12 +155,24 @@ export const InternshipsFilter = ({ onFilter }) => {
               {getFieldLabel('internships.filter.label.status')}
             </InputLabel>
             <Select
+              multiple
               value={filterStatus}
               label="Status"
               onChange={(event) => setFilterStatus(event.target.value)}
+              renderValue={(selected) => selected.join(', ')}
             >
-              <MenuItem value="Open">{getFieldLabel('common.open')}</MenuItem>
-              <MenuItem value="Close">{getFieldLabel('common.close')}</MenuItem>
+              <MenuItem value="Open">
+              <Checkbox
+                    checked={filterStatus.indexOf(getFieldLabel('common.open')) > -1}
+                  />
+                  <ListItemText primary={<>{getFieldLabel('common.open')}</>} />
+              </MenuItem>
+              <MenuItem value="Close">
+              <Checkbox
+                    checked={filterStatus.indexOf(getFieldLabel('common.close')) > -1}
+                  />
+                  <ListItemText primary={<>{getFieldLabel('common.close')}</>} />
+              </MenuItem>
             </Select>
           </FormControl>
           <FormControl size="small" fullWidth>
