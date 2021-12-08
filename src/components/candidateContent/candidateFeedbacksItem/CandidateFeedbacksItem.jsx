@@ -25,8 +25,9 @@ const CandidateFeedbacksItem = ({
   user,
   candidateInfo,
   handleEditClick,
-  skills,
+  stacksSkills,
 }) => {
+
   const dispatch = useDispatch();
   const [isCriteriaShown, setIsCriteriaShown] = React.useState(true);
   const now = new Date(Date.now());
@@ -59,9 +60,9 @@ const CandidateFeedbacksItem = ({
   }, []);
 
   useEffect(() => {
-    if (candidateEvaluations.length === 0 && skills) {
+    if (candidateEvaluations.length === 0 && stacksSkills) {
       setSkillsEvaluations(
-        skills.map((skill) => ({
+        stacksSkills.map((skill) => ({
           feedbackId: feedback.id,
           skillId: skill.id,
           value: 0,
@@ -69,7 +70,7 @@ const CandidateFeedbacksItem = ({
         })),
       );
     } else setSkillsEvaluations(candidateEvaluations);
-  }, [skills]);
+  }, [stacksSkills]);
 
   const updateToNewFeedback = () => {
     const newFeedback = {

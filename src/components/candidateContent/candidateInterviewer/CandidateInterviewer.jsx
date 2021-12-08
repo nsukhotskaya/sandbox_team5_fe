@@ -22,7 +22,7 @@ import {
   updateCandidateInfo,
   fetchContactTime,
   setEventToCalendar,
-  fetchSkillsByStackType,
+  fetchSkillsByStackTypes,
 } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
@@ -51,9 +51,9 @@ const formatStackType = (stackType) => {
   }
 };
 
-export const CandidateInterviewer = ({ candidateInfo, allUsers, stack }) => {
+export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
   const contactTime = useSelector((state) => state.contactTime.contactTime);
-  const skills = useSelector((state) => state.skills.skills);
+  const stacksSkills = useSelector((state) => state.stacksSkills.stacksSkills);
   const dispatch = useDispatch();
 
   const authorizedUserRole = useSelector(
@@ -61,9 +61,8 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stack }) => {
   );
 
   useEffect(() => {
-    dispatch(fetchSkillsByStackType(formatStackType(stack)));
+    dispatch(fetchSkillsByStackTypes(stacks.map((stackType)=>(formatStackType(stackType)))));
   }, []);
-
   const [assignInterviewers, setAssignInterviewers] = useState([]);
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
   const [interviewDate, setInterviewDate] = useState(null);
@@ -287,7 +286,7 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stack }) => {
             key={assignedInterviewer.id}
             user={assignedInterviewer}
             candidateInfo={candidateInfo}
-            skills={skills}
+            stacksSkills={stacksSkills}
           />
         </Box>
       )}
