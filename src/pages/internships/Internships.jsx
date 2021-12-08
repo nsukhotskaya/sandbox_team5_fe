@@ -17,7 +17,7 @@ import { InternshipCard, InternshipsFilter, SidePopUp } from '../../components';
 import { createNewInternship, fetchInternships } from '../../store/commands';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
-import { initialValues } from '../../mocks/createInternshipData.json';
+import { initialValues } from '../../constants';
 
 export const Internships = () => {
   const [popUpActive, setPopUpActive] = useState(false);
@@ -40,7 +40,6 @@ export const Internships = () => {
   const openPopUpWindow = () => {
     setPopUpActive(true);
   };
-
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
