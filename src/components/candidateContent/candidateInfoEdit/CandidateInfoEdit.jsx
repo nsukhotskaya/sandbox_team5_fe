@@ -20,7 +20,7 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
-import { LocalizationProvider, TimePicker } from '@mui/lab';
+import { LocalizationProvider, MobileTimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
 
 import { getFieldLabel } from '../../../utils';
@@ -255,7 +255,7 @@ export const CandidateInfoEdit = (props) => {
                   </Select>
                 </FormControl>
 
-                <TimePicker
+                <MobileTimePicker
                   label={getFieldLabel('candidate.info.bestContactTime')}
                   name="bestContactTime"
                   value={formik.values.bestContactTime}
