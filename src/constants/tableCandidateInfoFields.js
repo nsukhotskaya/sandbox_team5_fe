@@ -33,6 +33,6 @@ export const candidateEditValidation = {
     )
     .required(),
   phone: Yup.number()
-    .required(getFieldLabel('candidate.info.validation.message.phone'))
-    .integer(),
+    .integer()
+    .typeError(getFieldLabel('candidate.info.validation.message.phone')),
 };
