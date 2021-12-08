@@ -62,8 +62,13 @@ export const Internships = () => {
 
   return (
     <>
-      <Box display="flex" flexDirection="column" padding="10px">
-        <Box className="internshipsMenu">
+      <Box
+        maxWidth="1500px"
+        display="flex"
+        flexDirection="column"
+        padding="10px"
+      >
+        <Box width="100%" className="internshipsMenu">
           <Box className="menuItemsBox">
             <IconButton onClick={handleClick}>
               <ManageSearchIcon fontSize="large" />

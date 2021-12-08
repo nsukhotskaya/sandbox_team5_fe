@@ -15,9 +15,7 @@ const CandidateProfile = () => {
   const dispatch = useDispatch();
   const smallScreen = useMediaDown('sm');
 
-  const isLoading = useSelector(loadingSelector([
-    'GET_CANDIDATE',
-   ]));
+  const isLoading = useSelector(loadingSelector(['GET_CANDIDATE']));
   useEffect(() => {}, [isLoading]);
 
   useEffect(() => {
