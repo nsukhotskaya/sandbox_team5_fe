@@ -12,3 +12,4 @@ export {
   checkDataReceived,
   linkСorrection,
 } from './addProgramConstants';
+export { initialValues } from './intialDateForCreateInternship';
