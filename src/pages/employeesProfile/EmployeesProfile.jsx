@@ -87,6 +87,7 @@ const EmployeesProfile = () => {
                             color="#000000DE"
                           >
                             <Typography
+                              component="span"
                               padding="0px 0px 0px 0px"
                               variant="body1"
                               className="text"
@@ -114,6 +115,7 @@ const EmployeesProfile = () => {
                             color="#000000DE"
                           >
                             <Typography
+                              component="span"
                               padding="0px 0px 0px 0px"
                               variant="body1"
                               className="text"
