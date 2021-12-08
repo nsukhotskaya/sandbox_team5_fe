@@ -143,6 +143,7 @@ export const CandidateInfoEdit = (props) => {
     initialValues: formatedInitInfo,
     onSubmit: (values) => {
       dispatch(updateCandidateInfo(values));
+      setOpen(false);
     },
   });
 
@@ -293,7 +294,6 @@ export const CandidateInfoEdit = (props) => {
               <Button
                 variant="contained"
                 type="submit"
-                onClick={handleClose}
                 fullWidth
               >
                 {getFieldLabel('common.save')}
