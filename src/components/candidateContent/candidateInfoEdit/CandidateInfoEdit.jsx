@@ -23,6 +23,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { LocalizationProvider, MobileTimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
 import { Confirm } from '../../confirm';
+import { useMediaDown } from '../../utils';
 
 import { getFieldLabel } from '../../../utils';
 import {
@@ -43,6 +44,7 @@ export const CandidateInfoEdit = (props) => {
   const [openResetConfirm, setOpenResetConfirm] = useState(false);
   const [openCloseConfirm, setOpenCloseConfirm] = useState(false);
   const { candidateInfo } = props;
+  const smallScreen = useMediaDown('sm');
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
 
@@ -202,7 +204,7 @@ export const CandidateInfoEdit = (props) => {
             display="flex"
             justifyContent="space-between"
           >
-            <Typography variant="h4" color="gray">
+            <Typography variant={smallScreen ? 'h5' : 'h4'} color="#757575">
               {getFieldLabel('candidate.edit.editCandidateTitle')}
             </Typography>
             <Box>
