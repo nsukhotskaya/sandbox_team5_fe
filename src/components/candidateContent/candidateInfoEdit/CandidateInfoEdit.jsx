@@ -99,10 +99,6 @@ export const CandidateInfoEdit = (props) => {
   const languagesListFormated = stringToObject(languagesList);
   const stacksListAdapted = adaptStacks(stacksList);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -149,6 +145,11 @@ export const CandidateInfoEdit = (props) => {
       dispatch(updateCandidateInfo(values));
     },
   });
+
+  const handleClose = () => {
+    formik.handleReset();
+    setOpen(false);
+  };
 
   const handleReset = () => {
     formik.handleReset();
