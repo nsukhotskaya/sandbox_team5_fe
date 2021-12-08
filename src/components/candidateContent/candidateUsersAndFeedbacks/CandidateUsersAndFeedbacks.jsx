@@ -3,6 +3,8 @@ import { Box, Typography, Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import './candidateUsersAndFeedbacks.sass';
 import { CandidateHr, CandidateInterviewer, CandidateMentor } from '../index';
+import { loadingSelector } from '../../../store/selectors';
+import { LoadingIndicator } from '../../loadingIndicator';
 import { getFieldLabel } from '../../../utils';
 import {
   fetchAllUsers,
@@ -11,6 +13,11 @@ import {
 
 export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(loadingSelector([
+    'GET_SKILLS_STACKS', 
+    'GET_EVALUATIONS_BY_FEEDBACK_ID'
+    ]));
+    useEffect(() => {}, [isLoading]);
   const allUsers = useSelector((state) => state.allUsers.allUsers);
   const stacksByInternshipId = useSelector(
     (state) => state.stacksByInternshipId.stacksByInternshipId,
@@ -36,6 +43,10 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   );
 
   return (
+    <>
+    {isLoading ? (
+      <LoadingIndicator />
+    ) : (
     <Box className="feedbacksContainer" padding="2% 2% 2% 3%">
       <Box
         marginRight="3%"
@@ -64,6 +75,8 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
         )}
       </Box>
     </Box>
+    )}
+  </>
   );
 };
 
