@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -36,17 +36,16 @@ import {
   fetchLanguages,
   fetchAllUsers,
 } from '../../store/commands';
+import { Confirm } from '../confirm';
 import './AddProgram.sass';
 
 const FormValidation = Yup.object().shape(formValidation);
 
 const AddProgram = (props) => {
-  const { closeModal } = props;
-  const { initialData } = props;
-  const { dispatchFunction } = props;
-  const { title } = props;
-  const { button } = props;
-  const { internshipData } = props;
+  const [openCreateConfirm, setOpenCreateConfirm] = useState(false);
+  const [openResetConfirm, setOpenResetConfirm] = useState(false);
+  const [openCloseConfirm, setOpenCloseConfirm] = useState(false);
+  const { closeModal, initialData, dispatchFunction, title, button, internshipData } = props;
   const dispatch = useDispatch();
   const locationsList = useSelector((state) => state.locations.locations);
   const stacksList = useSelector((state) => state.stacks.stacks);
@@ -202,18 +201,66 @@ const AddProgram = (props) => {
     },
   };
 
-  const handleReset = () => {
-    formik.handleReset();
+  const handleSubmit = (value) => {
+    if(value){
+      formik.handleSubmit();
+    }
+    setOpenCreateConfirm(false);
   };
 
-  const handleClose = () => {
-    closeModal();
-    handleReset();
+  const handleReset = (value) => {
+    if(value){
+      formik.handleReset();
+    }
+    setOpenResetConfirm(false);
   };
 
+  const handleClose = (value) => {
+    if(value){
+      closeModal();
+      formik.handleReset();
+    }
+    setOpenCloseConfirm(false);
+  };
+
+  const handleClickClose = () => {
+    setOpenCloseConfirm(true)
+  }
+  const handleClickCreate = (event) => {
+    event.preventDefault();
+    setOpenCreateConfirm(true)
+  }
+  const handleClickReset = () => {
+    setOpenResetConfirm(true)
+  }
+  
   return (
     <>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={(event)=>{handleClickCreate(event)}}>
+      {openCreateConfirm && (
+        <Confirm
+          confirmTitle={getFieldLabel('submitForm.confirm.message')}
+          rejectButtonLabel={getFieldLabel('common.no')}
+          acceptButtonLabel={getFieldLabel('common.yes')}
+          callback={handleSubmit}
+        />
+      )}
+      {openResetConfirm && (
+        <Confirm
+          confirmTitle={getFieldLabel('resetForm.confirm.message')}
+          rejectButtonLabel={getFieldLabel('common.no')}
+          acceptButtonLabel={getFieldLabel('common.yes')}
+          callback={handleReset}
+        />
+      )}
+      {openCloseConfirm && (
+        <Confirm
+          confirmTitle={getFieldLabel('closeForm.confirm.message')}
+          rejectButtonLabel={getFieldLabel('common.no')}
+          acceptButtonLabel={getFieldLabel('common.yes')}
+          callback={handleClose}
+        />
+      )}
         <Box className={smallScreen ? 'container smallPopUp' : 'container'}>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <Box className="popUpHeader">
@@ -225,10 +272,10 @@ const AddProgram = (props) => {
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <Button onClick={handleReset} size="small">
+                <Button onClick={handleClickReset} size="small">
                   {getFieldLabel('common.reset')}
                 </Button>
-                <IconButton onClick={handleClose}>
+                <IconButton onClick={handleClickClose}>
                   <CloseIcon />
                 </IconButton>
               </Box>
@@ -313,7 +360,7 @@ const AddProgram = (props) => {
           <Button variant="contained" type="submit">
             {getFieldLabel(button)}
           </Button>
-          <Button variant="outlined" onClick={handleClose}>
+          <Button variant="outlined" onClick={handleClickClose}>
             {getFieldLabel('common.cancel')}
           </Button>
         </Box>

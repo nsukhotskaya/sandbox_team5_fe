@@ -13,11 +13,10 @@ import {
 
 export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(loadingSelector([
-    'GET_SKILLS_STACKS', 
-    'GET_EVALUATIONS_BY_FEEDBACK_ID'
-    ]));
-    useEffect(() => {}, [isLoading]);
+  const isLoading = useSelector(
+    loadingSelector(['GET_SKILLS_STACKS', 'GET_EVALUATIONS_BY_FEEDBACK_ID']),
+  );
+  useEffect(() => {}, [isLoading]);
   const allUsers = useSelector((state) => state.allUsers.allUsers);
   const stacksByInternshipId = useSelector(
     (state) => state.stacksByInternshipId.stacksByInternshipId,
@@ -44,39 +43,42 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
 
   return (
     <>
-    {isLoading ? (
-      <LoadingIndicator />
-    ) : (
-    <Box className="feedbacksContainer" padding="2% 2% 2% 3%">
-      <Box
-        marginRight="3%"
-        display="flex"
-        flexDirection="row"
-        justifyContent="flex-end"
-      >
-        <Typography variant="h4" fontWeight="300">
-          {getFieldLabel('candidate.page.users.title')}
-        </Typography>
-      </Box>
-      <Divider />
-      <Box marginTop="2%">
-        <CandidateHr candidateInfo={candidateInfo} allUsers={allUsers} />
-        {!!assignedHr && !!stacksByInternshipId.length && (
-          <CandidateInterviewer
-            candidateInfo={candidateInfo}
-            allUsers={allUsers}
-            stacks={stacksByInternshipId.map(
-              (stack) => stack.technologyStackType,
+      {isLoading ? (
+        <LoadingIndicator />
+      ) : (
+        <Box className="feedbacksContainer" padding="2% 2% 2% 3%">
+          <Box
+            marginRight="3%"
+            display="flex"
+            flexDirection="row"
+            justifyContent="flex-end"
+          >
+            <Typography variant="h4" fontWeight="300">
+              {getFieldLabel('candidate.page.users.title')}
+            </Typography>
+          </Box>
+          <Divider />
+          <Box marginTop="2%">
+            <CandidateHr candidateInfo={candidateInfo} allUsers={allUsers} />
+            {!!assignedHr && !!stacksByInternshipId.length && (
+              <CandidateInterviewer
+                candidateInfo={candidateInfo}
+                allUsers={allUsers}
+                stacks={stacksByInternshipId.map(
+                  (stack) => stack.technologyStackType,
+                )}
+              />
             )}
-          />
-        )}
-        {!!assignedInterviewer && (
-          <CandidateMentor candidateInfo={candidateInfo} allUsers={allUsers} />
-        )}
-      </Box>
-    </Box>
-    )}
-  </>
+            {!!assignedInterviewer && (
+              <CandidateMentor
+                candidateInfo={candidateInfo}
+                allUsers={allUsers}
+              />
+            )}
+          </Box>
+        </Box>
+      )}
+    </>
   );
 };
 
