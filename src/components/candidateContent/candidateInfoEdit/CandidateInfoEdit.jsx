@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import dayjs from 'dayjs';
@@ -22,6 +22,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import { LocalizationProvider, MobileTimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
+import { Confirm } from '../../confirm';
 
 import { getFieldLabel } from '../../../utils';
 import {
@@ -38,6 +39,9 @@ const utc = require('dayjs/plugin/utc');
 
 dayjs.extend(utc);
 export const CandidateInfoEdit = (props) => {
+  const [openSaveConfirm, setOpenSaveConfirm] = useState(false);
+  const [openResetConfirm, setOpenResetConfirm] = useState(false);
+  const [openCloseConfirm, setOpenCloseConfirm] = useState(false);
   const { candidateInfo } = props;
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
@@ -147,14 +151,38 @@ export const CandidateInfoEdit = (props) => {
     },
   });
 
-  const handleClose = () => {
-    formik.handleReset();
-    setOpen(false);
+  const handleSubmit = (value) => {
+    if(value){
+      formik.handleSubmit();
+    }
+    setOpenSaveConfirm(false);
   };
 
-  const handleReset = () => {
-    formik.handleReset();
+  const handleReset = (value) => {
+    if(value){
+      formik.handleReset();
+    }
+    setOpenResetConfirm(false);
   };
+
+  const handleClose = (value) => {
+    if(value){
+      setOpen(false);
+      formik.handleReset();
+    }
+    setOpenCloseConfirm(false);
+  };
+
+  const handleClickClose = () => {
+    setOpenCloseConfirm(true)
+  }
+  const handleClickSave = (event) => {
+    event.preventDefault();
+    setOpenSaveConfirm(true)
+  }
+  const handleClickReset = () => {
+    setOpenResetConfirm(true)
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayJs}>
@@ -179,7 +207,7 @@ export const CandidateInfoEdit = (props) => {
             </Typography>
             <Box>
               <Button
-                onClick={handleReset}
+                onClick={handleClickReset}
                 size="small"
                 disabled={
                   JSON.stringify(formatedInitInfo) ===
@@ -188,12 +216,36 @@ export const CandidateInfoEdit = (props) => {
               >
                 {getFieldLabel('common.reset')}
               </Button>
-              <IconButton onClick={handleClose}>
+              <IconButton onClick={handleClickClose}>
                 <ClearIcon fontSize="small" />
               </IconButton>
             </Box>
           </Box>
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={(event)=>{handleClickSave(event)}}>
+          {openSaveConfirm && (
+        <Confirm
+          confirmTitle={getFieldLabel('submitForm.confirm.message')}
+          rejectButtonLabel={getFieldLabel('common.no')}
+          acceptButtonLabel={getFieldLabel('common.yes')}
+          callback={handleSubmit}
+        />
+      )}
+      {openResetConfirm && (
+        <Confirm
+          confirmTitle={getFieldLabel('resetForm.confirm.message')}
+          rejectButtonLabel={getFieldLabel('common.no')}
+          acceptButtonLabel={getFieldLabel('common.yes')}
+          callback={handleReset}
+        />
+      )}
+      {openCloseConfirm && (
+        <Confirm
+          confirmTitle={getFieldLabel('closeForm.confirm.message')}
+          rejectButtonLabel={getFieldLabel('common.no')}
+          acceptButtonLabel={getFieldLabel('common.yes')}
+          callback={handleClose}
+        />
+      )}
             <Box
               padding="20px"
               width={{ lg: '35vw', md: '50vw', sm: '70vw', xs: '100vw' }}
