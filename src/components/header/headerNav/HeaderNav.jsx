@@ -68,7 +68,7 @@ function HeaderNav() {
       </Box>
       <Paper>
         <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={handleCloseMenu}>
-          <Typography variant="h6" className="dropDownTitle">
+          <Typography variant="h6" className="dropDownTitle" noWrap>
             {userInfo.userName}
           </Typography>
           <Divider component="li" />

@@ -218,6 +218,7 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
           flex-direction="row"
           justifyContent="space-between"
           marginBottom="30px"
+          flexWrap="wrap"
         >
           <Box display="flex" flex-direction="row" align-items="center">
             <Typography
