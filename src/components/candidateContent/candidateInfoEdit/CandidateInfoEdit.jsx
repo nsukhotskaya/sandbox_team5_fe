@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
@@ -32,7 +31,6 @@ import {
   fetchLocations,
   updateCandidateInfo,
   fetchInternships,
-  fetchStacksByInternshipId,
 } from '../../../store/commands';
 
 const utc = require('dayjs/plugin/utc');
@@ -54,9 +52,6 @@ export const CandidateInfoEdit = (props) => {
   const languagesList = useSelector((state) => state.languages.languages);
   const locationsList = useSelector((state) => state.locations.locations);
   const internshipsList = useSelector((state) => state.internships.internships);
-  const stacksList = useSelector(
-    (state) => state.stacksByInternshipId.stacksByInternshipId,
-  );
 
   useEffect(() => {
     if (Object.prototype.hasOwnProperty.call(candidateInfo, 'internshipId')) {
@@ -65,7 +60,6 @@ export const CandidateInfoEdit = (props) => {
       dispatch(fetchLanguages());
       dispatch(fetchLocations());
       dispatch(fetchInternships());
-      dispatch(fetchStacksByInternshipId(candidateInfo.internshipId));
     }
   }, []);
 
@@ -73,12 +67,6 @@ export const CandidateInfoEdit = (props) => {
     array.map((item, index) => ({
       id: index,
       name: item,
-    }));
-
-  const adaptStacks = (list) =>
-    list.map((item) => ({
-      id: item.id,
-      name: item.technologyStackType,
     }));
 
   const formatInfo = (info) => {
@@ -98,7 +86,6 @@ export const CandidateInfoEdit = (props) => {
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
   const languagesListFormated = stringToObject(languagesList);
-  const stacksListAdapted = adaptStacks(stacksList);
 
   const handleClickOpen = () => {
     setOpen(true);
