@@ -16,7 +16,7 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const isLoading = useSelector(
     loadingSelector(['GET_SKILLS_STACKS', 'GET_EVALUATIONS_BY_FEEDBACK_ID']),
   );
-  useEffect(() => {}, [isLoading]);
+
   const allUsers = useSelector((state) => state.allUsers.allUsers);
   const stacksByInternshipId = useSelector(
     (state) => state.stacksByInternshipId.stacksByInternshipId,
@@ -24,7 +24,7 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
   );
-
+  // console.log(candidateInfo.internshipId)
   useEffect(() => {
     if (candidateInfo.internshipId) {
       dispatch(fetchStacksByInternshipId(candidateInfo.internshipId));
@@ -40,7 +40,7 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const assignedInterviewer = candidateInfo.users?.find(
     (userType) => userType.roleType === 'Interviewer',
   );
-
+  // console.log(JSON.stringify(stacksByInternshipId))
   return (
     <>
       {isLoading ? (
@@ -64,7 +64,7 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
               <CandidateInterviewer
                 candidateInfo={candidateInfo}
                 allUsers={allUsers}
-                stacks={stacksByInternshipId.map(
+                stacks={stacksByInternshipId.filter(stack => stack.internshipId === candidateInfo.internshipId).map(
                   (stack) => stack.technologyStackType,
                 )}
               />
