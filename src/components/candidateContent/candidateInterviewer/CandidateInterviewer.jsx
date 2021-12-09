@@ -27,7 +27,6 @@ import {
 import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
 import './candidateInterviewer.sass';
-import { Confirm } from '../../confirm';
 
 const utc = require('dayjs/plugin/utc');
 
@@ -53,7 +52,6 @@ const formatStackType = (stackType) => {
 };
 
 export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
-  const [openAssignConfirm, setOpenAssignConfirm] = useState(false);
   const contactTime = useSelector((state) => state.contactTime.contactTime);
   const stacksSkills = useSelector((state) => state.stacksSkills.stacksSkills);
   const dispatch = useDispatch();
@@ -85,6 +83,28 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
   const assignedInterviewer = candidateInfo.users?.find(
     (userType) => userType.roleType === 'Interviewer',
   );
+
+  const handleSubmit = () => {
+    const assignedUsers = allUsers
+      .filter((userType) => userIds.includes(userType.id))
+      .map((interviewer) => ({ id: interviewer.id }));
+    dispatch(
+      updateCandidateInfo({
+        ...newCandidate,
+        statusType: assignInterviewers && 'Interview_Review',
+        users: [
+          ...newCandidate.users.filter(
+            (userType) => userType.roleType !== 'Interviewer',
+          ),
+          ...assignedUsers,
+        ],
+      }),
+    );
+  };
+
+  const handleEditInterviewerClick = () => {
+    setEditAssignedInterviewer(!editAssignedInterviewer);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -143,45 +163,8 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
       dayjs(time.startTime).format('D/MM/YYYY') === interviewDate,
   );
 
-  const handleAssign = (value) => {
-    if (value) {
-      const assignedUsers = allUsers
-        .filter((userType) => userIds.includes(userType.id))
-        .map((interviewer) => ({ id: interviewer.id }));
-      dispatch(
-        updateCandidateInfo({
-          ...newCandidate,
-          statusType: assignInterviewers && 'Interview_Review',
-          users: [
-            ...newCandidate.users.filter(
-              (userType) => userType.roleType !== 'Interviewer',
-            ),
-            ...assignedUsers,
-          ],
-        }),
-      );
-    }
-    setOpenAssignConfirm(false);
-  };
-
-  const handleClickAssign = () => {
-    setOpenAssignConfirm(true);
-  };
-
-  const handleEditAssign = () => {
-    setEditAssignedInterviewer(!editAssignedInterviewer);
-  };
-
   return (
     <Box className="assignInterviewerContainer" p="10px">
-      {openAssignConfirm && (
-        <Confirm
-          confirmTitle={getFieldLabel('assign.confirm.message')}
-          rejectButtonLabel={getFieldLabel('common.no')}
-          acceptButtonLabel={getFieldLabel('common.yes')}
-          callback={handleAssign}
-        />
-      )}
       {(authorizedUserRole === 'Hr' ||
         authorizedUserRole === 'Manager' ||
         authorizedUserRole === 'Admin') &&
@@ -207,7 +190,7 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
                 </Select>
               </FormControl>
             </Box>
-            <Button onClick={handleClickAssign} size="small" variant="outlined">
+            <Button onClick={handleSubmit} size="small" variant="outlined">
               {getFieldLabel('common.assign')}
             </Button>
           </Box>
@@ -218,27 +201,28 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
           flex-direction="row"
           justifyContent="space-between"
           marginBottom="30px"
-          flexWrap="wrap"
         >
           <Box display="flex" flex-direction="row" align-items="center">
             <Typography
               overflow="hidden"
               textOverflow="ellipsis"
               whiteSpace="nowrap"
-              variant="body1"
-              fontWeight="bold"
-              pr="20px"
+              variant="h6"
+              pr="10px"
             >
               {assignedInterviewer.userName}
             </Typography>
-            <Typography variant="body2" pr="20px">
+            <Typography variant="h6" fontWeight="300" pr="10px">
               {assignedInterviewer.roleType}
             </Typography>
 
             {(authorizedUserRole === 'Admin' ||
               authorizedUserRole === 'Manager' ||
               authorizedUserRole === 'Hr') && (
-              <IconButton variant="outlined" onClick={handleEditAssign}>
+              <IconButton
+                variant="outlined"
+                onClick={handleEditInterviewerClick}
+              >
                 <EditIcon fontSize="small" />
               </IconButton>
             )}
@@ -302,7 +286,7 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
       {!!isInterviewsSet && !!assignedInterviewer && !editAssignedInterviewer && (
         <Box>
           <CandidateFeedbacksItem
-            handleEditClick={handleEditAssign}
+            handleEditClick={handleEditInterviewerClick}
             key={assignedInterviewer.id}
             user={assignedInterviewer}
             candidateInfo={candidateInfo}

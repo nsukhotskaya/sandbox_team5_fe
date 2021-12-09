@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
@@ -20,7 +20,6 @@ import {
   createFeedback,
   fetchEvaluationsByFeedbackId,
 } from '../../../store/commands';
-import { Confirm } from '../../confirm';
 
 const CandidateFeedbacksItem = ({
   user,
@@ -28,8 +27,6 @@ const CandidateFeedbacksItem = ({
   handleEditClick,
   stacksSkills,
 }) => {
-  const [openConfirm, setOpenConfirm] = useState(false);
-  const [openEditAssignConfirm, setOpenEditAssignConfirm] = useState(false);
   const dispatch = useDispatch();
   const [isCriteriaShown, setIsCriteriaShown] = React.useState(false);
   const now = new Date(Date.now());
@@ -140,26 +137,8 @@ const CandidateFeedbacksItem = ({
     dispatch(updateFeedback(newFeedback));
   };
 
-  const handleCreateFeedback = (value) => {
-    if (value) {
-      dispatch(createFeedback(createFeedbackRequestBody()));
-    }
-    setOpenConfirm(false);
-  };
-
-  const handleClickCreateFeedback = () => {
-    setOpenConfirm(true);
-  };
-
-  const handleEditAssign = (value) => {
-    if (value) {
-      handleEditClick();
-    }
-    setOpenEditAssignConfirm(false);
-  };
-
-  const handleClickEditAssign = () => {
-    setOpenEditAssignConfirm(true);
+  const handleClick = () => {
+    dispatch(createFeedback(createFeedbackRequestBody()));
   };
 
   return (
@@ -183,32 +162,16 @@ const CandidateFeedbacksItem = ({
             (authorizedUserRole === 'Admin' ||
               authorizedUserRole === 'Manager' ||
               authorizedUserRole === 'Hr') && (
-              <IconButton variant="outlined" onClick={handleClickEditAssign}>
+              <IconButton variant="outlined" onClick={handleEditClick}>
                 <EditIcon fontSize="small" />
               </IconButton>
             )}
         </Box>
-        {openEditAssignConfirm && (
-          <Confirm
-            confirmTitle={getFieldLabel('editAssign.confirm.message')}
-            rejectButtonLabel={getFieldLabel('common.no')}
-            acceptButtonLabel={getFieldLabel('common.yes')}
-            callback={handleEditAssign}
-          />
-        )}
-        {openConfirm && (
-          <Confirm
-            confirmTitle={getFieldLabel('createFeedback.confirm.message')}
-            rejectButtonLabel={getFieldLabel('common.no')}
-            acceptButtonLabel={getFieldLabel('common.yes')}
-            callback={handleCreateFeedback}
-          />
-        )}
         {!feedbacks.length ? (
           (user.roleType === authorizedUserRole ||
             authorizedUserRole === 'Admin' ||
             authorizedUserRole === 'Manager') && (
-            <Button variant="outlined" onClick={handleClickCreateFeedback}>
+            <Button variant="outlined" onClick={handleClick}>
               {getFieldLabel('candidateFeedbacks.button.createFeedback')}
             </Button>
           )

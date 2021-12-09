@@ -13,10 +13,8 @@ import { updateCandidateInfo } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
 import './candidateHr.sass';
-import { Confirm } from '../../confirm';
 
 export const CandidateHr = ({ candidateInfo, allUsers }) => {
-  const [openAssignConfirm, setOpenAssignConfirm] = useState(false);
   const dispatch = useDispatch();
   const [assignHRs, setAssignHRs] = useState('');
   const hrs = allUsers.filter((user) => user.roleType === 'Hr');
@@ -30,45 +28,29 @@ export const CandidateHr = ({ candidateInfo, allUsers }) => {
     (user) => user.roleType === 'Hr',
   );
 
+  const handleSubmit = () => {
+    const assignedUsers = allUsers
+      .filter((user) => userIds.includes(user.id))
+      .map((hr) => ({ id: hr.id }));
+    dispatch(
+      updateCandidateInfo({
+        ...newCandidate,
+        statusType: !!assignHRs && 'HR_Review',
+        users: [
+          ...newCandidate.users.filter((user) => user.roleType !== 'Hr'),
+          ...assignedUsers,
+        ],
+      }),
+    );
+  };
+
   const [editAssignedHr, setEditAssignedHr] = useState(false);
-
-  const handleAssign = (value) => {
-    if (value) {
-      const assignedUsers = allUsers
-        .filter((user) => userIds.includes(user.id))
-        .map((hr) => ({ id: hr.id }));
-      dispatch(
-        updateCandidateInfo({
-          ...newCandidate,
-          statusType: !!assignHRs && 'HR_Review',
-          users: [
-            ...newCandidate.users.filter((user) => user.roleType !== 'Hr'),
-            ...assignedUsers,
-          ],
-        }),
-      );
-    }
-    setOpenAssignConfirm(false);
-  };
-
-  const handleClickAssign = () => {
-    setOpenAssignConfirm(true);
-  };
-
-  const handleEditAssign = () => {
+  const handleEditHrClick = () => {
     setEditAssignedHr(!editAssignedHr);
   };
 
   return (
     <Box className="assignHrContainer" p="10px">
-      {openAssignConfirm && (
-        <Confirm
-          confirmTitle={getFieldLabel('assign.confirm.message')}
-          rejectButtonLabel={getFieldLabel('common.no')}
-          acceptButtonLabel={getFieldLabel('common.yes')}
-          callback={handleAssign}
-        />
-      )}
       {(authorizedUserRole === 'Hr' ||
         authorizedUserRole === 'Manager' ||
         authorizedUserRole === 'Admin') &&
@@ -92,7 +74,7 @@ export const CandidateHr = ({ candidateInfo, allUsers }) => {
                 </Select>
               </FormControl>
             </Box>
-            <Button onClick={handleClickAssign} size="small" variant="outlined">
+            <Button onClick={handleSubmit} size="small" variant="outlined">
               {getFieldLabel('common.assign')}
             </Button>
           </Box>
@@ -100,7 +82,7 @@ export const CandidateHr = ({ candidateInfo, allUsers }) => {
       {!!assignedHr && !editAssignedHr && (
         <Box>
           <CandidateFeedbacksItem
-            handleEditClick={handleEditAssign}
+            handleEditClick={handleEditHrClick}
             key={assignedHr.id}
             user={assignedHr}
             candidateInfo={candidateInfo}
