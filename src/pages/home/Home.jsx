@@ -43,28 +43,16 @@ const Home = () => {
                     <EmployeesProfile />
                   </Route>
                   <Route exact path="/internships">
-                    {userInfo.roleType === 'Interviewer' ? (
-                      <NotFoundPage />
-                    ) : (
-                      <Internships />
-                    )}
+                    <Internships />
                   </Route>
                   <Route path="/candidates/:id">
-                    {userInfo.roleType === 'Interviewer' ? (
-                      <NotFoundPage />
-                    ) : (
-                      <Candidates />
-                    )}
+                    <Candidates />
                   </Route>
                   <Route exact path="/candidate/:id">
                     <CandidateProfile />
                   </Route>
                   <Route exact path="/internshipPage/:id">
-                    {userInfo.roleType === 'Interviewer' ? (
-                      <NotFoundPage />
-                    ) : (
-                      <InternshipPage />
-                    )}
+                    <InternshipPage />
                   </Route>
                   <Route path="/">
                     <NotFoundPage />
