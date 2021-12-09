@@ -25,6 +25,7 @@ import {
   dataForRenderTextField,
   dataForRenderDatePicker,
   menuProps,
+  formatAdminManager,
   stringToObject,
   formatAllUsers,
   checkDataReceived,
@@ -72,7 +73,7 @@ const AddProgram = (props) => {
 
   const languagesListFormated = stringToObject(languagesList);
   const stacksListFormated = stringToObject(stacksList);
-  const allUsersListFormated = formatAllUsers(allUsersList);
+  const allUsersListFormated = formatAllUsers(formatAdminManager(allUsersList));
 
   const formik = useFormik({
     initialValues: initialData,

@@ -13,6 +13,7 @@ export {
   stringToObject,
   formatAllUsers,
   checkDataReceived,
+  formatAdminManager,
   linkСorrection,
 } from './addProgramConstants';
 export { initialValues } from './intialDateForCreateInternship';
