@@ -30,10 +30,6 @@ export const CandidateHr = ({ candidateInfo, allUsers }) => {
     (user) => user.roleType === 'Hr',
   );
 
-  // const handleSubmit = () => {
-
-  // };
-
   const [editAssignedHr, setEditAssignedHr] = useState(false);
 
   const handleAssign = (value) => {
