@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import {
@@ -24,7 +25,7 @@ import { LocalizationProvider, MobileTimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
 import { Confirm } from '../../confirm';
 import { useMediaDown } from '../../utils';
-
+import { candidateEditValidation } from '../../../constants';
 import { getFieldLabel } from '../../../utils';
 import {
   fetchCandidateStatusTypes,
@@ -33,12 +34,14 @@ import {
   fetchLocations,
   updateCandidateInfo,
   fetchInternships,
-  fetchStacksByInternshipId,
 } from '../../../store/commands';
 
 const utc = require('dayjs/plugin/utc');
 
 dayjs.extend(utc);
+
+const FormValidation = Yup.object().shape(candidateEditValidation);
+
 export const CandidateInfoEdit = (props) => {
   const [openSaveConfirm, setOpenSaveConfirm] = useState(false);
   const [openResetConfirm, setOpenResetConfirm] = useState(false);
@@ -59,9 +62,6 @@ export const CandidateInfoEdit = (props) => {
   const languagesList = useSelector((state) => state.languages.languages);
   const locationsList = useSelector((state) => state.locations.locations);
   const internshipsList = useSelector((state) => state.internships.internships);
-  const stacksList = useSelector(
-    (state) => state.stacksByInternshipId.stacksByInternshipId,
-  );
 
   useEffect(() => {
     if (Object.prototype.hasOwnProperty.call(candidateInfo, 'internshipId')) {
@@ -70,7 +70,6 @@ export const CandidateInfoEdit = (props) => {
       dispatch(fetchLanguages());
       dispatch(fetchLocations());
       dispatch(fetchInternships());
-      dispatch(fetchStacksByInternshipId(candidateInfo.internshipId));
     }
   }, []);
 
@@ -78,12 +77,6 @@ export const CandidateInfoEdit = (props) => {
     array.map((item, index) => ({
       id: index,
       name: item,
-    }));
-
-  const adaptStacks = (list) =>
-    list.map((item) => ({
-      id: item.id,
-      name: item.technologyStackType,
     }));
 
   const formatInfo = (info) => {
@@ -103,11 +96,14 @@ export const CandidateInfoEdit = (props) => {
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
   const languagesListFormated = stringToObject(languagesList);
-  const stacksListAdapted = adaptStacks(stacksList);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const getInternshipStackTypesArray = (index) =>
+    internshipsList.find((internship) => internship.id === index)
+      ?.internshipStacks ?? [];
 
   const dataForRenderTextField = [
     'firstName',
@@ -139,14 +135,11 @@ export const CandidateInfoEdit = (props) => {
       keyName: 'location',
       array: locationsList,
     },
-    {
-      keyName: 'stackType',
-      array: stacksListAdapted,
-    },
   ];
 
   const formik = useFormik({
     initialValues: formatedInitInfo,
+    validationSchema: FormValidation,
     onSubmit: (values) => {
       dispatch(updateCandidateInfo(values));
       setOpen(false);
@@ -265,6 +258,14 @@ export const CandidateInfoEdit = (props) => {
                     name={fieldName}
                     label={getFieldLabel(`candidate.info.${fieldName}`)}
                     key={fieldName}
+                    error={
+                      formik.touched[`${fieldName}`] &&
+                      Boolean(formik.errors[`${fieldName}`])
+                    }
+                    helperText={
+                      formik.touched[`${fieldName}`] &&
+                      formik.errors[`${fieldName}`]
+                    }
                   />
                 ))}
                 {dataForRenderSelect.map(({ keyName, array }) => (
@@ -303,6 +304,11 @@ export const CandidateInfoEdit = (props) => {
                         event.target.value,
                       );
                       formik.setFieldValue('internshipId', child.props.id);
+                      formik.setFieldValue(
+                        'stackType',
+                        getInternshipStackTypesArray(child.props.id)[0]
+                          .technologyStackType,
+                      );
                     }}
                     name="internshipName"
                     label={getFieldLabel('candidate.info.internshipName')}
@@ -310,6 +316,33 @@ export const CandidateInfoEdit = (props) => {
                     {Object.values(internshipsList).map((item) => (
                       <MenuItem id={item.id} value={item.name} key={item.id}>
                         {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                <FormControl>
+                  <InputLabel>
+                    {getFieldLabel('candidate.info.stackType')}
+                  </InputLabel>
+                  <Select
+                    fullWidth
+                    value={formik.values.stackType}
+                    onChange={(event) =>
+                      formik.setFieldValue('stackType', event.target.value)
+                    }
+                    name="stackType"
+                    label={getFieldLabel('candidate.info.stackType')}
+                  >
+                    {getInternshipStackTypesArray(
+                      formik.values.internshipId,
+                    ).map((item) => (
+                      <MenuItem
+                        id={item.id}
+                        value={item.technologyStackType}
+                        key={item.id}
+                      >
+                        {item.technologyStackType}
                       </MenuItem>
                     ))}
                   </Select>
