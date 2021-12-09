@@ -39,7 +39,7 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const assignedInterviewer = candidateInfo.users?.find(
     (userType) => userType.roleType === 'Interviewer',
   );
-  
+
   return (
     <Box className="feedbacksContainer" padding="2% 2% 2% 3%">
       <Box
@@ -55,15 +55,13 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
       <Divider />
       <Box marginTop="2%">
         <CandidateHr candidateInfo={candidateInfo} allUsers={allUsers} />
-        {!!filteredStacks.length &&
-          !!assignedHr &&
-          !!stacksByInternshipId.length && (
-            <CandidateInterviewer
-              candidateInfo={candidateInfo}
-              allUsers={allUsers}
-              stacks={filteredStacks.map((stack) => stack.technologyStackType)}
-            />
-          )}
+        {!!assignedHr && (
+          <CandidateInterviewer
+            candidateInfo={candidateInfo}
+            allUsers={allUsers}
+            stacks={filteredStacks.map((stack) => stack.technologyStackType)}
+          />
+        )}
         {!!assignedInterviewer && (
           <CandidateMentor candidateInfo={candidateInfo} allUsers={allUsers} />
         )}
