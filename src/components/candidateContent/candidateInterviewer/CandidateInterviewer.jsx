@@ -66,7 +66,8 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
         stacks.map((stackType) => formatStackType(stackType)),
       ),
     );
-  }, []);
+  }, [stacks]);
+
   const [assignInterviewers, setAssignInterviewers] = useState('');
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
   const [interviewDate, setInterviewDate] = useState('');

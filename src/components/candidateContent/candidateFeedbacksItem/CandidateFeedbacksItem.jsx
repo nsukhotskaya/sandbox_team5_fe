@@ -196,7 +196,7 @@ const CandidateFeedbacksItem = ({
         <Collapse in={isCriteriaShown}>
           <Box className="collapseContainer">
             {user.roleType === 'Interviewer' &&
-              candidateEvaluations.map((skill) => (
+              skillsEvaluations.map((skill) => (
                 <StarRating
                   key={skill.skillId}
                   title={skill.skill.name}
