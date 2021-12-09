@@ -25,7 +25,6 @@ import { LocalizationProvider, MobileTimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
 import { Confirm } from '../../confirm';
 import { useMediaDown } from '../../utils';
-
 import { candidateEditValidation } from '../../../constants';
 import { getFieldLabel } from '../../../utils';
 import {
