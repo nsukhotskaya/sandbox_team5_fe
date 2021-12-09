@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { AgGridReact, AgGridColumn } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
-import { LinkFormatter } from '../linkFormatter';
+import { LinkFormatter, ChipFormatter } from '..';
 import { getFieldLabel } from '../../utils';
 
 export default class TableTemplateCandidates extends React.Component {
@@ -20,6 +20,7 @@ export default class TableTemplateCandidates extends React.Component {
           rowSelection="multiple"
           frameworkComponents={{
             linkFormatter: LinkFormatter,
+            chipFormatter: ChipFormatter,
           }}
           pagination
           paginationPageSize="15"
@@ -40,6 +41,7 @@ export default class TableTemplateCandidates extends React.Component {
             headerName={getFieldLabel('candidate.table.status')}
             resizable
             suppressMovable
+            cellRenderer="chipFormatter"
           />
         </AgGridReact>
       </Box>
