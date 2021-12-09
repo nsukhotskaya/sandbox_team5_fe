@@ -19,7 +19,7 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
   );
-  
+
   useEffect(() => {
     if (candidateInfo.internshipId) {
       dispatch(fetchStacksByInternshipId(candidateInfo.internshipId));
@@ -29,6 +29,10 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
     }
   }, []);
 
+  const filteredStacks = stacksByInternshipId.filter(
+    (stack) => stack.internshipId === candidateInfo.internshipId,
+  );
+
   const assignedHr = candidateInfo.users?.find(
     (userType) => userType.roleType === 'Hr',
   );
@@ -37,37 +41,35 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   );
   
   return (
-        <Box className="feedbacksContainer" padding="2% 2% 2% 3%">
-          <Box
-            marginRight="3%"
-            display="flex"
-            flexDirection="row"
-            justifyContent="flex-end"
-          >
-            <Typography variant="h4" fontWeight="300">
-              {getFieldLabel('candidate.page.users.title')}
-            </Typography>
-          </Box>
-          <Divider />
-          <Box marginTop="2%">
-            <CandidateHr candidateInfo={candidateInfo} allUsers={allUsers} />
-            {!!assignedHr && !!stacksByInternshipId.length && (
-              <CandidateInterviewer
-                candidateInfo={candidateInfo}
-                allUsers={allUsers}
-                stacks={stacksByInternshipId.filter(stack => stack.internshipId === candidateInfo.internshipId).map(
-                  (stack) => stack.technologyStackType,
-                )}
-              />
-            )}
-            {!!assignedInterviewer && (
-              <CandidateMentor
-                candidateInfo={candidateInfo}
-                allUsers={allUsers}
-              />
-            )}
-          </Box>
-        </Box>
-      )}
+    <Box className="feedbacksContainer" padding="2% 2% 2% 3%">
+      <Box
+        marginRight="3%"
+        display="flex"
+        flexDirection="row"
+        justifyContent="flex-end"
+      >
+        <Typography variant="h4" fontWeight="300">
+          {getFieldLabel('candidate.page.users.title')}
+        </Typography>
+      </Box>
+      <Divider />
+      <Box marginTop="2%">
+        <CandidateHr candidateInfo={candidateInfo} allUsers={allUsers} />
+        {!!filteredStacks.length &&
+          !!assignedHr &&
+          !!stacksByInternshipId.length && (
+            <CandidateInterviewer
+              candidateInfo={candidateInfo}
+              allUsers={allUsers}
+              stacks={filteredStacks.map((stack) => stack.technologyStackType)}
+            />
+          )}
+        {!!assignedInterviewer && (
+          <CandidateMentor candidateInfo={candidateInfo} allUsers={allUsers} />
+        )}
+      </Box>
+    </Box>
+  );
+};
 
 export default CandidateUsersAndFeedbacks;
