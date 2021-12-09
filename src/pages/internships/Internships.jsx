@@ -123,14 +123,17 @@ export const Internships = () => {
             </Grid>
           )}
         </Box>
-        <SidePopUp
-          active={popUpActive}
-          setActive={setPopUpActive}
-          initialData={initialValues}
-          button="common.create"
-          dispatchFunction={createNewInternship}
-          title="addprogram.title"
-        />
+        {(authorizedUserRole === 'Admin' ||
+          authorizedUserRole === 'Manager') && (
+          <SidePopUp
+            active={popUpActive}
+            setActive={setPopUpActive}
+            initialData={initialValues}
+            button="common.create"
+            dispatchFunction={createNewInternship}
+            title="addprogram.title"
+          />
+        )}
       </Container>
     </>
   );
