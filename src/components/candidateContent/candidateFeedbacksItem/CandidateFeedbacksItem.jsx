@@ -158,19 +158,19 @@ const CandidateFeedbacksItem = ({
           <Typography variant="body2" pr="20px">
             {roleType}
           </Typography>
-          {!feedbacks.length &&
-            (authorizedUserRole === 'Admin' ||
-              authorizedUserRole === 'Manager' ||
-              authorizedUserRole === 'Hr') && (
-              <IconButton variant="outlined" onClick={handleEditClick}>
-                <EditIcon fontSize="small" />
-              </IconButton>
-            )}
+          {(authorizedUserRole === 'Admin' ||
+            authorizedUserRole === 'Manager' ||
+            authorizedUserRole === 'Hr') && (
+            <IconButton variant="outlined" onClick={handleEditClick}>
+              <EditIcon fontSize="small" />
+            </IconButton>
+          )}
         </Box>
         {!feedbacks.length ? (
           (user.roleType === authorizedUserRole ||
-            authorizedUserRole === 'Admin' ||
-            authorizedUserRole === 'Manager') && (
+            authorizedUserRole === 'Hr' ||
+            authorizedUserRole === 'Interviewer' ||
+            authorizedUserRole === 'Mentor') && (
             <Button variant="outlined" onClick={handleClick}>
               {getFieldLabel('candidateFeedbacks.button.createFeedback')}
             </Button>
@@ -224,8 +224,9 @@ const CandidateFeedbacksItem = ({
               callbackFunction={handleChangeFinalEvaluation}
             />
             {(authorizedUserRole === user.roleType ||
-              authorizedUserRole === 'Admin' ||
-              authorizedUserRole === 'Manager') &&
+              authorizedUserRole === 'Hr' ||
+              authorizedUserRole === 'Interviewer' ||
+              authorizedUserRole === 'Mentor') &&
               (editMode ? (
                 <Button
                   variant="outlined"
