@@ -91,7 +91,9 @@ export const CandidateInfoEdit = (props) => {
     setOpen(true);
   };
 
-  const getInternshipStackTypesArray = (index) => internshipsList.find(internship => internship.id === index)?.internshipStacks ?? []
+  const getInternshipStackTypesArray = (index) =>
+    internshipsList.find((internship) => internship.id === index)
+      ?.internshipStacks ?? [];
 
   const dataForRenderTextField = [
     'firstName',
@@ -141,8 +143,6 @@ export const CandidateInfoEdit = (props) => {
   const handleReset = () => {
     formik.handleReset();
   };
-
-
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayJs}>
@@ -233,7 +233,11 @@ export const CandidateInfoEdit = (props) => {
                         event.target.value,
                       );
                       formik.setFieldValue('internshipId', child.props.id);
-                      formik.setFieldValue('stackType', getInternshipStackTypesArray(child.props.id)[0].technologyStackType);
+                      formik.setFieldValue(
+                        'stackType',
+                        getInternshipStackTypesArray(child.props.id)[0]
+                          .technologyStackType,
+                      );
                     }}
                     name="internshipName"
                     label={getFieldLabel('candidate.info.internshipName')}
@@ -244,35 +248,34 @@ export const CandidateInfoEdit = (props) => {
                       </MenuItem>
                     ))}
                   </Select>
-                  </FormControl>
+                </FormControl>
 
-
-                  <FormControl>
+                <FormControl>
                   <InputLabel>
                     {getFieldLabel('candidate.info.stackType')}
                   </InputLabel>
                   <Select
                     fullWidth
                     value={formik.values.stackType}
-                    onChange={(event) => {
-                      formik.setFieldValue(
-                        'stackType',
-                        event.target.value,
-                      );
-                    }}
+                    onChange={(event) =>
+                      formik.setFieldValue('stackType', event.target.value)
+                    }
                     name="stackType"
                     label={getFieldLabel('candidate.info.stackType')}
                   >
-                    {  getInternshipStackTypesArray(formik.values.internshipId).map((item) => (
-                      <MenuItem id={item.id} value={item.technologyStackType} key={item.id}>
+                    {getInternshipStackTypesArray(
+                      formik.values.internshipId,
+                    ).map((item) => (
+                      <MenuItem
+                        id={item.id}
+                        value={item.technologyStackType}
+                        key={item.id}
+                      >
                         {item.technologyStackType}
                       </MenuItem>
                     ))}
                   </Select>
-                  </FormControl>
-
-
-              
+                </FormControl>
 
                 <MobileTimePicker
                   label={getFieldLabel('candidate.info.bestContactTime')}
