@@ -13,8 +13,10 @@ import { updateCandidateInfo } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
 import './candidateMentor.sass';
+import { Confirm } from '../../confirm';
 
 export const CandidateMentor = ({ candidateInfo, allUsers }) => {
+  const [openAssignConfirm, setOpenAssignConfirm] = useState(false);
   const dispatch = useDispatch();
   const [assignMentors, setAssignMentors] = useState([]);
   const [editAssignedMentor, setEditAssignedMentor] = useState(false);
@@ -30,8 +32,9 @@ export const CandidateMentor = ({ candidateInfo, allUsers }) => {
     (user) => user.roleType === 'Mentor',
   );
 
-  const handleSubmit = () => {
-    const assignedUsers = allUsers
+  const handleAssign = (value) => {
+    if (value) {
+      const assignedUsers = allUsers
       .filter((user) => userIds.includes(user.id))
       .map((mentor) => ({ id: mentor.id }));
     dispatch(
@@ -43,14 +46,28 @@ export const CandidateMentor = ({ candidateInfo, allUsers }) => {
         ],
       }),
     );
+    }
+    setOpenAssignConfirm(false);
   };
 
-  const handleEditMentorClick = () => {
+  const handleClickAssign = () => {
+    setOpenAssignConfirm(true);
+  };
+
+  const handleEditAssign = () => {
     setEditAssignedMentor(!editAssignedMentor);
   };
 
   return (
     <Box className="assignMentorContainer" p="10px">
+        {openAssignConfirm && (
+          <Confirm
+            confirmTitle={getFieldLabel('assign.confirm.message')}
+            rejectButtonLabel={getFieldLabel('common.no')}
+            acceptButtonLabel={getFieldLabel('common.yes')}
+            callback={handleAssign}
+          />
+        )}
       {(!assignedMentor || editAssignedMentor) &&
         (authorizedUserRole === 'Hr' ||
           authorizedUserRole === 'Manager' ||
@@ -74,7 +91,7 @@ export const CandidateMentor = ({ candidateInfo, allUsers }) => {
                 </Select>
               </FormControl>
             </Box>
-            <Button onClick={handleSubmit} size="small" variant="outlined">
+            <Button onClick={handleClickAssign} size="small" variant="outlined">
               {getFieldLabel('common.assign')}
             </Button>
           </Box>
@@ -82,7 +99,7 @@ export const CandidateMentor = ({ candidateInfo, allUsers }) => {
       {!!assignedMentor && !editAssignedMentor && (
         <Box>
           <CandidateFeedbacksItem
-            handleEditClick={handleEditMentorClick}
+            handleEditClick={handleEditAssign}
             key={assignedMentor.id}
             user={assignedMentor}
             candidateInfo={candidateInfo}
