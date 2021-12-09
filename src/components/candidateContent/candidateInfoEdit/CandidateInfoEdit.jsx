@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -23,6 +23,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import { LocalizationProvider, MobileTimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
+import { Confirm } from '../../confirm';
+import { useMediaDown } from '../../utils';
 import { candidateEditValidation } from '../../../constants';
 import { getFieldLabel } from '../../../utils';
 import {
@@ -41,7 +43,11 @@ dayjs.extend(utc);
 const FormValidation = Yup.object().shape(candidateEditValidation);
 
 export const CandidateInfoEdit = (props) => {
+  const [openSaveConfirm, setOpenSaveConfirm] = useState(false);
+  const [openResetConfirm, setOpenResetConfirm] = useState(false);
+  const [openCloseConfirm, setOpenCloseConfirm] = useState(false);
   const { candidateInfo } = props;
+  const smallScreen = useMediaDown('sm');
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
 
@@ -140,13 +146,37 @@ export const CandidateInfoEdit = (props) => {
     },
   });
 
-  const handleClose = () => {
-    formik.handleReset();
-    setOpen(false);
+  const handleSubmit = (value) => {
+    if (value) {
+      formik.handleSubmit();
+    }
+    setOpenSaveConfirm(false);
   };
 
-  const handleReset = () => {
-    formik.handleReset();
+  const handleReset = (value) => {
+    if (value) {
+      formik.handleReset();
+    }
+    setOpenResetConfirm(false);
+  };
+
+  const handleClose = (value) => {
+    if (value) {
+      setOpen(false);
+      formik.handleReset();
+    }
+    setOpenCloseConfirm(false);
+  };
+
+  const handleClickClose = () => {
+    setOpenCloseConfirm(true);
+  };
+  const handleClickSave = (event) => {
+    event.preventDefault();
+    setOpenSaveConfirm(true);
+  };
+  const handleClickReset = () => {
+    setOpenResetConfirm(true);
   };
 
   return (
@@ -167,12 +197,12 @@ export const CandidateInfoEdit = (props) => {
             display="flex"
             justifyContent="space-between"
           >
-            <Typography variant="h4" color="gray">
+            <Typography variant={smallScreen ? 'h5' : 'h4'} color="#757575">
               {getFieldLabel('candidate.edit.editCandidateTitle')}
             </Typography>
             <Box>
               <Button
-                onClick={handleReset}
+                onClick={handleClickReset}
                 size="small"
                 disabled={
                   JSON.stringify(formatedInitInfo) ===
@@ -181,12 +211,40 @@ export const CandidateInfoEdit = (props) => {
               >
                 {getFieldLabel('common.reset')}
               </Button>
-              <IconButton onClick={handleClose}>
+              <IconButton onClick={handleClickClose}>
                 <ClearIcon fontSize="small" />
               </IconButton>
             </Box>
           </Box>
-          <form onSubmit={formik.handleSubmit}>
+          <form
+            onSubmit={(event) => {
+              handleClickSave(event);
+            }}
+          >
+            {openSaveConfirm && (
+              <Confirm
+                confirmTitle={getFieldLabel('submitForm.confirm.message')}
+                rejectButtonLabel={getFieldLabel('common.no')}
+                acceptButtonLabel={getFieldLabel('common.yes')}
+                callback={handleSubmit}
+              />
+            )}
+            {openResetConfirm && (
+              <Confirm
+                confirmTitle={getFieldLabel('resetForm.confirm.message')}
+                rejectButtonLabel={getFieldLabel('common.no')}
+                acceptButtonLabel={getFieldLabel('common.yes')}
+                callback={handleReset}
+              />
+            )}
+            {openCloseConfirm && (
+              <Confirm
+                confirmTitle={getFieldLabel('closeForm.confirm.message')}
+                rejectButtonLabel={getFieldLabel('common.no')}
+                acceptButtonLabel={getFieldLabel('common.yes')}
+                callback={handleClose}
+              />
+            )}
             <Box
               padding="20px"
               width={{ lg: '35vw', md: '50vw', sm: '70vw', xs: '100vw' }}
