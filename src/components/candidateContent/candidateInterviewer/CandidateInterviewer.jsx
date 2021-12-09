@@ -69,10 +69,10 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
       ),
     );
   }, []);
-  const [assignInterviewers, setAssignInterviewers] = useState([]);
+  const [assignInterviewers, setAssignInterviewers] = useState('');
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
-  const [interviewDate, setInterviewDate] = useState(null);
-  const [interviewTime, setInterviewTime] = useState(null);
+  const [interviewDate, setInterviewDate] = useState('');
+  const [interviewTime, setInterviewTime] = useState('');
   const [open, setOpen] = useState(false);
 
   const interviewers = allUsers.filter(

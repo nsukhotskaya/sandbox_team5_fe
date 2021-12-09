@@ -18,7 +18,7 @@ import { Confirm } from '../../confirm';
 export const CandidateMentor = ({ candidateInfo, allUsers }) => {
   const [openAssignConfirm, setOpenAssignConfirm] = useState(false);
   const dispatch = useDispatch();
-  const [assignMentors, setAssignMentors] = useState([]);
+  const [assignMentors, setAssignMentors] = useState('');
   const [editAssignedMentor, setEditAssignedMentor] = useState(false);
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
