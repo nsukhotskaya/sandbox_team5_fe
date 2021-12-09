@@ -11,7 +11,11 @@ export default function stacksByInternshipIdList(state = initialState, action) {
       return { ...state, isLoading: true };
     case GET_STACKS_BY_INTERNSHIP_ID.SUCCESS: {
       const { stacksByInternshipId } = action.payload;
-      return { ...state, stacksByInternshipId, isLoading: false };
+      return {
+        ...state,
+        stacksByInternshipId: [...stacksByInternshipId],
+        isLoading: false,
+      };
     }
     case GET_STACKS_BY_INTERNSHIP_ID.FAILURE:
       return { ...state, isLoading: false };

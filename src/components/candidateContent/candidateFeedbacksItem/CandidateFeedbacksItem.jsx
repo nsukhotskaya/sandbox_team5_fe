@@ -129,8 +129,13 @@ const CandidateFeedbacksItem = ({ user, candidateInfo, handleEditClick }) => {
       {!!feedbacks.length && (
         <Collapse in={isCriteriaShown}>
           <Box className="collapseContainer">
+<<<<<<< Updated upstream
             {!!feedback.evaluations &&
               feedback.evaluations.map((skill) => (
+=======
+            {user.roleType === 'Interviewer' &&
+              skillsEvaluations.map((skill) => (
+>>>>>>> Stashed changes
                 <StarRating
                   key={skill.skill.name}
                   title={skill.skill.name}

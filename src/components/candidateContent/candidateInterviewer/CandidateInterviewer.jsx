@@ -43,9 +43,18 @@ export const CandidateInterviewer = ({ candidateInfo }) => {
   dayjs.extend(utc);
 
   useEffect(() => {
+<<<<<<< Updated upstream
     dispatch(fetchAllUsers());
   }, []);
 
+=======
+    dispatch(
+      fetchSkillsByStackTypes(
+        stacks.map((stackType) => formatStackType(stackType)),
+      ),
+    );
+  }, [stacks]);
+>>>>>>> Stashed changes
   const [assignInterviewers, setAssignInterviewers] = useState('');
   const [editAssignedInterviewer, setEditAssignedInterviewer] = useState(false);
   const [interviewDate, setInterviewDate] = useState(null);
