@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import {
@@ -22,7 +23,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import { LocalizationProvider, MobileTimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
-
+import { candidateEditValidation } from '../../../constants';
 import { getFieldLabel } from '../../../utils';
 import {
   fetchCandidateStatusTypes,
@@ -37,6 +38,9 @@ import {
 const utc = require('dayjs/plugin/utc');
 
 dayjs.extend(utc);
+
+const FormValidation = Yup.object().shape(candidateEditValidation);
+
 export const CandidateInfoEdit = (props) => {
   const { candidateInfo } = props;
   const [open, setOpen] = React.useState(false);
@@ -141,6 +145,7 @@ export const CandidateInfoEdit = (props) => {
 
   const formik = useFormik({
     initialValues: formatedInitInfo,
+    validationSchema: FormValidation,
     onSubmit: (values) => {
       dispatch(updateCandidateInfo(values));
       setOpen(false);
@@ -207,6 +212,14 @@ export const CandidateInfoEdit = (props) => {
                     name={fieldName}
                     label={getFieldLabel(`candidate.info.${fieldName}`)}
                     key={fieldName}
+                    error={
+                      formik.touched[`${fieldName}`] &&
+                      Boolean(formik.errors[`${fieldName}`])
+                    }
+                    helperText={
+                      formik.touched[`${fieldName}`] &&
+                      formik.errors[`${fieldName}`]
+                    }
                   />
                 ))}
                 {dataForRenderSelect.map(({ keyName, array }) => (
