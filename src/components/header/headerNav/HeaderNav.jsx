@@ -61,14 +61,14 @@ function HeaderNav() {
       )}
       <Box
         className="headerNav"
-        mr={smallScreen ? '10px' : '60px'}
+        mr={smallScreen ? '10px' : '24px'}
         onClick={handleShowMenu}
       >
         <Avatar alt={userInfo.userName} className="headerNavAvatar" />
       </Box>
       <Paper>
         <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={handleCloseMenu}>
-          <Typography variant="h6" className="dropDownTitle">
+          <Typography variant="h6" className="dropDownTitle" noWrap>
             {userInfo.userName}
           </Typography>
           <Divider component="li" />

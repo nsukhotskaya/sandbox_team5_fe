@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import {
@@ -20,9 +21,11 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
-import { LocalizationProvider, TimePicker } from '@mui/lab';
+import { LocalizationProvider, MobileTimePicker } from '@mui/lab';
 import AdapterDayJs from '@mui/lab/AdapterDayjs';
-
+import { Confirm } from '../../confirm';
+import { useMediaDown } from '../../utils';
+import { candidateEditValidation } from '../../../constants';
 import { getFieldLabel } from '../../../utils';
 import {
   fetchCandidateStatusTypes,
@@ -31,20 +34,25 @@ import {
   fetchLocations,
   updateCandidateInfo,
   fetchInternships,
-  fetchStacksByInternshipId,
 } from '../../../store/commands';
 
 const utc = require('dayjs/plugin/utc');
 
 dayjs.extend(utc);
+
+const FormValidation = Yup.object().shape(candidateEditValidation);
+
 export const CandidateInfoEdit = (props) => {
+  const [openSaveConfirm, setOpenSaveConfirm] = useState(false);
+  const [openResetConfirm, setOpenResetConfirm] = useState(false);
+  const [openCloseConfirm, setOpenCloseConfirm] = useState(false);
   const { candidateInfo } = props;
+  const smallScreen = useMediaDown('sm');
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
 
   dayjs.extend(customParseFormat);
   dayjs.extend(utc);
-
   const candidateStatusTypeList = useSelector(
     (state) => state.candidateStatusTypes.candidateStatusTypes,
   );
@@ -54,9 +62,6 @@ export const CandidateInfoEdit = (props) => {
   const languagesList = useSelector((state) => state.languages.languages);
   const locationsList = useSelector((state) => state.locations.locations);
   const internshipsList = useSelector((state) => state.internships.internships);
-  const stacksList = useSelector(
-    (state) => state.stacksByInternshipId.stacksByInternshipId,
-  );
 
   useEffect(() => {
     if (Object.prototype.hasOwnProperty.call(candidateInfo, 'internshipId')) {
@@ -65,7 +70,6 @@ export const CandidateInfoEdit = (props) => {
       dispatch(fetchLanguages());
       dispatch(fetchLocations());
       dispatch(fetchInternships());
-      dispatch(fetchStacksByInternshipId(candidateInfo.internshipId));
     }
   }, []);
 
@@ -73,12 +77,6 @@ export const CandidateInfoEdit = (props) => {
     array.map((item, index) => ({
       id: index,
       name: item,
-    }));
-
-  const adaptStacks = (list) =>
-    list.map((item) => ({
-      id: item.id,
-      name: item.technologyStackType,
     }));
 
   const formatInfo = (info) => {
@@ -98,15 +96,14 @@ export const CandidateInfoEdit = (props) => {
   const englishLevelListFormated = stringToObject(englishLevelList);
   const statusTypeListFormated = stringToObject(candidateStatusTypeList);
   const languagesListFormated = stringToObject(languagesList);
-  const stacksListAdapted = adaptStacks(stacksList);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const getInternshipStackTypesArray = (index) =>
+    internshipsList.find((internship) => internship.id === index)
+      ?.internshipStacks ?? [];
 
   const dataForRenderTextField = [
     'firstName',
@@ -138,156 +135,260 @@ export const CandidateInfoEdit = (props) => {
       keyName: 'location',
       array: locationsList,
     },
-    {
-      keyName: 'stackType',
-      array: stacksListAdapted,
-    },
   ];
 
   const formik = useFormik({
     initialValues: formatedInitInfo,
+    validationSchema: FormValidation,
     onSubmit: (values) => {
       dispatch(updateCandidateInfo(values));
+      setOpen(false);
     },
   });
 
+  const handleSubmit = (value) => {
+    if (value) {
+      formik.handleSubmit();
+    }
+    setOpenSaveConfirm(false);
+  };
+
+  const handleReset = (value) => {
+    if (value) {
+      formik.handleReset();
+    }
+    setOpenResetConfirm(false);
+  };
+
+  const handleClose = (value) => {
+    if (value) {
+      setOpen(false);
+      formik.handleReset();
+    }
+    setOpenCloseConfirm(false);
+  };
+
+  const handleClickClose = () => {
+    setOpenCloseConfirm(true);
+  };
+  const handleClickSave = (event) => {
+    event.preventDefault();
+    setOpenSaveConfirm(true);
+  };
+  const handleClickReset = () => {
+    setOpenResetConfirm(true);
+  };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDayJs}>
-      <form>
-        <Box>
-          <IconButton variant="outlined" onClick={handleClickOpen}>
-            <EditIcon fontSize="medium" />
-          </IconButton>
-          <Drawer anchor="left" open={open}>
-            <Box
-              position="sticky"
-              top="0px"
-              height="auto"
-              padding="20px"
-              backgroundColor="background.paper"
-              zIndex="2"
-              boxShadow="0px -4px 10px 0px #c9c9c9"
-              display="flex"
-              justifyContent="space-between"
-            >
-              <Typography variant="h4" color="gray">
-                {getFieldLabel('candidate.edit.editCandidateTitle')}
-              </Typography>
-              <IconButton onClick={handleClose}>
+      <Box>
+        <IconButton variant="outlined" onClick={handleClickOpen}>
+          <EditIcon fontSize="medium" />
+        </IconButton>
+        <Drawer anchor="left" open={open}>
+          <Box
+            position="sticky"
+            top="0px"
+            height="auto"
+            padding="20px"
+            backgroundColor="background.paper"
+            zIndex="2"
+            boxShadow="0px -4px 10px 0px #c9c9c9"
+            display="flex"
+            justifyContent="space-between"
+          >
+            <Typography variant={smallScreen ? 'h5' : 'h4'} color="#757575">
+              {getFieldLabel('candidate.edit.editCandidateTitle')}
+            </Typography>
+            <Box>
+              <Button
+                onClick={handleClickReset}
+                size="small"
+                disabled={
+                  JSON.stringify(formatedInitInfo) ===
+                  JSON.stringify(formik.values)
+                }
+              >
+                {getFieldLabel('common.reset')}
+              </Button>
+              <IconButton onClick={handleClickClose}>
                 <ClearIcon fontSize="small" />
               </IconButton>
             </Box>
-            <form onSubmit={formik.handleSubmit}>
-              <Box
-                padding="20px"
-                width={{ lg: '35vw', md: '50vw', sm: '70vw', xs: '100vw' }}
-              >
-                <Stack spacing={2} direction="column">
-                  {dataForRenderTextField.map((fieldName) => (
-                    <TextField
-                      fullWidth
-                      value={formik.values[fieldName]}
-                      onChange={formik.handleChange}
-                      name={fieldName}
-                      label={getFieldLabel(`candidate.info.${fieldName}`)}
-                      key={fieldName}
-                    />
-                  ))}
-                  {dataForRenderSelect.map(({ keyName, array }) => (
-                    <FormControl key={keyName}>
-                      <InputLabel>
-                        {getFieldLabel(`candidate.info.${keyName}`)}
-                      </InputLabel>
-                      <Select
-                        key={keyName}
-                        fullWidth
-                        value={formik.values[keyName]}
-                        name={keyName}
-                        label={getFieldLabel(`candidate.info.${keyName}`)}
-                        onChange={(event) =>
-                          formik.setFieldValue(keyName, event.target.value)
-                        }
-                      >
-                        {array.map(({ id, name }) => (
-                          <MenuItem key={id} value={name}>
-                            {name}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  ))}
-                  <FormControl>
+          </Box>
+          <form
+            onSubmit={(event) => {
+              handleClickSave(event);
+            }}
+          >
+            {openSaveConfirm && (
+              <Confirm
+                confirmTitle={getFieldLabel('submitForm.confirm.message')}
+                rejectButtonLabel={getFieldLabel('common.no')}
+                acceptButtonLabel={getFieldLabel('common.yes')}
+                callback={handleSubmit}
+              />
+            )}
+            {openResetConfirm && (
+              <Confirm
+                confirmTitle={getFieldLabel('resetForm.confirm.message')}
+                rejectButtonLabel={getFieldLabel('common.no')}
+                acceptButtonLabel={getFieldLabel('common.yes')}
+                callback={handleReset}
+              />
+            )}
+            {openCloseConfirm && (
+              <Confirm
+                confirmTitle={getFieldLabel('closeForm.confirm.message')}
+                rejectButtonLabel={getFieldLabel('common.no')}
+                acceptButtonLabel={getFieldLabel('common.yes')}
+                callback={handleClose}
+              />
+            )}
+            <Box
+              padding="20px"
+              width={{ lg: '35vw', md: '50vw', sm: '70vw', xs: '100vw' }}
+            >
+              <Stack spacing={2} direction="column">
+                {dataForRenderTextField.map((fieldName) => (
+                  <TextField
+                    fullWidth
+                    value={formik.values[fieldName]}
+                    onChange={formik.handleChange}
+                    name={fieldName}
+                    label={getFieldLabel(`candidate.info.${fieldName}`)}
+                    key={fieldName}
+                    error={
+                      formik.touched[`${fieldName}`] &&
+                      Boolean(formik.errors[`${fieldName}`])
+                    }
+                    helperText={
+                      formik.touched[`${fieldName}`] &&
+                      formik.errors[`${fieldName}`]
+                    }
+                  />
+                ))}
+                {dataForRenderSelect.map(({ keyName, array }) => (
+                  <FormControl key={keyName}>
                     <InputLabel>
-                      {getFieldLabel('candidate.info.internshipName')}
+                      {getFieldLabel(`candidate.info.${keyName}`)}
                     </InputLabel>
                     <Select
+                      key={keyName}
                       fullWidth
-                      value={formik.values.internshipName}
-                      onChange={(event, child) => {
-                        formik.setFieldValue(
-                          'internshipName',
-                          event.target.value,
-                        );
-                        formik.setFieldValue('internshipId', child.props.id);
-                      }}
-                      name="internshipName"
-                      label={getFieldLabel('candidate.info.internshipName')}
+                      value={formik.values[keyName]}
+                      name={keyName}
+                      label={getFieldLabel(`candidate.info.${keyName}`)}
+                      onChange={(event) =>
+                        formik.setFieldValue(keyName, event.target.value)
+                      }
                     >
-                      {Object.values(internshipsList).map((item) => (
-                        <MenuItem id={item.id} value={item.name} key={item.id}>
-                          {item.name}
+                      {array.map(({ id, name }) => (
+                        <MenuItem key={id} value={name}>
+                          {name}
                         </MenuItem>
                       ))}
                     </Select>
                   </FormControl>
+                ))}
+                <FormControl>
+                  <InputLabel>
+                    {getFieldLabel('candidate.info.internshipName')}
+                  </InputLabel>
+                  <Select
+                    fullWidth
+                    value={formik.values.internshipName}
+                    onChange={(event, child) => {
+                      formik.setFieldValue(
+                        'internshipName',
+                        event.target.value,
+                      );
+                      formik.setFieldValue('internshipId', child.props.id);
+                      formik.setFieldValue(
+                        'stackType',
+                        getInternshipStackTypesArray(child.props.id)[0]
+                          .technologyStackType,
+                      );
+                    }}
+                    name="internshipName"
+                    label={getFieldLabel('candidate.info.internshipName')}
+                  >
+                    {Object.values(internshipsList).map((item) => (
+                      <MenuItem id={item.id} value={item.name} key={item.id}>
+                        {item.name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
 
-                  <TimePicker
-                    label={getFieldLabel('candidate.info.bestContactTime')}
-                    name="bestContactTime"
-                    value={formik.values.bestContactTime}
-                    onChange={(dateValue) =>
-                      formik.setFieldValue('bestContactTime', dateValue)
+                <FormControl>
+                  <InputLabel>
+                    {getFieldLabel('candidate.info.stackType')}
+                  </InputLabel>
+                  <Select
+                    fullWidth
+                    value={formik.values.stackType}
+                    onChange={(event) =>
+                      formik.setFieldValue('stackType', event.target.value)
                     }
-                    ampm={false}
-                    renderInput={(params) => <TextField {...params} />}
+                    name="stackType"
+                    label={getFieldLabel('candidate.info.stackType')}
+                  >
+                    {getInternshipStackTypesArray(
+                      formik.values.internshipId,
+                    ).map((item) => (
+                      <MenuItem
+                        id={item.id}
+                        value={item.technologyStackType}
+                        key={item.id}
+                      >
+                        {item.technologyStackType}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                <MobileTimePicker
+                  label={getFieldLabel('candidate.info.bestContactTime')}
+                  name="bestContactTime"
+                  value={formik.values.bestContactTime}
+                  onChange={(dateValue) =>
+                    formik.setFieldValue('bestContactTime', dateValue)
+                  }
+                  ampm={false}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+                <FormControl fullWidth>
+                  <FormControlLabel
+                    label={getFieldLabel('candidate.info.isPlanningToJoin')}
+                    control={<Checkbox />}
+                    name="isPlanningToJoin"
+                    onChange={formik.handleChange}
+                    checked={formik.values.isPlanningToJoin}
+                    value={formik.values.isPlanningToJoin}
                   />
-                  <FormControl fullWidth>
-                    <FormControlLabel
-                      label={getFieldLabel('candidate.info.isPlanningToJoin')}
-                      control={<Checkbox />}
-                      name="isPlanningToJoin"
-                      onChange={formik.handleChange}
-                      checked={formik.values.isPlanningToJoin}
-                      value={formik.values.isPlanningToJoin}
-                    />
-                  </FormControl>
-                </Stack>
-              </Box>
-              <Box
-                position="sticky"
-                bottom="0px"
-                height="auto"
-                padding="20px"
-                backgroundColor="background.paper"
-                zIndex="1"
-                boxShadow="0px -4px 10px 0px #c9c9c9"
-                width="100%"
-                display="flex"
-                justifyContent="space-between"
-              >
-                <Button
-                  variant="contained"
-                  type="submit"
-                  onClick={handleClose}
-                  fullWidth
-                >
-                  {getFieldLabel('common.save')}
-                </Button>
-              </Box>
-            </form>
-          </Drawer>
-        </Box>
-      </form>
+                </FormControl>
+              </Stack>
+            </Box>
+            <Box
+              position="sticky"
+              bottom="0px"
+              height="auto"
+              padding="20px"
+              backgroundColor="background.paper"
+              zIndex="1"
+              boxShadow="0px -4px 10px 0px #c9c9c9"
+              width="100%"
+              display="flex"
+              justifyContent="space-between"
+            >
+              <Button variant="contained" type="submit" fullWidth>
+                {getFieldLabel('common.save')}
+              </Button>
+            </Box>
+          </form>
+        </Drawer>
+      </Box>
     </LocalizationProvider>
   );
 };

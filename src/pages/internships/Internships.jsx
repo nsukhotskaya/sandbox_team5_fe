@@ -17,7 +17,7 @@ import { InternshipCard, InternshipsFilter, SidePopUp } from '../../components';
 import { createNewInternship, fetchInternships } from '../../store/commands';
 import { loadingSelector } from '../../store/selectors';
 import { LoadingIndicator } from '../../components/loadingIndicator';
-import { initialValues } from '../../mocks/createInternshipData.json';
+import { initialValues } from '../../constants';
 
 export const Internships = () => {
   const [popUpActive, setPopUpActive] = useState(false);
@@ -40,7 +40,6 @@ export const Internships = () => {
   const openPopUpWindow = () => {
     setPopUpActive(true);
   };
-
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
@@ -62,8 +61,13 @@ export const Internships = () => {
 
   return (
     <>
-      <Box display="flex" flexDirection="column" padding="10px">
-        <Box className="internshipsMenu">
+      <Box
+        maxWidth="1500px"
+        display="flex"
+        flexDirection="column"
+        padding="10px"
+      >
+        <Box width="100%" className="internshipsMenu">
           <Box className="menuItemsBox">
             <IconButton onClick={handleClick}>
               <ManageSearchIcon fontSize="large" />
@@ -89,7 +93,7 @@ export const Internships = () => {
           </Box>
         </Box>
       </Box>
-      <Container fixed maxWidth="1600px">
+      <Container className="internshipsContainer" fixed maxWidth="1600px">
         <Box>
           {isLoading ? (
             <LoadingIndicator />
@@ -124,14 +128,17 @@ export const Internships = () => {
             </Grid>
           )}
         </Box>
-        <SidePopUp
-          active={popUpActive}
-          setActive={setPopUpActive}
-          initialData={initialValues}
-          button="common.create"
-          dispatchFunction={createNewInternship}
-          title="addprogram.title"
-        />
+        {(authorizedUserRole === 'Admin' ||
+          authorizedUserRole === 'Manager') && (
+          <SidePopUp
+            active={popUpActive}
+            setActive={setPopUpActive}
+            initialData={initialValues}
+            button="common.create"
+            dispatchFunction={createNewInternship}
+            title="addprogram.title"
+          />
+        )}
       </Container>
     </>
   );

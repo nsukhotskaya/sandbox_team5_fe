@@ -4,7 +4,7 @@ import { getChipColorByStatus } from '../../utils';
 
 const ChipFormatter = ({ value }) => (
   <Chip
-    label={value}
+    label={value.replace('_', ' ')}
     color={getChipColorByStatus(value)}
     variant="outlined"
     size="small"

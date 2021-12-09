@@ -1,8 +1,8 @@
+import * as Yup from 'yup';
+import { getFieldLabel } from '../utils';
+
 export const tableCandidateInfoFields = [
-  'phone',
-  'email',
   'internshipName',
-  'skype',
   'stackType',
   'location',
   'registrationDate',
@@ -11,11 +11,28 @@ export const tableCandidateInfoFields = [
   'englishLevelType',
   'professionalCertificates',
   'currentJob',
-
   'otherInfo',
-
   'education',
   'isPlanningToJoin',
-
   'links',
 ];
+
+export const candidateEditValidation = {
+  firstName: Yup.string()
+    .strict()
+    .matches(
+      `^[a-zA-Z]+$`,
+      getFieldLabel('candidate.info.validation.message.firstName'),
+    )
+    .required(),
+  lastName: Yup.string()
+    .strict()
+    .matches(
+      `^[a-zA-Z]+$`,
+      getFieldLabel('candidate.info.validation.message.lastName'),
+    )
+    .required(),
+  phone: Yup.number()
+    .integer()
+    .typeError(getFieldLabel('candidate.info.validation.message.phone')),
+};

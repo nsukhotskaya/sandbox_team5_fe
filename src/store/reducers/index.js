@@ -19,3 +19,5 @@ export { default as assignCandidates } from './assignCandidates';
 export { default as bestContactTime } from './bestContactTime';
 export { default as setEventToCalendar } from './setEventToGoogleCalendar';
 export { default as userInfoById } from './userInfoById';
+export { default as candidateEvaluations } from './candidateEvaluations';
+export { default as stacksSkills } from './stacksSkills';

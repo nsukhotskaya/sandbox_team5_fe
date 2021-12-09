@@ -54,6 +54,7 @@ const InternshipPage = () => {
                     userName: item.userName,
                     roleType: item.roleType,
                     position: item.position,
+                    id: item.id,
                   }),
                 )}
               <TableTemplate rowData={tableFillerAllUsers(rawData)} />

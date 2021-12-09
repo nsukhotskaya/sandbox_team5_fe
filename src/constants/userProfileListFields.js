@@ -1,6 +1,1 @@
-export const userProfileListFields = [
-  'email',
-  'phoneNumber',
-  'roleType',
-  'position',
-];
+export const userProfileListFields = ['roleType', 'position'];

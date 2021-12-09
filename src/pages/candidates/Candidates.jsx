@@ -13,7 +13,11 @@ import {
 import { ManageSearch } from '@mui/icons-material';
 import CachedIcon from '@mui/icons-material/Cached';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import { tableFieldsFirstPart, reformatCandidates } from '../../constants';
+import {
+  tableFieldsFirstPart,
+  reformatCandidates,
+  reformatCsvCandidates,
+} from '../../constants';
 import { getFieldLabel } from '../../utils';
 import {
   fetchCandidateList,
@@ -32,6 +36,7 @@ import {
   StarFormatter,
   Toaster,
   ChipFormatter,
+  ExportCSV,
 } from '../../components';
 import useToaster from '../../components/toaster/useToaster';
 import './candidates.sass';
@@ -97,9 +102,7 @@ const Candidates = () => {
     setGridApi(params.api);
   };
 
-  const onButtonExport = () => {
-    gridApi.exportDataAsExcel();
-  };
+  const exportCandidates = reformatCsvCandidates(newListOfCandidates);
 
   const getRowNodeId = (data) => data.id;
 
@@ -214,9 +217,10 @@ const Candidates = () => {
               mr={{ xs: '0px', sm: '15px' }}
               mb={{ xs: '10px', sm: '0px' }}
             >
-              <Button onClick={() => onButtonExport()} variant="outlined">
-                {getFieldLabel('candidates.button.exportToExcel')}
-              </Button>
+              <ExportCSV
+                csvData={exportCandidates}
+                fileName={internshipName[0]}
+              />
             </Stack>
             {authorizedUserRoleType === 'Hr' && (
               <Stack
@@ -279,6 +283,7 @@ const Candidates = () => {
             }}
           >
             <AgGridColumn
+              suppressMovable
               field="fullName"
               sortable
               checkboxSelection
@@ -290,6 +295,7 @@ const Candidates = () => {
             />
             {tableFieldsFirstPart.map((field) => (
               <AgGridColumn
+                suppressMovable
                 field={field}
                 headerName={getFieldLabel(`candidates.table.${field}`)}
                 key={field}
@@ -299,35 +305,54 @@ const Candidates = () => {
               />
             ))}
             <AgGridColumn
+              suppressMovable
               field="hrReview"
+              headerName={getFieldLabel('candidates.table.hrReview')}
               sortable
               resizable
               flex={1}
               cellRenderer="starFormatter"
             />
-            <AgGridColumn field="interviewer" sortable resizable flex={1} />
             <AgGridColumn
+              field="interviewer"
+              sortable
+              resizable
+              flex={1}
+              suppressMovable
+            />
+            <AgGridColumn
+              suppressMovable
               field="interviewerReview"
               sortable
               resizable
               flex={1}
               cellRenderer="starFormatter"
             />
-            <AgGridColumn field="mentor" sortable resizable flex={1} />
+            <AgGridColumn
+              field="mentor"
+              sortable
+              resizable
+              flex={1}
+              suppressMovable
+            />
             <AgGridColumn
               field="mentorReview"
               sortable
               resizable
               flex={1}
               cellRenderer="starFormatter"
+              suppressMovable
             />
             <AgGridColumn
               field="statusType"
               headerName={getFieldLabel('candidates.table.statusType')}
               sortable
               resizable
-              flex={1}
+              suppressSizeToFit
+              minWidth={100}
+              maxWidth={150}
               cellRenderer="chipFormatter"
+              suppressMovable
             />
           </AgGridReact>
         )}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Box,
@@ -9,25 +9,18 @@ import {
   MenuItem,
   ListItemText,
 } from '@mui/material';
-import { fetchAllUsers, updateCandidateInfo } from '../../../store/commands';
+import { updateCandidateInfo } from '../../../store/commands';
 import { getFieldLabel } from '../../../utils';
 import { CandidateFeedbacksItem } from '../index';
 import './candidateHr.sass';
 
-export const CandidateHr = ({ candidateInfo }) => {
-  const allUsers = useSelector((state) => state.allUsers.allUsers);
+export const CandidateHr = ({ candidateInfo, allUsers }) => {
+  const dispatch = useDispatch();
+  const [assignHRs, setAssignHRs] = useState('');
+  const hrs = allUsers.filter((user) => user.roleType === 'Hr');
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
   );
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchAllUsers());
-  }, []);
-
-  const [assignHRs, setAssignHRs] = useState('');
-  const hrs = allUsers.filter((user) => user.roleType === 'Hr');
-
   const userIds = [assignHRs];
   const { skip, take, searchText, sortBy, isDesc, ...newCandidate } =
     candidateInfo;

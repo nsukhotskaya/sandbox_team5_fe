@@ -22,15 +22,19 @@ import {
   bestContactTime,
   setEventToCalendar,
   userInfoById,
+  candidateEvaluations,
+  stacksSkills,
 } from './reducers';
 
 const rootReducer = (history) =>
   combineReducers({
+    candidateEvaluations,
     candidateFeedbacks,
     stacks,
     locations,
     languages,
     skills,
+    stacksSkills,
     englishLevels,
     candidateStatusTypes,
     stacksByInternshipId: stacksByInternshipIdList,
