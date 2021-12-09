@@ -16,7 +16,7 @@ import './candidateMentor.sass';
 
 export const CandidateMentor = ({ candidateInfo, allUsers }) => {
   const dispatch = useDispatch();
-  const [assignMentors, setAssignMentors] = useState([]);
+  const [assignMentors, setAssignMentors] = useState('');
   const [editAssignedMentor, setEditAssignedMentor] = useState(false);
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,

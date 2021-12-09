@@ -89,7 +89,7 @@ const CandidateInfo = (props) => {
             underline="none"
             color="#000000DE"
           >
-            <Typography variant="body2" maxWidth="100%">
+            <Typography component="span" variant="body2" maxWidth="100%">
               {formatedInfo.phone}
             </Typography>
           </Link>
@@ -106,7 +106,7 @@ const CandidateInfo = (props) => {
             underline="none"
             color="#000000DE"
           >
-            <Typography variant="body2" maxWidth="100%">
+            <Typography component="span" variant="body2" maxWidth="100%">
               {formatedInfo.email}
             </Typography>
           </Link>
@@ -123,7 +123,7 @@ const CandidateInfo = (props) => {
             underline="none"
             color="#000000DE"
           >
-            <Typography variant="body2" maxWidth="100%">
+            <Typography component="span" variant="body2" maxWidth="100%">
               {formatedInfo.skype}
             </Typography>
           </Link>
