@@ -35,18 +35,18 @@ export const CandidateHr = ({ candidateInfo, allUsers }) => {
   const handleAssign = (value) => {
     if (value) {
       const assignedUsers = allUsers
-      .filter((user) => userIds.includes(user.id))
-      .map((hr) => ({ id: hr.id }));
-    dispatch(
-      updateCandidateInfo({
-        ...newCandidate,
-        statusType: !!assignHRs && 'HR_Review',
-        users: [
-          ...newCandidate.users.filter((user) => user.roleType !== 'Hr'),
-          ...assignedUsers,
-        ],
-      }),
-    );
+        .filter((user) => userIds.includes(user.id))
+        .map((hr) => ({ id: hr.id }));
+      dispatch(
+        updateCandidateInfo({
+          ...newCandidate,
+          statusType: !!assignHRs && 'HR_Review',
+          users: [
+            ...newCandidate.users.filter((user) => user.roleType !== 'Hr'),
+            ...assignedUsers,
+          ],
+        }),
+      );
     }
     setOpenAssignConfirm(false);
   };
@@ -62,13 +62,13 @@ export const CandidateHr = ({ candidateInfo, allUsers }) => {
   return (
     <Box className="assignHrContainer" p="10px">
       {openAssignConfirm && (
-          <Confirm
-            confirmTitle={getFieldLabel('assign.confirm.message')}
-            rejectButtonLabel={getFieldLabel('common.no')}
-            acceptButtonLabel={getFieldLabel('common.yes')}
-            callback={handleAssign}
-          />
-        )}
+        <Confirm
+          confirmTitle={getFieldLabel('assign.confirm.message')}
+          rejectButtonLabel={getFieldLabel('common.no')}
+          acceptButtonLabel={getFieldLabel('common.yes')}
+          callback={handleAssign}
+        />
+      )}
       {(authorizedUserRole === 'Hr' ||
         authorizedUserRole === 'Manager' ||
         authorizedUserRole === 'Admin') &&

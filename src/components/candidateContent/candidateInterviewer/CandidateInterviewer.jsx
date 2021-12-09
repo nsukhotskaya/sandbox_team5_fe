@@ -146,20 +146,20 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
   const handleAssign = (value) => {
     if (value) {
       const assignedUsers = allUsers
-      .filter((userType) => userIds.includes(userType.id))
-      .map((interviewer) => ({ id: interviewer.id }));
-    dispatch(
-      updateCandidateInfo({
-        ...newCandidate,
-        statusType: assignInterviewers && 'Interview_Review',
-        users: [
-          ...newCandidate.users.filter(
-            (userType) => userType.roleType !== 'Interviewer',
-          ),
-          ...assignedUsers,
-        ],
-      }),
-    );
+        .filter((userType) => userIds.includes(userType.id))
+        .map((interviewer) => ({ id: interviewer.id }));
+      dispatch(
+        updateCandidateInfo({
+          ...newCandidate,
+          statusType: assignInterviewers && 'Interview_Review',
+          users: [
+            ...newCandidate.users.filter(
+              (userType) => userType.roleType !== 'Interviewer',
+            ),
+            ...assignedUsers,
+          ],
+        }),
+      );
     }
     setOpenAssignConfirm(false);
   };
@@ -174,14 +174,14 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
 
   return (
     <Box className="assignInterviewerContainer" p="10px">
-            {openAssignConfirm && (
-          <Confirm
-            confirmTitle={getFieldLabel('assign.confirm.message')}
-            rejectButtonLabel={getFieldLabel('common.no')}
-            acceptButtonLabel={getFieldLabel('common.yes')}
-            callback={handleAssign}
-          />
-        )}
+      {openAssignConfirm && (
+        <Confirm
+          confirmTitle={getFieldLabel('assign.confirm.message')}
+          rejectButtonLabel={getFieldLabel('common.no')}
+          acceptButtonLabel={getFieldLabel('common.yes')}
+          callback={handleAssign}
+        />
+      )}
       {(authorizedUserRole === 'Hr' ||
         authorizedUserRole === 'Manager' ||
         authorizedUserRole === 'Admin') &&
@@ -224,22 +224,20 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
               overflow="hidden"
               textOverflow="ellipsis"
               whiteSpace="nowrap"
-              variant="h6"
-              pr="10px"
+              variant="body1"
+              fontWeight="bold"
+              pr="20px"
             >
               {assignedInterviewer.userName}
             </Typography>
-            <Typography variant="h6" fontWeight="300" pr="10px">
+            <Typography variant="body2" pr="20px">
               {assignedInterviewer.roleType}
             </Typography>
 
             {(authorizedUserRole === 'Admin' ||
               authorizedUserRole === 'Manager' ||
               authorizedUserRole === 'Hr') && (
-              <IconButton
-                variant="outlined"
-                onClick={handleEditAssign}
-              >
+              <IconButton variant="outlined" onClick={handleEditAssign}>
                 <EditIcon fontSize="small" />
               </IconButton>
             )}
