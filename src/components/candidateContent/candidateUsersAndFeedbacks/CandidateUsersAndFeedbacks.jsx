@@ -3,8 +3,6 @@ import { Box, Typography, Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import './candidateUsersAndFeedbacks.sass';
 import { CandidateHr, CandidateInterviewer, CandidateMentor } from '../index';
-import { loadingSelector } from '../../../store/selectors';
-import { LoadingIndicator } from '../../loadingIndicator';
 import { getFieldLabel } from '../../../utils';
 import {
   fetchAllUsers,
@@ -13,9 +11,6 @@ import {
 
 export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(
-    loadingSelector(['GET_SKILLS_STACKS', 'GET_EVALUATIONS_BY_FEEDBACK_ID']),
-  );
 
   const allUsers = useSelector((state) => state.allUsers.allUsers);
   const stacksByInternshipId = useSelector(
@@ -24,7 +19,7 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
   );
-  // console.log(candidateInfo.internshipId)
+  
   useEffect(() => {
     if (candidateInfo.internshipId) {
       dispatch(fetchStacksByInternshipId(candidateInfo.internshipId));
@@ -40,12 +35,8 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
   const assignedInterviewer = candidateInfo.users?.find(
     (userType) => userType.roleType === 'Interviewer',
   );
-  // console.log(JSON.stringify(stacksByInternshipId))
+  
   return (
-    <>
-      {isLoading ? (
-        <LoadingIndicator />
-      ) : (
         <Box className="feedbacksContainer" padding="2% 2% 2% 3%">
           <Box
             marginRight="3%"
@@ -78,8 +69,5 @@ export const CandidateUsersAndFeedbacks = ({ candidateInfo }) => {
           </Box>
         </Box>
       )}
-    </>
-  );
-};
 
 export default CandidateUsersAndFeedbacks;
