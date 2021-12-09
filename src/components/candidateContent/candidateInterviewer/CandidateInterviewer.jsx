@@ -228,8 +228,8 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
               </IconButton>
             )}
           </Box>
-          {(authorizedUserRole === 'Admin' ||
-            authorizedUserRole === 'Manager' ||
+          {(authorizedUserRole === 'Manager' ||
+            authorizedUserRole === 'Admin' ||
             authorizedUserRole === 'Hr') && (
             <Button variant="outlined" onClick={handleClickOpen}>
               {getFieldLabel('candidate.set.interview')}
@@ -284,7 +284,7 @@ export const CandidateInterviewer = ({ candidateInfo, allUsers, stacks }) => {
           </Dialog>
         </Box>
       )}
-      {!!isInterviewsSet && !!assignedInterviewer && !editAssignedInterviewer && (
+      {!!isInterviewsSet && (
         <Box>
           <CandidateFeedbacksItem
             handleEditClick={handleEditInterviewerClick}
