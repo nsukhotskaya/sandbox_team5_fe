@@ -87,7 +87,9 @@ export const stringToObject = (array) =>
   }));
 
 export const formatAdminManager = (array) =>
-  array.filter((item) =>item.roleType!=='Admin'&&item.roleType!=='Manager')
+  array.filter(
+    (item) => item.roleType !== 'Admin' && item.roleType !== 'Manager',
+  );
 
 export const formatAllUsers = (array) =>
   array.map((item) => ({

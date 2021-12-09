@@ -187,7 +187,9 @@ const UserProfile = () => {
             <Card className="activityTab">
               {userInfo.roleType === 'Admin' ||
               userInfo.roleType === 'Manager' ? (
-                <TableTemplate rowData={tableFillerAllUsers(allUsers, userInfo)} />
+                <TableTemplate
+                  rowData={tableFillerAllUsers(allUsers, userInfo)}
+                />
               ) : (
                 <TableTemplateCandidates
                   rowData={tableFillerCandidates(assignCandidates)}
