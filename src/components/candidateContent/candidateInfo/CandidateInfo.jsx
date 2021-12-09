@@ -20,12 +20,6 @@ const CandidateInfo = (props) => {
   dayjs.extend(customParseFormat);
   dayjs.extend(utc);
 
-
-  
-
-
-
-
   const formatInfo = (info) => {
     const newInfo = { ...info };
     newInfo.registrationDate = dayjs(info.registrationDate).format(
@@ -35,10 +29,6 @@ const CandidateInfo = (props) => {
     newInfo.isPlanningToJoin = newInfo.isPlanningToJoin ? 'Yes' : 'No';
 
     return newInfo;
-
-
-
-
   };
 
   const formatedInfo = formatInfo(candidateInfo);
@@ -61,7 +51,7 @@ const CandidateInfo = (props) => {
             )}
         </Box>
         <Chip
-          label={formatedInfo.statusType?.replace('_', " ") ?? ''}
+          label={formatedInfo.statusType?.replace('_', ' ') ?? ''}
           color={getChipColorByStatus(formatedInfo.statusType)}
           size="medium"
           variant="outlined"
@@ -134,7 +124,9 @@ const CandidateInfo = (props) => {
               {getFieldLabel(`candidate.info.${item}`)}
             </Typography>
             <Typography variant="body2" maxWidth="100%">
-              {formatedInfo[item]=== ''? formatedInfo[item].replace('', '-'): formatedInfo[item]}
+              {formatedInfo[item] === ''
+                ? formatedInfo[item].replace('', '-')
+                : formatedInfo[item]}
             </Typography>
           </Grid>
         ))}
