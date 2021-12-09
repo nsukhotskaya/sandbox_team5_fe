@@ -16,7 +16,7 @@ import './candidateHr.sass';
 
 export const CandidateHr = ({ candidateInfo, allUsers }) => {
   const dispatch = useDispatch();
-  const [assignHRs, setAssignHRs] = useState([]);
+  const [assignHRs, setAssignHRs] = useState('');
   const hrs = allUsers.filter((user) => user.roleType === 'Hr');
   const authorizedUserRole = useSelector(
     (state) => state.userInfo.userInfo.roleType,
